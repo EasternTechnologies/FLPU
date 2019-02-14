@@ -27,10 +27,8 @@ return array(
     | Elasticquent models.
     */
 
-    'default_index' => 'main_index',
-<<<<<<< HEAD
-=======
+    'default_index' => 'main_index'
+
 	/*curl -XPUT 'http://localhost:9200/main_index/'  -H 'Content-Type: application/json' -d '{"settings":{"index":{"number_of_shards":3,"number_of_replicas":1}}}'*/
->>>>>>> 31460806bda9b6b22a54c60f60bb5307a79c446f
 
 );
