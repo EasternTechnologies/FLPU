@@ -1,0 +1,15 @@
+/* FONTS ---------------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'SegoeUI';
+  src: url('~/fonts/SegoeUI/SegoeUI.eot');
+  src: local('☺'), url('~/fonts/SegoeUI/SegoeUI.woff') format('woff'), url('~/fonts/SegoeUI/SegoeUI.ttf') format('truetype'), url('/build/fonts/SegoeUI/SegoeUI.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+// Body
+$body-bg: #fff;
+
+// Typography
+$font-family-sans-serif: "SegoeUI";
+$font-size-base: 0.9rem;
+$line-height-base: 1;

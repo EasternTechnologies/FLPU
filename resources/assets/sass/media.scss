@@ -1,0 +1,99 @@
+/* MEDIA forms --- */
+/*  forms --- */
+@media screen and (max-width: 1439px) {
+  .sign_in_box .box_center_form {
+    max-width: 360px;
+  }
+  .logo_box_form img {
+    width: 70px;
+  }
+  .logo_box_form {
+    margin-bottom: 30px;
+  }
+  .logo_box_form div {
+    font-size: 22px;
+    margin-top: 10px;
+  }
+  .sign_in_box .box_center_form {
+    padding: 23px 30px 25px;
+  }
+  .form_default h3 {
+    padding-bottom: 16px;
+    font-size: 18px;
+  }
+  .form-group {
+    margin-bottom: 10px;
+  }
+  .captha_box {
+    margin: 10px 0;
+  }
+  .additionally {
+    margin-top: 10px;
+  }
+  input {
+    height: 39px !important;
+  }
+  .submit_box button {
+    font-size: 16px;
+  }
+  .error_out_form {
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .form-check-label:hover .del_tag {
+    display: none !important;
+   }
+	.del_tag {
+	  display: none !important;
+	}
+}
+@media screen and (max-width: 360px) {
+  .sign_in_box .box_center_form {
+    padding: 23px 10px 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: calc(100% - 20px);
+  }
+}
+/* footer --- */
+@media screen and (max-width: 812px) {
+  footer > .row > .container > .flex_box {
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  footer .portfolio_box {
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  footer .portfolio_box .logo_east_tech {
+    margin: 5px 0 3px;
+  }
+  .copyright {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .footer_doc {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .portfolio_box {
+    width: 100%;
+  }
+}
+/* .row.co_l2 .col-md-6 --- */
+@media screen and (max-width: 767px) {
+  .row.co_l2 .col-md-6:nth-child(2n+1) {
+    width: 100%;
+    max-width: 100%;
+    margin-right: 0 !important;
+  }
+  .row.co_l2 .col-md-6 {
+    width: 100%;
+    max-width: 100%;
+  }
+}

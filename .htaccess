@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteRule ^(.*)$ public/$1
+
+php_value pcre.backtrack_limit 1000000000
