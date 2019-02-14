@@ -531,14 +531,14 @@ $y = date("Y");
         })
 
         //tag
-        jQuery(".butt_add_tag1").click(function (e) {
-            e.preventDefault();
-            jQuery('.popup_tag_country').fadeIn(500);
-        });
-        jQuery(".butt_add_tag2").click(function (e) {
-            e.preventDefault();
-            jQuery('.popup_tag_vvttype').fadeIn(500);
-        });
+//        jQuery(".butt_add_tag1").click(function (e) {
+//            e.preventDefault();
+//            jQuery('.popup_tag_country').fadeIn(500);
+//        });
+//        jQuery(".butt_add_tag2").click(function (e) {
+//            e.preventDefault();
+//            jQuery('.popup_tag_vvttype').fadeIn(500);
+//        });
         jQuery(".butt_add_tag3").click(function (e) {
             e.preventDefault();
             jQuery('.popup_tag_company').fadeIn(500);

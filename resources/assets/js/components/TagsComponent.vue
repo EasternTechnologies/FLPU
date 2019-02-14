@@ -21,9 +21,11 @@
 
             <div class="row">
                 <div class="form-group">
-                    <h4 class="mb_1">Тип ВВТ <a class="butt_add butt_tag_click butt_add_tag2 button_small" href="#">
-                        <button>Добавить тег</button>
-                    </a></h4>
+                    <h4 class="mb_1">Тип ВВТ
+                        <a class="butt_add" @click="addTag('vvttype')" href="#">
+                        <button class="butt_tag_click button_small">Добавить тег</button>
+                    </a>
+                    </h4>
                     <div id="form-check-vvt_types" class="form-check grid-col-check-6" v-bind="bindTagGrid('#form-check-vvt_types',this.vvt_types.length,6)">
                         <div class="form-check-label" v-for="vvt_type in vvt_types">
                             <label class="d-flex flex-row align-items-start check_box"><input @change="checkboxfilter()" name="vvt_types[]" type="checkbox" :value="vvt_type.id" v-model="selvvt_types"><span>{{ vvt_type.title}}</span></label>
@@ -65,35 +67,46 @@
             </div>
         </div>
 
-        <!-- country tag  -->
-        <div class="popup_tag popup_tag_country" style="display: none;">
+        <!-- simple tag popup  -->
+        <div class="popup_tag popup_tag_simple" style="display: none;">
             <div class="bg_popup_tag"></div>
-            <div action="/country" method="POST" class="popup_tag_form">
-                <div class="close_tag">x</div>
-                <h4 class="mb30">Добавить <span>поисковую метку</span></h4>
-                <div class="popup_tag_form_box mb30">
-                    <input name="tag" placeholder="Введите название страны" v-model="addcountry"/>
-                </div>
-                <a class="butt_save butt_add_tag" href="#">
-                    <button @click="storecountry()">Сохранить тег</button>
-                </a>
-            </div>
 
-        </div>
+            <template v-if="name_tag=='country'">
+                <div class="popup_tag_form">
 
-        <!-- vvttype tag -->
-        <div class="popup_tag popup_tag_vvttype" style="display: none;">
-            <div class="bg_popup_tag"></div>
-            <div action="/vvttype" method="POST" class="popup_tag_form">
-                <div class="close_tag">x</div>
-                <h4 class="mb30">Добавить <span>поисковую метку</span></h4>
-                <div class="popup_tag_form_box">
-                    <input name="tag" class="mb30" placeholder="Введите название типа ВВТ" v-model="addvvt"/>
+                    <div class="close_tag">x</div>
+                    <h4 class="mb30">Добавить <span>поисковую метку</span></h4>
+
+                    <div class="popup_tag_form_box mb30">
+
+                        <input v-if="name_tag=='country'" name="tag" placeholder="Введите название страны" v-model="addcountry"/>
+                        <input v-if="name_tag=='vvttype'" name="tag" placeholder="Введите название типа ВВТ" v-model="addvvt"/>
+                    </div>
+                    <a class="butt_save butt_add_tag" href="#">
+                        <button v-if="name_tag=='country'" @click="storecountry()">Сохранить тег</button>
+                        <button v-if="name_tag=='vvttype'" @click="storevvt()">Сохранить тег</button>
+                    </a>
                 </div>
-                <a class="butt_save butt_add_tag" href="#">
-                    <button @click="storevvt()">Сохранить тег</button>
-                </a>
-            </div>
+            </template>
+
+            <template v-else>
+                <div class="popup_tag_form">
+
+                    <div class="close_tag">x</div>
+                    <h4 class="mb30">Добавить <span>поисковую метку</span></h4>
+
+                    <div class="popup_tag_form_box mb30">
+
+                        <input v-if="name_tag=='country'" name="tag" placeholder="Введите название страны" v-model="addcountry"/>
+                        <input v-if="name_tag=='vvttype'" name="tag" placeholder="Введите название типа ВВТ" v-model="addvvt"/>
+                    </div>
+                    <a class="butt_save butt_add_tag" href="#">
+                        <button v-if="name_tag=='country'" @click="storecountry()">Сохранить тег</button>
+                        <button v-if="name_tag=='vvttype'" @click="storevvt()">Сохранить тег</button>
+                    </a>
+                </div>
+            </template>
+
         </div>
 
         <!--add tag -->
@@ -421,78 +434,28 @@
 
             addTag(name_tag) {
 
-                console.log(name_tag);
-//                setTimeout(function () {
-//                    jQuery('.select_country option').removeAttr('selected');
-//                    jQuery('.select_country option:first-child').attr('selected', 'selected');
-//                    jQuery('.select_vvt option').removeAttr('selected');
-//                    jQuery('.select_vvt option:first-child').attr('selected', 'selected');
-//                }, 100);
-//
-//                this.vvtarray = [];
-//                this.countryarray = [];
-//                jQuery('.select_country option').removeClass('active');
-//                jQuery('.select_vvt option').removeClass('active');
-//                this.name_tag = name_tag;
-            },
+                if(name_tag == 'country') {
+                    jQuery('.popup_tag_simple').fadeIn(500);
+                }
+                else if(name_tag=='vvttype') {
+                    jQuery('.popup_tag_simple').fadeIn(500);
+                }
+                else {
+                    setTimeout(function () {
+                        jQuery('.select_country option').removeAttr('selected');
+                        jQuery('.select_country option:first-child').attr('selected', 'selected');
+                        jQuery('.select_vvt option').removeAttr('selected');
+                        jQuery('.select_vvt option:first-child').attr('selected', 'selected');
+                    }, 100);
 
-            // pushcountrytopersona() {
-            //
-            //     var index = -1;
-            //     if (this.countryarraytopersona.length) {
-            //         index = this.countryarraytopersona.indexOf(this.attachcountrytopersona);
-            //     }
-            //     if (index >= 0) {
-            //         this.countryarraytopersona.splice(index, 1);
-            //     } else {
-            //         this.countryarraytopersona.push(this.attachcountrytopersona);
-            //     }
-            //
-            //     console.log("arrary person: " + this.countryarraytopersona);
-            // },
-            // pushvvttopersona() {
-            //
-            //     var index = -1;
-            //     if (this.vvtarraytopersona.length) {
-            //         index = this.vvtarraytopersona.indexOf(this.attachvvttopersona);
-            //     }
-            //     if (index >= 0) {
-            //         this.vvtarraytopersona.splice(index, 1);
-            //     } else {
-            //         this.vvtarraytopersona.push(this.attachvvttopersona);
-            //     }
-            //
-            //     console.log("arrary vvt: " + this.vvtarraytopersona);
-            // },
-            //
-            // pushvvttocompany() {
-            //
-            //     var index = -1;
-            //     if (this.vvtarraytocompany.length) {
-            //         index = this.vvtarraytocompany.indexOf(this.attachvvttocompany);
-            //     }
-            //     if (index >= 0) {
-            //         this.vvtarraytocompany.splice(index, 1);
-            //     } else {
-            //         this.vvtarraytocompany.push(this.attachvvttocompany);
-            //     }
-            //
-            //     console.log("arrary vvt: " + this.vvtarraytocompany);
-            // },
-            // pushcountrytocompany() {
-            //
-            //     var index = -1;
-            //     if (this.countryarraytocompany.length) {
-            //         index = this.countryarraytocompany.indexOf(this.attachcountrytocompany);
-            //     }
-            //     if (index >= 0) {
-            //         this.countryarraytocompany.splice(index, 1);
-            //     } else {
-            //         this.countryarraytocompany.push(this.attachcountrytocompany);
-            //     }
-            //     console.log("arrary: " + this.countryarraytocompany);
-            //
-            // },
+                    this.vvtarray = [];
+                    this.countryarray = [];
+                    jQuery('.select_country option').removeClass('active');
+                    jQuery('.select_vvt option').removeClass('active');
+                }
+
+                this.name_tag = name_tag;
+            },
 
             pushvvt() {
 
