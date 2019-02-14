@@ -42,7 +42,7 @@ class CountryController extends Controller
             die();
         }
         $country = Country::create($request->except('_token'));
-         return response()->json($country);
+        return response()->json($country);
     }
 
     /**
@@ -76,9 +76,9 @@ class CountryController extends Controller
      */
     public function update(Request $request, $id)
     {
-	    $tag = Country::find($id);
-	    $tag->title = $request->data['title'];
-	    $tag->save();
+        $tag = Country::find($id);
+        $tag->title = $request->title;
+        $tag->save();
     }
 
     /**
@@ -90,6 +90,6 @@ class CountryController extends Controller
     public function destroy($id)
     {
         $tag = Country::find($id);
-		$tag->delete();
+        $tag->delete();
     }
 }

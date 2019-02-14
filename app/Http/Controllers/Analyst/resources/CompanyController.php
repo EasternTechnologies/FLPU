@@ -13,137 +13,120 @@ use App\models\analyst\weekly\Weeklyarticle;
 use App\models\analyst\yearly\InfoCountry;
 use App\models\analyst\yearly\Yearlyarticle;
 use App\models\analyst\exhibitions\Plannedexhibition;
+use App\ArticleReports;
 
 class CompanyController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index () {
-        return Company::all();
-    }
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index () {
+		return Company::all();
+	}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create () {
-        //
-    }
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function create () {
+		//
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store ( Request $request ) {
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store ( Request $request ) {
 
-	    switch ($request->input('report')) {
-		    case 'Yearlyarticle':
-			    $article = Yearlyarticle::find($request->input('article'));
-			    break;
-		    case 'Weeklyarticle':
-			    $article = Weeklyarticle::find($request->input('article'));
-			    break;
-		    case 'Variousarticle':
-			    $article = Variousarticle::find($request->input('article'));
-			    break;
-		    case 'Plannedexhibition':
-			    $article = Plannedexhibition::find($request->input('article'));
-			    break;
-		    case 'Monthlyarticle':
-			    $article = Monthlyarticle::find($request->input('article'));
-			    break;
-		    case 'InfoCountry':
-			    $article = InfoCountry::find($request->input('article'));
-			    break;
-	    }
 
-        if ( Company::where('title', $request->input('title'))->count() != 0 ) {
+		$article = ArticleReports::find($request->article);
 
-            $error = 'Такой тег уже существует';
-            return ['error'=>$error];
-            die();
+		if ( Company::where('title', $request->input('title'))->count() != 0 ) {
 
-        }
+			$error = 'Такой тег уже существует';
+			return ['error'=>$error];
+			die();
 
-        $company = Company::create($request->except('_token'));
-        $country = Country::find($request->input('countries'));
-	    $vvt_tag = VvtType::find($request->input('vvt_tag'));
-        $company->countries()->attach($country);
-	    $company->vvttypes()->attach($vvt_tag);
+		}
 
-	    if($request->input('article')) {
+		$company = Company::create($request->except('_token'));
+		$country = Country::find($request->input('countries'));
+		$vvt_tag = VvtType::find($request->input('vvt_tag'));
+		$company->countries()->attach($country);
+		$company->vvttypes()->attach($vvt_tag);
 
-		    $article->companies()->attach($company);
+		if($request->input('article')) {
 
-		    $array_company = $article->companies->pluck('id');
+			$article->companies()->attach($company);
 
-		    $new_company = collect($company->id);
+			$array_company = $article->companies->pluck('id');
 
-		    $response = $array_company->merge($new_company);
+			$new_company = collect($company->id);
 
-		    return json_encode($response);
-	    }
+			$response = $array_company->merge($new_company);
 
-	    return json_encode([$company->id]);
+			return json_encode($response);
+		}
 
-    }
+		return json_encode([$company->id]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show ( $id ) {
-        //
-    }
+	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit ( $id ) {
-        //
-    }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show ( $id ) {
+		//
+	}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update ( Request $request, $id )
-    {
-	    $tag = Company::find($id);
-	    $tag->title = $request->data['title'];
-		$tag->addCountries($request->data['countries']);
-		$tag->addVvt($request->data['vvt_tag']);
-	    $tag->save();
-    }
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit ( $id ) {
+		//
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy ( $id ) {
-        $tag = Company::find($id);
-        $tag->delete();
-    }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @param  int                      $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update ( Request $request, $id )
+	{
+		$tag = Company::find($id);
+		$tag->title = $request->title;
+		$tag->addCountries($request->countries);
+		$tag->addVvt($request->vvt_tag);
+		$tag->save();
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy ( $id ) {
+		$tag = Company::find($id);
+		$tag->delete();
+	}
 }

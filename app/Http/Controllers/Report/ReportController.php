@@ -579,6 +579,7 @@ class ReportController extends Controller
         $tags [ 'countries' ]     = $article->countries->pluck('id');
         $tags [ 'vvt_types' ]     = $article->vvttypes->pluck('id');
         $tags [ 'personalities' ] = $article->personalities->pluck('id');
+        $tags [ 'article' ]       = $article->id;
         $report = Report::find($article->report_id);
 
        // return view('analyst.weeklyreview.add_form_step3', compact('weeklyarticle', 'tags', 'weeklyreport'));
