@@ -49124,7 +49124,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -49371,25 +49371,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['selectedtags'],
@@ -49403,8 +49384,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             selcompanies: [],
             personalities: [],
             selpersonalities: [],
-            addcountry: '',
-            addvvt: '',
+            addsimpletag: '',
 
             addvalue: '',
 
@@ -49447,26 +49427,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.vvt_id_array = response.data.vvt_id_array;
             });
         },
-        storecountry: function storecountry(e) {
+        storesimpletag: function storesimpletag(tag) {
             var _this2 = this;
 
             //e.preventDefault();
             jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').text('');
 
             var is_tag = 0;
-            var title = this.addcountry;
-            this.countries.forEach(function (country) {
+            var title = this.addsimpletag;
+
+            if (tag == 'country') this.countries.forEach(function (country) {
                 if (country.title == title) {
+                    is_tag++;
+                }
+            });else this.vvt_types.forEach(function (vvt) {
+                if (vvt.title == title) {
                     is_tag++;
                 }
             });
 
             if (is_tag == 0) {
-                axios.post('/country', { title: this.addcountry }).then(function (response) {
 
+                axios.post('/' + tag, { title: this.addsimpletag }).then(function (response) {
                     _this2.checkboxfilter();
                 });
-                this.addcountry = '';
+
+                this.addsimpletag = '';
                 jQuery('.close_tag').click();
             } else {
                 if (jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').length) {
@@ -49476,36 +49462,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }
         },
-        storevvt: function storevvt(e) {
-            var _this3 = this;
 
-            jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').text('');
 
-            var is_tag = 0;
-            var title = this.addvvt;
-            this.vvt_types.forEach(function (vvt) {
-                if (vvt.title == title) {
-                    is_tag++;
-                }
-            });
+        //            storecountry(e) {
+        //                //e.preventDefault();
+        //                jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').text('');
+        //
+        //                var is_tag = 0;
+        //                var title = this.addsimpletag;
+        //                this.countries.forEach(function (country) {
+        //                    if (country.title == title) {
+        //                        is_tag++;
+        //                    }
+        //                });
+        //
+        //                if (is_tag == 0) {
+        //                    axios.post('/country', {title: this.addcountry}).then(response => {
+        //
+        //                        this.checkboxfilter();
+        //                });
+        //                    this.addsimpletag = '';
+        //                    jQuery('.close_tag').click();
+        //                } else {
+        //                    if (jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').length) {
+        //                        jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').text('Тег уже существует');
+        //                    } else {
+        //                        jQuery('.popup_tag_country .popup_tag_form_box').append('<p class="mess_er_tag mb30">Тег уже существует</p>');
+        //                    }
+        //                }
+        //            },
+        //
+        //            storevvt(e) {
+        //
+        //                jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').text('');
+        //
+        //                var is_tag = 0;
+        //                var title = this.addsimpletag;
+        //                this.vvt_types.forEach(function (vvt) {
+        //                    if (vvt.title == title) {
+        //                        is_tag++;
+        //                    }
+        //                });
+        //
+        //                if (is_tag == 0) {
+        //                    axios.post('/vvttypes', {title: this.addvvt}).then(response => {
+        //                        console.log(response);
+        //                    this.checkboxfilter();
+        //                });
+        //                    this.addsimpletag = '';
+        //                    jQuery('.close_tag').click();
+        //                } else {
+        //                    if (jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').length) {
+        //                        jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').text('Тег уже существует');
+        //                    } else {
+        //                        jQuery('.popup_tag_vvttype .popup_tag_form_box').append('<p class="mess_er_tag mb30">Тег уже существует</p>');
+        //                    }
+        //
+        //                }
+        //
+        //            },
 
-            if (is_tag == 0) {
-                axios.post('/vvttypes', { title: this.addvvt }).then(function (response) {
-                    console.log(response);
-                    _this3.checkboxfilter();
-                });
-                this.addvvt = '';
-                jQuery('.close_tag').click();
-            } else {
-                if (jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').length) {
-                    jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').text('Тег уже существует');
-                } else {
-                    jQuery('.popup_tag_vvttype .popup_tag_form_box').append('<p class="mess_er_tag mb30">Тег уже существует</p>');
-                }
-            }
-        },
         storetag: function storetag(tag) {
-            var _this4 = this;
+            var _this3 = this;
 
             jQuery('.popup_tag_company .popup_tag_form_box .mess_er_tag').text('');
 
@@ -49551,13 +49569,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (tag == 'company') {
 
                     axios.post('/company', data).then(function (response) {
-                        _this4.selcompanies = response.data;
-                        _this4.checkboxfilter();
+                        _this3.selcompanies = response.data;
+                        _this3.checkboxfilter();
                     });
                 } else {
                     axios.post('/personalities', data).then(function (response) {
-                        _this4.selpersonalities = response.data;
-                        _this4.checkboxfilter();
+                        _this3.selpersonalities = response.data;
+                        _this3.checkboxfilter();
                     });
                 }
 
@@ -49586,20 +49604,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         gettags: function gettags() {
-            var _this5 = this;
+            var _this4 = this;
 
             axios.get('/tags').then(function (response) {
-                _this5.countries = response.data.countries;
-                _this5.companies = response.data.companies;
-                _this5.vvt_types = response.data.vvt_types;
-                _this5.personalities = response.data.personalities;
+                _this4.countries = response.data.countries;
+                _this4.companies = response.data.companies;
+                _this4.vvt_types = response.data.vvt_types;
+                _this4.personalities = response.data.personalities;
             });
         },
         addTag: function addTag(name_tag) {
 
             if (name_tag == 'country') {
                 jQuery('.popup_tag_simple').fadeIn(500);
-            } else if (name_tag == 'vvttype') {
+            } else if (name_tag == 'vvttypes') {
                 jQuery('.popup_tag_simple').fadeIn(500);
             } else {
                 setTimeout(function () {
@@ -49722,7 +49740,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             jQuery('.deltag_text_out').text(text);
         },
         edit_tag: function edit_tag(value, name_tag, title) {
-            var _this6 = this;
+            var _this5 = this;
 
             $('.title_tag').val(title);
 
@@ -49756,13 +49774,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     company_name.push(" " + key);
 
                     var index = -1;
-                    if (_this6.countryarraytocompany.length) {
-                        index = _this6.countryarraytocompany.indexOf(response.data.countries[key]);
+                    if (_this5.countryarraytocompany.length) {
+                        index = _this5.countryarraytocompany.indexOf(response.data.countries[key]);
                     }
                     if (index >= 0) {
-                        _this6.countryarraytocompany.splice(index, 1);
+                        _this5.countryarraytocompany.splice(index, 1);
                     } else {
-                        _this6.countryarraytocompany.push(response.data.countries[key]);
+                        _this5.countryarraytocompany.push(response.data.countries[key]);
                     }
                 }
                 jQuery(".out_country_select_edit").text(company_name);
@@ -49775,13 +49793,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         vvt_name.push(" " + key);
 
                         var index = -1;
-                        if (_this6.vvtarraytocompany.length) {
-                            index = _this6.vvtarraytocompany.indexOf(response.data.vvt[key]);
+                        if (_this5.vvtarraytocompany.length) {
+                            index = _this5.vvtarraytocompany.indexOf(response.data.vvt[key]);
                         }
                         if (index >= 0) {
-                            _this6.vvtarraytocompany.splice(index, 1);
+                            _this5.vvtarraytocompany.splice(index, 1);
                         } else {
-                            _this6.vvtarraytocompany.push(response.data.vvt[key]);
+                            _this5.vvtarraytocompany.push(response.data.vvt[key]);
                         }
                     }
                     jQuery(".out_vvt_select_edit").text(vvt_name);
@@ -49798,13 +49816,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // jQuery('.edittag_text_out').text(title);
         },
         dellTagContinue: function dellTagContinue() {
-            var _this7 = this;
+            var _this6 = this;
 
             var name_tag = jQuery('.name_tag').attr('data-name');
             var value = jQuery('.value_tag').attr('data-value');
 
             axios.delete('/' + name_tag + '/' + value).then(function (response) {
-                _this7.checkboxfilter();
+                _this6.checkboxfilter();
                 jQuery('.popup_alert').fadeIn(250);
                 jQuery('.popup_alert .popup_form').show(500);
                 jQuery('.alert_text_out').html('<p>Поисковая метка удалена!</p>');
@@ -49818,7 +49836,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             jQuery('.value_tag').attr('data-value', '');
         },
         editTagContinue: function editTagContinue() {
-            var _this8 = this;
+            var _this7 = this;
 
             var data = {
                 title: $('.title_tag').val(),
@@ -49830,7 +49848,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(data);
 
             axios.put('/' + this.name_tag + '/' + this.value, data).then(function (response) {
-                _this8.checkboxfilter();
+                _this7.checkboxfilter();
                 jQuery('.popup_alert').fadeIn(250);
                 jQuery('.popup_alert .popup_form').show(500);
                 jQuery('.alert_text_out').html('<p>Поисковая метка отредактирована!</p>');
@@ -50022,7 +50040,7 @@ var render = function() {
                 attrs: { href: "#" },
                 on: {
                   click: function($event) {
-                    return _vm.addTag("vvttype")
+                    return _vm.addTag("vvttypes")
                   }
                 }
               },
@@ -50416,205 +50434,84 @@ var render = function() {
       [
         _c("div", { staticClass: "bg_popup_tag" }),
         _vm._v(" "),
-        _vm.name_tag == "country"
-          ? [
-              _c("div", { staticClass: "popup_tag_form" }, [
-                _c("div", { staticClass: "close_tag" }, [_vm._v("x")]),
-                _vm._v(" "),
-                _vm._m(0),
-                _vm._v(" "),
-                _c("div", { staticClass: "popup_tag_form_box mb30" }, [
-                  _vm.name_tag == "country"
-                    ? _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.addcountry,
-                            expression: "addcountry"
-                          }
-                        ],
-                        attrs: {
-                          name: "tag",
-                          placeholder: "Введите название страны"
-                        },
-                        domProps: { value: _vm.addcountry },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.addcountry = $event.target.value
-                          }
-                        }
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.name_tag == "vvttype"
-                    ? _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.addvvt,
-                            expression: "addvvt"
-                          }
-                        ],
-                        attrs: {
-                          name: "tag",
-                          placeholder: "Введите название типа ВВТ"
-                        },
-                        domProps: { value: _vm.addvvt },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.addvvt = $event.target.value
-                          }
-                        }
-                      })
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "butt_save butt_add_tag",
-                    attrs: { href: "#" }
+        _c("div", { staticClass: "popup_tag_form" }, [
+          _c("div", { staticClass: "close_tag" }, [_vm._v("x")]),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "popup_tag_form_box mb30" }, [
+            _vm.name_tag == "country"
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.addsimpletag,
+                      expression: "addsimpletag"
+                    }
+                  ],
+                  attrs: {
+                    name: "tag",
+                    placeholder: "Введите название страны"
                   },
-                  [
-                    _vm.name_tag == "country"
-                      ? _c(
-                          "button",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.storecountry()
-                              }
-                            }
-                          },
-                          [_vm._v("Сохранить тег")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.name_tag == "vvttype"
-                      ? _c(
-                          "button",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.storevvt()
-                              }
-                            }
-                          },
-                          [_vm._v("Сохранить тег")]
-                        )
-                      : _vm._e()
-                  ]
-                )
-              ])
-            ]
-          : [
-              _c("div", { staticClass: "popup_tag_form" }, [
-                _c("div", { staticClass: "close_tag" }, [_vm._v("x")]),
-                _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
-                _c("div", { staticClass: "popup_tag_form_box mb30" }, [
-                  _vm.name_tag == "country"
-                    ? _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.addcountry,
-                            expression: "addcountry"
-                          }
-                        ],
-                        attrs: {
-                          name: "tag",
-                          placeholder: "Введите название страны"
-                        },
-                        domProps: { value: _vm.addcountry },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.addcountry = $event.target.value
-                          }
-                        }
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.name_tag == "vvttype"
-                    ? _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.addvvt,
-                            expression: "addvvt"
-                          }
-                        ],
-                        attrs: {
-                          name: "tag",
-                          placeholder: "Введите название типа ВВТ"
-                        },
-                        domProps: { value: _vm.addvvt },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.addvvt = $event.target.value
-                          }
-                        }
-                      })
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "butt_save butt_add_tag",
-                    attrs: { href: "#" }
+                  domProps: { value: _vm.addsimpletag },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.addsimpletag = $event.target.value
+                    }
+                  }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.name_tag == "vvttypes"
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.addsimpletag,
+                      expression: "addsimpletag"
+                    }
+                  ],
+                  attrs: {
+                    name: "tag",
+                    placeholder: "Введите название типа ВВТ"
                   },
-                  [
-                    _vm.name_tag == "country"
-                      ? _c(
-                          "button",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.storecountry()
-                              }
-                            }
-                          },
-                          [_vm._v("Сохранить тег")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.name_tag == "vvttype"
-                      ? _c(
-                          "button",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.storevvt()
-                              }
-                            }
-                          },
-                          [_vm._v("Сохранить тег")]
-                        )
-                      : _vm._e()
-                  ]
-                )
-              ])
+                  domProps: { value: _vm.addsimpletag },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.addsimpletag = $event.target.value
+                    }
+                  }
+                })
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c(
+            "a",
+            { staticClass: "butt_save butt_add_tag", attrs: { href: "#" } },
+            [
+              _c(
+                "button",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.storesimpletag(_vm.name_tag)
+                    }
+                  }
+                },
+                [_vm._v("Сохранить тег")]
+              )
             ]
-      ],
-      2
+          )
+        ])
+      ]
     ),
     _vm._v(" "),
     _c(
@@ -50629,7 +50526,7 @@ var render = function() {
         _c("div", { staticClass: "popup_tag_form" }, [
           _c("div", { staticClass: "close_tag" }, [_vm._v("x")]),
           _vm._v(" "),
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "div",
@@ -51099,15 +50996,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h4", { staticClass: "mb30" }, [
-      _vm._v("Добавить "),
-      _c("span", [_vm._v("поисковую метку")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

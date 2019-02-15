@@ -531,14 +531,6 @@ $y = date("Y");
         })
 
         //tag
-//        jQuery(".butt_add_tag1").click(function (e) {
-//            e.preventDefault();
-//            jQuery('.popup_tag_country').fadeIn(500);
-//        });
-//        jQuery(".butt_add_tag2").click(function (e) {
-//            e.preventDefault();
-//            jQuery('.popup_tag_vvttype').fadeIn(500);
-//        });
         jQuery(".butt_add_tag3").click(function (e) {
             e.preventDefault();
             jQuery('.popup_tag_company').fadeIn(500);
@@ -566,13 +558,13 @@ $y = date("Y");
             // jQuery('.company_select_country option').removeAttr('selected');
             // jQuery('.company_select_vvt option').removeAttr('selected');
 
-            jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');
-
-            jQuery('.personalities_select_country option').removeClass('active');
-            jQuery('.company_select_country option').removeClass('active');
-            jQuery('.company_select_vvt option').removeClass('active');
+//            jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
+//            jQuery('.company_select_country option:first-child').attr('selected', 'selected');
+//            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');
+//
+//            jQuery('.personalities_select_country option').removeClass('active');
+//            jQuery('.company_select_country option').removeClass('active');
+//            jQuery('.company_select_vvt option').removeClass('active');
         });
 
         jQuery(".bg_popup_tag").click(function (e) {
@@ -603,13 +595,13 @@ $y = date("Y");
 
             jQuery('[name="tag"]').val("");
 
-            jQuery('.personalities_select_country option').removeAttr('selected');
+/*            jQuery('.personalities_select_country option').removeAttr('selected');
             jQuery('.company_select_country option').removeAttr('selected');
             jQuery('.company_select_vvt option').removeAttr('selected');
 
             jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
             jQuery('.company_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');
+            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');*/
         });
 
         jQuery(".butt_add_tag").click(function (e) {
@@ -823,11 +815,11 @@ $y = date("Y");
     window.onload = function () {
 
         //init select
-        jQuery('.personalities_select_country option').removeAttr('selected');
-        jQuery('.company_select_country option').removeAttr('selected');
-
-        jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
-        jQuery('.company_select_country option:first-child').attr('selected', 'selected');
+//        jQuery('.personalities_select_country option').removeAttr('selected');
+//        jQuery('.company_select_country option').removeAttr('selected');
+//
+//        jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
+//        jQuery('.company_select_country option:first-child').attr('selected', 'selected');
 
         //date
         var $w = jQuery('select.start_period option:selected').attr('data-week');
