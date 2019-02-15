@@ -178,7 +178,7 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                     </p>
                     @if($report->types->slug != 'various')
                     <p class="d-flex justify-content-start">
-                        <span class="name">Раздел: </span><span class="text">@if(isset($article->category)){{ $article->category->title }} @else {{ $article->subcategory->title }} @endif</span>
+                        <span class="name">Раздел: </span><span class="text">@if(isset($article->category)){{ $article->category->title }} @elseif(isset($article->subcategory)) {{ $article->subcategory->title }} @endif</span>
                     </p>
                     @endif
                     <input type="text" hidden name="year" value="<?= $y?>">
