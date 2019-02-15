@@ -381,10 +381,11 @@ class ReportController extends Controller
 
 
         $items = [];
-
+        $items[false]  = [];
         foreach ($categories as $category) {
             $items[$category->id] = [];
         }
+
         foreach ($subcategories_array as $subcategory)
         {
             $items[$subcategory->category_id][$subcategory->id] = [];
@@ -394,24 +395,23 @@ class ReportController extends Controller
         foreach ($articles as $key => $article) {
             if ($article->category_id) {
                     $subcategory = $article->subcategory_id != false ? $article->subcategory_id : false; // problem
-                    $items[$article->category_id][$subcategory][] = $articles->pull($key);
+                $category = $article->category_id != false ? $article->category_id : false;
+                    $items[$category][$subcategory][] = $articles->pull($key);
 //                    if ($subcategory) {
 //                        $subcategories[$article->category_id][$article->subcategory_id] = $article->subcategory->title;
 //                    }
-
             }
         }
-
 
         foreach ($articles as $key => $article) {
             $subcategory = $article->subcategory_id != false ?  $article->subcategory_id: false; // problem
             $items[false][$subcategory][] = $article;
+//            dump($article);
 //            if($subcategory) {
 //                $subcategories[$article->category_id][$article->subcategory_id] = $article->subcategory->title;
 //            }
         }
-
-//        dump($items);
+        
 //    dd($subcategories);
 
 
