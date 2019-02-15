@@ -493,6 +493,7 @@ class HomeController extends Controller
 
     public function indexes() {
 
+	   // ArticleReports::deleteIndex();
     	ArticleReports::putMapping($ignoreConflicts = true);
     	ArticleReports::addAllToIndex();
 

@@ -178,7 +178,12 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                     </p>
                     @if($report->types->slug != 'various')
                     <p class="d-flex justify-content-start">
-                        <span class="name">Раздел: </span><span class="text">@if(isset($article->category)){{ $article->category->title }} @else {{ $article->subcategory->title }} @endif</span>
+                        @if($article->category_id or $article->subcategory_id)
+                            <span class="name">Раздел: </span><span class="text">
+                                @if($article->category_id){{ $article->category->title }}
+                                @elseif($article->subcategory_id) {{ $article->subcategory->title }} @endif
+                            </span>
+                            @endif
                     </p>
                     @endif
                     <input type="text" hidden name="year" value="<?= $y?>">
@@ -312,7 +317,7 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                 locale: 'ru-ru',
                 minDate: '<?php echo date("d.m.Y",$report->date_start); ?>',
                 maxDate: '<?php echo date("d.m.Y",$report->date_end); ?>',
-                value: '<?php echo date("d.m.Y",$article->date_start); ?>',
+                value: '<?php echo date("d.m.Y",$report->date_start); ?>',
                 format: 'dd.mm.yyyy',
             });
 
@@ -325,7 +330,7 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                 locale: 'ru-ru',
                 minDate: '<?php echo date("d.m.Y",$report->date_start); ?>',
                 maxDate: '<?php echo date("d.m.Y",$report->date_end); ?>',
-                value: '<?php echo date("d.m.Y",$article->date_start); ?>',
+                value: '<?php echo date("d.m.Y",$report->date_end); ?>',
                 format: 'dd.mm.yyyy',
 
             });
