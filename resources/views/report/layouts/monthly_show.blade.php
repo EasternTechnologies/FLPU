@@ -9,31 +9,33 @@
             </p>
         </div>
     @endif
+
     @foreach($posts as  $k =>$post)
         @if(isset($post))
-            <?php $n3++; ?>
-            <div class="row padl_sub2 out_list_title">
-                <div class="search_block">
-                <p class="pdf_box">
-                <span>
+        <?php $n3++; ?>
+        <div class="row padl_sub2 out_list_title">
+            <div class="search_block">
+            <p class="pdf_box">
+
                 <a href="/report/{{ $report->types->slug }}/article/{{ $post->id }}">
 
-                <p>  {{ $n1 }}.{{ $n2 }}.{{ $n3 }}. {{ $post->title }}</p>
+                    <span> {{ $n1 }}.{{ $n2 }}.{{ $n3 }}. {{ $post->title }}</span>
                 </a>
-                </span>
-                                            <span>
-                                                <a target="_blank" href="/pdf_article/{{ $post->id }}" class="pdf"></a>
-                                            </span>
+
                 <label class="pdf-checkbox">
-                    <input type="checkbox" value="{{$post->id}}"><span class="pdf"></span>
+                    <span class="span-checkbox">Выбрать</span>
+                    <input type="checkbox" value="{{$post->id}}">
                 </label>
-                <?php
-                $description = explode(' ', ltrim(html_entity_decode(strip_tags($post->description))));
-                count($description) <40 ? $count = count($description): $count = 40;
-                $descrurtion_short = implode(' ', array_slice($description,0, $count));
-                ?>
-                <p style="text-align: justify">
-                    <span>{{$descrurtion_short}}...</span>
+
+                <a target="_blank" href="/pdf_article/{{ $post->id }}" class="pdf"></a>
+
+            <?php
+            $description = explode(' ', ltrim(html_entity_decode(strip_tags($post->description))));
+            count($description) <40 ? $count = count($description): $count = 40;
+            $descrurtion_short = implode(' ', array_slice($description,0, $count));
+            ?>
+            <p style="text-align: justify">
+            <span>{{$descrurtion_short}}...</span>
                 </p>
                 @if( $role != 'user' && $role !='employee' )
                     @if($post->status == 0 && $report->published!=2)
@@ -44,7 +46,7 @@
                         <p class="status st-line st-2">| Утверждено</p>
                     @endif
                 @endif
-                </div>
+            </div>
             </div>
         @endif
     @endforeach

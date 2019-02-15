@@ -28,7 +28,9 @@ $y = date("Y");
                     @elseif($report->types->slug=='various')
                     {{$report->types->title}}
                 @endif
+                @if(!$q)
                     <a target="_blank" href="/pdf_item/{{ $report->id }}" class="pdf"></a>
+                @endif
            </span>
         </h3>
 
@@ -58,9 +60,11 @@ $y = date("Y");
                                     <p class="title title_cat pdf_box">
                                         <span>{{ $cat }}</span>
                                     @endif
-                                        <span >
-                                            <a target="_blank" href="/pdf_category/{{$report->id}}/{{ $categories->where('title',$cat)->first()->id }}" class="pdf"></a>
-                                        </span>
+                                    @if(!$q)
+                                    <span >
+                                        <a target="_blank" href="/pdf_category/{{$report->id}}/{{ $categories->where('title',$cat)->first()->id }}" class="pdf"></a>
+                                    </span>
+                                    @endif
                                     </p>
                                 </div>
                             @endif
