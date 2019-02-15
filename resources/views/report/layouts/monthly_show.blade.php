@@ -18,7 +18,6 @@
             <p class="pdf_box">
 
                 <a href="/report/{{ $report->types->slug }}/article/{{ $post->id }}">
-
                     <span> {{ $n1 }}.{{ $n2 }}.{{ $n3 }}. {{ $post->title }}</span>
                 </a>
 

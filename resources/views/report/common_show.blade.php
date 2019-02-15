@@ -12,7 +12,7 @@ $y = date("Y");
     <div class="container add_form_step2 posr">
 
         @if($q)
-            <h3 id="title_h3">Выбранные документы</h3>
+            <h3 class="title">Выбранные документы</h3>
 
             <div class="row box_save_article mt30">
                 <button id="drop_cookie" class="button butt_def show_pdf_search">Показать в PDF</button>
