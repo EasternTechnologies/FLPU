@@ -168,7 +168,7 @@ class PdfController extends Controller {
 /**********************************************************************************************************************/
 	public function pdf_search(RequestSearchPdf $request)
 	{
-        $articles = ArticleReports::whereIn('id',$request->id)->get();
+        $articles = ArticleReports::whereIn('id',$request->id)->get()->sortBy('title');
         $format = ['format' => 'A4'];
         foreach ($articles as $article) {
                 $items[false][false] [] = $article;

@@ -71,8 +71,7 @@ class ReportController extends Controller
                 $articles = $report->articles()->where('report_id', $report->id)->get();
             }
             else{
-                $articles = ArticleReports::whereIN('id',$request->id)->get();
-                $articles = $articles->sortBy('title');
+                $articles = ArticleReports::whereIN('id',$request->id)->get()->sortBy('title');
             }
 
             $subcategories = Subcategory::whereIn('id',array_unique($articles->pluck('subcategory_id')->toArray()))->
