@@ -40,12 +40,12 @@ Route::middleware('checkuser')->group(function()
     Route::post('/search', 'User\HomeController@advanced_search');
     Route::get('/simply_search', 'User\HomeController@search');
 	Route::post('/simply_search', 'User\HomeController@search');
-	Route::get('/migrate', 'Migrate\MigrateController@migrate');
-	Route::get('/migrate_one', 'Migrate\MigrateController@migrate_one');
-	Route::get('/migrate_two', 'Migrate\MigrateController@migrate_two');
-	Route::get('/migrate_three', 'Migrate\MigrateController@migrate_three');
-	Route::get('/migrate_four', 'Migrate\MigrateController@migrate_four');
-	Route::get('/migrate_five', 'Migrate\MigrateController@migrate_five');
+//	Route::get('/migrate', 'Migrate\MigrateController@migrate');
+//	Route::get('/migrate_one', 'Migrate\MigrateController@migrate_one');
+//	Route::get('/migrate_two', 'Migrate\MigrateController@migrate_two');
+//	Route::get('/migrate_three', 'Migrate\MigrateController@migrate_three');
+//	Route::get('/migrate_four', 'Migrate\MigrateController@migrate_four');
+//	Route::get('/migrate_five', 'Migrate\MigrateController@migrate_five');
 	Route::get('/delete', 'Migrate\MigrateController@delete');
 
     /*Bug*/
