@@ -588,7 +588,7 @@ class ReportController extends Controller
 
     }
 
-    public function update ( Request $request, $flag = null  ) {
+    public function update ( Request $request, $slug ='',$flag = null  ) {
         $this->validate($request, [
           'editor1' => 'required',
          // 'title'   => 'required',
