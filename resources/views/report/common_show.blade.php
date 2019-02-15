@@ -13,6 +13,10 @@ $y = date("Y");
 
         @if($q)
             <h3 id="title_h3">Выбранные документы</h3>
+
+            <div class="row box_save_article mt30">
+                <button id="drop_cookie" class="button butt_def show_pdf_search">Показать в PDF</button>
+            </div>
         @endif
 
         <h3 class="title">
@@ -42,7 +46,6 @@ $y = date("Y");
                         <span class="status st_inherit">Статус:</span> Все материалы утверждены
                     @elseif($report->status == 0)
                         <span class="status st_inherit">Статус:</span> Не опубликован
-
                     @endif
                 </span>
             @endif

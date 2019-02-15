@@ -9,8 +9,10 @@
                 <a href="/report/{{$article->reports->types->slug}}/article/{{$article->id}}" target="_blank" class="title_link text_decor"> <?php echo $article->title;?></a>
 
                 <label class="pdf-checkbox">
-                    <input type="checkbox" value="{{$article->id}}"><span class="pdf"></span>
+                    <span class="span-checkbox">Выбрать</span>
+                    <input type="checkbox" value="{{$article->id}}"></span>
                 </label>
+
                 <p><!--strong>Анонс:</strong-->
                     {{   mb_substr(ltrim(html_entity_decode(strip_tags($article->description))), 0, 400) }}
                 </p>

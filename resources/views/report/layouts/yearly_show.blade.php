@@ -18,9 +18,12 @@
                         <strong>{{ $post->title }}</strong>
                     </a>
                     <a target="_blank" href="/pdf_article/{{ $post->id }}" class="pdf"></a>
+
                     <label class="pdf-checkbox">
                         <span class="span-checkbox">Выбрать</span>
-                        <input type="checkbox" value="{{$post->id}}">
+                        <input
+                        @if($q) data-result="1" @endif
+                        type="checkbox" value="{{$post->id}}">
                     </label>
                 </p>
                 <?php

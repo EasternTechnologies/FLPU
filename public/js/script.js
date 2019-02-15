@@ -173,3 +173,9 @@ $(document).on('click','.show_pdf_search',function () {
         form.submit();
     }
 });
+
+$( document ).ready(function () {
+    $('input[data-result="1"]').click();
+});
+
+
