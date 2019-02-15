@@ -312,7 +312,7 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                 locale: 'ru-ru',
                 minDate: '<?php echo date("d.m.Y",$report->date_start); ?>',
                 maxDate: '<?php echo date("d.m.Y",$report->date_end); ?>',
-                value: '<?php echo date("d.m.Y",$article->date_start); ?>',
+                value: '<?php echo date("d.m.Y",$report->date_start); ?>',
                 format: 'dd.mm.yyyy',
             });
 
@@ -325,7 +325,7 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                 locale: 'ru-ru',
                 minDate: '<?php echo date("d.m.Y",$report->date_start); ?>',
                 maxDate: '<?php echo date("d.m.Y",$report->date_end); ?>',
-                value: '<?php echo date("d.m.Y",$article->date_start); ?>',
+                value: '<?php echo date("d.m.Y",$report->date_end); ?>',
                 format: 'dd.mm.yyyy',
 
             });
