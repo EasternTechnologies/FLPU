@@ -381,7 +381,8 @@ class ReportController extends Controller
 
 
         $items = [];
-        $items[false]  = [];
+        if($slug=='yearly') $items[false]  = [];
+
         foreach ($categories as $category) {
             $items[$category->id] = [];
         }
@@ -806,5 +807,4 @@ class ReportController extends Controller
 
 			}
 		}
-
 }

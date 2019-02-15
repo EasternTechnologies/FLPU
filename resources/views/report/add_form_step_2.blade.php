@@ -95,13 +95,14 @@
 
 					</div>
 
-					@if( $report->types->slug == 'countrycatalog')
+					@if( $report->types->slug == 'countrycatalog' && $cat!=null)
 						<div class="row padl_sub2 out_list_title">
 							<div class="vpor_box">
 								<p class="vpor_title">Военно-политическая обстановка в регионе
 
 								</p>
 								<div class="vpor_desc" style="display:none;">
+
 									{!!$categories->where('id',$cat)->first()->description !!}
 								</div>
 							</div>
