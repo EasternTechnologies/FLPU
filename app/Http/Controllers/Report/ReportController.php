@@ -485,7 +485,9 @@ class ReportController extends Controller
 
         } else {
 	        $category = Category::find($category);
-	        $article->category_id = $category->id;
+	        if(isset($category)) {
+		        $article->category_id = $category->id;
+	        }
         }
 
         $article->save();
