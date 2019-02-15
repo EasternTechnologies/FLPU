@@ -35,8 +35,10 @@
                     {{ $post->title }}
                     </span>
                 </a>
+
                 <label class="pdf-checkbox">
-                    <input type="checkbox" value="{{$post->id}}"><span class="pdf"></span>
+                    <span class="span-checkbox">Выбрать</span>
+                    <input type="checkbox" value="{{$post->id}}">
                 </label>
 
                 <a target="_blank" href="/pdf_article/{{ $post->id }}" class="pdf"></a>

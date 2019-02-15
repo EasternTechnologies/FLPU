@@ -11952,6 +11952,13 @@ footer > .row > .container > .flex_box {
   width: 100%;
 }
 
+.span-checkbox {
+  padding-right: 10px;
+  padding-bottom: 3px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
 .tags_form .check_box input {
   height: 14px !important;
   width: 14px;
