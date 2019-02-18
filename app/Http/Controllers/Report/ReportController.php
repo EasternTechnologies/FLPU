@@ -21,7 +21,7 @@ class ReportController extends Controller
 
     public function __construct () {
         $this->middleware('auth');
-        $this->reports();
+//        $this->reports();
 
     }
 
@@ -338,9 +338,30 @@ class ReportController extends Controller
     }
 
     public function report_step_2 ($slug, Report $report) {
-        
-    	if (  $report->types->slug == 'weekly' || $report->types->slug == 'monthly' ) {
-		     $categories  = Category::where('report_type_id', $report->types->id);
+
+        $count_all = 0;
+        $count_no_pub = 0;
+        $articles = $report->articles()->get();
+
+        foreach ($articles as $article) {
+            if($article->status != 2) $count_no_pub++;
+            $count_all++;
+        }
+
+        //0 - Ожидает, 1 - Готов к публикации
+        if($count_no_pub == 0) {
+            $report->update(['status' => 2]);
+        } else {
+            $report->update(['status' => 0]);
+        }
+
+        //Нет материалов
+        if($count_all == 0 ) {
+            $report->update(['status' => -1]);
+        }
+
+    	if ($report->types->slug == 'weekly' || $report->types->slug == 'monthly' ) {
+    	    $categories  = Category::where('report_type_id', $report->types->id);
             $categories_id = $categories->pluck('id')->toArray();
             $categories = $categories->get();
 	    } else {
@@ -355,30 +376,6 @@ class ReportController extends Controller
 
 
         $subcategories_array = Subcategory::whereIn('category_id',$categories_id)->get();
-//      dd($subcategories_array);
-
-
-//        foreach ( $articles as $article ) {
-//            if ($article->category_id) {
-//                foreach ($categories as $category) {
-//                    if ($article->category_id == $category->id) {
-//                        $subcategory = $article->subcategory_id != false ? $article->subcategory_id : false; // problem
-//                        $items[$article->category_id][$subcategory][] = $article;
-//                        if ($subcategory) {
-//                            $subcategories[$article->category_id][$article->subcategory_id] = $article->subcategory->title;
-//                        }
-//                    }
-//                }
-//            }
-//                else {
-//                    $subcategory = $article->subcategory_id != false ?  $article->subcategory_id: false; // problem
-//                    $items[false][$subcategory][] = $article;
-//                    if($subcategory) {
-//                        $subcategories[$article->category_id][$article->subcategory_id] = $article->subcategory->title;
-//                    }
-//                }
-//            }
-
 
         $items = [];
         $items[false]  = [];
@@ -775,36 +772,4 @@ class ReportController extends Controller
 		return Auth::user()->roles[0]->title;
 
 	}
-
-	public function reports(){
-
-		$reports     = Report::all();//++
-
-		foreach ($reports as $report) {
-
-
-				$count_all = 0;
-				$count_no_pub = 0;
-				$articles = $report->articles()->get();
-
-				foreach ($articles as $article) {
-					if($article->status != 2) $count_no_pub++;
-					$count_all++;
-				}
-
-				//0 - Ожидает, 1 - Готов к публикации
-				if($count_no_pub == 0) {
-					$report->update(['status' => 2]);
-				} else {
-					$report->update(['status' => 0]);
-				}
-
-				//Нет материалов
-				if($count_all == 0 ) {
-					$report->update(['status' => -1]);
-				}
-
-			}
-		}
-
 }
