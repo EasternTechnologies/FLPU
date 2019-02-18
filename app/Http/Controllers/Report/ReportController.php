@@ -21,8 +21,8 @@ class ReportController extends Controller
 
     public function __construct () {
         $this->middleware('auth');
-        $this->reports();
 
+        $this->reports();
     }
 
 
@@ -779,7 +779,7 @@ class ReportController extends Controller
 
 	public function reports(){
 
-		$reports     = Report::all();//++
+		$reports     = Report::all();   //++
 
 		foreach ($reports as $report) {
 

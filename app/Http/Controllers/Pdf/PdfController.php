@@ -60,8 +60,6 @@ class PdfController extends Controller {
 /**********************************************************************************************************************/
 	public function pdf_item ( $id ) {
 
-
-
 		$report = Report::find($id);
 		$report_slug = $report->types->slug;
 
@@ -139,6 +137,8 @@ class PdfController extends Controller {
 			$descriptions[] = $category->description;
 		}
 
+//		dd($items);
+
 		$pdf = \PDF::loadView($template, compact('report','items','report_slug','descriptions'));
 		return $pdf->stream( $report->types->title.'.pdf' );
 	}
@@ -160,6 +160,8 @@ class PdfController extends Controller {
 					$items[ $category ][ $subcategory ][] = $article;
 				}
 			}
+
+//		dd($items);
 
 		$pdf = \PDF::loadView($template, compact('report','items','report_slug'));
 		return $pdf->stream( $report->types->title.'.pdf' );

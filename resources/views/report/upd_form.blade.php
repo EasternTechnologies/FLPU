@@ -280,7 +280,7 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                 	<button class="button_save butt butt_def">Сохранить</button>
 	            	<button onclick="jQuery('#form').attr('action','/report/{{ $report->types->slug }}/upd/1'); jQuery('#form').submit(); return false;" class="button_save butt butt_def">Сохранить и отправить на утверждение</button>
 	        	@elseif($article->status == 1 || $article->status == 2)
-	        		<a href="report/{{$report->types->slug}}/add2/{{$report->id}}" class="button butt_back">Вернуться к отчету</a>
+	        		<a href="/report/{{$report->types->slug}}/add2/{{$report->id}}" class="button butt_back">Вернуться к отчету</a>
 	                <button onclick="jQuery('#form').attr('action','/report/{{ $report->types->slug }}/upd/2'); jQuery('#form').submit(); return false;" class="button_save butt butt_def">Сохранить и утвердить</button>
 	        	@else
 	        		<a href="report/{{$report->types->slug}}/add2/{{$report->id}}" class="button butt_back">Вернуться к отчету</a>

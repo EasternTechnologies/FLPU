@@ -84,10 +84,9 @@
                                 @endforeach
                             @endif
                         </div>
-
                 @else
                 
-                <a target="_blank" href="/report/{{ $article->reports->types->slug }}/pdf_article/{{ $article->id }}" class="pdf pos_tr_article_out"></a>
+                <a target="_blank" href="/pdf_article/{{ $article->id }}" class="pdf pos_tr_article_out"></a>
                 <p><strong>Отчет: </strong> <span class="italic_14"><a class="text_decor" href="/report/{{ $article->reports->types->slug }}/show/{{ $article->report_id }}">{{ $article->reports->types->title }}</a></span></p>
                     @if(isset($article->category))
                     <p class="mb30"><strong>Раздел: </strong>
