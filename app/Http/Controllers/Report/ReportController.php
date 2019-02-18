@@ -177,7 +177,6 @@ class ReportController extends Controller
         $subcategory->delete();
 
         return redirect()->back()->with('status', 'Подраздел удален');
-
     }
 
     public function delete_category ($slug,Category $category) {
@@ -202,7 +201,6 @@ class ReportController extends Controller
         $category->delete();
 
         return redirect()->back()->with('status', 'Раздел удален');
-
     }
 
     public function publish ( $slug, Report $report ) {
@@ -213,8 +211,7 @@ class ReportController extends Controller
 
         $report->update(['status' => 2]);
 		
-        return redirect()->to('/report/'.$report->types->slug. '/show/'. $report->id)->with('status', 'Отчет опубликован'); //++
-
+        return redirect()->to('/report/'.$report->types->slug. '/show/'. $report->id)->with('status', 'Отчет опубликован');
     }
 	
     public function article_for_approval ( Weeklyarticle $weeklyarticle ) {
@@ -230,7 +227,6 @@ class ReportController extends Controller
 
         $path = '/report/'. $article->reports->types->slug .'/show/' . $article->reports->id;
         return redirect()->to($path)->with('status', 'Материал утвержден');
-
     }
 
 	public function upd_form_category ( $slug, Category $category ) {
@@ -256,7 +252,6 @@ class ReportController extends Controller
 		}
 
 		$article->save();
-
 
 		$path = '/report/'. $category->report->types->slug .'yearly/add2/' . $category->report->id;
 
@@ -316,7 +311,6 @@ class ReportController extends Controller
             $path = '/report/'. $report_type->slug;
 
             return redirect()->to($path)->with('status', 'Такой отчет уже существует');
-
         }
         else {
 
@@ -332,7 +326,6 @@ class ReportController extends Controller
             $path = '/report/'. $report_type->slug .'/add2/'. $report->id;
 
             return redirect()->to($path)->with('status', 'Отчет создан');
-
         }
 
     }
@@ -373,8 +366,6 @@ class ReportController extends Controller
         $articles = $report->articles()->where('report_id', $report->id )->get();
         $subcategories = [];
 
-
-
         $subcategories_array = Subcategory::whereIn('category_id',$categories_id)->get();
 
         $items = [];
@@ -394,27 +385,15 @@ class ReportController extends Controller
                     $subcategory = $article->subcategory_id != false ? $article->subcategory_id : false; // problem
                 $category = $article->category_id != false ? $article->category_id : false;
                     $items[$category][$subcategory][] = $articles->pull($key);
-//                    if ($subcategory) {
-//                        $subcategories[$article->category_id][$article->subcategory_id] = $article->subcategory->title;
-//                    }
             }
         }
 
         foreach ($articles as $key => $article) {
             $subcategory = $article->subcategory_id != false ?  $article->subcategory_id: false; // problem
             $items[false][$subcategory][] = $article;
-//            dump($article);
-//            if($subcategory) {
-//                $subcategories[$article->category_id][$article->subcategory_id] = $article->subcategory->title;
-//            }
         }
-        
-//    dd($subcategories);
 
-
-        return view('report.add_form_step_2', compact('report', 'items', 'categories','subcategories')
-
-        );
+        return view('report.add_form_step_2', compact('report', 'items', 'categories','subcategories'));
     }
 
     public function report_step_3 ( $slug, Report $report, Category $category, Subcategory $subcategory) {
@@ -424,13 +403,8 @@ class ReportController extends Controller
 
     public function create3 ( Request $request, $flag = null ) {
 
-
-//        dd($request->all());
-
-
         $this->validate($request, [
             'editor1' => 'required',
-            //'title_1'   => 'required',
         ]);
 
         $title         = $request->input('title');
@@ -531,8 +505,6 @@ class ReportController extends Controller
 
         $report_slug = $report->types->slug;
 
-
-
         if($report_slug=='weekly' || $report_slug=='monthly'){
 
             $request->validate([
@@ -580,15 +552,12 @@ class ReportController extends Controller
         $tags [ 'personalities' ] = $article->personalities->pluck('id');
         $report = Report::find($article->report_id);
 
-       // return view('analyst.weeklyreview.add_form_step3', compact('weeklyarticle', 'tags', 'weeklyreport'));
 	    return view('report.upd_form', compact('article', 'tags', 'report'));
-
     }
 
     public function update ( Request $request, $slug ='',$flag = null  ) {
         $this->validate($request, [
           'editor1' => 'required',
-         // 'title'   => 'required',
         ]);
 
 	    $place         = $request->input('place');
@@ -621,7 +590,6 @@ class ReportController extends Controller
 
 		    $article->title        = $theme;
 		    $article->place        = $place;
-
 	    }
 
         $article->save();
@@ -640,11 +608,10 @@ class ReportController extends Controller
         			
         			Storage::disk('bsvt')->delete([$pic->image, $pic->thumbnail]);
 					$article->images()->where('id',$pic->id)->delete();
-					
         		}
 			}
 			
-        }//++
+        }
 			
         if ( $request->hasFile('pic') ) {
             foreach ( $request->file('pic') as $photo ) {
@@ -661,7 +628,6 @@ class ReportController extends Controller
                   'thumbnail' => $thumbnails,
                 ]);
             }
-
         }
 		
 		$report = Report::find($article->report_id); //++
@@ -673,8 +639,7 @@ class ReportController extends Controller
 		} else {
 			$report->update(['status' => 0]);
 			$article->update(['status' => 0]);
-			
-		}//++
+		}
 		
 		$path = '/report/'. $report->types->slug .'/add2/'. $article->report_id;
 		
@@ -684,7 +649,6 @@ class ReportController extends Controller
 	public function createcategoryform ( $slug,  Report $report ) {
 
 		return view('report.add_category_form', ['report' => $report]);
-
 	}
 
 	public function createcategory ( $slug, Request $request, $flag = NULL ) {
@@ -700,8 +664,7 @@ class ReportController extends Controller
 
 			$this->validate( $request, [
 				'title'   => 'required',
-			] );
-
+			]);
 		}
 
 		$title          = $request->input('title');
@@ -760,8 +723,6 @@ class ReportController extends Controller
 		$article->title    = $title;
 		$article->save();
 
-
-
 		$path = '/report/'. $subcategory->category->report->types->slug .'/add2/' . $subcategory->category->report->id;
 
 		return redirect()->to($path)->with('status', 'Категория обновлена');
@@ -770,6 +731,5 @@ class ReportController extends Controller
 	public function role () {
 
 		return Auth::user()->roles[0]->title;
-
 	}
 }
