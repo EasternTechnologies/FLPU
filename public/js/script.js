@@ -60,11 +60,11 @@ $(document).on('click','.pdf-checkbox input', function (eo) {
 
     if(index!=-1) {
         ids.splice(index,1);
-        if(!ids.length)  $('.show_pdf_search').prop('disabled',true);
+        if(!ids.length)  $('.show_pdf_search, .show_pdf_search_choose').prop('disabled',true);
     }
     else {
         ids.push($(this).val());
-        $('.show_pdf_search').prop('disabled',false);
+        $('.show_pdf_search, .show_pdf_search_choose').prop('disabled',false);
     }
     setCookie('pdfitems',JSON.stringify(ids),{'path':'/'});
 });
@@ -77,10 +77,10 @@ if(ids) {
     }
     else
     {
-        $('.show_pdf_search').prop('disabled',true);
+        $('.show_pdf_search, .show_pdf_search_choose').prop('disabled',true);
     }
 }
-else $('.show_pdf_search').prop('disabled',true);
+else $('.show_pdf_search, .show_pdf_search_choose').prop('disabled',true);
 
 
 $(document).on('click','.pdf-reset',function () {

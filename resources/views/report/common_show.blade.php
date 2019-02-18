@@ -91,7 +91,8 @@ $y = date("Y");
                     <a class="button butt_def" href="/report/{{$report->types->slug}}/add2/{{ $report->id }}">Редактировать</a>
                 @endif
                 @if(!$q)
-                    <button id="drop_cookie" class="button butt_def show_pdf_search_choose">Выбрать</button>
+                    <button id="drop_cookie" class="button butt_def show_pdf_search_choose">Показать выборку</button>
+                    <button id="drop_cookie" class="button butt_def show_pdf_search">Выборка в PDF</button>
                 @else
                     <button id="drop_cookie" class="button butt_def show_pdf_search">Показать в PDF</button>
                 @endif
