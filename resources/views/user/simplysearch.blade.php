@@ -9,8 +9,8 @@
         <hr>
         @foreach($results as $article)
             <div class="search_block">
-                <a href="/report/{{$article->reports->types->slug}}/article/{{$article->id}}" target="_blank" class="title_link text_decor"> <?php echo $article->title;?></a>
-
+                <a href="/report/{{$article->reports->types->slug}}/article/{{$article->id}}" target="_blank" class="title_link text_decor">
+                    <?php echo $article->title;?></a>
                 <label class="pdf-checkbox">
                     <span class="span-checkbox">Выбрать</span>
                     <input type="checkbox" value="{{$article->id}}"></span>
@@ -22,15 +22,16 @@
                 <p>
                     <strong>Отчет:</strong> Еженедельный дайжест "Еженедельный обзор ВПО и ВТИ" за период от {{date("d.m.Y",$article->reports->date_start)}} по {{date("d.m.Y",$article->reports->date_end)}}
                 </p>
-                <p><strong>Раздел:</strong>
+                <p>
+                    <strong>Раздел:</strong>
                     @if(isset($article->subcategory))
-                        <span>{{ $article->subcategory->category->title }}</span></p>
-                @elseif(isset($article->category))
-                    <span>{{ $article->category->title }}</span></p>
-                @elseif($article->reports->types->slug == 'plannedexhibition')
-                    <span> Планируемые выставки {{ date("Y",$article->reports->date_start) }}</span></p>
-                @endif
-
+                        <span>{{ $article->subcategory->category->title }}</span>
+                    @elseif(isset($article->category))
+                        <span>{{ $article->category->title }}</span>
+                    @elseif($article->reports->types->slug == 'plannedexhibition')
+                        <span> Планируемые выставки {{ date("Y",$article->reports->date_start) }}</span>
+                    @endif
+                </p>
             </div>
 
 

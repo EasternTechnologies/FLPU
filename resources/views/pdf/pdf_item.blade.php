@@ -37,13 +37,21 @@
             @foreach($posts as $post)
                 @if(isset($post))
                     @if(isset($post->title))
-                        <h3 class="title" style="text-align: center">{{ $post->title }}</h3>
+                        <h3 class="title" style="text-align: center">{!! $post->title !!}  </h3>
                     @endif
+                    @if(!empty($post->place))
+                        <div style="font-size: 15px; text-align: justify">
+                            Место:{!! preg_replace('~style="[^"]*"~i', '',  $post->place) !!}
+                        </div>
+                        @endif
                     <div style="font-size: 15px; text-align: justify">
+                        @if(!empty($post->place))
+                            Тематика:
+                        @endif
                         {!! preg_replace('~style="[^"]*"~i', '',  $post->description) !!}
                     </div>
                     <p class="pdf_gallery">
-                        @if(isset($post->images))
+                        @if(isset($post->images) && empty($post->place))
                             @foreach($post->images as $image)
                                 <img style="margin-bottom: 30px; max-height: 940px" src="images/{{$image->image}}">
                             @endforeach

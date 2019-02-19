@@ -86,11 +86,11 @@ class HomeController extends Controller
 
 		//$results = ArticleReports::search($q)->active()->paginate(40);
 
-	    $results = ArticleReports::search($q, $size = 10000);
+	    $articles = ArticleReports::search($q, $size = 10000);
 //dd($results);
-		$results = $this->paginate($results, 20);
+		$articles = $this->paginate($articles, 20);
 
-	    $results->appends($request->all())->setPath('/simply_search');
+		$articles->appends($request->all())->setPath('/simply_search');
 
 	    if($request->ajax()){
 
@@ -99,10 +99,11 @@ class HomeController extends Controller
 //			   $article->titleTags($article->title);
 //
 //            }
-		    return   $results;
+		    return   $articles;
 	    }
 //dd($request);
-        return view('user.simplysearch', compact('results'));
+//        return view('user.simplysearch', compact('results'));
+        return view('user.advan_search_result', compact('articles'));
     }
 
     public function advanced_search_form () {
@@ -323,9 +324,9 @@ class HomeController extends Controller
 	        }
 
 
+			$isadvantage  =true;
 
-
-        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types'));
+        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types','isadvantage'));
     }
 
 
