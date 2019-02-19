@@ -3,7 +3,7 @@ $d = date("d");
 $m = date("m");
 $y = date("Y");
 ?>
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
@@ -35,9 +35,9 @@ $y = date("Y");
     <!-- fancybox -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css"/>
 
-	<!-- Styles MEDIA -->
+    <!-- Styles MEDIA -->
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
-    
+
 </head>
 <body>
 <div id="app" class="analyst">
@@ -46,32 +46,32 @@ $y = date("Y");
         <div class="container row_top">
             <div class="user_rolles">
                 @auth
-                    {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
+                {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
                 @endauth
             </div>
             @include('partials.cabinets')
             <div id="menu-mob1" class="menu-mob">
-            	<span></span>
-            	<span></span>
-            	<span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
         <div class="container row_2">
             @include('partials.row_with_search')
         </div>
     </header>
-    
+
     @section('nav_header_other')
         <div class="nav_header_other">
             <div class="container">
-                
+
                 <ul class="">
 
                     @foreach(\App\ReportType::$data as $link => $title)
-                    
+
                         <li class="@if(Request::is('report/'. $link) || Request::is('report/'. $link.'/*') || Request::is('analyst/'.$link) || Request::is('analyst/'.$link.'/*') || Request::is('manager/'.$link) || Request::is('manager/'.$link.'/*')) {{'active'}} @endif">
 
-                            	<a href="/report/{{ $link }}" class="nav-link">{{ $title }}</a>
+                            <a href="/report/{{ $link }}" class="nav-link">{{ $title }}</a>
 
                         </li>
                     @endforeach
@@ -85,7 +85,7 @@ $y = date("Y");
         </div>
     @endsection
     <div id="menu-mob2" class="container menu-mob">
-    	Меню
+        Меню
     </div>
     @yield('nav_header_other')
 
@@ -108,30 +108,30 @@ $y = date("Y");
                 </div>
             </div>
         @endif
-        @yield('content')       
+        @yield('content')
 
     </main>
 
     <footer>
-      <div class="row">
-        <div class="container">
-          <div class="flex_box">
-            <div class="col-md-4 copyright">
-              © Copyright 2018. Все права защищены
+        <div class="row">
+            <div class="container">
+                <div class="flex_box">
+                    <div class="col-md-4 copyright">
+                        © Copyright 2018. Все права защищены
+                    </div>
+                    <div class="col-md-4 footer_doc">
+                        <a href="/reglament">Правила и регламент регистрации</a>
+                    </div>
+                    <div class="col-md-4 portfolio_box">
+                        Разработка сайта<span class="logo_east_tech"></span><a href="http://east-tech.by/">“Восточные технологии”</a>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 footer_doc">
-              <a href="/reglament">Правила и регламент регистрации</a>
-            </div>
-            <div class="col-md-4 portfolio_box">
-              Разработка сайта<span class="logo_east_tech"></span><a href="http://east-tech.by/">“Восточные технологии”</a>
-            </div>
-          </div>
         </div>
-      </div>
     </footer>
-    
+
     <div class="bugs" oncLick="showModalBugs();">
-      <span>Нашли баг?</span>
+        <span>Нашли баг?</span>
     </div>
 </div>
 
@@ -139,32 +139,32 @@ $y = date("Y");
 <div class="modal modal__bugs">
     <div class="modal__close" oncLick="closeModal();"></div>
     <div class="bugs-form">
-      <h2>Введите Ваши данные и вопрос, все поля обязательны для заполнения:</h2>
-      <form action="/bug" method="post" enctype="multipart/form-data">
-        <p class="bugs-form__block">
-          <label for="bugs_select">Выберите тему</label>
-          <select id="bugs_select" name="theme" required>
-            <option value="info">Информация на сайте</option>
-            <option value="error">Ошибка в работе сайта</option>
-            <option value="suggestion">Предложения/пожелания по сайту</option>
-            <option value="registration">Регистрация/авторизация</option>
-            <option value="other">Другие вопросы и комментарии</option>
-          </select>
-        </p>
-        <p class="bugs-form__block">
-          <label for="bugs_textarea">Опишите ошибку</label>
-          <textarea id="bugs_textarea" rows="5" name="text" required></textarea>
-        </p>
-        <p class="bugs-form__block">
-          <label for="bugs_file">Прикрепите файл с изображением ошибки</label>
-          <input id="bugs_file" type="file" name="file" value="">
-        </p>
-          <input type="hidden" name="url" value="{{ Request::url() }}">
-          <input type="hidden" name="_token" value="{{csrf_token()}}">
-        <p class="bugs-form__block bugs-form__block--submit">
-          <button type="submit">Отправить</button>
-        </p>
-      </form>
+        <h2>Введите Ваши данные и вопрос, все поля обязательны для заполнения:</h2>
+        <form action="/bug" method="post" enctype="multipart/form-data">
+            <p class="bugs-form__block">
+                <label for="bugs_select">Выберите тему</label>
+                <select id="bugs_select" name="theme" required>
+                    <option value="info">Информация на сайте</option>
+                    <option value="error">Ошибка в работе сайта</option>
+                    <option value="suggestion">Предложения/пожелания по сайту</option>
+                    <option value="registration">Регистрация/авторизация</option>
+                    <option value="other">Другие вопросы и комментарии</option>
+                </select>
+            </p>
+            <p class="bugs-form__block">
+                <label for="bugs_textarea">Опишите ошибку</label>
+                <textarea id="bugs_textarea" rows="5" name="text" required></textarea>
+            </p>
+            <p class="bugs-form__block">
+                <label for="bugs_file">Прикрепите файл с изображением ошибки</label>
+                <input id="bugs_file" type="file" name="file" value="">
+            </p>
+            <input type="hidden" name="url" value="{{ Request::url() }}">
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <p class="bugs-form__block bugs-form__block--submit">
+                <button type="submit">Отправить</button>
+            </p>
+        </form>
     </div>
 
     <!-- <div class="bg_popup"></div>
@@ -382,7 +382,7 @@ $y = date("Y");
         jQuery('[data-fancybox="gallery"]').fancybox();
 
         if (jQuery('[name=editor1]').length) {
-          CKEDITOR.replace('editor1');
+            CKEDITOR.replace('editor1');
         }
         if(jQuery('[name=title_1]').length) {
             CKEDITOR.replace('title_1');
@@ -455,22 +455,22 @@ $y = date("Y");
 
                 var result;
 
-                if (file_type == 'jpg' 
-                  || file_type == 'jpeg' 
-                  || file_type == 'png' 
-                  || file_type == 'gif' 
-                  || file_type == 'svg') {
-                  reader.onload = function (e) {
-                      jQuery('.pic_img.num_' + num).attr('src', e.target.result);
-                    };
-                  } else {
+                if (file_type == 'jpg'
+                        || file_type == 'jpeg'
+                        || file_type == 'png'
+                        || file_type == 'gif'
+                        || file_type == 'svg') {
                     reader.onload = function (e) {
-                      jQuery('.item_add_gallery.item_num_' + num + ' img').hide();
-                      jQuery('.item_add_gallery.item_num_' + num + ' span').show();
-                      jQuery('.item_add_gallery.item_num_' + num + ' span').html(input.files[0].name);
+                        jQuery('.pic_img.num_' + num).attr('src', e.target.result);
                     };
-                  }
-                
+                } else {
+                    reader.onload = function (e) {
+                        jQuery('.item_add_gallery.item_num_' + num + ' img').hide();
+                        jQuery('.item_add_gallery.item_num_' + num + ' span').show();
+                        jQuery('.item_add_gallery.item_num_' + num + ' span').html(input.files[0].name);
+                    };
+                }
+
                 reader.readAsDataURL(input.files[0]);
             } else {
                 jQuery('.item_add_gallery.item_num_' + num).removeClass('active');
@@ -503,49 +503,37 @@ $y = date("Y");
         jQuery('.item_add_gallery.active').children('img').show();
 
         jQuery('.pic_img').each(function(){
-          var file_type_img = $(this).attr('src').split('.').pop();
-          if (file_type_img == 'jpg' 
-            || file_type_img == 'jpeg' 
-            || file_type_img == 'png' 
-            || file_type_img == 'gif' 
-            || file_type_img == 'svg') {
-            $(this).show();
-            $(this).siblings('span').hide();
-          } else {
-            $(this).hide();
-            $(this).siblings('span').show();
-          }
+            var file_type_img = $(this).attr('src').split('.').pop();
+            if (file_type_img == 'jpg'
+                    || file_type_img == 'jpeg'
+                    || file_type_img == 'png'
+                    || file_type_img == 'gif'
+                    || file_type_img == 'svg') {
+                $(this).show();
+                $(this).siblings('span').hide();
+            } else {
+                $(this).hide();
+                $(this).siblings('span').show();
+            }
         })
 
         jQuery('.delete_content').on('click', function (event) {
-          $(this).siblings().children('.pic').val('');
-          $(this).siblings().children('img').attr('src', '#');
-          $(this).siblings().children('.pic').change();
-          $(this).siblings().children('span').html('Нажмите, чтобы добавить материал');
+            $(this).siblings().children('.pic').val('');
+            $(this).siblings().children('img').attr('src', '#');
+            $(this).siblings().children('.pic').change();
+            $(this).siblings().children('span').html('Нажмите, чтобы добавить материал');
         })
         jQuery('.delete_img').on('click', function (event) {
-          $(this).siblings().children('.pic').val('');
-          $(this).siblings().children('img').attr('src', '#');
-          $(this).siblings().children('.pic').change();
-          $(this).siblings().children('span').html('Нажмите, чтобы добавить изображение');
+            $(this).siblings().children('.pic').val('');
+            $(this).siblings().children('img').attr('src', '#');
+            $(this).siblings().children('.pic').change();
+            $(this).siblings().children('span').html('Нажмите, чтобы добавить изображение');
         })
 
         //tag
-        jQuery(".butt_add_tag1").click(function (e) {
-            e.preventDefault();
-            jQuery('.popup_tag_country').fadeIn(500);
-        });
-        jQuery(".butt_add_tag2").click(function (e) {
-            e.preventDefault();
-            jQuery('.popup_tag_vvttype').fadeIn(500);
-        });
         jQuery(".butt_add_tag3").click(function (e) {
             e.preventDefault();
             jQuery('.popup_tag_company').fadeIn(500);
-        });
-        jQuery(".butt_add_tag4").click(function (e) {
-            e.preventDefault();
-            jQuery('.popup_tag_personalities').fadeIn(500);
         });
 
         jQuery(".close_tag").click(function (e) {
@@ -570,13 +558,13 @@ $y = date("Y");
             // jQuery('.company_select_country option').removeAttr('selected');
             // jQuery('.company_select_vvt option').removeAttr('selected');
 
-            jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');
-
-            jQuery('.personalities_select_country option').removeClass('active');
-            jQuery('.company_select_country option').removeClass('active');
-            jQuery('.company_select_vvt option').removeClass('active');
+//            jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
+//            jQuery('.company_select_country option:first-child').attr('selected', 'selected');
+//            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');
+//
+//            jQuery('.personalities_select_country option').removeClass('active');
+//            jQuery('.company_select_country option').removeClass('active');
+//            jQuery('.company_select_vvt option').removeClass('active');
         });
 
         jQuery(".bg_popup_tag").click(function (e) {
@@ -607,223 +595,18 @@ $y = date("Y");
 
             jQuery('[name="tag"]').val("");
 
-            jQuery('.personalities_select_country option').removeAttr('selected');
+/*            jQuery('.personalities_select_country option').removeAttr('selected');
             jQuery('.company_select_country option').removeAttr('selected');
             jQuery('.company_select_vvt option').removeAttr('selected');
 
             jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
             jQuery('.company_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');
+            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');*/
         });
 
         jQuery(".butt_add_tag").click(function (e) {
             e.preventDefault();
         });
-
-        //tags
-
-
-
-
-//        console.log(jQuery(".out_country_select").text())
-//        console.log(hide_company_select_contry_name);
-
-
-        //////////////////////////////////////////////////////////////////////
-//        console.log(jQuery(".hide_company_select_contry").val());
-//
-//        var hide_company_select_contry_name = [];
-//        var hide_company_select_contry_id = [];
-//        var hide_company_select_vvt_id = [];
-//        var hide_company_select_vvt_name = [];
-//
-//        jQuery('.company_select_country').change(function () {
-//
-//            if(jQuery(".out_country_select").text()) {
-//                var hide_company_select_contry_name = jQuery(".out_country_select").text().split(',');
-//            }
-//
-//            if(jQuery(".hide_company_select_contry").val()) {
-//                var hide_company_select_contry_id = jQuery(".hide_company_select_contry").val().split(',');
-//            }
-//
-//
-//            console.log(hide_company_select_contry_name)
-//            console.log(hide_company_select_contry_id)
-//
-//
-//
-////            console.log(hide_company_select_contry_name);
-//
-//            var el_id = jQuery('.company_select_country option:selected').val();
-//
-//            var el_name = jQuery('.company_select_country option:selected').text();
-//
-//            if (jQuery('.company_select_country option:selected').hasClass('active')) {
-//                jQuery('.company_select_country option:selected').removeClass('active');
-//
-//                if (hide_company_select_contry_id.length) {
-//                    for (var i = 0; i < hide_company_select_contry_id.length; i++) {
-//                        if (hide_company_select_contry_id[i] == el_id) {
-//                            hide_company_select_contry_id.splice(i, 1);
-//                        }
-//                    }
-//                }
-//
-//                if (hide_company_select_contry_name.length) {
-//
-//                    for (var i = 0; i < hide_company_select_contry_name.length; i++) {
-//                        if (hide_company_select_contry_name[i] == " " + el_name) {
-//                            hide_company_select_contry_name.splice(i, 1);
-//                        }
-//                    }
-//                }
-//            } else {
-//                hide_company_select_contry_id.push(el_id);
-//                hide_company_select_contry_name.push(" " + el_name);
-//                jQuery('.company_select_country option:selected').addClass('active');
-//            }
-//
-//            jQuery(".out_country_select").text(hide_company_select_contry_name);
-//            jQuery(".hide_company_select_contry").val(hide_company_select_contry_id);
-//
-////            //
-////            setTimeout(function () {
-////                jQuery('.company_select_country option').removeAttr('selected');
-////                jQuery('.company_select_country option:first-child').attr('selected', 'selected');
-////            }, 100);
-//        });
-//
-//
-//        jQuery('.company_select_vvt').change(function () {
-//
-//            var el_id = jQuery(".company_select_vvt option:selected").val();
-//            var el_name = jQuery(".company_select_vvt option:selected").text();
-//
-//            if (jQuery('.company_select_vvt option:selected').hasClass('active')) {
-//                jQuery('.company_select_vvt option:selected').removeClass('active');
-//
-//                if (hide_company_select_vvt_id.length) {
-//                    for (var i = 0; i < hide_company_select_vvt_id.length; i++) {
-//                        if (hide_company_select_vvt_id[i] == el_id) {
-//                            hide_company_select_vvt_id.splice(i, 1);
-//                        }
-//                    }
-//                }
-//
-//                if (hide_company_select_vvt_name.length) {
-//
-//                    for (var i = 0; i < hide_company_select_vvt_name.length; i++) {
-//                        if (hide_company_select_vvt_name[i] == " " + el_name) {
-//                            hide_company_select_vvt_name.splice(i, 1);
-//                        }
-//                    }
-//                }
-//            } else {
-//                hide_company_select_vvt_id.push(el_id);
-//                hide_company_select_vvt_name.push(" " + el_name);
-//                jQuery('.company_select_vvt option:selected').addClass('active');
-//            }
-//
-//            jQuery(".out_vvt_select").text(hide_company_select_vvt_name);
-//            jQuery(".hide_company_select_vvt").val(hide_company_select_vvt_id);
-//            //
-////            setTimeout(function () {
-////                jQuery('.company_select_vvt option').removeAttr('selected');
-////                jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');
-////            }, 100);
-////
-//        });
-//
-//
-//
-//        var hide_personalities_select_contry_id = [];
-//        var hide_personalities_select_contry_name = [];
-//        // var hide_personalities_select_vvt_id = [];
-//        // var hide_personalities_select_vvt_name = [];
-//        jQuery('.personalities_select_country').change(function () {
-//
-//            var el_id = jQuery(".personalities_select_country option:selected").val();
-//            var el_name = jQuery(".personalities_select_country option:selected").text();
-//
-//            if (jQuery('.personalities_select_country option:selected').hasClass('active')) {
-//                jQuery('.personalities_select_country option:selected').removeClass('active');
-//
-//                if (hide_personalities_select_contry_id.length) {
-//                    for (var i = 0; i < hide_personalities_select_contry_id.length; i++) {
-//                        if (hide_personalities_select_contry_id[i] == el_id) {
-//                            hide_personalities_select_contry_id.splice(i, 1);
-//                        }
-//                    }
-//                }
-//
-//                if (hide_personalities_select_contry_name.length) {
-//
-//                    for (var i = 0; i < hide_personalities_select_contry_name.length; i++) {
-//                        if (hide_personalities_select_contry_name[i] == (" " + el_name) || hide_personalities_select_contry_name[i] == el_name) {
-//                            hide_personalities_select_contry_name.splice(i, 1);
-//                        }
-//                    }
-//                }
-//            } else {
-//                hide_personalities_select_contry_id.push(el_id);
-//                hide_personalities_select_contry_name.push(" " + el_name);
-//                jQuery('.personalities_select_country option:selected').addClass('active');
-//            }
-//
-//            jQuery(".out_personalities_country_select").text(hide_personalities_select_contry_name);
-//            jQuery(".hide_personalities_select_contry").val(hide_personalities_select_contry_id);
-//
-//          //  setTimeout(function () {
-//          //      jQuery('.personalities_select_country option').removeAttr('selected');
-//          //      jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
-//          //  }, 100);
-////
-//        });
-        //////////////////////////////////////////////////////////////////////
-
-
-
-
-//         jQuery('.personalities_select_vvt').change(function () {
-//
-//             var el_id = jQuery(".personalities_select_vvt option:selected").val();
-//             var el_name = jQuery(".personalities_select_vvt option:selected").text();
-//
-//             if (jQuery('.personalities_select_vvt option:selected').hasClass('active')) {
-//                 jQuery('.personalities_select_vvt option:selected').removeClass('active');
-//
-//                 if (hide_personalities_select_vvt_id.length) {
-//                     for (var i = 0; i < hide_personalities_select_vvt_id.length; i++) {
-//                         if (hide_personalities_select_vvt_id[i] == el_id) {
-//                             hide_personalities_select_vvt_id.splice(i, 1);
-//                         }
-//                     }
-//                 }
-//
-//                 if (hide_personalities_select_vvt_name.length) {
-//
-//                     for (var i = 0; i < hide_personalities_select_vvt_name.length; i++) {
-//                         if (hide_personalities_select_vvt_name[i] == (" " + el_name) || hide_personalities_select_vvt_name[i] == el_name) {
-//                             hide_personalities_select_vvt_name.splice(i, 1);
-//                         }
-//                     }
-//                 }
-//             } else {
-//                 hide_personalities_select_vvt_id.push(el_id);
-//                 hide_personalities_select_vvt_name.push(" " + el_name);
-//                 jQuery('.personalities_select_vvt option:selected').addClass('active');
-//             }
-
-//             jQuery(".out_personalities_vvt_select").text(hide_personalities_select_vvt_name);
-//             jQuery(".hide_personalities_select_vvt").val(hide_personalities_select_vvt_id);
-
-// //            setTimeout(function () {
-// //                jQuery('.personalities_select_vvt option').removeAttr('selected');
-// //                jQuery('.personalities_select_vvt option:first-child').attr('selected', 'selected');
-// //            }, 100);
-// //
-//         });
 
         //modalka add cat
         jQuery(".onclick_popup_cat").click(function (e) {
@@ -860,50 +643,50 @@ $y = date("Y");
             CKEDITOR.instances['title'].updateElement();
             CKEDITOR.instances['place'].updateElement();
             CKEDITOR.instances['theme'].updateElement();
-            
+
             var title = jQuery('[name=title]').val();
             if (title == '' || !title) {
-              error++;
+                error++;
                 if(!jQuery('[name=title]').hasClass('error')) {
-                  jQuery('[name=title]').addClass('error');
-                  jQuery('[name=title]').parent().parent().addClass('error-block');
-                  jQuery('[name=title]').parent().prev().append('<p class="error-text alert alert-danger">Это поле должно быть заполнено!</p>');
-                }                
-              }                 
-              else {
+                    jQuery('[name=title]').addClass('error');
+                    jQuery('[name=title]').parent().parent().addClass('error-block');
+                    jQuery('[name=title]').parent().prev().append('<p class="error-text alert alert-danger">Это поле должно быть заполнено!</p>');
+                }
+            }
+            else {
                 jQuery('[name=title]').removeClass('error');
                 jQuery('[name=title]').parent().parent().removeClass('error-block');
                 jQuery('[name=title]').parent().prev().children().last().remove();
             }
 
             if(jQuery('[name=place]').length) {
-              if (jQuery('[name=place]').val() == '' || !jQuery('[name=place]').val()) {
-                error++;
-                if (!jQuery('[name=place]').hasClass('error')) {
-                  jQuery('[name=place]').addClass('error');
-                  jQuery('[name=place]').parent().parent().addClass('error-block');
-                  jQuery('[name=place]').parent().prev().append('<p class="error-text alert alert-danger">Это поле должно быть заполнено!</p>');
+                if (jQuery('[name=place]').val() == '' || !jQuery('[name=place]').val()) {
+                    error++;
+                    if (!jQuery('[name=place]').hasClass('error')) {
+                        jQuery('[name=place]').addClass('error');
+                        jQuery('[name=place]').parent().parent().addClass('error-block');
+                        jQuery('[name=place]').parent().prev().append('<p class="error-text alert alert-danger">Это поле должно быть заполнено!</p>');
+                    }
+                } else {
+                    jQuery('[name=place]').removeClass('error');
+                    jQuery('[name=place]').parent().parent().removeClass('error-block');
+                    jQuery('[name=place]').parent().prev().children().last().remove();
                 }
-              } else {
-                jQuery('[name=place]').removeClass('error');
-                jQuery('[name=place]').parent().parent().removeClass('error-block');
-                jQuery('[name=place]').parent().prev().children().last().remove();
-              }
             }
 
             if(jQuery('[name=theme]').length) {
-              if (jQuery('[name=theme]').val() == '' || !jQuery('[name=theme]').val()) {
-                error++;
-                if (!jQuery('[name=theme]').hasClass('error')) {
-                  jQuery('[name=theme]').addClass('error');
-                  jQuery('[name=theme]').parent().parent().addClass('error-block');
-                  jQuery('[name=theme]').parent().prev().append('<p class="error-text alert alert-danger">Это поле должно быть заполнено!</p>');
+                if (jQuery('[name=theme]').val() == '' || !jQuery('[name=theme]').val()) {
+                    error++;
+                    if (!jQuery('[name=theme]').hasClass('error')) {
+                        jQuery('[name=theme]').addClass('error');
+                        jQuery('[name=theme]').parent().parent().addClass('error-block');
+                        jQuery('[name=theme]').parent().prev().append('<p class="error-text alert alert-danger">Это поле должно быть заполнено!</p>');
+                    }
+                } else {
+                    jQuery('[name=theme]').removeClass('error');
+                    jQuery('[name=theme]').parent().parent().removeClass('error-block');
+                    jQuery('[name=theme]').parent().prev().children().last().remove();
                 }
-              } else {
-                jQuery('[name=theme]').removeClass('error');
-                jQuery('[name=theme]').parent().parent().removeClass('error-block');
-                jQuery('[name=theme]').parent().prev().children().last().remove();
-              }
             }
 
             // if(jQuery('[name=country]').length) {
@@ -980,63 +763,63 @@ $y = date("Y");
             });
         }
 
-		/* menu-mob */
-		jQuery('#menu-mob1').click(function () {
+        /* menu-mob */
+        jQuery('#menu-mob1').click(function () {
 
-			if(jQuery(this).hasClass('active')) {
-				jQuery(this).removeClass('active');
-				jQuery('.menu_auth').removeClass('mob-active');
-			} else {
-				jQuery(this).addClass('active');
-				jQuery('.menu_auth').addClass('mob-active');
-			}
+            if(jQuery(this).hasClass('active')) {
+                jQuery(this).removeClass('active');
+                jQuery('.menu_auth').removeClass('mob-active');
+            } else {
+                jQuery(this).addClass('active');
+                jQuery('.menu_auth').addClass('mob-active');
+            }
 
-		});
+        });
 
-		//close
-		jQuery('header .menu_auth .close-mob').click(function () {
+        //close
+        jQuery('header .menu_auth .close-mob').click(function () {
 
-			jQuery('#menu-mob1').removeClass('active');
-			jQuery('.menu_auth').removeClass('mob-active');
+            jQuery('#menu-mob1').removeClass('active');
+            jQuery('.menu_auth').removeClass('mob-active');
 
-		});
+        });
 
-		jQuery('#menu-mob2').click(function () {
+        jQuery('#menu-mob2').click(function () {
 
-			if(jQuery(this).hasClass('active')) {
-				jQuery(this).removeClass('active');
-				jQuery('.nav_header_other').removeClass('mob-active');
-			} else {
-				jQuery(this).addClass('active');
-				jQuery('.nav_header_other').addClass('mob-active');
-			}
+            if(jQuery(this).hasClass('active')) {
+                jQuery(this).removeClass('active');
+                jQuery('.nav_header_other').removeClass('mob-active');
+            } else {
+                jQuery(this).addClass('active');
+                jQuery('.nav_header_other').addClass('mob-active');
+            }
 
-		});
+        });
 
-		//close
-		jQuery('.nav_header_other .close-mob').click(function () {
+        //close
+        jQuery('.nav_header_other .close-mob').click(function () {
 
-			jQuery('#menu-mob2').removeClass('active');
-			jQuery('.nav_header_other').removeClass('mob-active');
+            jQuery('#menu-mob2').removeClass('active');
+            jQuery('.nav_header_other').removeClass('mob-active');
 
-		});
+        });
 
-		/*end menu-mob */
+        /*end menu-mob */
 
-		/*jQuery('.butt_search').click(function() {
-			jQuery('header .container.row_2 .right-box>form').submit();
-		})*/
+        /*jQuery('.butt_search').click(function() {
+         jQuery('header .container.row_2 .right-box>form').submit();
+         })*/
     });
 </script>
 <script type="text/javascript" charset="utf-8">
     window.onload = function () {
 
         //init select
-        jQuery('.personalities_select_country option').removeAttr('selected');
-        jQuery('.company_select_country option').removeAttr('selected');
-
-        jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
-        jQuery('.company_select_country option:first-child').attr('selected', 'selected');
+//        jQuery('.personalities_select_country option').removeAttr('selected');
+//        jQuery('.company_select_country option').removeAttr('selected');
+//
+//        jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
+//        jQuery('.company_select_country option:first-child').attr('selected', 'selected');
 
         //date
         var $w = jQuery('select.start_period option:selected').attr('data-week');
@@ -1140,19 +923,19 @@ $y = date("Y");
 </script>
 @yield('scripts')
 
-  <script>
+<script>
     var showModalBugs = function() {
-      $('.bugs').toggleClass('active');
-      $('.modal__bugs').toggleClass('active');
-      $('body').toggleClass('active');
+        $('.bugs').toggleClass('active');
+        $('.modal__bugs').toggleClass('active');
+        $('body').toggleClass('active');
     }
 
     var closeModal = function () {
-      $('.bugs').toggleClass('active');
-      $('.modal__bugs').toggleClass('active');
-      $('body').toggleClass('active');
+        $('.bugs').toggleClass('active');
+        $('.modal__bugs').toggleClass('active');
+        $('body').toggleClass('active');
     }
-  </script>
+</script>
 
 <script src="{{asset('js/script.js')}}"></script>
 

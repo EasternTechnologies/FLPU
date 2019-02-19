@@ -43,7 +43,7 @@ class VvttypesController extends Controller
             return ['error'=>$error];
             die();
         }
-		$vvt= VvtType::create($request->except('_token'));
+        $vvt= VvtType::create($request->except('_token'));
         return response()->json($vvt);
     }
 
@@ -78,9 +78,9 @@ class VvttypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-	    $tag = VvtType::find($id);
-	    $tag->title = $request->data['title'];
-	    $tag->save();
+        $tag = VvtType::find($id);
+        $tag->title = $request->title;
+        $tag->save();
     }
 
     /**
@@ -92,6 +92,6 @@ class VvttypesController extends Controller
     public function destroy($id)
     {
         $vvt = VvtType::find($id);
-		$vvt->delete();
+        $vvt->delete();
     }
 }
