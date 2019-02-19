@@ -90,6 +90,38 @@ $(document).on('click','.pdf-reset',function () {
 });
 
 
+function make_form(ids,url) {
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", url);
+    form.setAttribute("target", '_blank');
+
+    for (var i in ids) {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'id[]';
+        input.value = ids[i];
+        form.appendChild(input);
+    }
+
+    var token = $('meta[name=csrf-token]').attr("content");
+
+    input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = '_token';
+    input.value = token;
+    form.appendChild(input);
+
+    input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = '_method';
+    input.value = 'POST';
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
 $(document).on('click','.show_pdf_search_choose',function () {
 
     if(getCookie('pdfitems')) {
@@ -100,35 +132,7 @@ $(document).on('click','.show_pdf_search_choose',function () {
     }
 
     if(ids.length) {
-        var form = document.createElement("form");
-        form.setAttribute("method", "post");
-        form.setAttribute("action", document.URL + '/1' );
-        form.setAttribute("target", '_blank');
-
-        for (var i in ids) {
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'id[]';
-            input.value = ids[i];
-            form.appendChild(input);
-        }
-
-        var token = $('meta[name=csrf-token]').attr("content");
-
-        input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = '_token';
-        input.value = token;
-        form.appendChild(input);
-
-        input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = '_method';
-        input.value = 'POST';
-        form.appendChild(input);
-
-        document.body.appendChild(form);
-        form.submit();
+        make_form(ids,document.URL + '/1');
     }
 });
 
@@ -142,37 +146,12 @@ $(document).on('click','.show_pdf_search',function () {
     }
 
     if(ids.length) {
-        var form = document.createElement("form");
-        form.setAttribute("method", "post");
-        form.setAttribute("action", '/pdf_search');
-        form.setAttribute("target", '_blank');
-
-        for (var i in ids) {
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'id[]';
-            input.value = ids[i];
-            form.appendChild(input);
-        }
-
-        var token = $('meta[name=csrf-token]').attr("content");
-
-        input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = '_token';
-        input.value = token;
-        form.appendChild(input);
-
-        input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = '_method';
-        input.value = 'POST';
-        form.appendChild(input);
-
-        document.body.appendChild(form);
-        form.submit();
+        make_form(ids,'/pdf_search')
     }
 });
+
+
+
 
 $( document ).ready(function () {
     $('input[data-result="1"]').click();

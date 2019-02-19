@@ -89,7 +89,7 @@
                     <p class="mb30"><strong>Раздел: </strong>
                     <span class="italic_14">{{$article->category->title }} </span></p>
                     @endif
-                <div class="content_text">{!!   $article->description !!}</div>
+                <div class="content_text">{!!  $article->description !!}</div>
                 <div class="gallery_img_content mb30">
                     @if(isset($article->images))
                         @foreach($article->images as $image)
