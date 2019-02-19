@@ -514,3 +514,14 @@ body.active::after {
 .bugs-form__block--submit {
   text-align: center;
 }
+
+.row_fixed_bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 10px 0;
+  background: #ffffff;
+}
