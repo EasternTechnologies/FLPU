@@ -261,7 +261,7 @@
         @if(Request::url() == URL::previous())
 		    <a href="/" class="button butt_back">Все отчеты</a>
 		@else
-			<a href="{{ URL::previous() }}" class="button butt_back">Назад</a>
+			<a href="/report/{{ $report->types->slug }}" class="button butt_back">Назад</a>
 		@endif
 			
         @if($report->status == 1)
