@@ -524,28 +524,14 @@ body.active::after {
   text-align: center;
 }
 
-.search_block {
-  position: relative;
+.fixed_bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 10px 0;
+  background: #ffffff;
 }
 
-.pdf-checkbox {
-  position: absolute;
-  right: 20px;
-  top:20px;
-  display: flex;
-  align-items: center;
-}
-.pdf-checkbox input {
-  height: unset;
-}
-
-button:disabled {
-  border-color: graytext;
-  color:graytext;
-}
-
-button:disabled:hover {
-  border-color: graytext!important;
-  color:graytext!important;
-  background: white!important;
-}
