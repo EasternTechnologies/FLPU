@@ -328,9 +328,15 @@ class HomeController extends Controller
         return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types','isadvantage'));
     }
 
-	public function choosen_results(Request $request)
+	public function search_choose(Request $request)
 	{
-		
+//		dump($request->all());
+		if(count($request->id)){
+			$articles = ArticleReports::whereIn('id',$request->id)->get();
+		}
+//		dump($articles);
+		$choose = true;
+		return view('user.advan_search_result', compact('articles','choose'));
 	}
 
     public function findbytagsinalltables ( $countries, $companies, $vvt_types, $personalities, $start_period, $end_period, &$articles ) {

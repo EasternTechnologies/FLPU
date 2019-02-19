@@ -36,6 +36,7 @@ Route::middleware('checkuser')->group(function()
 	Route::get('/report', 'User\HomeController@index')->name('home');
     Route::post('/api/search', 'User\HomeController@apisearch');
     Route::get('/search/form', 'User\HomeController@advanced_search_form');
+	Route::post('/search/choose','User\HomeController@search_choose');
 	Route::get('/search/{q?}', 'User\HomeController@advanced_search');
     Route::post('/search', 'User\HomeController@advanced_search');
     Route::get('/simply_search', 'User\HomeController@search');
@@ -155,6 +156,9 @@ Route::get('/pdf_item/{id}', 'Pdf\PdfController@pdf_item');
 Route::get('/pdf_category/{report_id}/{category_id}', 'Pdf\PdfController@pdf_category');
 
 Route::post('/pdf_search','Pdf\PdfController@pdf_search');
+
+
+
 
 //Route::get('/{report}/pdf_category/{id}/{cat_id?}', 'Pdf\PdfController@pdf_category');
 

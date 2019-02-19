@@ -60,11 +60,11 @@ $(document).on('click','.pdf-checkbox input', function (eo) {
 
     if(index!=-1) {
         ids.splice(index,1);
-        if(!ids.length)  $('.show_pdf_search, .show_pdf_search_choose').prop('disabled',true);
+        if(!ids.length)  $('.show_pdf_search, .show_pdf_search_choose,.show_pdf_for_search').prop('disabled',true);
     }
     else {
         ids.push($(this).val());
-        $('.show_pdf_search, .show_pdf_search_choose').prop('disabled',false);
+        $('.show_pdf_search, .show_pdf_search_choose,.show_pdf_for_search').prop('disabled',false);
     }
     setCookie('pdfitems',JSON.stringify(ids),{'path':'/'});
 });
@@ -77,10 +77,10 @@ if(ids) {
     }
     else
     {
-        $('.show_pdf_search, .show_pdf_search_choose').prop('disabled',true);
+        $('.show_pdf_search, .show_pdf_search_choose,.show_pdf_for_search').prop('disabled',true);
     }
 }
-else $('.show_pdf_search, .show_pdf_search_choose').prop('disabled',true);
+else $('.show_pdf_search, .show_pdf_search_choose,.show_pdf_for_search').prop('disabled',true);
 
 
 $(document).on('click','.pdf-reset',function () {
@@ -90,68 +90,58 @@ $(document).on('click','.pdf-reset',function () {
 });
 
 
-function make_form(ids,url) {
-    var form = document.createElement("form");
-    form.setAttribute("method", "post");
-    form.setAttribute("action", url);
-    form.setAttribute("target", '_blank');
+function make_form(url) {
 
-    for (var i in ids) {
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'id[]';
-        input.value = ids[i];
-        form.appendChild(input);
+    if(getCookie('pdfitems')) {
+        var ids = JSON.parse(getCookie('pdfitems'));
     }
+    else {
+        var ids = [];
+    }
+    if(ids.length) {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", url);
+        form.setAttribute("target", '_blank');
 
-    var token = $('meta[name=csrf-token]').attr("content");
+        for (var i in ids) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'id[]';
+            input.value = ids[i];
+            form.appendChild(input);
+        }
 
-    input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = '_token';
-    input.value = token;
-    form.appendChild(input);
+        var token = $('meta[name=csrf-token]').attr("content");
 
-    input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = '_method';
-    input.value = 'POST';
-    form.appendChild(input);
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = '_token';
+        input.value = token;
+        form.appendChild(input);
 
-    document.body.appendChild(form);
-    form.submit();
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = '_method';
+        input.value = 'POST';
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
 }
 
 $(document).on('click','.show_pdf_search_choose',function () {
-
-    if(getCookie('pdfitems')) {
-        var ids = JSON.parse(getCookie('pdfitems'));
-    }
-    else {
-        var ids = [];
-    }
-
-    if(ids.length) {
-        make_form(ids,document.URL + '/1');
-    }
+        make_form(document.URL + '/1');
 });
 
 $(document).on('click','.show_pdf_search',function () {
-
-    if(getCookie('pdfitems')) {
-        var ids = JSON.parse(getCookie('pdfitems'));
-    }
-    else {
-        var ids = [];
-    }
-
-    if(ids.length) {
-        make_form(ids,'/pdf_search')
-    }
+        make_form('/pdf_search')
 });
 
-
-
+$(document).on('click','.show_pdf_for_search',function () {
+    make_form('/search/choose');
+});
 
 $( document ).ready(function () {
     $('input[data-result="1"]').click();

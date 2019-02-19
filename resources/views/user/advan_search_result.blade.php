@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(empty($choose))
     <div class="pagination">{{ $articles->links() }}</div>
     <h3 class="full_row_center title">Результаты поиска</h3>
-
+    @else
+        <h3 class="full_row_center title">Выборка из поиска</h3>
+    @endif
 
     @if(!empty($isadvantage))
     <div class="container border search_result_box">
@@ -105,13 +108,17 @@
 
                 </div>
             @endforeach
+                @if(empty($choose))
                 <div class="pagination">{{ $articles->links() }}</div>
+                @endif
         @endif
 
 
         <div class="row box_save_article mt30">
             <a href="{{ URL::previous() }}" class="button butt_back">Назад</a>
-            <button class="button butt_def show_pdf_search_choose">Показать выборку</button>
+            @if(empty($choose))
+            <button class="button butt_def show_pdf_for_search">Показать выборку</button>
+            @endif
             <button class="button butt_def show_pdf_search">Выборка в PDF</button>
         </div>
     </div>
