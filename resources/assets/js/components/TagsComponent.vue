@@ -168,21 +168,22 @@
                 <div class="popup_tag_form_box">
                     <input class="title_tag" name="title_tag" value="">
 
-                    <div v-if="name_tag == 'company' || name_tag == 'personalities'" class="select_wrap">
+                    <div v-if="name_tag == 'company' || name_tag == 'personalities'" class="select_wrap d-none">
                         <select name="company_select_country" v-model="tocountries" @change="pushtocountryupdate()" class="company_select_country_edit">
                             <option value="" disabled selected>--Страна--</option>
                             <option v-for="country in countries" :value="country.id">{{country.title}}</option>
                         </select>
                     </div>
 
-                    <div v-if="name_tag == 'company'" class="select_wrap">
+                    <div v-if="name_tag == 'company'" class="select_wrap d-none">
                         <select name="company_select_vvt" v-model="tovvt" @change="pushtovvtupdate()" class="company_select_vvt_edit">
                             <option value="" disabled selected>--Тип ВВТ--</option>
                             <option v-for="vvt_type in vvt_types" :value="vvt_type.id">{{vvt_type.title}}</option>
                         </select>
                     </div>
 
-                    <div class="mb10 d-flex flex-column justify-content-center">
+                    <div class="mb10  flex-column justify-content-center d-none">
+                        <!--d-flex-->
                         <span class="out_country_select_edit pl20"></span>
                         <span v-if="name_tag == 'company'" class="out_vvt_select_edit pl20"></span>
                     </div>
