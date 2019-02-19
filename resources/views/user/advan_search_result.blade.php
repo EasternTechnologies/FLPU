@@ -114,7 +114,7 @@
         @endif
 
 
-        <div class="row box_save_article mt30">
+        <div class="row fixed_bottom box_save_article mt30">
             <a href="{{ URL::previous() }}" class="button butt_back">Назад</a>
             @if(empty($choose))
             <button class="button butt_def show_pdf_for_search">Показать выборку</button>
