@@ -14,7 +14,7 @@ $y = date("Y");
         @if($q)
             <h3 class="title">Выбранные документы</h3>
 
-            <div class="row box_save_article mt30">
+            <div class="row fixed_bottom box_save_article mt30">
                 <button id="drop_cookie" class="button butt_def show_pdf_search">Показать в PDF</button>
             </div>
         @endif
@@ -81,7 +81,7 @@ $y = date("Y");
                             @endif
                 @endforeach
             @endif
-            <div class="row box_save_article mt30">
+            <div class="row fixed_bottom box_save_article mt30">
                 @if(Request::url() == URL::previous())
                     <a href="/{{ $report->types->slug }}/" class="button butt_back">Все отчеты</a>
                 @else

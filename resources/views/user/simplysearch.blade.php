@@ -2,7 +2,7 @@
 
 @section('content')
     <h3 class="full_row_center title">Результаты поиска</h3>
-    <div class="row box_save_article mt30">
+    <div class="row fixed_bottom box_save_article mt30">
         <button class="button butt_def show_pdf_search">Показать в PDF</button>
     </div>
     <div class="container search_result_box_items">
@@ -52,7 +52,7 @@
                     @endforeach
         <div class="pagination">{{ $results->links() }}
         </div>
-                    <div class="row box_save_article mt30">
+                    <div class="row fixed_bottom box_save_article mt30">
                         <a href="{{ URL::previous() }}" class="button butt_back">Назад</a>
                         <button class="button butt_def show_pdf_search">Показать в PDF</button>
                     </div>
