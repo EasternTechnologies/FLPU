@@ -407,8 +407,8 @@ class ReportController extends Controller
         $place         = $request->input('place');
         $theme         = $request->input('title_1');
         $description   = $request->input('editor1');
-        $date_start    = $request->input('date_start');
-        $date_end      = $request->input('date_end');
+        $date_start    = $request->input('start_period');
+        $date_end      = $request->input('end_period');
         $countries     = $request->input('countries');
         $companies     = $request->input('companies');
         $personalities = $request->input('personalities');
