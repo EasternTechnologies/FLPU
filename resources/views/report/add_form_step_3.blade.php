@@ -151,14 +151,14 @@ $y = date("Y");
                     <span>Период с</span>
                     <span class="select_wrap calendar_wrap" style="display: none;">
 			        	<input name="start_period_picker" value="" class="calendar_start_3"/>
-			        	<input type="hidden" value="<?php echo $report->date_start; ?>" name="start_period">
+			        	<input type="hidden" value="<?php echo $report->date_start; ?>" name="date_start">
 		        	</span>
                 </div>
                 <div class="col-md-4 float_left d-flex  flex-column justify-content-center align-items-start box_right">
                     <span>Период по</span>
                     <span class="select_wrap calendar_wrap" style="display: none;">
 				        	<input name="end_period_picker" value="" class="calendar_end_3"/>
-				        	<input type="hidden" value="<?php echo $report->date_end; ?>" name="end_period">
+				        	<input type="hidden" value="<?php echo $report->date_end; ?>" name="date_end">
 				        </span>
                 </div>
 
