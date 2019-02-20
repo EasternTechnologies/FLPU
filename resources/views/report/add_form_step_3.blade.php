@@ -11,7 +11,7 @@ $y = date("Y");
         <form id="form" action="/report/{{ $report->types->slug }}/add3" method="post" enctype="multipart/form-data">
             <div class="row justify-content-center">
                 @if($report->types->slug == 'plannedexhibition')
-                    <h3>Ежегодный календарь "Перечень международных выставок вооружений и военной техники, планируемых к проведению в иностранных государствах" на {{ date('Y', $report->date_end) }} год.</h3>
+                    <h3>Ежегодный календарь "Перечень международных выставок вооружений и военной техники, планируемых к проведению в иностранных государствах" на {{ date('Y', $report->date_start) }} год.</h3>
                 @else
                 <h3>Создание материала для отчета</h3>
                 @endif
