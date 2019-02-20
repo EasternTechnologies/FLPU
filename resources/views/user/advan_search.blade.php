@@ -8,7 +8,7 @@ $y = date("Y");
 @section('content')
     <div class="container">
         <h3 class="full_row_center title">Расширенный поиск</h3>
-        <form action="/search" method="get">
+        <form action="/search" class="search_form_adv" method="get">
             @csrf
             <div class="col-md-12">
                 <div class="row row_panel">
@@ -140,7 +140,7 @@ $y = date("Y");
             {{--</div>--}}
 
             <tagsforsearch-component></tagsforsearch-component>
-
+            <input type="hidden" name="random_key_before" value="">
             <div class="row fixed_bottom box_save_article">
                 <button class="button_save butt butt_def pdf-reset">Поиск</button>
             </div>

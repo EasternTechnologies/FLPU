@@ -26,6 +26,7 @@ use App\Subcategory;
 use GuzzleHttp\Psr7\Request;
 
 use Illuminate\Http\Request as RequestSearchPdf;
+use Illuminate\Support\Facades\Redis;
 
 
 class PdfController extends Controller {
@@ -170,13 +171,19 @@ class PdfController extends Controller {
 /**********************************************************************************************************************/
 	public function pdf_search(RequestSearchPdf $request)
 	{
-        $articles = ArticleReports::whereIn('id',$request->id)->get()->sortBy('title');
+
+
+		$array = unserialize(Redis::get('search:key'.$request->random_key));
+
+        $articles = ArticleReports::whereIn('id',$array)->get()->sortBy('title');
         $format = ['format' => 'A4'];
         foreach ($articles as $article) {
                 $items[false][false] [] = $article;
         }
         $report_slug = 'search';
         $template = 'pdf.pdf_item';
+
+		Redis::del('search:key'.$request->random_key);
 
         $pdf = \PDF::loadView($template, compact('report', 'items','report_slug','descriptions'), [], $format);
         return $pdf->stream( 'Результаты поиска' .'.pdf' );

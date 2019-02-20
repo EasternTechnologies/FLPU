@@ -32,11 +32,17 @@
         methods: {
             search() {
                 if (this.q.length >= 2) {
-                document.cookie = "pdfitems=; path=/;"
-                    axios.post('/simply_search', {q: this.q}).then(response => {
-                        this.result = response.data;
-                        //console.log(response.data)
-                    })
+                document.cookie = "pdfitems=; path=/;";
+
+//                    axios.post('/api/redis', ).then(response => {
+//                        this.result = response.data;
+//                    console.log(response.data);
+//                })
+
+//                    axios.post('/simply_search', {q: this.q}).then(response => {
+//                        this.result = response.data;
+//                        console.log(response.data);
+//                    })
                 }
 
             },

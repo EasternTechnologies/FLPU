@@ -51799,9 +51799,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.q.length >= 2) {
                 document.cookie = "pdfitems=; path=/;";
+
                 axios.post('/simply_search', { q: this.q }).then(function (response) {
                     _this.result = response.data;
-                    //console.log(response.data)
+                    console.log(123);
+                    console.log(response.data);
                 });
             }
         },

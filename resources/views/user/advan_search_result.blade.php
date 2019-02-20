@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <input type="text" name="random_key" value="{{$random_key}}">
+
     @if(empty($choose))
     <div class="pagination">{{ $articles->links() }}</div>
     <h3 class="full_row_center title">Результаты поиска</h3>
@@ -81,7 +83,7 @@
                     </a>
                     <label class="pdf-checkbox">
                         <span class="span-checkbox">Выбрать</span>
-                        <input type="checkbox" value="{{$item->id}}"></span>
+                        <input type="checkbox" value="{{$item->id}}" @if(!empty($choose_array) && in_array($item->id,$choose_array) || !empty($choose)) checked @endif></span>
                     </label>
                     <p><!--strong>Анонс:</strong-->
                         {{ mb_substr(ltrim(html_entity_decode(strip_tags($item->description))),0,200) }}
@@ -107,19 +109,19 @@
                     @endif
 
                 </div>
-            @endforeach
-                @if(empty($choose))
-                <div class="pagination">{{ $articles->links() }}</div>
-                @endif
-        @endif
+                    @endforeach
+                        @if(empty($choose))
+                        <div class="pagination">{{ $articles->links() }}</div>
+                    @endif
+            @endif
 
 
         <div class="row fixed_bottom box_save_article mt30">
             <a href="{{ URL::previous() }}" class="button butt_back">Назад</a>
             @if(empty($choose))
-            <button class="button butt_def show_pdf_for_search">Показать выборку</button>
+            <button class="button butt_def show_pdf_for_search" @if(empty($choose_array)) disabled @endif>Показать выборку</button>
             @endif
-            <button class="button butt_def show_pdf_search">Выборка в PDF</button>
+            <button class="button butt_def show_pdf_search" @if(empty($choose_array)) disabled @endif>Выборка в PDF</button>
         </div>
     </div>
 
