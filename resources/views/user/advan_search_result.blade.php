@@ -89,7 +89,11 @@
                     <p>
                         <strong>Отчет: </strong>
                         <a class="report" href="/report/{{ $item->reports->types->slug }}/show/{{$item->report_id}}" target="_blank">
+                            @if( $item->reports->types->slug == 'various' )
+                            {{ $item->reports->title }}
+                            @else
                             {{ $item->reports->types->description }}
+                            @endif
                             @if ( $item->reports->types->slug == 'weekly' || $item->reports->types->slug == 'monthly' )
                              за период от {{date("d.m.Y",$item->reports->date_start)}} по {{date("d.m.Y",$item->reports->date_end)}}
                             @elseif( $item->reports->types->slug == 'plannedexhibition' || $item->reports->types->slug == 'countrycatalog' )
