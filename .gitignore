@@ -10,4 +10,4 @@ public/images/email_photo
 .idea
 .gitignore
 composer.phar
-!/public/templates/sb-admin-2
+!/public/templates/sb-admin-2/css
