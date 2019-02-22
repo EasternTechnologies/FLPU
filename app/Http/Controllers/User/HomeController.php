@@ -20,7 +20,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Redis;
-
+use PragmaRX\Tracker\Tracker;
 
 class HomeController extends Controller
 {
@@ -535,7 +535,7 @@ class HomeController extends Controller
 	public function predis()
 	{
 		Redis::set('test:key',5);
-		Redis::set('test:key2', serialize([1,2,3,4,5]));
+		Redis::set('test:key2', serialize(['key1'=>1,2,3,4,5]));
 
 		Redis::set('test:key3',15);
 		echo Redis::get('test:key');
@@ -545,4 +545,24 @@ class HomeController extends Controller
 		Redis::del('test:key');
 		dump(Redis::get('test:key'));
 	}
+
+	public function tracker()
+	{
+
+		dump(\Tracker::onlineUsers(1));
+		dump(\Tracker::pageViews(60 * 24 * 30));
+
+		$visitor = \Tracker::currentSession();
+
+		echo $visitor->device->platform ;
+		$users = \Tracker::users(1);
+		dump($users);
+
+		$events = \Tracker::events(60 * 24);
+
+		dump($events);
+
+	}
+
+
 }

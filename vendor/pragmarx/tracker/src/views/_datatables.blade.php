@@ -35,4 +35,25 @@ $(document).ready(function() {
             <?php echo $datatables_columns; ?>
         ]
     } );
+
+    {{--$('.sort').click(function () {--}}
+        {{--var sort = '';--}}
+        {{--if($(this).hasClass('all'))  sort = 'all';--}}
+        {{--if($(this).hasClass('logged'))  sort = 'logged';--}}
+        {{--if($(this).hasClass('unlogged'))  sort = 'unlogged';--}}
+
+        {{--$.ajax({--}}
+            {{--url:'{{$datatables_ajax_route}}',--}}
+            {{--method:'get',--}}
+            {{--data:{sort:sort},--}}
+            {{--success:function (result) {--}}
+            {{--console.log(result);--}}
+
+        {{--}--}}
+    {{--})--}}
+
+
+{{--})--}}
+
+
 } );

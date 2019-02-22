@@ -3,10 +3,15 @@
 namespace PragmaRX\Tracker\Vendor\Laravel\Controllers;
 
 use Bllim\Datatables\Facade\Datatables;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 use PragmaRX\Tracker\Vendor\Laravel\Facade as Tracker;
 use PragmaRX\Tracker\Vendor\Laravel\Support\Session;
+use Illuminate\Support\Facades\Input;
+use \Illuminate\Support\Facades\Session as DefaultSession;
+use App\User;
+use App\Role;
 
 class Stats extends Controller
 {
@@ -54,6 +59,27 @@ class Stats extends Controller
 
     public function visits(Session $session)
     {
+
+        $sort_array = [
+          'all'=>'Все',
+          'log'=>'Зарегистрированные',
+          'unlog'=>'Гости',
+          'admin'=>'Администраторы',
+          'analitic'=>'Аналитики',
+          'employee'=>'Сотрудники',
+          'user'=>'Пользователи',
+          'manager'=>'Менеджеры',
+        ];
+
+
+        $name = Input::get('name');
+
+        $sort = Input::get('sort');
+        if(empty($sort)) $sort = 'all';
+
+        DefaultSession::put('sort',$sort);
+        DefaultSession::put('name',$name);
+
         $datatables_data =
         [
             'datatables_ajax_route' => route('tracker.stats.api.visits'),
@@ -62,6 +88,7 @@ class Stats extends Controller
                 { "data" : "client_ip",   "title" : "'.trans('tracker::tracker.ip_address').'", "orderable": true, "searchable": true },
                 { "data" : "country",     "title" : "'.trans('tracker::tracker.country_city').'", "orderable": true, "searchable": true },
                 { "data" : "user",        "title" : "'.trans('tracker::tracker.user').'", "orderable": true, "searchable": true },
+                { "data" : "role",        "title" : "'.trans('tracker::tracker.role').'", "orderable": true, "searchable": true },
                 { "data" : "device",      "title" : "'.trans('tracker::tracker.device').'", "orderable": true, "searchable": true },
                 { "data" : "browser",     "title" : "'.trans('tracker::tracker.browser').'", "orderable": true, "searchable": true },
                 { "data" : "language",    "title" : "'.trans('tracker::tracker.language').'", "orderable": true, "searchable": true },
@@ -76,7 +103,9 @@ class Stats extends Controller
             ->with('sessions', Tracker::sessions($session->getMinutes()))
             ->with('title', ''.trans('tracker::tracker.visits').'')
             ->with('username_column', Tracker::getConfig('authenticated_user_username_column'))
-            ->with('datatables_data', $datatables_data);
+            ->with('datatables_data', $datatables_data)
+            ->with('sort',$sort)->with('name',$name)
+            ->with('sort_array',$sort_array);
     }
 
     public function log($uuid)
@@ -244,24 +273,59 @@ class Stats extends Controller
 
     public function apiVisits(Session $session)
     {
+
+        $name = '';
+
+        $sort = DefaultSession::get('sort');
+        $name = DefaultSession::get('name');
+
         $username_column = Tracker::getConfig('authenticated_user_username_column');
 
         $query = Tracker::sessions($session->getMinutes(), false);
 
         $query->select([
-                'id',
-                'uuid',
-                'user_id',
-                'device_id',
-                'agent_id',
-                'client_ip',
-                'referer_id',
-                'cookie_id',
-                'geoip_id',
-                'language_id',
-                'is_robot',
-                'updated_at',
+            'id',
+            'uuid',
+            'user_id',
+            'device_id',
+            'agent_id',
+            'client_ip',
+            'referer_id',
+            'cookie_id',
+            'geoip_id',
+            'language_id',
+            'is_robot',
+            'updated_at',
         ]);
+
+
+        switch ($sort) {
+
+            case 'log': $query->where('user_id','!=',null); break;
+
+            case 'unlog':  $query->where('user_id',null); break;
+
+            case 'admin': {
+               $users = Role::where('id',1)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+            case 'analitic': {
+               $users = Role::where('id',5)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+            case 'employee': {
+                $users = Role::where('id',3)->first()->users->pluck('id')->toArray();$query->whereIn('user_id',$users); break;
+            }
+            case 'user': {
+                $users = Role::where('id',4)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+            case 'manager': {
+                $users = Role::where('id',2)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+        }
+        if($name) {
+            $users_name = User::where('surname','like','%'.$name.'%')->get()->pluck('id')->toArray();
+            $query->whereIn('user_id',$users_name);
+        }
+
 
         return Datatables::of($query)
                 ->edit_column('id', function ($row) use ($username_column) {
@@ -285,35 +349,51 @@ class Stats extends Controller
                 })
 
                 ->add_column('user', function ($row) use ($username_column) {
-	                return $row->user ? $row->user->name." ".$row->user->surname."<br>".$row->user->email : 'Гость';
+	                return $row->user ? $row->user->name." ".$row->user->surname."<br>".
+                        $row->user->email : 'Гость';
                 })
+
+                ->add_column('role', function ($row) use ($username_column) {
+                    return $row->user ? $row->user->roles()->first()->name: '';
+                })
+
 		        ->add_column('pages', function ($row) use ($username_column) {
 			       // return $row->log ? $row->log : '';
 			        if($row->log) {
-                if(count($row->log) > 1 ) {
-				        $pages = '';
-				        foreach ( $row->log as $key => $log ) {
+                        if(count($row->log) > 1 ) {
+                                $pages = '';
 
-                    if($key == 0 ) {
-                      $pages .= '<div class="show-list"><a href="'.$log->path->path.'">'.$log->path->path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br></div>';
-                    } elseif ($key == 1) {
-                      $pages .= '<div class="hide-list"><a href="'.$log->path->path.'">'.$log->path->path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br>';
-                    } else {
-                      $pages .= '<a href="'.$log->path->path.'">'.$log->path->path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br>';
-                    }
-					        
-				        }
-                  $pages .= '</div>';
-              } else {
+
+//                            dump($row->log);
+//                            dd($row->log->pluck('id')->toArray());
+
+//                                dd($row->log->count());
+//                                dd($row->log[0]->path);
+
+                            foreach ( $row->log as $key => $log ) {
+
+                                $path = $log->path->path;
+
+                                if($key == 0 ) {
+                                  $pages .= '<div class="show-list"><a href="'.$path.'">'.$path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br></div>';
+                                } elseif ($key == 1) {
+                                  $pages .= '<div class="hide-list"><a href="'.$path.'">'.$path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br>';
+                                } else {
+                                  $pages .= '<a href="'.$path.'">'.$path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br>';
+                                }
+
+                            }
+                          $pages .= '</div>';
+                      } else {
                 $pages = '';
                 foreach ( $row->log as $log ) {
 
 					        $pages .= '<a href="'.$log->path->path.'">'.$log->path->path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br>';
 				        }
               }
-              
+
                 return $pages;
-                
+
 			        } else {
 				        return '';
 			        }
