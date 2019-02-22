@@ -11,7 +11,7 @@ $y = date("Y");
         <form id="form" action="/report/{{ $report->types->slug }}/add3" method="post" enctype="multipart/form-data">
             <div class="row justify-content-center">
                 @if($report->types->slug == 'plannedexhibition')
-                    <h3>Ежегодный календарь "Перечень международных выставок вооружений и военной техники, планируемых к проведению в иностранных государствах" на {{ date('Y', $report->date_end) }} год.</h3>
+                    <h3>Ежегодный календарь "Перечень международных выставок вооружений и военной техники, планируемых к проведению в иностранных государствах" на {{ date('Y', $report->date_start) }} год.</h3>
                 @else
                 <h3>Создание материала для отчета</h3>
                 @endif
@@ -66,12 +66,12 @@ $y = date("Y");
                         <span>Дата: с</span>
                         <span class="select_wrap calendar_wrap" style="display: none;">
 			        	<input name="date_start" value="" class="calendar_start_3"/>
-			        	<input type="hidden" value="<?php echo mktime(0,0,0,$m,$d,$y); ?>" name="date_start">
+			        	<input type="hidden" value="<?php echo $report->date_start; ?>" name="start_period">
 		        	</span>
                         <span> по </span>
                         <span class="select_wrap calendar_wrap" style="display: none;">
 			        	<input name="date_end" value="" class="calendar_end_3"/>
-			        	<input type="hidden" value="<?php echo mktime(0,0,0,12,31,$y); ?>" name="date_end">
+			        	<input type="hidden" value="<?php echo $report->date_end; ?>" name="end_period">
 			    </span>
                     </p>
 
@@ -96,10 +96,10 @@ $y = date("Y");
                     <textarea name="editor1"></textarea>
                 </div>
             </div>
-            @if($report->types->slug != 'plannedexhibition')
+            {{--@if($report->types->slug != 'plannedexhibition')--}}
                 <div class="row justify-content-start mb_3">
                     <div class="coll_left">
-                        <span class="name">Галерея: </span>
+                        <span class="name">@if($report->types->slug != 'plannedexhibition')Галерея: @else Материалы: @endif</span>
                     </div>
                     <div class="coll_right d-flex justify-content-between box_add_gallery">
                         <?php $count_images = 0; ?>
@@ -125,7 +125,7 @@ $y = date("Y");
                         <div class="item_add_gallery item_num_<?php echo $count_images; ?>">
                             <label class="file_label" for="input_<?php echo $count_images; ?>">
                                 <input type="file" id="input_<?php echo $count_images; ?>" class="pic" name="pic[]" data-num="<?php echo $count_images; ?>" placeholder="Нажмите чтобы добавить"/>
-                                <span>Нажмите, чтобы добавить изображение</span>
+                                <span>Нажмите, чтобы добавить @if($report->types->slug != 'plannedexhibition') изображение @else материал @endif</span>
                                 <img src="#" class="pic_img num_<?php echo $count_images; ?>" alt=""/>
                             </label>
                             <b class="delete_img" tabindex="0">Удалить</b>
@@ -135,7 +135,7 @@ $y = date("Y");
                         ?>
                     </div>
                 </div>
-            @endif
+            {{--@endif--}}
             <div class="row box_save_article mt30">
                 <a href="{{ URL::previous() }}" class="button butt_back">Назад</a>
                 {{--<button class="button_save butt butt_def">Сохранить</button>--}}
@@ -144,6 +144,7 @@ $y = date("Y");
             <div class="row justify-content-center">
                 <h3 class="mb_0">Добавление поисковых меток</h3>
             </div>
+            @if($report->types->slug != 'plannedexhibition')
             <div class="row name_report name_report_step3 d-flex justify-content-center">
 
                 <div class="col-md-4 float_left d-flex  flex-column justify-content-center align-items-start box_left">
@@ -163,7 +164,7 @@ $y = date("Y");
                 </div>
 
             </div>
-
+            @endif
             </br>
             </br>
             </br>
@@ -205,7 +206,7 @@ $y = date("Y");
                 locale: 'ru-ru',
                 minDate: '<?php echo date("d.m.Y",$report->date_start); ?>',
                 maxDate: '<?php echo date("d.m.Y",$report->date_end); ?>',
-                value: '<?php echo date("d.m.Y",$report->date_start); ?>',
+                value: '<?php echo date("d.m.Y",$report->date_end); ?>',
                 format: 'dd.mm.yyyy',
 
             });
@@ -216,7 +217,7 @@ $y = date("Y");
 
                 var data_change = jQuery(this).val();
                 var arr = data_change.split('.');
-                var d = Number(arr[0]) + 1;
+                var d = Number(arr[0]);
                 var m = Number(arr[1]) - 1;
                 var y = Number(arr[2]);
                 var date = new Date(y,m,d).getTime()/1000;
@@ -229,7 +230,7 @@ $y = date("Y");
 
                 var data_change = jQuery(this).val();
                 var arr = data_change.split('.');
-                var d = Number(arr[0]) + 1;
+                var d = Number(arr[0]);
                 var m = Number(arr[1]) - 1;
                 var y = Number(arr[2]);
                 var date = new Date(y,m,d).getTime()/1000;
