@@ -83,50 +83,6 @@
               </div>
 
 	            <div class="col-lg-12">
-                <div class="statistics-filter">
-                  <form class="statistics-form">
-                    <p class="statistics-form__block">
-                      <label>
-                        Тип пользователя
-                        <select class="statistics-form__field" name="status">
-                          <option value="1">Все пользователи</option>
-                          <option value="2">Админ</option>
-                          <option value="3">Пользователь</option>
-                        </select>
-                      </label>
-                    </p>
-
-                    <p class="statistics-form__block statistics-form__block--date">
-                      <label>
-                        Период с
-                        <input class="statistics-form__field" type="date" name="dateFrom">
-                      </label>
-                      <label>
-                        по
-                        <input class="statistics-form__field" type="date" name="dateTo">
-                      </label>
-                    </p>
-
-                    <p class="statistics-form__block">
-                      <label>
-                        Показать
-                        <select class="statistics-form__field" name="count">
-                          <option value="100">100</option>
-                          <option value="50">50</option>
-                          <option value="25">25</option>
-                        </select>
-                        записей
-                      </label>
-                    </p>
-                    
-                    <p class="statistics-form__block statistics-form__block--search">
-                      <label>
-                        <input class="statistics-form__field" type="search" name="search" placeholder="Поиск по пользователям">
-                      </label>
-                      <button type="submit" aria-label="Отправить форму"></button>
-                    </p>
-                  </form>
-                </div>
 		            @yield('page-contents')
 	            </div>
             </div>
