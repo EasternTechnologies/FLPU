@@ -91,7 +91,16 @@
                     <p>
                         <strong>Отчет: </strong>
                         <a class="report" href="/report/{{ $item->reports->types->slug }}/show/{{$item->report_id}}" target="_blank">
-                            Еженедельный дайжест "Еженедельный обзор ВПО и ВТИ" за период от {{date("d.m.Y",$item->reports->date_start)}} по {{date("d.m.Y",$item->reports->date_end)}}
+                            @if( $item->reports->types->slug == 'various' )
+                            {{ $item->reports->title }}
+                            @else
+                            {{ $item->reports->types->description }}
+                            @endif
+                            @if ( $item->reports->types->slug == 'weekly' || $item->reports->types->slug == 'monthly' )
+                             за период от {{date("d.m.Y",$item->reports->date_start)}} по {{date("d.m.Y",$item->reports->date_end)}}
+                            @elseif( $item->reports->types->slug == 'plannedexhibition' || $item->reports->types->slug == 'countrycatalog' )
+                                за {{date("Y",$item->reports->date_start)}} год.
+                            @endif
                         </a>
                     </p>
                     @if($item->category_id != 0)
