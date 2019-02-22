@@ -73,16 +73,28 @@ class Stats extends Controller
           'manager'=>'Менеджеры',
         ];
 
+
+//        dump($session);
+
+
         $start = Input::get('start_date');
         $end = Input::get('end_date');
 
         $range = new Minutes();
 
-        $range->setStart(0);
+        if(empty($start) && empty($end)) {
+            $range->setStart(Carbon::now()->startOfDay());
+            $range->setEnd(Carbon::now()->endOfDay());
+        } else {
 
-        $range->setEnd(1000);
 
-        dump($range);
+            $range->setStart(Carbon::createFromTimestamp(strtotime($start)));
+            $range->setEnd(Carbon::createFromTimestamp(strtotime($end)));
+        }
+
+
+
+//        dump($range);
 
         $name = Input::get('name');
 
@@ -112,9 +124,9 @@ class Stats extends Controller
         ];
 
 
-        $query = Tracker::sessions($session->getMinutes(), false);
+        $query = Tracker::sessions($range, false);
 
-        dump($session->getMinutes());
+//        dump($session->getMinutes());
 
         $query->select([
             'id',
@@ -132,10 +144,37 @@ class Stats extends Controller
         ]);
 
 
+
+
+
+          switch ($sort) {
+
+            case 'log': $query->where('user_id','!=',null); break;
+
+            case 'unlog':  $query->where('user_id',null); break;
+
+            case 'admin': {
+               $users = Role::where('id',1)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+            case 'analitic': {
+               $users = Role::where('id',5)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+            case 'employee': {
+                $users = Role::where('id',3)->first()->users->pluck('id')->toArray();$query->whereIn('user_id',$users); break;
+            }
+            case 'user': {
+                $users = Role::where('id',4)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+            case 'manager': {
+                $users = Role::where('id',2)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+        }
+        if($name) {
+            $users_name = User::where('surname','like','%'.$name.'%')->get()->pluck('id')->toArray();
+            $query->whereIn('user_id',$users_name);
+        }
+
         dump($query->get());
-
-
-
 
 
         return View::make('pragmarx/tracker::index')
