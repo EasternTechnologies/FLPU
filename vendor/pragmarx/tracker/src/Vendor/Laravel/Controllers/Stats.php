@@ -73,6 +73,12 @@ class Stats extends Controller
           'manager'=>'Менеджеры',
         ];
 
+        $show_array = [
+            10,
+            25,
+            50,
+            100
+        ];
 
 //        dump($session);
 
@@ -95,9 +101,9 @@ class Stats extends Controller
 
 
 //        dump($range);
-
+        $show = Input::get('show');
+        if(empty($show)) $show = 25;
         $name = Input::get('name');
-
         $sort = Input::get('sort');
         if(empty($sort)) $sort = 'all';
 
@@ -145,8 +151,6 @@ class Stats extends Controller
 
 
 
-
-
           switch ($sort) {
 
             case 'log': $query->where('user_id','!=',null); break;
@@ -175,7 +179,8 @@ class Stats extends Controller
         }
 
         dump($query->get());
-
+        dump($query->paginate($show ));
+        $results = $query->paginate($show );
 
         return View::make('pragmarx/tracker::index')
             ->with('sessions', Tracker::sessions($session->getMinutes()))
@@ -183,7 +188,7 @@ class Stats extends Controller
             ->with('username_column', Tracker::getConfig('authenticated_user_username_column'))
             ->with('datatables_data', $datatables_data)
             ->with('sort',$sort)->with('name',$name)
-            ->with('sort_array',$sort_array);
+            ->with('sort_array',$sort_array)->with('results',$results)->with('show_array',$show_array);
     }
 
     public function log($uuid)
