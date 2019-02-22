@@ -13,6 +13,8 @@
         @endforeach
         </select>
 
+        от <input type="date" name="start_date">
+        до <input type="date" name="end_date">
 
         <input type="text" name="name" placeholder="Иван Иванов" value="{{$name}}">
         <input type="submit" value="Поиск">
@@ -27,5 +29,5 @@
 @stop
 
 @section('inline-javascript')
-    @include('pragmarx/tracker::_datatables', $datatables_data)
+    {{--@include('pragmarx/tracker::_datatables', $datatables_data)--}}
 @stop

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Input;
 use \Illuminate\Support\Facades\Session as DefaultSession;
 use App\User;
 use App\Role;
+use PragmaRX\Tracker\Support\Minutes;
+use Carbon\Carbon;
 
 class Stats extends Controller
 {
@@ -71,6 +73,16 @@ class Stats extends Controller
           'manager'=>'Менеджеры',
         ];
 
+        $start = Input::get('start_date');
+        $end = Input::get('end_date');
+
+        $range = new Minutes();
+
+        $range->setStart(0);
+
+        $range->setEnd(1000);
+
+        dump($range);
 
         $name = Input::get('name');
 
@@ -98,6 +110,33 @@ class Stats extends Controller
                 { "data" : "lastActivity","title" : "'.trans('tracker::tracker.last_activity').'", "orderable": true, "searchable": true },
             ',
         ];
+
+
+        $query = Tracker::sessions($session->getMinutes(), false);
+
+        dump($session->getMinutes());
+
+        $query->select([
+            'id',
+            'uuid',
+            'user_id',
+            'device_id',
+            'agent_id',
+            'client_ip',
+            'referer_id',
+            'cookie_id',
+            'geoip_id',
+            'language_id',
+            'is_robot',
+            'updated_at',
+        ]);
+
+
+        dump($query->get());
+
+
+
+
 
         return View::make('pragmarx/tracker::index')
             ->with('sessions', Tracker::sessions($session->getMinutes()))
@@ -274,169 +313,169 @@ class Stats extends Controller
     public function apiVisits(Session $session)
     {
 
-        $name = '';
-
-        $sort = DefaultSession::get('sort');
-        $name = DefaultSession::get('name');
-
-        $username_column = Tracker::getConfig('authenticated_user_username_column');
-
-        $query = Tracker::sessions($session->getMinutes(), false);
-
-        $query->select([
-            'id',
-            'uuid',
-            'user_id',
-            'device_id',
-            'agent_id',
-            'client_ip',
-            'referer_id',
-            'cookie_id',
-            'geoip_id',
-            'language_id',
-            'is_robot',
-            'updated_at',
-        ]);
-
-
-        switch ($sort) {
-
-            case 'log': $query->where('user_id','!=',null); break;
-
-            case 'unlog':  $query->where('user_id',null); break;
-
-            case 'admin': {
-               $users = Role::where('id',1)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
-            }
-            case 'analitic': {
-               $users = Role::where('id',5)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
-            }
-            case 'employee': {
-                $users = Role::where('id',3)->first()->users->pluck('id')->toArray();$query->whereIn('user_id',$users); break;
-            }
-            case 'user': {
-                $users = Role::where('id',4)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
-            }
-            case 'manager': {
-                $users = Role::where('id',2)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
-            }
-        }
-        if($name) {
-            $users_name = User::where('surname','like','%'.$name.'%')->get()->pluck('id')->toArray();
-            $query->whereIn('user_id',$users_name);
-        }
-
-
-        return Datatables::of($query)
-                ->edit_column('id', function ($row) use ($username_column) {
-                    $uri = route('tracker.stats.log', $row->uuid);
-
-                    return '<a href="'.$uri.'">'.$row->id.'</a>';
-                })
-
-                ->add_column('country', function ($row) {
-                    $cityName = $row->geoip && $row->geoip->city ? ' - '.$row->geoip->city : '';
-
-                    $countryName = ($row->geoip ? $row->geoip->country_name : '').$cityName;
-
-                    $countryCode = strtolower($row->geoip ? $row->geoip->country_code : '');
-
-                    $flag = $countryCode
-                            ? "<span class=\"f16\"><span class=\"flag $countryCode\" alt=\"$countryName\" /></span></span>"
-                            : '';
-
-                    return "$flag $countryName";
-                })
-
-                ->add_column('user', function ($row) use ($username_column) {
-	                return $row->user ? $row->user->name." ".$row->user->surname."<br>".
-                        $row->user->email : 'Гость';
-                })
-
-                ->add_column('role', function ($row) use ($username_column) {
-                    return $row->user ? $row->user->roles()->first()->name: '';
-                })
-
-		        ->add_column('pages', function ($row) use ($username_column) {
-			       // return $row->log ? $row->log : '';
-			        if($row->log) {
-                        if(count($row->log) > 1 ) {
-                                $pages = '';
-
-
-//                            dump($row->log);
-//                            dd($row->log->pluck('id')->toArray());
-
-//                                dd($row->log->count());
-//                                dd($row->log[0]->path);
-
-                            foreach ( $row->log as $key => $log ) {
-
-                                $path = $log->path->path;
-
-                                if($key == 0 ) {
-                                  $pages .= '<div class="show-list"><a href="'.$path.'">'.$path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br></div>';
-                                } elseif ($key == 1) {
-                                  $pages .= '<div class="hide-list"><a href="'.$path.'">'.$path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br>';
-                                } else {
-                                  $pages .= '<a href="'.$path.'">'.$path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br>';
-                                }
-
-                            }
-                          $pages .= '</div>';
-                      } else {
-                $pages = '';
-                foreach ( $row->log as $log ) {
-
-					        $pages .= '<a href="'.$log->path->path.'">'.$log->path->path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br>';
-				        }
-              }
-
-                return $pages;
-
-			        } else {
-				        return '';
-			        }
-		        })
-
-                ->add_column('device', function ($row) use ($username_column) {
-                    $model = ($row->device && $row->device->model && $row->device->model !== 'unavailable' ? '['.$row->device->model.']' : '');
-
-                    $platform = ($row->device && $row->device->platform ? ' ['.trim($row->device->platform.' '.$row->device->platform_version).']' : '');
-
-                    $mobile = ($row->device && $row->device->is_mobile ? ' [mobile device]' : '');
-
-                    return $model || $platform || $mobile
-                            ? $row->device->kind.' '.$model.' '.$platform.' '.$mobile
-                            : '';
-                })
-
-                ->add_column('browser', function ($row) use ($username_column) {
-                    return $row->agent && $row->agent
-                            ? $row->agent->browser.' ('.$row->agent->browser_version.')'
-                            : '';
-                })
-
-                ->add_column('language', function ($row) use ($username_column) {
-                    return $row->language && $row->language
-                        ? $row->language->preference
-                        : '';
-                })
-
-                ->add_column('referer', function ($row) use ($username_column) {
-                    return $row->referer ? $row->referer->url : '';
-                })
-
-                ->add_column('pageViews', function ($row) use ($username_column) {
-                    return $row->page_views;
-                })
-
-                ->add_column('lastActivity', function ($row) use ($username_column) {
-                    //return $row->updated_at->diffForHumans();
-	                return date("d.m.Y",strtotime($row->updated_at));
-                })
-
-                ->make(true);
+//        $name = '';
+//
+//        $sort = DefaultSession::get('sort');
+//        $name = DefaultSession::get('name');
+//
+//        $username_column = Tracker::getConfig('authenticated_user_username_column');
+//
+//        $query = Tracker::sessions($session->getMinutes(), false);
+//
+//        $query->select([
+//            'id',
+//            'uuid',
+//            'user_id',
+//            'device_id',
+//            'agent_id',
+//            'client_ip',
+//            'referer_id',
+//            'cookie_id',
+//            'geoip_id',
+//            'language_id',
+//            'is_robot',
+//            'updated_at',
+//        ]);
+//
+//
+//        switch ($sort) {
+//
+//            case 'log': $query->where('user_id','!=',null); break;
+//
+//            case 'unlog':  $query->where('user_id',null); break;
+//
+//            case 'admin': {
+//               $users = Role::where('id',1)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+//            }
+//            case 'analitic': {
+//               $users = Role::where('id',5)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+//            }
+//            case 'employee': {
+//                $users = Role::where('id',3)->first()->users->pluck('id')->toArray();$query->whereIn('user_id',$users); break;
+//            }
+//            case 'user': {
+//                $users = Role::where('id',4)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+//            }
+//            case 'manager': {
+//                $users = Role::where('id',2)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+//            }
+//        }
+//        if($name) {
+//            $users_name = User::where('surname','like','%'.$name.'%')->get()->pluck('id')->toArray();
+//            $query->whereIn('user_id',$users_name);
+//        }
+//
+//
+//        return Datatables::of($query)
+//                ->edit_column('id', function ($row) use ($username_column) {
+//                    $uri = route('tracker.stats.log', $row->uuid);
+//
+//                    return '<a href="'.$uri.'">'.$row->id.'</a>';
+//                })
+//
+//                ->add_column('country', function ($row) {
+//                    $cityName = $row->geoip && $row->geoip->city ? ' - '.$row->geoip->city : '';
+//
+//                    $countryName = ($row->geoip ? $row->geoip->country_name : '').$cityName;
+//
+//                    $countryCode = strtolower($row->geoip ? $row->geoip->country_code : '');
+//
+//                    $flag = $countryCode
+//                            ? "<span class=\"f16\"><span class=\"flag $countryCode\" alt=\"$countryName\" /></span></span>"
+//                            : '';
+//
+//                    return "$flag $countryName";
+//                })
+//
+//                ->add_column('user', function ($row) use ($username_column) {
+//	                return $row->user ? $row->user->name." ".$row->user->surname."<br>".
+//                        $row->user->email : 'Гость';
+//                })
+//
+//                ->add_column('role', function ($row) use ($username_column) {
+//                    return $row->user ? $row->user->roles()->first()->name: '';
+//                })
+//
+//		        ->add_column('pages', function ($row) use ($username_column) {
+//			       // return $row->log ? $row->log : '';
+//			        if($row->log) {
+//                        if(count($row->log) > 1 ) {
+//                                $pages = '';
+//
+//
+////                            dump($row->log);
+////                            dd($row->log->pluck('id')->toArray());
+//
+////                                dd($row->log->count());
+////                                dd($row->log[0]->path);
+//
+//                            foreach ( $row->log as $key => $log ) {
+//
+//                                $path = $log->path->path;
+//
+//                                if($key == 0 ) {
+//                                  $pages .= '<div class="show-list"><a href="'.$path.'">'.$path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br></div>';
+//                                } elseif ($key == 1) {
+//                                  $pages .= '<div class="hide-list"><a href="'.$path.'">'.$path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br>';
+//                                } else {
+//                                  $pages .= '<a href="'.$path.'">'.$path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br>';
+//                                }
+//
+//                            }
+//                          $pages .= '</div>';
+//                      } else {
+//                $pages = '';
+//                foreach ( $row->log as $log ) {
+//
+//					        $pages .= '<a href="'.$log->path->path.'">'.$log->path->path.'</a><span> - '.date("H:i:s",strtotime($log->updated_at)).'</span><br>';
+//				        }
+//              }
+//
+//                return $pages;
+//
+//			        } else {
+//				        return '';
+//			        }
+//		        })
+//
+//                ->add_column('device', function ($row) use ($username_column) {
+//                    $model = ($row->device && $row->device->model && $row->device->model !== 'unavailable' ? '['.$row->device->model.']' : '');
+//
+//                    $platform = ($row->device && $row->device->platform ? ' ['.trim($row->device->platform.' '.$row->device->platform_version).']' : '');
+//
+//                    $mobile = ($row->device && $row->device->is_mobile ? ' [mobile device]' : '');
+//
+//                    return $model || $platform || $mobile
+//                            ? $row->device->kind.' '.$model.' '.$platform.' '.$mobile
+//                            : '';
+//                })
+//
+//                ->add_column('browser', function ($row) use ($username_column) {
+//                    return $row->agent && $row->agent
+//                            ? $row->agent->browser.' ('.$row->agent->browser_version.')'
+//                            : '';
+//                })
+//
+//                ->add_column('language', function ($row) use ($username_column) {
+//                    return $row->language && $row->language
+//                        ? $row->language->preference
+//                        : '';
+//                })
+//
+//                ->add_column('referer', function ($row) use ($username_column) {
+//                    return $row->referer ? $row->referer->url : '';
+//                })
+//
+//                ->add_column('pageViews', function ($row) use ($username_column) {
+//                    return $row->page_views;
+//                })
+//
+//                ->add_column('lastActivity', function ($row) use ($username_column) {
+//                    //return $row->updated_at->diffForHumans();
+//	                return date("d.m.Y",strtotime($row->updated_at));
+//                })
+//
+//                ->make(true);
     }
 
     private function isAuthenticated()
