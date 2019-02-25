@@ -14,6 +14,8 @@ use App\User;
 use App\Role;
 use PragmaRX\Tracker\Support\Minutes;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
 class Stats extends Controller
 {
@@ -147,9 +149,16 @@ class Stats extends Controller
             'language_id',
             'is_robot',
             'updated_at',
-        ]);
+        ]); //->groupBy(DB::raw("DATE_FORMAT(updated_at, 'd.m.Y')"));
+
+//dump($query->get()->pluck('id')->toArray());
 
 
+        $users = array_unique($query->pluck('user_id')->toArray());
+
+        $users = User::whereIn('id',$users)->get();
+
+//        dump($users->where('id',30)->first()->name);
 
           switch ($sort) {
 
@@ -178,16 +187,39 @@ class Stats extends Controller
             $query->whereIn('user_id',$users_name);
         }
 
-        dump($query->get());
-        dump($query->paginate($show ));
-        $results = $query->paginate($show );
+//        dd($query->paginate($show)->groupBy([function($date) {
+//            return Carbon::parse($date->updated_at)->format('d.m.Y');
+//        },'user_id'])
+//    );
+
+       // dump($query->get());
+
+      //  dump($query->paginate($show));
+
+        $results = $query->get()->groupBy([function($date) {
+            return Carbon::parse($date->updated_at)->format('d.m.Y');
+        },'user_id'])->take($show);
+
+        $count = $results->count();
+
+        $pages_count = ceil($count/$show);
+
+
+
+//        dd($results);
+
+
+
+//        $results->toArray();
+
+        dump($results);
 
         return View::make('pragmarx/tracker::index')
             ->with('sessions', Tracker::sessions($session->getMinutes()))
             ->with('title', ''.trans('tracker::tracker.visits').'')
             ->with('username_column', Tracker::getConfig('authenticated_user_username_column'))
             ->with('datatables_data', $datatables_data)
-            ->with('sort',$sort)->with('name',$name)
+            ->with('users_array',$users)
             ->with('sort_array',$sort_array)->with('results',$results)->with('show_array',$show_array);
     }
 

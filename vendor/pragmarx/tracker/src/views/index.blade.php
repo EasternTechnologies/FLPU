@@ -2,14 +2,15 @@
 
 @section('page-contents')
   <div class="statistics-filter"> 
-    <form class="statistics-form">
+    <form class="statistics-form" action="/stats" method="get">
       <p class="statistics-form__block">
         <label>
           Тип пользователя
-          <select class="statistics-form__field" name="status">
-            <option value="1">Все пользователи</option>
-            <option value="2">Админ</option>
-            <option value="3">Пользователь</option>
+
+          <select class="statistics-form__field" name="sort">
+              @foreach($sort_array as $eng=>$rus)
+                  <option value="{{$eng}}" @if(app('request')->input('sort')==$eng) selected @endif>{{$rus}}</option>
+              @endforeach
           </select>
         </label>
       </p>
@@ -17,21 +18,21 @@
       <p class="statistics-form__block statistics-form__block--date">
         <label>
           Период с
-          <input class="statistics-form__field" name="dateFrom" type="date">
+          <input class="statistics-form__field" name="start_date" type="date"  value="{{app('request')->input('start_date')}}">
         </label>
         <label>
           по
-          <input class="statistics-form__field" name="dateTo" type="date">
+          <input class="statistics-form__field" name="end_date" type="date" value="{{app('request')->input('end_date')}}">
         </label>
       </p>
 
       <p class="statistics-form__block">
         <label>
           Показать
-          <select class="statistics-form__field" name="count">
-            <option value="100">100</option>
-            <option value="50">50</option>
-            <option value="25">25</option>
+          <select class="statistics-form__field" name="show">
+              @foreach($show_array as $value)
+                  <option value="{{$value}}" @if(app('request')->input('show')==$value) selected @endif>{{$value}}</option>
+              @endforeach
           </select>
           записей
         </label>
@@ -39,7 +40,7 @@
       
       <p class="statistics-form__block statistics-form__block--search">
         <label>
-          <input class="statistics-form__field" name="search" type="search" placeholder="Поиск по пользователям">
+          <input class="statistics-form__field" name="name" type="search" placeholder="Поиск по пользователям" value="{{app('request')->input('name')}}">
         </label>
         <button type="submit" aria-label="Отправить форму"></button>
       </p>
@@ -59,38 +60,32 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>22.02.2019</td>
-          <td>Павел Лученок lutchin@gmail.com</td>
-          <td>Еженедельный обзор ВПО и ВВИ</td>
-          <td>10 старниц</td>
-          <td>1 час</td>
-          <td>1 час</td>
-        </tr>
-        <tr>
-          <td>22.02.2019</td>
-          <td>Павел Лученок lutchin@gmail.com</td>
-          <td>Еженедельный обзор ВПО и ВВИ</td>
-          <td>10 старниц</td>
-          <td>1 час</td>
-          <td>1 час</td>
-        </tr>
-        <tr>
-          <td>22.02.2019</td>
-          <td>Павел Лученок lutchin@gmail.com</td>
-          <td>Еженедельный обзор ВПО и ВВИ</td>
-          <td>10 старниц</td>
-          <td>1 час</td>
-          <td>1 час</td>
-        </tr>
-        <tr>
-          <td>22.02.2019</td>
-          <td>Павел Лученок lutchin@gmail.com</td>
-          <td>Еженедельный обзор ВПО и ВВИ</td>
-          <td>10 старниц</td>
-          <td>1 час</td>
-          <td>1 час</td>
-        </tr>
+      @foreach($results as $date=>$users)
+        @foreach($users as $user_id=>$sessions)
+          <tr>
+              <td>{{$date}}</td>
+              <td>
+                @if(empty($user_id))
+                  Гость
+                @else
+                      {{$users_array->where('id',$user_id)->first()->name}} {{$users_array->where('id',$user_id)->first()->surname}}
+                  <br>{{$users_array->where('id',$user_id)->first()->email}}
+                @endif
+              </td>
+            <td>
+
+            @forelse(Helper::logsInfo($sessions)[0] as $cat)
+              {{$cat}} <br>
+              @empty
+                Нету
+              @endforelse
+            </td>
+              <td>{{Helper::logsCount($sessions)}}</td>
+              <td>{{Helper::logsInfo($sessions)[1]}}</td>
+              <td>{{Helper::logsInfo($sessions)[2]}}</td>
+          </tr>
+        @endforeach
+      @endforeach
       </tbody>
     </table>
   </div>
@@ -119,5 +114,8 @@
 @stop
 
 <!-- @section('inline-javascript')
-    @include('pragmarx/tracker::_datatables', $datatables_data)
+    {{--@include('pragmarx/tracker::_datatables', $datatables_data)--}}
 @stop -->
+
+
+
