@@ -41,13 +41,6 @@ Route::middleware('checkuser')->group(function()
     Route::post('/search', 'User\HomeController@advanced_search');
     Route::get('/simply_search', 'User\HomeController@search');
 	Route::post('/simply_search', 'User\HomeController@search');
-//	Route::get('/migrate', 'Migrate\MigrateController@migrate');
-//	Route::get('/migrate_one', 'Migrate\MigrateController@migrate_one');
-//	Route::get('/migrate_two', 'Migrate\MigrateController@migrate_two');
-//	Route::get('/migrate_three', 'Migrate\MigrateController@migrate_three');
-//	Route::get('/migrate_four', 'Migrate\MigrateController@migrate_four');
-//	Route::get('/migrate_five', 'Migrate\MigrateController@migrate_five');
-	Route::get('/delete', 'Migrate\MigrateController@delete');
 
     /*Bug*/
 	Route::post('/bug', 'User\HomeController@bug')->name('bug');
@@ -64,10 +57,6 @@ Route::middleware('checkuser')->prefix('/report/{slug}')->group(function()
     Route::post('/show/{report}/{q}', 'Report\ReportController@report_show');
 });
 
-Route::middleware('checkanalyst')->group(function()
-{
-	Route::get('/plannedexhibition/add2/{plannedexhibitionyear}', 'Analyst\PlannedexhibitionController@create2form');
-});
 /*
  * Analyst routes
  *
@@ -75,29 +64,34 @@ Route::middleware('checkanalyst')->group(function()
 Route::middleware('checkanalyst')->prefix('/report/{slug}')->group(function()
 {
    /*Report*/
-	Route::get('/add1', 'Report\ReportController@report_add_form');
-	Route::post('/add1', 'Report\ReportController@report_add');
-	Route::get('/add2/{report}', 'Report\ReportController@report_step_2');
-	Route::get('/add3/{report}/{category?}/{subcategory?}', 'Report\ReportController@report_step_3');
-	Route::put('/article_publish/{article}', 'Report\ReportController@article_publish' );
-	Route::post('/add3/{flag?}', 'Report\ReportController@create3');
-	Route::delete('/delete_article/{article}', 'Report\ReportController@delete_article');
-	Route::get('/upd/{article}', 'Report\ReportController@upd_form');
-	Route::put('/upd/{flag?}', 'Report\ReportController@update');
-	Route::put('/publish/{report}', 'Report\ReportController@publish');
-	Route::get('/updreport/{report}', 'Report\ReportController@updreportform');
-	Route::post('/updreport/{report}', 'Report\ReportController@updreport');
-	Route::delete('/deletereport/{report}', 'Report\ReportController@delete_report');
-	Route::post('/addcategory', 'Report\ReportController@createcategory');
-	Route::get('/addcategory/{report}', 'Report\ReportController@createcategoryform');
-	Route::delete('/deletecategory/{category}', 'Report\ReportController@delete_category');
-	Route::post('/addsubcategory', 'Report\ReportController@createsubcategory');
-	Route::delete('/deletesubcategory/{subcategory}', 'Report\ReportController@delete_subcategory');
-	Route::get('/upd_category/{category}', 'Report\ReportController@upd_form_category');
-	Route::put('/upd_category/{category}', 'Report\ReportController@update_category');
-	Route::get('/upd_subcategory/{subcategory}', 'Report\ReportController@upd_form_subcategory');
-	Route::put('/upd_subcategory/{subcategory}', 'Report\ReportController@update_subcategory');
-	Route::delete('{article}/deletearticle', 'Report\ReportController@delete_article');
+	Route::get('/add1', 'Report\CreateController@report_add_form');
+	Route::post('/add1', 'Report\CreateController@report_add');
+	Route::get('/add2/{report}', 'Report\CreateController@report_step_2');
+	Route::get('/add3/{report}/{category?}/{subcategory?}', 'Report\CreateController@report_step_3');
+	Route::post('/add3/{flag?}', 'Report\CreateController@create3');
+	Route::get('/addcategory/{report}', 'Report\CreateController@createcategoryform');
+	Route::post('/addsubcategory', 'Report\CreateController@createsubcategory');
+	Route::post('/addcategory', 'Report\CreateController@createcategory');
+
+
+	Route::put('/article_publish/{article}', 'Report\UpdateController@article_publish' );
+	Route::put('/publish/{report}', 'Report\UpdateController@publish');
+
+
+	Route::get('/updreport/{report}', 'Report\UpdateController@updreportform');
+	Route::post('/updreport/{report}', 'Report\UpdateController@updreport');
+	Route::get('/upd/{article}', 'Report\UpdateController@upd_form');
+	Route::put('/upd/{flag?}', 'Report\UpdateController@update');
+	Route::get('/upd_category/{category}', 'Report\UpdateController@upd_form_category');
+	Route::put('/upd_category/{category}', 'Report\UpdateController@update_category');
+	Route::get('/upd_subcategory/{subcategory}', 'Report\UpdateController@upd_form_subcategory');
+	Route::put('/upd_subcategory/{subcategory}', 'Report\UpdateController@update_subcategory');
+
+
+	Route::delete('/delete_article/{article}', 'Report\DeleteController@delete_article');
+	Route::delete('/deletereport/{report}', 'Report\DeleteController@delete_report');
+	Route::delete('/deletecategory/{category}', 'Report\DeleteController@delete_category');
+	Route::delete('/deletesubcategory/{subcategory}', 'Report\DeleteController@delete_subcategory');
 
 });
 
@@ -129,6 +123,15 @@ Route::middleware('checkadmin')->group(function()
     /*ElasticIndex*/
 	//Route::get('/index', 'User\HomeController@indexes');
 
+	/*Migrate*/
+//	Route::get('/migrate', 'Migrate\MigrateController@migrate');
+//	Route::get('/migrate_one', 'Migrate\MigrateController@migrate_one');
+//	Route::get('/migrate_two', 'Migrate\MigrateController@migrate_two');
+//	Route::get('/migrate_three', 'Migrate\MigrateController@migrate_three');
+//	Route::get('/migrate_four', 'Migrate\MigrateController@migrate_four');
+//	Route::get('/migrate_five', 'Migrate\MigrateController@migrate_five');
+//	Route::get('/delete', 'Migrate\MigrateController@delete');
+
 
 });
 
@@ -137,13 +140,9 @@ Route::middleware('checkadmin')->group(function()
  * */
 
 Route::get('/pdf_subcategory/{report_id}/{cat_id}/{sub_id}', 'Pdf\PdfController@pdf_subcategory');
-
 Route::get('/pdf_article/{id}', 'Pdf\PdfController@pdf_article');
-
 Route::get('/pdf_item/{id}', 'Pdf\PdfController@pdf_item');
-
 Route::get('/pdf_category/{report_id}/{category_id}', 'Pdf\PdfController@pdf_category');
-
 Route::post('/pdf_search','Pdf\PdfController@pdf_search');
 
 
