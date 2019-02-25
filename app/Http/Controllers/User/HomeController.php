@@ -245,7 +245,7 @@ class HomeController extends Controller
 					        //если одна запись вытянулась на каждый тег
 					        if ( $value->count() == $tags_count ) {
 						        //добавляем ее в массив, передаваемый во вьюху
-						        $strong = $strong->concat($value);
+						        $strong = $strong->concat($value)->keyBy('id');
 					        }
 				        };
 			        }
@@ -298,7 +298,7 @@ class HomeController extends Controller
 					        //если одна запись вытянулась на каждый тег
 					        if ( $value->count() == $tags_count ) {
 						        //добавляем ее в массив, передаваемый во вьюху
-						        $strong = $strong->concat($value);
+						        $strong = $strong->concat($value)->keyBy('id');
 					        }
 				        };
 			        }
