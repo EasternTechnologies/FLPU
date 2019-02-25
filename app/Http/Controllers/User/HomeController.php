@@ -71,8 +71,6 @@ class HomeController extends Controller
     }
 
     public function search ( Request $request) {
-
-
 	    if($request->ajax()){
 
 		    $q = $request->q;
@@ -83,25 +81,15 @@ class HomeController extends Controller
 
 	    }
 
-		//$results = ArticleReports::search($q)->active()->paginate(40);
-
 	    $articles = ArticleReports::search($q, $size = 10000);
-//dd($results);
+
 		$articles = $this->paginate($articles, 20);
 
 		$articles->appends($request->all())->setPath('/simply_search');
 
 	    if($request->ajax()){
-
-//		    foreach( $results as $article) {
-//
-//			   $article->titleTags($article->title);
-//
-//            }
 		    return   $articles;
 	    }
-//dd($request);
-//        return view('user.simplysearch', compact('results'));
         return view('user.advan_search_result', compact('articles'));
     }
 
@@ -330,11 +318,9 @@ class HomeController extends Controller
 
 	public function search_choose(Request $request)
 	{
-//		dump($request->all());
 		if(count($request->id)){
 			$articles = ArticleReports::whereIn('id',$request->id)->get();
 		}
-//		dump($articles);
 		$choose = true;
 		return view('user.advan_search_result', compact('articles','choose'));
 	}
@@ -373,70 +359,7 @@ class HomeController extends Controller
 
         }
 
-        //Получаем количество отмеченных тегов
-//        $tags_count = $countries->count() + $companies->count() + $vvt_types->count() + $personalities->count();
-//        //отбираем недельные статьи которые вытянулсь на каждый тег
-//        if ( isset($articles) ) {
-//            //группируем все стаьи
-//            foreach ( collect($articles)->groupBy('id') as $value ) {
-//                //если одна запись вытянулась на каждый тег
-//                if ( $value->count() == $tags_count ) {
-//                    //добавляем ее в массив, передаваемый во вьюху
-//                    $strong = $value->first();
-//                }
-//            };
-//        }
-
-
-        //$articles = isset($strong) ? $strong : collect([]);
-//dd($articles);
         return $articles;
-    }
-
-    public function apisearch ( Request $request ) {
-
-        if ( $request->input('q') != '' ) {
-            $result = [];
-            $q      = strip_tags($request->input('q'));
-
-            if ( !strlen($q) ) {
-                return 0;
-            }
-
-            $plannedexibitions = Plannedexhibition::search($q)->active()->take(5)->get();
-            if ( $plannedexibitions->count() != 0 ) {
-                $result[ 'plannedexhibition' ] = $plannedexibitions;
-            }
-            /* $exibitions = Exhibition::search($q, NULL, TRUE, TRUE)->active()->take(2)->get();
-             if ( $exibitions->count() != 0 ) {
-                 $result[ 'exhibition' ] = $exibitions;
-             }*/
-            $weeklyarticle = Weeklyarticle::search($q)->active()->take(2)->get();
-            if ( $weeklyarticle->count() != 0 ) {
-                $result[ 'weekly' ] = $weeklyarticle;
-            }
-            $monthlyarticle = Monthlyarticle::search($q)->active()->take(2)->get();
-            if ( $monthlyarticle->count() != 0 ) {
-                $result[ 'monthly' ] = $monthlyarticle;
-            }
-            $variousarticle = Variousarticle::search($q)->active()->take(2)->get();
-            if ( $variousarticle->count() != 0 ) {
-                $result[ 'various' ] = $variousarticle;
-            }
-            $infocountries = InfoCountry::search($q)->active()->take(2)->get();
-            if ( $infocountries->count() != 0 ) {
-                $result[ 'countrycatalog' ] = $infocountries;
-            }
-            $yearlyarticles = Yearlyarticle::search($q)->active()->take(2)->get();
-            if ( $yearlyarticles->count() != 0 ) {
-                $result[ 'yearly' ] = $yearlyarticles;
-            }
-
-            return $result;
-        }
-        else {
-            return 0;
-        }
     }
 
 	public function paginate($items, $perPage = 40, $page = null, $options = [])
@@ -503,7 +426,6 @@ class HomeController extends Controller
 
     public function indexes() {
 
-	   // ArticleReports::deleteIndex();
     	ArticleReports::putMapping($ignoreConflicts = true);
     	ArticleReports::addAllToIndex();
 

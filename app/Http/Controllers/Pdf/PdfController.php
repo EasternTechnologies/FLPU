@@ -4,26 +4,8 @@ namespace App\Http\Controllers\Pdf;
 use App\ArticleReports;
 use App\Report;
 use App\Http\Controllers\Controller;
-use App\models\analyst\yearly\Yearlyarticle;
-use App\models\analyst\exhibitions\Plannedexhibition;
-use App\models\analyst\yearly\InfoCountry;
-use App\models\analyst\yearly\Countrycatalog;
-use App\models\analyst\weekly\Weeklyarticle;
-use App\models\analyst\weekly\Weeklyreport;
-use App\models\analyst\monthly\Monthlyarticle;
-use App\models\analyst\monthly\Monthlyreport;
-use App\models\analyst\various\Variousarticle;
-use App\models\analyst\yearly\Yearlycategory;
-use App\models\analyst\yearly\Yearlyreport;
-use App\models\analyst\various\Variousreport;
-use App\models\analyst\various\Variouscategory;
-use App\models\analyst\yearly\Yearlysubcategory;
-use App\models\analyst\yearly\Region;
-use App\models\analyst\exhibitions\Plannedexhibitionyear;
-use App\ReportType;
 use App\Category;
 use App\Subcategory;
-use GuzzleHttp\Psr7\Request;
 
 use Illuminate\Http\Request as RequestSearchPdf;
 

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 <?php isset($category->category) ? $slug = $category->category->report->types->slug : $category->report->types->slug;?>
 @section('content')
-123
     <div class="container page_create_post">
         <form id="form" action="/report/{{ $slug }}/upd_category/{{$category->id}}" method="post" enctype="multipart/form-data">
             <div class="row justify-content-center posr">
