@@ -74,17 +74,7 @@ Route::middleware('checkanalyst')->group(function()
  * */
 Route::middleware('checkanalyst')->prefix('/report/{slug}')->group(function()
 {
-    //Route::get('/', 'Analyst\HomeController@index');
-
-    /*Route::put('/plannedexhibition/for_approval/{plannedexhibitionyear}', 'Analyst\PlannedexhibitionController@for_approval');*/
-    //Route::put('/plannedexhibition/article_publish/{plannedexhibition}', 'Analyst\PlannedexhibitionController@article_publish');
-    //Route::put('/plannedexhibition/article_for_approval/{plannedexhibition}', 'Analyst\PlannedexhibitionController@article_for_approval');
-
-    /*Route::put('/various/for_approval/{variousreport}', 'Analyst\VariousController@for_approval');*/
- // Route::put('/various/article_publish/{variousarticle}/{variousreport}', 'Analyst\VariousController@article_publish');
-  //  Route::put('/various/article_for_approval/{variousarticle}', 'Analyst\VariousController@article_for_approval');
-
-    /*Report*/
+   /*Report*/
 	Route::get('/add1', 'Report\ReportController@report_add_form');
 	Route::post('/add1', 'Report\ReportController@report_add');
 	Route::get('/add2/{report}', 'Report\ReportController@report_step_2');
@@ -147,7 +137,6 @@ Route::middleware('checkadmin')->group(function()
  * */
 
 Route::get('/pdf_subcategory/{report_id}/{cat_id}/{sub_id}', 'Pdf\PdfController@pdf_subcategory');
-//Route::get('/{report}/pdf_subcategory/{id}/{id_cat?}/{id_sub?}', 'Pdf\PdfController@pdf_subcategory');
 
 Route::get('/pdf_article/{id}', 'Pdf\PdfController@pdf_article');
 
@@ -157,10 +146,6 @@ Route::get('/pdf_category/{report_id}/{category_id}', 'Pdf\PdfController@pdf_cat
 
 Route::post('/pdf_search','Pdf\PdfController@pdf_search');
 
-
-
-
-//Route::get('/{report}/pdf_category/{id}/{cat_id?}', 'Pdf\PdfController@pdf_category');
 
 
 /*
@@ -209,7 +194,7 @@ Route::post('upload-image', function(
       </script>"
   );
 });
-//Route::get('/test', 'IndexController@test');
+
 
 Auth::routes();
 

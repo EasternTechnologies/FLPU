@@ -210,12 +210,6 @@ class ReportController extends Controller
         return redirect()->to('/report/'.$report->types->slug. '/show/'. $report->id)->with('status', 'Отчет опубликован');
     }
 
-    public function article_for_approval ( Weeklyarticle $weeklyarticle ) {
-
-        $weeklyarticle->update(['status' => 1]);
-
-        return redirect()->back()->with('status', 'Материал на утверждении'); //++
-    }
 
     public function article_publish ( $slug, ArticleReports $article ) {
 
