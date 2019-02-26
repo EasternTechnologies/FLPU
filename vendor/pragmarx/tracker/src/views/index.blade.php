@@ -90,26 +90,43 @@
     </table>
   </div>
 
-  <div class="statistics-pagination pagination">
-    <ul class="pagination__list" role="navigation">
-      <li class="pagination__item">
-        <a class="pagination__link" href="#" aria-label="Назад">‹</a>
-      </li> 
-      <li class="pagination__item active" aria-current="page">
-        <span class="pagination__link">1</span>
-      </li> 
-      <li class="pagination__item">
-        <a class="pagination__link" href="#">2</a>
-      </li> 
-      <li class="pagination__item">
-        <a class="pagination__link" href="#">3</a>
-      </li> 
-      <li class="pagination__item">
-        <a class="pagination__link" href="#" aria-label="Вперёд">›</a>
-      </li>
-    </ul>
-  </div>
+  {{$results->links()}}
 
+
+  {{--@if($pages_count>1)--}}
+  {{--<div class="statistics-pagination pagination">--}}
+    {{--<ul class="pagination__list" role="navigation">--}}
+      {{--@if($current_page>1)--}}
+      {{--<li class="pagination__item">--}}
+        {{--<a class="pagination__link" href="#" aria-label="Назад">‹</a>--}}
+      {{--</li>--}}
+      {{--@endif--}}
+
+      {{--@for($i=0; $i<$pages_count;$i++)--}}
+        {{--<li class="pagination__item @if($current_page==($i+1)) active @endif"--}}
+            {{--@if($current_page==($i+1)) aria-current="page" @endif>--}}
+          {{--<a class="pagination__link" href="#">{{$i+1}}</a>--}}
+        {{--</li>--}}
+      {{--@endfor--}}
+
+      {{--<li class="pagination__item active" aria-current="page">--}}
+        {{--<span class="pagination__link">1</span>--}}
+      {{--</li>--}}
+      {{--<li class="pagination__item">--}}
+        {{--<a class="pagination__link" href="#">2</a>--}}
+      {{--</li>--}}
+      {{--<li class="pagination__item">--}}
+        {{--<a class="pagination__link" href="#">3</a>--}}
+      {{--</li>--}}
+
+        {{--@if($current_page<$pages_count)--}}
+      {{--<li class="pagination__item">--}}
+        {{--<a class="pagination__link" href="#" aria-label="Вперёд">›</a>--}}
+      {{--</li>--}}
+          {{--@endif--}}
+    {{--</ul>--}}
+  {{--</div>--}}
+{{--@endif--}}
 	<!-- <table id="table_div" class="display" cellspacing="0" width="100%"></table> -->
 @stop
 

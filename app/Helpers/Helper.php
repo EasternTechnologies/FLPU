@@ -4,6 +4,9 @@ namespace App\Helpers;
 use PragmaRX\Tracker\Vendor\Laravel\Models\Log;
 use PragmaRX\Tracker\Vendor\Laravel\Models\Path;
 use App\ReportType;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Helper
 {
@@ -160,7 +163,16 @@ class Helper
         }
         return $count;
     }
-    
+
+    public static function paginate($items, $perPage = 40, $page = null, $options = [])
+    {
+
+       	$page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
 }
 
 

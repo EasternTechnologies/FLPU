@@ -2,6 +2,7 @@
 
 namespace PragmaRX\Tracker\Vendor\Laravel\Controllers;
 
+use App\Helpers\Helper;
 use Bllim\Datatables\Facade\Datatables;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Routing\Controller;
@@ -33,6 +34,8 @@ class Stats extends Controller
 
     public function index(Session $session)
     {
+
+
         if (!$this->isAuthenticated()) {
             return View::make('pragmarx/tracker::message')->with('message', trans('tracker::tracker.auth_required'));
         }
@@ -46,7 +49,11 @@ class Stats extends Controller
             return View::make('pragmarx/tracker::message')->with('message', trans('tracker::tracker.not_admin'));
         }
 
-        return $this->showPage($session, $session->getValue('page'));
+//        dump($session->getValue('page'));
+
+//        $session->getValue('pages')?$page_link =$session->getValue('pages'):$page_link='visits';
+//        dd($session->getValue('page'));
+        return $this->showPage($session, $session->getValue('pages'));
     }
 
     /**
@@ -76,14 +83,12 @@ class Stats extends Controller
         ];
 
         $show_array = [
+            5,
             10,
             25,
             50,
             100
         ];
-
-//        dump($session);
-
 
         $start = Input::get('start_date');
         $end = Input::get('end_date');
@@ -100,15 +105,11 @@ class Stats extends Controller
             $range->setEnd(Carbon::createFromTimestamp(strtotime($end)));
         }
 
-
-
-//        dump($range);
         $show = Input::get('show');
         if(empty($show)) $show = 25;
         $name = Input::get('name');
         $sort = Input::get('sort');
         if(empty($sort)) $sort = 'all';
-
         DefaultSession::put('sort',$sort);
         DefaultSession::put('name',$name);
 
@@ -131,10 +132,8 @@ class Stats extends Controller
             ',
         ];
 
-
         $query = Tracker::sessions($range, false);
 
-//        dump($session->getMinutes());
 
         $query->select([
             'id',
@@ -149,16 +148,12 @@ class Stats extends Controller
             'language_id',
             'is_robot',
             'updated_at',
-        ]); //->groupBy(DB::raw("DATE_FORMAT(updated_at, 'd.m.Y')"));
-
-//dump($query->get()->pluck('id')->toArray());
-
+        ]);
 
         $users = array_unique($query->pluck('user_id')->toArray());
 
         $users = User::whereIn('id',$users)->get();
 
-//        dump($users->where('id',30)->first()->name);
 
           switch ($sort) {
 
@@ -187,32 +182,19 @@ class Stats extends Controller
             $query->whereIn('user_id',$users_name);
         }
 
-//        dd($query->paginate($show)->groupBy([function($date) {
-//            return Carbon::parse($date->updated_at)->format('d.m.Y');
-//        },'user_id'])
-//    );
-
-       // dump($query->get());
-
-      //  dump($query->paginate($show));
 
         $results = $query->get()->groupBy([function($date) {
             return Carbon::parse($date->updated_at)->format('d.m.Y');
-        },'user_id'])->take($show);
-
-        $count = $results->count();
-
-        $pages_count = ceil($count/$show);
+        },'user_id']);
 
 
 
-//        dd($results);
+        Input::get('page')?$page=Input::get('page'):$page=1;
 
+        $paginate = Helper::paginate($results,$show,$page);
 
+        $paginate->appends(Input::toArray())->setPath('stats');
 
-//        $results->toArray();
-
-        dump($results);
 
         return View::make('pragmarx/tracker::index')
             ->with('sessions', Tracker::sessions($session->getMinutes()))
@@ -220,7 +202,7 @@ class Stats extends Controller
             ->with('username_column', Tracker::getConfig('authenticated_user_username_column'))
             ->with('datatables_data', $datatables_data)
             ->with('users_array',$users)
-            ->with('sort_array',$sort_array)->with('results',$results)->with('show_array',$show_array);
+            ->with('sort_array',$sort_array)->with('results',$paginate )->with('show_array',$show_array);
     }
 
     public function log($uuid)
