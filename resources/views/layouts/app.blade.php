@@ -38,58 +38,72 @@ $y = date("Y");
     <!-- Styles MEDIA -->
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
 
+    <!-- NEW STYLES -->
+    <link href="{{ asset('css/new_design.css') }}" rel="stylesheet">
+
 </head>
 <body>
 <div id="app" class="analyst">
-
-    <header>
+    <header class="page-header">
         <div class="container row_top">
             <div class="user_rolles">
                 @auth
                 {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
                 @endauth
             </div>
+
             @include('partials.cabinets')
-            <div id="menu-mob1" class="menu-mob">
+            <!-- <div id="menu-mob1" class="menu-mob">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </div> -->
         </div>
-        <div class="container row_2">
+        <!-- <div class="container row_2">
             @include('partials.row_with_search')
-        </div>
+        </div> -->
     </header>
 
-    @section('nav_header_other')
-        <div class="nav_header_other">
-            <div class="container">
-
-                <ul class="">
-
+    <!-- @section('nav_header_other') -->
+        <div class="page-aside">
+            <div class="logo-box">
+                <a class="logo-text" href="{{ url('/') }}">       <img src="{{asset('images/logo.png')}}" alt=""/> </a>
+            </div>
+            <!-- <div class="container"> -->
+                <ul class="nav__list">
                     @foreach(\App\ReportType::$data as $link => $title)
+                        <li class="nav__item @if(Request::is('report/'. $link) || Request::is('report/'. $link.'/*') || Request::is('analyst/'.$link) || Request::is('analyst/'.$link.'/*') || Request::is('manager/'.$link) || Request::is('manager/'.$link.'/*')) {{'active'}} @endif">
 
-                        <li class="@if(Request::is('report/'. $link) || Request::is('report/'. $link.'/*') || Request::is('analyst/'.$link) || Request::is('analyst/'.$link.'/*') || Request::is('manager/'.$link) || Request::is('manager/'.$link.'/*')) {{'active'}} @endif">
-
-                            <a href="/report/{{ $link }}" class="nav-link">{{ $title }}</a>
-
+                            <a href="/report/{{ $link }}" class="nav__link">{{ $title }}</a>
                         </li>
                     @endforeach
-
-
                 </ul>
-                <span class="close-mob">
+                <!-- <span class="close-mob">
                 		x
-                	</span>
-            </div>
+                	</span> -->
+            <!-- </div> -->
         </div>
-    @endsection
-    <div id="menu-mob2" class="container menu-mob">
+    <!-- @endsection -->
+    <!-- <div id="menu-mob2" class="container menu-mob">
         Меню
-    </div>
-    @yield('nav_header_other')
+    </div> -->
+    <!-- @yield('nav_header_other') -->
 
-    <main>
+    <main class="page-main">
+        <div class="page-title container">
+          <h1>Аналитика</h1>
+        </div>
+
+        <div class="page-info container">
+          <div class="page-subtitle">
+            <h2>Создание и управление отчетами</h2>
+          </div>
+
+          <div class="page-search">
+            <search-component></search-component>
+          </div>
+        </div>
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -109,33 +123,28 @@ $y = date("Y");
             </div>
         @endif
         @yield('content')
-
     </main>
 
-    <footer>
-        <div class="row">
-            <div class="container">
-                <div class="flex_box">
-                    <div class="col-md-4 copyright">
-                        © Copyright 2018. Все права защищены
-                    </div>
-                    <div class="col-md-4 footer_doc">
-                        <a href="/reglament">Правила и регламент регистрации</a>
-                    </div>
-                    <div class="col-md-4 portfolio_box">
-                        Разработка сайта<span class="logo_east_tech"></span><a href="http://east-tech.by/">“Восточные технологии”</a>
-                    </div>
-                </div>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="copyright">
+                © Copyright 2018. Все права защищены
+            </div>
+            <div class="footer_doc">
+                <a href="/reglament">Правила и регламент регистрации</a>
+            </div>
+            <div class="portfolio_box">
+                Разработка сайта<span class="logo_east_tech"></span><a href="http://east-tech.by/">“Восточные технологии”</a>
             </div>
         </div>
     </footer>
-
-    <div class="bugs" oncLick="showModalBugs();">
-        <span>Нашли баг?</span>
-    </div>
 </div>
 
-<!-- bugs modal -->
+<div class="bugs" oncLick="showModalBugs();">
+    <span>Нашли баг?</span>
+</div>
+  
+  <!-- bugs modal -->
 <div class="modal modal__bugs">
     <div class="modal__close" oncLick="closeModal();"></div>
     <div class="bugs-form">
