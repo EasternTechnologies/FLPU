@@ -18,6 +18,10 @@ use PragmaRX\Tracker\Support\Minutes;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class Stats extends Controller
 {
@@ -206,6 +210,8 @@ class Stats extends Controller
 
         $paginate->appends(Input::toArray())->setPath('stats');
 
+        session(['table'=>$paginate]);
+        session(['users'=>$users]);
 
         return View::make('pragmarx/tracker::index')
             ->with('sessions', Tracker::sessions($session->getMinutes()))
@@ -215,6 +221,73 @@ class Stats extends Controller
             ->with('users_array',$users)
             ->with('sort_array',$sort_array)->with('results',$paginate )->with('show_array',$show_array);
     }
+
+    public function excel()
+    {
+
+//        dd(session('table'));
+
+        $table = session('table');
+        $users_array = session('users');
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'Дата');
+        $sheet->setCellValue('B1', 'Пользователь');
+        $sheet->setCellValue('C1', 'Разделы');
+        $sheet->setCellValue('D1', 'Кол-во материалов');
+        $sheet->setCellValue('E1', 'Общее время');
+        $sheet->setCellValue('F1', 'Среднее время');
+
+
+        $sheet->getStyle('A1')->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+
+
+        $sheet->getColumnDimension('A')->setAutoSize(true);
+        $sheet->getColumnDimension('B')->setAutoSize(true);
+        $sheet->getColumnDimension('C')->setWidth(40);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+
+        $row = 2;
+
+        foreach($table as $date=>$users){
+            foreach($users as $user_id=>$sessions)
+            {
+                $sheet->setCellValue('A'.$row, $date);
+                if(empty($user_id))
+                    $sheet->setCellValue('B'.$row, 'Гость');
+                else
+                {
+                    $sheet->setCellValue('B'.$row, $users_array->where('id',$user_id)->first()->name.' '.
+                    $users_array->where('id',$user_id)->first()->surname." \n".
+                    $users_array->where('id',$user_id)->first()->email);
+                }
+
+                $cats = implode(" \n",Helper::logsInfo($sessions)[0]);
+
+                $sheet->setCellValue('C'.$row, $cats);
+
+                $sheet->setCellValue('D'.$row, Helper::logsCount($sessions));
+                $sheet->setCellValue('E'.$row, gmdate('H:i:s',Helper::logsInfo($sessions)[1]));
+                $sheet->setCellValue('F'.$row, gmdate('H:i:s',Helper::logsInfo($sessions)[2]));
+                $sheet->getRowDimension($row)->setRowHeight(-1);
+                $row++;
+            }
+        }
+
+        $sheet->getStyle('C1:C'.$row)->getAlignment()->setWrapText(true);
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="file.xlsx"');
+        $writer->save("php://output");
+        exit();
+
+    }
+
 
     public function log($uuid)
     {

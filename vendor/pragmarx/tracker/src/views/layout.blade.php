@@ -66,7 +66,7 @@
 
             <div class="side-menu__buttons">
               <a class="button" href="#">Назад</a>
-              <a class="button" href="#">Экспорт в Excel</a>
+              <a class="button" href="/stats/excel">Экспорт в Excel</a>
               <a class="button" href="#">Общая статистика</a>
             </div>
             <!-- /#side-menu -->
