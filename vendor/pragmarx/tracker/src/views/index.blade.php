@@ -81,8 +81,8 @@
               @endforelse
             </td>
               <td>{{Helper::logsCount($sessions)}}</td>
-              <td>{{Helper::logsInfo($sessions)[1]}}</td>
-              <td>{{Helper::logsInfo($sessions)[2]}}</td>
+              <td>{{date('i:s',Helper::logsInfo($sessions)[1])}}</td>
+              <td>{{date('i:s',Helper::logsInfo($sessions)[2])}}</td>
           </tr>
         @endforeach
       @endforeach

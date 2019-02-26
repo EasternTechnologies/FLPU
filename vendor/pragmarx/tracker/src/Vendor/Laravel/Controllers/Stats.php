@@ -5,6 +5,7 @@ namespace PragmaRX\Tracker\Vendor\Laravel\Controllers;
 use App\Helpers\Helper;
 use Bllim\Datatables\Facade\Datatables;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 use PragmaRX\Tracker\Vendor\Laravel\Facade as Tracker;
@@ -187,7 +188,17 @@ class Stats extends Controller
             return Carbon::parse($date->updated_at)->format('d.m.Y');
         },'user_id']);
 
+//        dump($results);
 
+//        $new = new \Illuminate\Database\Eloquent\Collection;
+
+//        foreach ($results as $result) {
+//            dump($result);
+//            $new = $new->merge($result);
+
+//        }
+
+//        dump($new);
 
         Input::get('page')?$page=Input::get('page'):$page=1;
 
