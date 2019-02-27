@@ -158,7 +158,7 @@ class Stats extends Controller
 
         $users = array_unique($query->pluck('user_id')->toArray());
 
-        $users = User::whereIn('id',$users)->get();
+        $users_all = User::whereIn('id',$users)->get();
 
 
           switch ($sort) {
@@ -207,8 +207,8 @@ class Stats extends Controller
         foreach ($results as $key=>$users_collection) {
             foreach ($users_collection as $id=>$user) {
 
-                if($id) $name = $users->where('id',$id)->first()->name.' '.$users->where('id',$id)->first()->surname.
-                    " \n".$users->where('id',$id)->first()->email;
+                if($id) $name = $users_all->where('id',$id)->first()->name.' '.$users_all->where('id',$id)->first()->surname.
+                    " \n".$users_all->where('id',$id)->first()->email; else $name = '';
 
                 $data = Helper::logsInfo($user);
 
@@ -234,12 +234,16 @@ class Stats extends Controller
             }
         }
 
+
+//        dump($new_result);
+
         $paginate = Helper::paginate($new_result,$show,$page);
 
         $paginate->appends(Input::toArray())->setPath('stats');
 
         if(!Input::get('ajax')) session(['table'=>$new_result]);
 
+//        dump($paginate);
 
 //        dump($paginate);
 
@@ -252,7 +256,7 @@ class Stats extends Controller
             ->with('title', ''.trans('tracker::tracker.visits').'')
             ->with('username_column', Tracker::getConfig('authenticated_user_username_column'))
             ->with('datatables_data', $datatables_data)
-            ->with('users_array',$users)
+            ->with('users_array',$users_all)
             ->with('sort_array',$sort_array)->with('results',$paginate )->with('show_array',$show_array);
     }
 
