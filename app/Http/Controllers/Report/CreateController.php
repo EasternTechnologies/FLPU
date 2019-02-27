@@ -131,8 +131,10 @@ class CreateController extends Controller
 
         $items = [];
         $items[false]  = [];
+
         foreach ($categories as $category) {
             $items[$category->id] = [];
+            $items[$category->id][false] = [];
         }
 
         foreach ($subcategories_array as $subcategory)
@@ -143,14 +145,14 @@ class CreateController extends Controller
 
         foreach ($articles as $key => $article) {
             if ($article->category_id) {
-                $subcategory = $article->subcategory_id != false ? $article->subcategory_id : false; // problem
+                $subcategory = $article->subcategory_id != false ? $article->subcategory_id : false;
                 $category = $article->category_id != false ? $article->category_id : false;
                 $items[$category][$subcategory][] = $articles->pull($key);
             }
         }
 
         foreach ($articles as $key => $article) {
-            $subcategory = $article->subcategory_id != false ?  $article->subcategory_id: false; // problem
+            $subcategory = $article->subcategory_id != false ?  $article->subcategory_id: false;
             $items[false][$subcategory][] = $article;
         }
 
