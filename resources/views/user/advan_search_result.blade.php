@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <input type="text" name="random_key" value="{{$random_key}}">
+    {{--<input type="text" name="random_key" value="{{$random_key}}">--}}
 
     @if(empty($choose))
     <div class="pagination">{{ $articles->links() }}</div>
