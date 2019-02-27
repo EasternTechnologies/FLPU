@@ -78,11 +78,13 @@ $(function() {
         if($(this).hasClass('active')){
                         $('.change_table_stats').removeClass('active').blur();
                         $('.hidden_column').removeClass('active');
+                        $('.change_table_stats').text('Общая статистика');
                         $('.excel_link').attr('href','/stats/excel');
         }
         else {
                         $('.change_table_stats').addClass('active').blur();
                         $('.hidden_column').addClass('active');
+                        $('.change_table_stats').text('Назад');
                         $('.excel_link').attr('href','/stats/excelv2');
        }
     })

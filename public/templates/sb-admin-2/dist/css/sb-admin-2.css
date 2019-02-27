@@ -1254,3 +1254,10 @@ footer a:hover {
 .close_cross:hover {
   color: #161f5a;
 }
+
+.stats_back {
+  display: none;
+}
+.stats_back.active {
+  display: block;
+}

@@ -98,7 +98,7 @@
               @forelse($result['categories'] as $cat)
                 {{$cat}} <br>
               @empty
-                Нету
+              &mdash;
               @endforelse
             </td>
             <td class="stats_paths">{{$result['count']}} <br>
