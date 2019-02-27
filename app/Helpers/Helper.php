@@ -66,7 +66,6 @@ class Helper
     public static function logsInfo($sessions)
     {
 
-
         $times = [];
 
         $paths_id = [];
@@ -101,7 +100,6 @@ class Helper
 
         }
 
-
 //        dump(array_unique($paths_id));
 
 
@@ -120,6 +118,9 @@ class Helper
 //        $paths = $paths->where('path', 'like',  '%login%');
 
         $paths = $paths->pluck('path')->toArray();
+
+//        dump($paths);
+
 //        dump($paths->pluck('path')->toArray());
 //        dump($paths);
 
@@ -142,7 +143,6 @@ class Helper
 //        Path::whereIn('id',$paths_id)->get();
 
 
-
 //        dump($times);
         $sum = array_sum($times);
 //        dump($sum);
@@ -150,7 +150,7 @@ class Helper
         $sum?$average=round($sum/count($times),2):$average=0;
 //        dump($average);
 
-        return [$cats_rus,$sum,$average];
+        return [$cats_rus,$sum,$average,$paths];
 
     }
 
@@ -174,6 +174,35 @@ class Helper
 
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
+
+    public static function device($row)
+    {
+        $model = ($row->device && $row->device->model && $row->device->model !== 'unavailable' ? '['.$row->device->model.']' : '');
+
+        $platform = ($row->device && $row->device->platform ? ' ['.trim($row->device->platform.' '.$row->device->platform_version).']' : '');
+
+        $mobile = ($row->device && $row->device->is_mobile ? ' [mobile device]' : '');
+
+        return $model || $platform || $mobile
+            ? $row->device->kind.' '.$model.' '.$platform.' '.$mobile
+            : '';
+    }
+
+    public static function country($row)
+    {
+        $cityName = $row->geoip && $row->geoip->city ? ' - '.$row->geoip->city : '';
+
+        $countryName = ($row->geoip ? $row->geoip->country_name : '').$cityName;
+
+        $countryCode = strtolower($row->geoip ? $row->geoip->country_code : '');
+
+        $flag = $countryCode
+            ? "<span class=\"f16\"><span class=\"flag $countryCode\" alt=\"$countryName\" /></span></span>"
+            : '';
+
+        return "$flag $countryName";
+    }
+
 }
 
 

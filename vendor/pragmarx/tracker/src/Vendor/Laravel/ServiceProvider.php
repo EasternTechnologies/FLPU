@@ -530,6 +530,7 @@ class ServiceProvider extends PragmaRXServiceProvider
                     $router->get('/', ['as' => 'tracker.stats.index', 'uses' => 'Stats@index']);
 
                     $router->get('/excel', ['as' => 'tracker.stats.excel', 'uses' => 'Stats@excel']);
+                    $router->get('/excelv2', ['as' => 'tracker.stats.excelv2', 'uses' => 'Stats@excelv2']);
 
                     $router->get('log/{uuid}', ['as' => 'tracker.stats.log', 'uses' => 'Stats@log']);
 

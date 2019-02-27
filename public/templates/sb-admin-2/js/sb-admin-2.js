@@ -40,7 +40,52 @@ $(function() {
         }
     }
 
-    $("#table_div").on("click", "td:nth-child(8)", function(event){
+
+    $('.stats_more_info').click(function () {
+
+        // console.log($('.ds_stats').val());
+
+        var id = $(this).attr('data-id');
+        var data = {
+          ajax:true,
+            id:id,
+            start_date: $('.ds_stats').val(),
+            end_date: $('.de_stats').val()
+        };
+
+       $.ajax({
+           url:'/stats',
+           method:'get',
+           data:data,
+           success:function (result) {
+               //console.log(result);
+               $('.popup_stats_form').html(result);
+               $('.popup_stats').show();
+           }
+       })
+    });
+
+
+    $('.popup_back').click(function () {
+        $('.popup_stats').hide();
+    });
+
+    $(document).on("click", ".stats_paths", function(event){
       $(this).toggleClass('active');
     });
+
+    $(".change_table_stats").click(function () {
+        if($(this).hasClass('active')){
+                        $('.change_table_stats').removeClass('active').blur();
+                        $('.hidden_column').removeClass('active');
+                        $('.excel_link').attr('href','/stats/excel');
+        }
+        else {
+                        $('.change_table_stats').addClass('active').blur();
+                        $('.hidden_column').addClass('active');
+                        $('.excel_link').attr('href','/stats/excelv2');
+       }
+    })
+
+
 });

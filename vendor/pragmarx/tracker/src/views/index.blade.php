@@ -47,12 +47,27 @@
     </form>
   </div>
 
+  <input type="hidden" class="ds_stats" value="{{app('request')->input('start_date')}}">
+  <input type="hidden" class="de_stats" value="{{app('request')->input('end_date')}}">
+
+  <div class="popup_stats">
+    <div class="popup_back"></div>
+    <div class="popup_stats_form">
+
+    </div>
+  </div>
+
+
   <div class="statistics-table">
     <table>
       <thead>
         <tr>
           <th>Дата</th>
           <th>Пользователь</th>
+          <th class="hidden_column">IP Адрес</th>
+          <th class="hidden_column">Страна</th>
+          <th class="hidden_column">Устройство</th>
+          <th class="hidden_column">Браузер</th>
           <th>Разделы</th>
           <th>Кол-во материалов</th>
           <th>Общее время</th>
@@ -60,31 +75,42 @@
         </tr>
       </thead>
       <tbody>
-      @foreach($results as $date=>$users)
-        @foreach($users as $user_id=>$sessions)
+      @foreach($results as $result)
           <tr>
-              <td>{{$date}}</td>
-              <td>
-                @if(empty($user_id))
-                  Гость
-                @else
-                      {{$users_array->where('id',$user_id)->first()->name}} {{$users_array->where('id',$user_id)->first()->surname}}
-                  <br>{{$users_array->where('id',$user_id)->first()->email}}
-                @endif
-              </td>
-            <td>
+              <td>{{$result['date']}}</td>
+            <td data-id="{{$result['id']}}" class="stats_more_info">
+              @if(empty($result['name']))
+                Гость
+              @else
+                {!! $result['name'] !!}
+              @endif
+            </td>
 
-            @forelse(Helper::logsInfo($sessions)[0] as $cat)
-              {{$cat}} <br>
+            <td class="hidden_column">{{$result['ip']}}</td>
+            <td class="hidden_column">{!! $result['country'] !!}</td>
+            <td class="hidden_column">{{$result['device']}}</td>
+            {{--{{dump($sessions[0]->agent)}}--}}
+            <td class="hidden_column">{{
+            $result['browser']
+            }}</td>
+
+            <td>
+              @forelse($result['categories'] as $cat)
+                {{$cat}} <br>
               @empty
                 Нету
               @endforelse
             </td>
-              <td>{{Helper::logsCount($sessions)}}</td>
-              <td>{{gmdate('H:i:s',Helper::logsInfo($sessions)[1])}}</td>
-              <td>{{gmdate('H:i:s',Helper::logsInfo($sessions)[2])}}</td>
+            <td class="stats_paths">{{$result['count']}} <br>
+              <div class="">
+              @foreach($result['paths'] as $path)
+                <a href="{{$path}}">{{$path}}</a> <br>
+              @endforeach
+              </div>
+            </td>
+            <td>{{$result['sum']}}</td>
+            <td>{{$result['average']}}</td>
           </tr>
-        @endforeach
       @endforeach
       </tbody>
     </table>

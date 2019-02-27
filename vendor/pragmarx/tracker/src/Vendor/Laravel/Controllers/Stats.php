@@ -58,7 +58,8 @@ class Stats extends Controller
 
 //        $session->getValue('pages')?$page_link =$session->getValue('pages'):$page_link='visits';
 //        dd($session->getValue('page'));
-        return $this->showPage($session, $session->getValue('pages'));
+        $session->getValue('pages')?$page_link =$session->getValue('pages'):$page_link='visits';
+        return $this->showPage($session, $page_link);
     }
 
     /**
@@ -75,6 +76,7 @@ class Stats extends Controller
 
     public function visits(Session $session)
     {
+
 
         $sort_array = [
           'all'=>'Все',
@@ -98,14 +100,13 @@ class Stats extends Controller
         $start = Input::get('start_date');
         $end = Input::get('end_date');
 
+
         $range = new Minutes();
 
         if(empty($start) && empty($end)) {
             $range->setStart(Carbon::now()->startOfDay());
             $range->setEnd(Carbon::now()->endOfDay());
         } else {
-
-
             $range->setStart(Carbon::createFromTimestamp(strtotime($start)));
             $range->setEnd(Carbon::createFromTimestamp(strtotime($end)));
         }
@@ -115,8 +116,8 @@ class Stats extends Controller
         $name = Input::get('name');
         $sort = Input::get('sort');
         if(empty($sort)) $sort = 'all';
-        DefaultSession::put('sort',$sort);
-        DefaultSession::put('name',$name);
+//        DefaultSession::put('sort',$sort);
+//        DefaultSession::put('name',$name);
 
         $datatables_data =
         [
@@ -182,11 +183,16 @@ class Stats extends Controller
                 $users = Role::where('id',2)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
             }
         }
+
         if($name) {
             $users_name = User::where('surname','like','%'.$name.'%')->get()->pluck('id')->toArray();
             $query->whereIn('user_id',$users_name);
         }
 
+        if(Input::get('ajax')) {
+            $query->where('user_id',Input::get('id'));
+        }
+//
 
         $results = $query->get()->groupBy([function($date) {
             return Carbon::parse($date->updated_at)->format('d.m.Y');
@@ -194,24 +200,52 @@ class Stats extends Controller
 
 //        dump($results);
 
-//        $new = new \Illuminate\Database\Eloquent\Collection;
-
-//        foreach ($results as $result) {
-//            dump($result);
-//            $new = $new->merge($result);
-
-//        }
-
-//        dump($new);
-
         Input::get('page')?$page=Input::get('page'):$page=1;
 
-        $paginate = Helper::paginate($results,$show,$page);
+        $new_result = collect([]);
+
+        foreach ($results as $key=>$users_collection) {
+            foreach ($users_collection as $id=>$user) {
+
+                if($id) $name = $users->where('id',$id)->first()->name.' '.$users->where('id',$id)->first()->surname.
+                    " \n".$users->where('id',$id)->first()->email;
+
+                $data = Helper::logsInfo($user);
+
+                $browser = '';
+                  if($user[0]->agent) {
+                      $browser = $user[0]->agent->browser.' ('.$user[0]->agent->browser_version.')';
+                }
+
+                $new_result[] = [
+                    'date'=>$key,
+                    'name'=>$name,
+                    'id'=>$id,
+                    'ip'=>$user[0]->client_ip,
+                    'country'=>Helper::country($user[0]),
+                    'device'=>Helper::device($user[0]),
+                    'browser'=>$browser,
+                    'categories'=>$data[0],
+                    'count'=>Helper::logsCount($user),
+                    'paths'=>$data[3],
+                    'sum'=>gmdate('z:H:i:s',$data[1]),
+                    'average'=>gmdate('z:H:i:s',$data[2])
+                ];
+            }
+        }
+
+        $paginate = Helper::paginate($new_result,$show,$page);
 
         $paginate->appends(Input::toArray())->setPath('stats');
 
-        session(['table'=>$paginate]);
-        session(['users'=>$users]);
+        if(!Input::get('ajax')) session(['table'=>$new_result]);
+
+
+//        dump($paginate);
+
+        if(Input::get('ajax')) {
+            return View::make('pragmarx/tracker::full_table')->with('results',$new_result );
+        }
 
         return View::make('pragmarx/tracker::index')
             ->with('sessions', Tracker::sessions($session->getMinutes()))
@@ -224,11 +258,10 @@ class Stats extends Controller
 
     public function excel()
     {
-
+        
 //        dd(session('table'));
 
-        $table = session('table');
-        $users_array = session('users');
+        $results = session('table');
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -241,7 +274,7 @@ class Stats extends Controller
         $sheet->setCellValue('F1', 'Среднее время');
 
 
-        $sheet->getStyle('A1')->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+//        $sheet->getStyle('A1')->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
 
 
         $sheet->getColumnDimension('A')->setAutoSize(true);
@@ -253,29 +286,25 @@ class Stats extends Controller
 
         $row = 2;
 
-        foreach($table as $date=>$users){
-            foreach($users as $user_id=>$sessions)
-            {
-                $sheet->setCellValue('A'.$row, $date);
-                if(empty($user_id))
+        foreach($results as $result){
+
+                $sheet->setCellValue('A'.$row, $result['date']);
+                if(empty($result['name']))
                     $sheet->setCellValue('B'.$row, 'Гость');
                 else
                 {
-                    $sheet->setCellValue('B'.$row, $users_array->where('id',$user_id)->first()->name.' '.
-                    $users_array->where('id',$user_id)->first()->surname." \n".
-                    $users_array->where('id',$user_id)->first()->email);
+                    $sheet->setCellValue('B'.$row, $result['name']);
                 }
 
-                $cats = implode(" \n",Helper::logsInfo($sessions)[0]);
+                $cats = implode(" \n",$result['categories']);
 
                 $sheet->setCellValue('C'.$row, $cats);
 
-                $sheet->setCellValue('D'.$row, Helper::logsCount($sessions));
-                $sheet->setCellValue('E'.$row, gmdate('H:i:s',Helper::logsInfo($sessions)[1]));
-                $sheet->setCellValue('F'.$row, gmdate('H:i:s',Helper::logsInfo($sessions)[2]));
+                $sheet->setCellValue('D'.$row, $result['count']);
+                $sheet->setCellValue('E'.$row, $result['sum']);
+                $sheet->setCellValue('F'.$row, $result['average']);
                 $sheet->getRowDimension($row)->setRowHeight(-1);
                 $row++;
-            }
         }
 
         $sheet->getStyle('C1:C'.$row)->getAlignment()->setWrapText(true);
@@ -286,6 +315,72 @@ class Stats extends Controller
         $writer->save("php://output");
         exit();
 
+    }
+
+
+    public function excelv2()
+    {
+        $results = session('table');
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'Дата');
+        $sheet->setCellValue('B1', 'Пользователь');
+        $sheet->setCellValue('C1', 'IP Адрес');
+        $sheet->setCellValue('D1', 'Страна');
+        $sheet->setCellValue('E1', 'Устройство');
+        $sheet->setCellValue('F1', 'Браузер');
+        $sheet->setCellValue('G1', 'Разделы');
+        $sheet->setCellValue('H1', 'Кол-во материалов');
+        $sheet->setCellValue('I1', 'Общее время');
+        $sheet->setCellValue('J1', 'Среднее время');
+
+//        $sheet->getStyle('A1')->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+
+        for ($i= 'A';$i<='J';$i++) {
+            if($i!='G'){
+                $sheet->getColumnDimension($i)->setAutoSize(true);
+            }
+            else {
+                $sheet->getColumnDimension($i)->setWidth(40);
+            }
+        }
+
+        $row = 2;
+
+        foreach($results as $result){
+
+                $sheet->setCellValue('A'.$row, $result['date']);
+                if(empty($result['name']))
+                    $sheet->setCellValue('B'.$row, 'Гость');
+                else
+                {
+                    $sheet->setCellValue('B'.$row, $result['name']);
+                }
+
+                $sheet->setCellValue('C'.$row, $result['ip']);
+                $sheet->setCellValue('D'.$row, strip_tags($result['country'] ));
+                $sheet->setCellValue('E'.$row, $result['device']);
+                $sheet->setCellValue('F'.$row, $result['browser']);
+                $cats = implode(" \n",$result['categories']);
+                $sheet->setCellValue('G'.$row, $cats);
+
+                $sheet->setCellValue('H'.$row, $result['count']);
+                $sheet->setCellValue('I'.$row, $result['sum']);
+                $sheet->setCellValue('J'.$row, $result['average']);
+                $sheet->getRowDimension($row)->setRowHeight(-1);
+                $row++;
+
+        }
+
+        $sheet->getStyle('C1:C'.$row)->getAlignment()->setWrapText(true);
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="file.xlsx"');
+        $writer->save("php://output");
+        exit();
     }
 
 
