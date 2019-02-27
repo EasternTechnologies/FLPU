@@ -1234,6 +1234,23 @@ footer a:hover {
   border-radius: 5px;
   min-width: 400px;
   width: 90%;
-  height: 90%;
+  max-height: 90%;
   overflow: auto;
+}
+
+.butt_close_stats {
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.close_cross {
+  position: absolute;
+  right: 30px;
+  font-size: 40px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.close_cross:hover {
+  color: #161f5a;
 }

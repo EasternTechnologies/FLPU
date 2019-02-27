@@ -1,5 +1,5 @@
 <div class="statistics-table">
-
+    <div class="close_stats close_cross">&times;</div>
     <h3>Статистика пользователя {{$results[0]['name']?$results[0]['name']:'Гость'}}</h3>
     <table>
         <thead>
@@ -27,15 +27,10 @@
                         {!! $result['name'] !!}
                     @endif
                 </td>
-
                 <td>{{$result['ip']}}</td>
                 <td>{!! $result['country'] !!}</td>
                 <td>{{$result['device']}}</td>
-                {{--{{dump($sessions[0]->agent)}}--}}
-                <td>{{
-            $result['browser']
-            }}</td>
-
+                <td>{{$result['browser']}}</td>
                 <td>
                     @forelse($result['categories'] as $cat)
                         {{$cat}} <br>
@@ -57,3 +52,4 @@
         </tbody>
     </table>
 </div>
+<span class="button butt_close_stats close_stats">Закрыть</span>

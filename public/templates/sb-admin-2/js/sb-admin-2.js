@@ -64,15 +64,15 @@ $(function() {
            }
        })
     });
-
-
-    $('.popup_back').click(function () {
+    
+    $(document).on("click", ".close_stats", function(){
         $('.popup_stats').hide();
     });
 
     $(document).on("click", ".stats_paths", function(event){
       $(this).toggleClass('active');
     });
+
 
     $(".change_table_stats").click(function () {
         if($(this).hasClass('active')){

@@ -51,7 +51,7 @@
   <input type="hidden" class="de_stats" value="{{app('request')->input('end_date')}}">
 
   <div class="popup_stats">
-    <div class="popup_back"></div>
+    <div class="popup_back close_stats"></div>
     <div class="popup_stats_form">
 
     </div>
