@@ -79,7 +79,13 @@ $y = date("Y");
 
         <div class="page-info container">
           <div class="page-subtitle">
+            @if(isset($type))
+            <h2>Поиск</h2>
+            @elseif(isset($report_type))
+            <h2>{{ $report_type->description }}</h2>
+            @else
             <h2>Создание и управление отчетами</h2>
+            @endif
           </div>
 
           <div class="page-search">
