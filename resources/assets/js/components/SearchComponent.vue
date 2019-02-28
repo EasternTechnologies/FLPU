@@ -1,11 +1,9 @@
 <template>
-    <div>
         <div class="right-box">
-            <div>
-                <label class="search-box"> <a href="/search/form">Расширенный поиск</a>
-                    <input class="search" type="text" v-on:keyup.13="search_result" v-model="q" @keyup="search" placeholder="Введите слово"/>
-                    <span @click="search_result" class="butt_search"></span></label>
-            </div>
+            <label class="search-box"> <a href="/search/form">Расширенный поиск</a>
+                <input class="search" type="text" v-on:keyup.13="search_result" v-model="q" @keyup="search" placeholder="Введите слово"/>
+                <span @click="search_result" class="butt_search"></span>
+            </label>
         </div>
         <!--div v-if="result" class="search_result">
             <p class="row_search_title_close">Результаты поиска<span class="close_res_search" @click="close">x</span></p>
@@ -18,7 +16,6 @@
                 </div>
             </ul>
         </div-->
-    </div>
 </template>
 
 <script>
@@ -78,6 +75,11 @@
 .search_result ul {
   max-height: 250px;
   overflow: auto;
+}
+
+.search {
+  color: #787878;
+  background: #e7e7e7;
 }
 
 </style>

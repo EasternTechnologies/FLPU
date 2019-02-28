@@ -9,7 +9,7 @@
     @endif
 
     @if(!empty($isadvantage))
-    <div class="container border search_result_box">
+    <div class="container search_result_box">
         <p>
             <strong>Тип отчета:</strong>
             @if(is_object($report_type))

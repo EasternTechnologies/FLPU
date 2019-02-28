@@ -56,7 +56,11 @@ $y = date("Y");
 	/>
 	
 	<!-- Styles MEDIA -->
-    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+
+  <!-- NEW STYLES -->
+  <link href="{{ asset('css/new_design.css') }}" rel="stylesheet">
+  
 </head>
 <body>
 <div id="app" class="analyst">

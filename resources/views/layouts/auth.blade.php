@@ -20,7 +20,8 @@
     	<link href="{{ asset('css/media.css') }}" rel="stylesheet">
     	
 		<!-- Styles MEDIA -->
-    	<link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+
 	</head> 
 	<body>
 		<div id="app">

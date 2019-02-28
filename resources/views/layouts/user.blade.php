@@ -31,7 +31,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<!-- Styles MEDIA -->
-    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+
+  <!-- NEW STYLES -->
+  <link href="{{ asset('css/new_design.css') }}" rel="stylesheet">
+  
 </head>
 <body>
 <div id="app" class="analyst">

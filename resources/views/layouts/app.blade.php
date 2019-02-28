@@ -3,7 +3,7 @@ $d = date("d");
 $m = date("m");
 $y = date("Y");
 ?>
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
@@ -43,7 +43,7 @@ $y = date("Y");
 
 </head>
 <body>
-<div id="app" class="analyst">
+<div id="app" data-sticky_parent>
     <header class="page-header">
         <div class="container row_top">
             <div class="user_rolles">
@@ -52,42 +52,25 @@ $y = date("Y");
                 @endauth
             </div>
 
-            @include('partials.cabinets')
-            <!-- <div id="menu-mob1" class="menu-mob">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div> -->
+            @include('partials.cabinets')        
         </div>
-        <!-- <div class="container row_2">
-            @include('partials.row_with_search')
-        </div> -->
     </header>
 
-    <!-- @section('nav_header_other') -->
-        <div class="page-aside">
+    <aside class="page-aside">
+        <div class="page-aside__wrapper" data-sticky_column>
             <div class="logo-box">
-                <a class="logo-text" href="{{ url('/') }}">       <img src="{{asset('images/logo.png')}}" alt=""/> </a>
+                <a class="logo-text" href="{{ url('/') }}">             <img src="{{asset('images/logo.png')}}" alt=""/> </a>
             </div>
-            <!-- <div class="container"> -->
-                <ul class="nav__list">
-                    @foreach(\App\ReportType::$data as $link => $title)
-                        <li class="nav__item @if(Request::is('report/'. $link) || Request::is('report/'. $link.'/*') || Request::is('analyst/'.$link) || Request::is('analyst/'.$link.'/*') || Request::is('manager/'.$link) || Request::is('manager/'.$link.'/*')) {{'active'}} @endif">
+            <ul class="nav__list">
+                @foreach(\App\ReportType::$data as $link => $title)
+                    <li class="nav__item @if(Request::is('report/'. $link) || Request::is('report/'. $link.'/*') || Request::is('analyst/'.$link) || Request::is('analyst/'.$link.'/*') || Request::is('manager/'.$link) || Request::is('manager/'.$link.'/*')) {{'active'}} @endif">
 
-                            <a href="/report/{{ $link }}" class="nav__link">{{ $title }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-                <!-- <span class="close-mob">
-                		x
-                	</span> -->
-            <!-- </div> -->
+                        <a href="/report/{{ $link }}" class="nav__link">{{ $title }}</a>
+                    </li>
+                @endforeach
+            </ul>
         </div>
-    <!-- @endsection -->
-    <!-- <div id="menu-mob2" class="container menu-mob">
-        Меню
-    </div> -->
-    <!-- @yield('nav_header_other') -->
+    </aside>
 
     <main class="page-main">
         <div class="page-title container">
@@ -124,7 +107,7 @@ $y = date("Y");
         @endif
         @yield('content')
     </main>
-
+    
     <footer class="page-footer">
         <div class="container">
             <div class="copyright">
@@ -562,18 +545,6 @@ $y = date("Y");
             hide_company_select_vvt_name = [];
             hide_personalities_select_contry_id = [];
             hide_personalities_select_contry_name = [];
-
-            // jQuery('.personalities_select_country option').removeAttr('selected');
-            // jQuery('.company_select_country option').removeAttr('selected');
-            // jQuery('.company_select_vvt option').removeAttr('selected');
-
-//            jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
-//            jQuery('.company_select_country option:first-child').attr('selected', 'selected');
-//            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');
-//
-//            jQuery('.personalities_select_country option').removeClass('active');
-//            jQuery('.company_select_country option').removeClass('active');
-//            jQuery('.company_select_vvt option').removeClass('active');
         });
 
         jQuery(".bg_popup_tag").click(function (e) {
@@ -592,9 +563,6 @@ $y = date("Y");
             hide_personalities_select_contry_id = [];
             hide_personalities_select_contry_name = [];
 
-            // jQuery('.personalities_select_country option').removeAttr('selected');
-            // jQuery('.company_select_country option').removeAttr('selected');
-
             jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
             jQuery('.company_select_country option:first-child').attr('selected', 'selected');
         });
@@ -603,14 +571,6 @@ $y = date("Y");
             e.preventDefault();
 
             jQuery('[name="tag"]').val("");
-
-/*            jQuery('.personalities_select_country option').removeAttr('selected');
-            jQuery('.company_select_country option').removeAttr('selected');
-            jQuery('.company_select_vvt option').removeAttr('selected');
-
-            jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');*/
         });
 
         jQuery(".butt_add_tag").click(function (e) {
@@ -698,27 +658,6 @@ $y = date("Y");
                 }
             }
 
-            // if(jQuery('[name=country]').length) {
-            //     if (jQuery('[name=country]').val() == '' || !jQuery('[name=country]').val()) {
-            //         error++;
-            //         jQuery('[name=country]').addClass('error');
-            //     }
-            // }
-
-            // if(jQuery('[name=region]').length) {
-            //     if (jQuery('[name=region]').val() == '' || !jQuery('[name=region]').val()) {
-            //         error++;
-            //         jQuery('[name=region]').addClass('error');
-            //     }
-            // }
-
-            // if(jQuery('[name=military_expenses]').length) {
-            //     if (jQuery('[name=military_expenses]').val() == '' || !jQuery('[name=military_expenses]').val()) {
-            //         error++;
-            //         jQuery('[name=military_expenses]').addClass('error');
-            //     }
-            // }
-
             if(jQuery('[name=editor1]').length) {
 
                 var edit1 = CKEDITOR.instances.editor1.getData();
@@ -738,7 +677,6 @@ $y = date("Y");
             }
 
             if (error) {
-                //jQuery('.alert-mess').append('<li class="error">Заполните обязательные поля!</li>');
                 jQuery('.popup_alert').fadeIn(250);
                 jQuery('.popup_alert .popup_form').show(500);
                 jQuery('.alert_text_out').html('<p class="error">Заполните обязательные поля!</p>');
@@ -812,23 +750,10 @@ $y = date("Y");
             jQuery('.nav_header_other').removeClass('mob-active');
 
         });
-
-        /*end menu-mob */
-
-        /*jQuery('.butt_search').click(function() {
-         jQuery('header .container.row_2 .right-box>form').submit();
-         })*/
     });
 </script>
 <script type="text/javascript" charset="utf-8">
     window.onload = function () {
-
-        //init select
-//        jQuery('.personalities_select_country option').removeAttr('selected');
-//        jQuery('.company_select_country option').removeAttr('selected');
-//
-//        jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
-//        jQuery('.company_select_country option:first-child').attr('selected', 'selected');
 
         //date
         var $w = jQuery('select.start_period option:selected').attr('data-week');
@@ -924,8 +849,6 @@ $y = date("Y");
                 jQuery(elem).attr('selected', 'selected');
             });
         });
-
-
     }
 
 
@@ -947,6 +870,8 @@ $y = date("Y");
 </script>
 
 <script src="{{asset('js/script.js')}}"></script>
+
+<script src="{{asset('js/sticky-kit.js')}}"></script>
 
 </body>
 </html>

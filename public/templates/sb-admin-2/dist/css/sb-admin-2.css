@@ -11,15 +11,25 @@
   src: local("\263A"), url("/fonts/SegoeUI/SegoeUI.woff") format("woff"), url("/fonts/SegoeUI/SegoeUI.ttf") format("truetype"), url("/build/fonts/SegoeUI/SegoeUI.svg") format("svg");
 }
 
+html {
+  height: 100%;
+}
 
 body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   background-color: #f8f8f8;
 }
 
 #wrapper {
+  flex: 1 0 auto;
   width: 100%;
-  margin-top: 38px;
-  margin-bottom: 40px;
+
+/* height: 100vh; */
+  margin-top: 37px;
+
+  /* margin-bottom: 40px; */
 }
 
 @media (max-width: 1100px) {
@@ -560,12 +570,13 @@ table.dataTable thead .sorting:after {
   left: 0;
   z-index: 10000;
   display: flex;
+  flex: 0 0 auto;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 8px 5%;
   font-family: "SegoeUI", sans-serif;
-  font-size: 16px;
+  font-size: 15px;
   background: #161f5a;
 }
 
@@ -680,14 +691,15 @@ table.dataTable thead .sorting:after {
 @media (min-width: 1100px) {
   .sidebar {
     position: fixed;
-    top: 38px;
-    z-index: 1;
+    top: 37px;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
     display: flex;
     flex-direction: column;
     width: 250px;
-    height: 100vh;
     margin-top: 0;
-    padding-bottom: 100px;
+    padding-bottom: 60px;
     background: #e8e8e8;
     border-right: 1px solid #b8b8b8;
   }
@@ -747,11 +759,11 @@ table.dataTable thead .sorting:after {
   margin-top: auto;
 }
 
-@media (max-width: 1099px) {
+/* @media (max-width: 1099px) {
   .side-menu__buttons {
     display: none;
   }
-}
+} */
 
 .button {
   display: block;
@@ -787,7 +799,7 @@ table.dataTable thead .sorting:after {
 @media (min-width: 1100px) {
   #page-wrapper {
     position: inherit;
-    min-height: 100% !important;
+    min-height: 50% !important;
     margin: 0 0 0 250px;
   }
 }
@@ -929,149 +941,12 @@ table.dataTable thead .sorting:after {
 }
 
 
-/* Table */
-
-/* table#table_div {
-  margin-bottom: 30px;
-  border-collapse: collapse;
-}
-
-table#table_div.display tr.even {
-  background-color: #dcdcdc;
-}
-
-table#table_div.display tr.odd {
-  background-color: #e8e8e8;
-}
-
-table#table_div.display tr:hover {
-  background-color: #dfdfdf;
-}
-
-table#table_div.display td,
-table#table_div.display th {
-  height: 15px;
-  border-bottom: 1px solid #b8b8b8;
-}
-
-table#table_div.display th {
-  padding: 8px 10px;
-}
-
-table#table_div.display td .hide-list {
-  display: none;
-}
-
-table#table_div.display td.active .hide-list {
-  display: block;
-}
-
-#table_div.dataTable.no-footer {
-  border-bottom: none;
-}
-
-#table_div.dataTable thead th {
-  position: relative;
-  padding: 20px;
-  font-size: 18px;
-  font-weight: 500;
-  color: #212121;
-  border-bottom: none;
-}
-
-#table_div.dataTable thead .sorting::after {
-  position: absolute;
-  top: 50%;
-  right: 5px;
-  font-size: 13px;
-  color: #323232;
-  transform: translateY(-50%);
-}
-
-#table_div.dataTable thead .sorting_desc::after,
-#table_div.dataTable thead .sorting_asc::after {
-  content: none;
-}
-
-#table_div.dataTable thead {
-  background-color: #dcdcdc;
-  border: 1px solid #b8b8b8;
-}
-
-#table_div.dataTable.display tbody tr.even > .sorting_1,
-#table_div.dataTable.display tbody tr.odd > .sorting_1 {
-  z-index: -1;
-  background: transparent;
-}
-
-#table_div.dataTable tbody tr:first-child {
-  box-shadow: inset 0 5px 4.75px 0.25px rgba(14, 15, 15, 0.15);
-}
-
-#table_div.dataTable tbody td {
-  padding: 18px 20px;
-  font-size: 15px;
-  font-weight: 500;
-  color: #212121;
-}
-
-.dataTables_wrapper {
-  margin-bottom: 30px;
-}
-
-.dataTables_wrapper .dataTables_length {
-  display: none;
-}
-
-.show-list {
-  position: relative;
-  padding-right: 10px;
-}
-
-.show-list::after {
-  content: "\f0dd";
-  position: absolute;
-  top: 0;
-  right: -2px;
-  width: 10px;
-  height: 5px;
-  font-family: fontawesome;
-  vertical-align: top;
-  transform: translateY(-50%);
-}
-
-td.active .show-list::after {
-  content: "\f0de";
-  height: 0;
-}
-
-#table_div_wrapper {
-  overflow-x: auto;
-}
-
-#table_div_wrapper .dataTables_paginate .paginate_button {
-  padding: 0.37em 0.8em;
-  color: #161f5a !important;
-  background: transparent;
-  border: none;
-}
-
-#table_div_wrapper .dataTables_paginate .paginate_button.current,
-#table_div_wrapper .dataTables_paginate .paginate_button.current:hover {
-  color: #ffffff !important;
-  background: #161f5a;
-  border: none;
-} */
-
-
 /* footer */
 footer {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 10000;
+  position: relative;
+  z-index: 1000;
   display: flex;
+  flex: 0 0 auto;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
