@@ -75,12 +75,12 @@
   
     <main class="page-main">
         <div class="page-title container">
-          <h1>Аналитика</h1>
+          <h1>Менеджер</h1>
         </div>
 
         <div class="page-info container">
           <div class="page-subtitle">
-            <h2>Создание и управление отчетами</h2>
+            <h2>Создание и управление пользователями</h2>
           </div>
 
           <div class="page-search">
