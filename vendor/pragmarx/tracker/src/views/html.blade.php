@@ -75,10 +75,10 @@
 
 	@yield('required-scripts-bottom')
 
-    <script>
-	    @yield('inline-javascript')
+    <script>@yield('inline-javascript')
     </script>
-    <!-- <footer>
+
+    <footer>
       <div class="copyright">© Copyright 2018. Все права защищены</div> 
       <div class="footer_doc">
         <a href="/reglament">Правила и регламент регистрации</a>
@@ -87,7 +87,7 @@
         Разработка сайта<span class="logo_east_tech"></span>
         <a href="http://east-tech.by/">“Восточные технологии”</a>
       </div>
-    </footer> -->
+    </footer>
 </body>
 
 </html>

@@ -13,32 +13,8 @@
           </button>
           <a class="navbar-brand" href="{{route('tracker.stats.index')}}">@lang("tracker::tracker.tracker_title")</a>
         </div>
-        <!-- /.navbar-header -->
 
-		    <!-- <ul class="nav navbar-top-links navbar-right navbar-nav">
-          <li {{ Session::get('tracker.stats.days') == '0' ? 'class="active"' : '' }}>
-            <a href="{{route('tracker.stats.index')}}?days=0">@lang("tracker::tracker.today")</a>
-          </li>
-
-          <li {{ Session::get('tracker.stats.days') == '1' ? 'class="active"' : '' }}>
-            <a href="{{route('tracker.stats.index')}}?days=1">@choice("tracker::tracker.no_days",1, ["count" => 1])</a>
-          </li>
-
-          <li {{ Session::get('tracker.stats.days') == '7' ? 'class="active"' : '' }}>
-            <a href="{{route('tracker.stats.index')}}?days=7">@choice("tracker::tracker.no_days",7, ["count" => 7])</a>
-          </li>
-
-          <li {{ Session::get('tracker.stats.days') == '30' ? 'class="active"' : '' }}>
-            <a href="{{route('tracker.stats.index')}}?days=30">@choice("tracker::tracker.no_days",30, ["count" => 30])</a>
-          </li>
-
-          <li {{ Session::get('tracker.stats.days') == '365' ? 'class="active"' : '' }}>
-            <a href="{{route('tracker.stats.index')}}?days=365">@choice("tracker::tracker.no_years",1, ["count" => 1])</a>
-          </li>
-        </ul> -->
-            <!-- /.navbar-top-links -->
-
-		    <div class="navbar-default sidebar" role="navigation">
+		    <div class="navbar-default sidebar">       
 			    <div class="sidebar-nav navbar-collapse">
             <div class="logo-box">
               <a class="logo-text" href="{{ url('/') }}"> 
@@ -48,16 +24,16 @@
 
 				    <ul class="nav" id="side-menu">
               <li>
-                <a href="{{route('tracker.stats.index')}}?page=visits" class="{{ Session::get('tracker.stats.page') =='visits' ? 'active' : '' }}" ><i class="fa fa-dashboard fa-fw"></i> @lang("tracker::tracker.visits")</a>
+                <a href="{{route('tracker.stats.index')}}?pages=visits" class="{{ Session::get('tracker.stats.page') =='visits' ? 'active' : '' }}" ><i class="fa fa-dashboard fa-fw"></i> @lang("tracker::tracker.visits")</a>
               </li>
               <li>
-                <a href="{{route('tracker.stats.index')}}?page=summary" class="{{ Session::get('tracker.stats.page') =='summary' ? 'active' : '' }}"><i class="fa fa-bar-chart-o fa-fw"></i> @lang("tracker::tracker.summary")</a>
+                <a href="{{route('tracker.stats.index')}}?pages=summary" class="{{ Session::get('tracker.stats.page') =='summary' ? 'active' : '' }}"><i class="fa fa-bar-chart-o fa-fw"></i> @lang("tracker::tracker.summary")</a>
               </li>
               <li>
-                <a href="{{route('tracker.stats.index')}}?page=users" class="{{ Session::get('tracker.stats.page') =='users' ? 'active' : '' }}"><i class="fa fa-user fa-fw"></i> @lang("tracker::tracker.users")</a>
+                <a href="{{route('tracker.stats.index')}}?pages=users" class="{{ Session::get('tracker.stats.page') =='users' ? 'active' : '' }}"><i class="fa fa-user fa-fw"></i> @lang("tracker::tracker.users")</a>
               </li>
               <li>
-                <a href="{{route('tracker.stats.index')}}?page=events" class="{{ Session::get('tracker.stats.page') =='events' ? 'active' : '' }}"><i class="fa fa-bolt fa-fw"></i> @lang("tracker::tracker.events")</a>
+                <a href="{{route('tracker.stats.index')}}?pages=events" class="{{ Session::get('tracker.stats.page') =='events' ? 'active' : '' }}"><i class="fa fa-bolt fa-fw"></i> @lang("tracker::tracker.events")</a>
               </li>
           {{--<li>--}}
             {{--<a href="{{route('tracker.stats.index')}}?page=errors" class="{{ Session::get('tracker.stats.page') =='errors' ? 'active' : '' }}">@lang("tracker::tracker.errors")</a>--}}
@@ -66,8 +42,8 @@
 
             <div class="side-menu__buttons">
               <a class="button" href="#">Назад</a>
-              <a class="button" href="#">Экспорт в Excel</a>
-              <a class="button" href="#">Общая статистика</a>
+              <a class="button excel_link" href="/stats/excel">Экспорт в Excel</a>
+              <a class="button change_table_stats" href="#">Общая статистика</a>
             </div>
             <!-- /#side-menu -->
             </div>

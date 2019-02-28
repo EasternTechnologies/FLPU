@@ -151,6 +151,15 @@ Route::resource('/vvttypes', 'Analyst\resources\VvttypesController');
 Route::resource('/personalities', 'Analyst\resources\PersonalitiesController');
 
 
+Route::get('/predistest','User\HomeController@predis');
+
+Route::post('/redis','RedisController@newsearch');
+Route::post('/redis/change','RedisController@change');
+
+
+Route::get('/treckertest','User\HomeController@tracker');
+
+
 /*
 * CKeditor
 **/

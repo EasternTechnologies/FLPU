@@ -15,7 +15,8 @@
         "laravel/tinker": "^1.0",
         "nicolaslopezj/searchable": "1.*",
         "niklasravnsborg/laravel-pdf": "^2.0",
-        "predis/predis":"1.*"
+        "phpoffice/phpspreadsheet": "^1.6",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
