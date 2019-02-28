@@ -328,7 +328,7 @@ class HomeController extends Controller
 		$choose_array = unserialize(Redis::get('search:key'.$request->random_key_before));
 
 			$isadvantage  =true;
-
+			$type = true;
         return view('user.advan_search_result',
 			compact(
 				'articles',
