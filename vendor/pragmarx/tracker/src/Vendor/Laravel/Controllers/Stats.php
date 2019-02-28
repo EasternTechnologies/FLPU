@@ -316,7 +316,7 @@ class Stats extends Controller
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="file.xlsx"');
-        $writer->save("../public/temp");
+        $writer->save("../storage/uploads");
         exit();
 
     }
