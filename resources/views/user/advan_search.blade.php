@@ -6,8 +6,9 @@ $y = date("Y");
 @extends('layouts.app')
 
 @section('content')
-    <div class="search-form container">
-        <form action="/search" method="get">
+    <div class="container">
+        <h3 class="full_row_center title">Расширенный поиск</h3>
+        <form action="/search" class="search_form_adv" method="get">
             @csrf
             <div class="col-md-12">
                 <div class="search-form__filter">
@@ -15,14 +16,14 @@ $y = date("Y");
                         <label> Тип отчета
                             <select class="search-form__field report_type" name="report_type">
                               <option value="all_reports">Все отчеты</option>
-                              
+
                                 @foreach($report_types as $slug =>$report_type)
                                 <option value="{{ $slug }}">{{ $report_type }}</option>
                                 @endforeach
                             </select>
                         </label>
                     </p>
-                          
+
                     <p class="search-form__block weekly_block">
                         <label> Категории
                             <select class="search-form__field" name="new_weekly">
@@ -34,7 +35,7 @@ $y = date("Y");
                             </select>
                         </label>
                     </p>
-                      
+
                     <p class="search-form__block monthly_block">
                         <label> Категории
                           <select class="search-form__field" name="new_monthly">
@@ -64,9 +65,9 @@ $y = date("Y");
             </div>
 
             <tagsforsearch-component></tagsforsearch-component>
-
-            <div class="box_save_article">
-                <button class="button button--search">Поиск</button>
+            <input type="hidden" name="random_key_before" value="">
+            <div class="row fixed_bottom box_save_article">
+                <button class="button_save butt butt_def pdf-reset">Поиск</button>
             </div>
         </form>
     </div>

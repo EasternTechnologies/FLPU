@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-
+use Illuminate\Support\Facades\Redis;
+use PragmaRX\Tracker\Tracker;
 
 class HomeController extends Controller
 {
@@ -322,21 +323,41 @@ class HomeController extends Controller
     }
 	        }
 
+		
+		$random_key = $request->random_key_before;
+		$choose_array = unserialize(Redis::get('search:key'.$request->random_key_before));
 
 			$isadvantage  =true;
 
-        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types','isadvantage'));
+        return view('user.advan_search_result',
+			compact(
+				'articles',
+				'report_type',
+				'start_period',
+				'end_period',
+				'countries',
+				'companies',
+				'personalities',
+				'vvt_types',
+				'isadvantage',
+				'random_key',
+				'choose_array'
+				));
     }
 
 	public function search_choose(Request $request)
 	{
 //		dump($request->all());
-		if(count($request->id)){
-			$articles = ArticleReports::whereIn('id',$request->id)->get();
+
+		$array = unserialize(Redis::get('search:key'.$request->random_key));
+
+		if(!empty($array) && count($array)){
+			$articles = ArticleReports::whereIn('id',$array)->get();
 		}
 //		dump($articles);
+		$random_key = $request->random_key;
 		$choose = true;
-		return view('user.advan_search_result', compact('articles','choose'));
+		return view('user.advan_search_result', compact('articles','choose','random_key'));
 	}
 
     public function findbytagsinalltables ( $countries, $companies, $vvt_types, $personalities, $start_period, $end_period, &$articles ) {
@@ -510,4 +531,38 @@ class HomeController extends Controller
 	    return redirect()->to('/report');
 
     }
+
+	public function predis()
+	{
+		Redis::set('test:key',5);
+		Redis::set('test:key2', serialize(['key1'=>1,2,3,4,5]));
+
+		Redis::set('test:key3',15);
+		echo Redis::get('test:key');
+		dump(Redis::get('test:key2'));
+
+		dump(unserialize(Redis::get('test:key2')));
+		Redis::del('test:key');
+		dump(Redis::get('test:key'));
+	}
+
+	public function tracker()
+	{
+
+		dump(\Tracker::onlineUsers(1));
+		dump(\Tracker::pageViews(60 * 24 * 30));
+
+		$visitor = \Tracker::currentSession();
+
+		echo $visitor->device->platform ;
+		$users = \Tracker::users(1);
+		dump($users);
+
+		$events = \Tracker::events(60 * 24);
+
+		dump($events);
+
+	}
+
+
 }
