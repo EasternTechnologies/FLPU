@@ -341,7 +341,8 @@ class HomeController extends Controller
 				'vvt_types',
 				'isadvantage',
 				'random_key',
-				'choose_array'
+				'choose_array',
+				'type'
 				));
     }
 
