@@ -22,6 +22,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use PhpOffice\PhpSpreadsheet\Shared\File as Excel;
 
 class Stats extends Controller
 {
@@ -313,7 +314,7 @@ class Stats extends Controller
 
         $sheet->getStyle('C1:C'.$row)->getAlignment()->setWrapText(true);
         $writer = new Xlsx($spreadsheet);
-	    \PhpOffice\PhpSpreadsheet\Shared\File::setUseUploadTempDirectory(true);
+	    Excel::setUseUploadTempDirectory(true);
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="file.xlsx"');
@@ -381,6 +382,8 @@ class Stats extends Controller
 
         $sheet->getStyle('C1:C'.$row)->getAlignment()->setWrapText(true);
         $writer = new Xlsx($spreadsheet);
+
+	    Excel::setUseUploadTempDirectory(true);
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="file.xlsx"');
