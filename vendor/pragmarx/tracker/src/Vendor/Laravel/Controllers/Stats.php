@@ -313,6 +313,7 @@ class Stats extends Controller
 
         $sheet->getStyle('C1:C'.$row)->getAlignment()->setWrapText(true);
         $writer = new Xlsx($spreadsheet);
+	    \PhpOffice\PhpSpreadsheet\Shared\File::setUseUploadTempDirectory(true);
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="file.xlsx"');
