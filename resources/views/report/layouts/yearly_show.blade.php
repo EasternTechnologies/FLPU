@@ -22,7 +22,7 @@
                     <label class="pdf-checkbox">
                         <span class="span-checkbox">Выбрать</span>
                         <input
-                        @if($q) data-result="1" @endif
+                                @if($q) checked @endif
                         type="checkbox" value="{{$post->id}}">
                     </label>
                 </p>

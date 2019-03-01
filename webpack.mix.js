@@ -16,5 +16,6 @@ mix
 	//.sass('resources/assets/sass/app.scss', 'public/css')
 	.sass('resources/assets/sass/analyst.scss', 'public/css')
 	.sass('resources/assets/sass/user.scss', 'public/css')
-	.sass('resources/assets/sass/media.scss', 'public/css');
+	.sass('resources/assets/sass/media.scss', 'public/css')
+	.sass('resources/assets/sass/new_design.scss', 'public/css');
    

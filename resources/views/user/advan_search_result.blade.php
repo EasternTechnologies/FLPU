@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    {{--<input type="text" name="random_key" value="{{$random_key}}">--}}
 
+    <input type="hidden" name="random_key" value="{{$random_key}}">
     @if(empty($choose))
     <div class="pagination">{{ $articles->links() }}</div>
     <h3 class="full_row_center title">Результаты поиска</h3>
@@ -11,7 +11,7 @@
     @endif
 
     @if(!empty($isadvantage))
-    <div class="container border search_result_box">
+    <div class="container search_result_box">
         <p>
             <strong>Тип отчета:</strong>
             @if(is_object($report_type))
@@ -130,7 +130,7 @@
             @if(empty($choose))
             <button class="button butt_def show_pdf_for_search" @if(empty($choose_array)) disabled @endif>Показать выборку</button>
             @endif
-            <button class="button butt_def show_pdf_search" @if(empty($choose_array)) disabled @endif>Выборка в PDF</button>
+            <button class="button butt_def show_pdf_search" @if(empty($choose_array) && empty($choose)) disabled @endif>Выборка в PDF</button>
         </div>
     </div>
 

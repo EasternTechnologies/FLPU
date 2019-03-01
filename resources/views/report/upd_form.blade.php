@@ -47,14 +47,14 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
 
                         <span class="select_wrap calendar_wrap" style="display: none;">
 			        	<input name="start_period_picker" value="" class="calendar_start_3"/>
-			        	<input type="hidden" value="<?php echo $report->date_start; ?>" name="start_period">
+			        	<input type="hidden" value="<?php echo $article->date_start; ?>" name="start_period">
 		        	</span>
 			        </span>
                         <span> по </span>
 
                         <span class="select_wrap calendar_wrap" style="display: none;">
 				        	<input name="end_period_picker" value="" class="calendar_end_3"/>
-				        	<input type="hidden" value="<?php echo $report->date_end; ?>" name="end_period">
+				        	<input type="hidden" value="<?php echo $article->date_end; ?>" name="end_period">
 				        </span>
                     </p>
 
@@ -317,7 +317,7 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                 locale: 'ru-ru',
                 minDate: '<?php echo date("d.m.Y",$report->date_start); ?>',
                 maxDate: '<?php echo date("d.m.Y",$report->date_end); ?>',
-                value: '<?php echo date("d.m.Y",$report->date_start); ?>',
+                value: '<?php echo date("d.m.Y",$article->date_start); ?>',
                 format: 'dd.mm.yyyy',
             });
 
@@ -330,7 +330,7 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                 locale: 'ru-ru',
                 minDate: '<?php echo date("d.m.Y",$report->date_start); ?>',
                 maxDate: '<?php echo date("d.m.Y",$report->date_end); ?>',
-                value: '<?php echo date("d.m.Y",$report->date_end); ?>',
+                value: '<?php echo date("d.m.Y",$article->date_end); ?>',
                 format: 'dd.mm.yyyy',
 
             });

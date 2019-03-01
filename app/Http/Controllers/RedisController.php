@@ -21,10 +21,14 @@ class RedisController extends Controller
     public function change(Request $request)
     {
 
+//        return $request->random_key;
+//        return Redis::get('search:key'.$request->random_key);
 //        echo response()->json($request->id);
-        $array = unserialize(Redis::get('search:key'.$request->random_key));
-//        echo response()->json($array);
 
+        $array = unserialize(Redis::get('search:key'.$request->random_key));
+//        return $array;
+//        return 123;
+//        echo response()->json($array);
         $key = array_search($request->id,$array);
 //        echo response()->json($key);
 
@@ -34,7 +38,7 @@ class RedisController extends Controller
         else {
             $array[] = $request->id;
         }
-        Redis::set('search:key'.$request->random_key,serialize($array));
+        Redis::set('search:key'.$request->random_key,serialize($array),'EX',3600);
         return response()->json(count($array));
 //        return response()->json($array);
     }

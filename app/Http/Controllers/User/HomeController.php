@@ -101,9 +101,12 @@ class HomeController extends Controller
 //            }
 		    return   $articles;
 	    }
+
+		$random_key = $request->random_key;
+		$choose_array = unserialize(Redis::get('search:key'.$request->random_key));
 //dd($request);
 //        return view('user.simplysearch', compact('results'));
-        return view('user.advan_search_result', compact('articles'));
+        return view('user.advan_search_result', compact('articles','random_key','choose_array'));
     }
 
     public function advanced_search_form () {
@@ -201,7 +204,7 @@ class HomeController extends Controller
 				        //если одна запись вытянулась на каждый тег
 				        if ( $value->count() == $tags_count ) {
 					        //добавляем ее в массив, передаваемый во вьюху
-					        $strong = $strong->concat($value);
+					        $strong = $strong->concat($value)->keyBy('id');;
 				        }
 			        };
 		        }
@@ -258,7 +261,7 @@ class HomeController extends Controller
 					        //если одна запись вытянулась на каждый тег
 					        if ( $value->count() == $tags_count ) {
 						        //добавляем ее в массив, передаваемый во вьюху
-						        $strong = $strong->concat($value);
+						        $strong = $strong->concat($value)->keyBy('id');
 					        }
 				        };
 			        }
@@ -311,7 +314,7 @@ class HomeController extends Controller
 					        //если одна запись вытянулась на каждый тег
 					        if ( $value->count() == $tags_count ) {
 						        //добавляем ее в массив, передаваемый во вьюху
-						        $strong = $strong->concat($value);
+						        $strong = $strong->concat($value)->keyBy('id');
 					        }
 				        };
 			        }
@@ -328,7 +331,7 @@ class HomeController extends Controller
 		$choose_array = unserialize(Redis::get('search:key'.$request->random_key_before));
 
 			$isadvantage  =true;
-
+			$type = true;
         return view('user.advan_search_result',
 			compact(
 				'articles',
@@ -341,7 +344,8 @@ class HomeController extends Controller
 				'vvt_types',
 				'isadvantage',
 				'random_key',
-				'choose_array'
+				'choose_array',
+				'type'
 				));
     }
 

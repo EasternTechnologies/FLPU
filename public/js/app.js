@@ -14349,7 +14349,8 @@ module.exports = Cancel;
 __webpack_require__(15);
 __webpack_require__(59);
 __webpack_require__(60);
-module.exports = __webpack_require__(61);
+__webpack_require__(61);
+module.exports = __webpack_require__(62);
 
 
 /***/ }),
@@ -51044,7 +51045,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-6b47f89c"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -51087,13 +51088,13 @@ var content = __webpack_require__(51);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("7299d42b", content, false, {});
+var update = __webpack_require__(4)("b457793c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b47f89c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsforsearchComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b47f89c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsforsearchComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b47f89c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsforsearchComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b47f89c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsforsearchComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -51111,7 +51112,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -51122,6 +51123,27 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -51213,7 +51235,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       companies: [],
       selcompanies: [],
       personalities: [],
-      selpersonalities: []
+      selpersonalities: [],
+      showCountry: false,
+      showCompany: false,
+      showVVT: false,
+      showPersonalities: false
     };
   },
   mounted: function mounted() {
@@ -51256,7 +51282,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var row = Number.parseInt(count / n) + 1;
       jQuery(selector).css("grid-template-rows", "repeat(" + row + ", 1fr)");
     },
-
     allCountries: function allCountries() {
       if (this.selcountries.length) {
         this.selcountries = [];
@@ -51286,7 +51311,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           return item.id;
         });
       }
-      // this.checkboxfilter();
+      this.checkboxfilter();
     },
     allPersonalities: function allPersonalities() {
       if (this.selpersonalities.length) {
@@ -51296,7 +51321,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           return item.id;
         });
       }
-      // this.checkboxfilter();
+      this.checkboxfilter();
     }
   }
 });
@@ -51309,22 +51334,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container tags_form mt30" }, [
-    _c("div", { staticClass: "row mb30" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("h4", { staticClass: "mb_1" }, [
-          _vm._v("Страны и регионы \n        "),
-          _c(
-            "span",
+  return _c("div", { staticClass: "tags_form mt30" }, [
+    _c("div", { staticClass: "form-group" }, [
+      _c(
+        "header",
+        {
+          staticClass: "form-header",
+          class: { active: _vm.showCountry },
+          on: {
+            click: function($event) {
+              _vm.showCountry = !_vm.showCountry
+            }
+          }
+        },
+        [
+          _c("h4", { staticClass: "mb_1" }, [_vm._v("Страны и регионы")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "check-all" }, [
+            _c("input", { attrs: { type: "checkbox" } }),
+            _vm._v(" "),
+            _c("span", { on: { click: _vm.allCountries } }, [
+              _vm._v("Выбрать все")
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
             {
-              staticClass: "button button_small_small sel_all",
-              on: { click: _vm.allCountries }
-            },
-            [_vm._v("Выбрать все")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-check" }, [
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showCountry,
+              expression: "showCountry"
+            }
+          ],
+          staticClass: "form-check"
+        },
+        [
           _c(
             "div",
             _vm._b(
@@ -51395,262 +51444,346 @@ var render = function() {
             }),
             0
           )
-        ])
-      ])
+        ]
+      )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row mb30" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("h4", { staticClass: "mb_1" }, [
-          _vm._v("Тип ВВТ \n        "),
+    _c("div", { staticClass: "form-group" }, [
+      _c(
+        "header",
+        {
+          staticClass: "form-header",
+          class: { active: _vm.showVVT },
+          on: {
+            click: function($event) {
+              _vm.showVVT = !_vm.showVVT
+            }
+          }
+        },
+        [
+          _c("h4", { staticClass: "mb_1" }, [_vm._v("Тип ВВТ")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "check-all" }, [
+            _c("input", { attrs: { type: "checkbox" } }),
+            _vm._v(" "),
+            _c("span", { on: { click: _vm.allVVT } }, [_vm._v("Выбрать все")])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showVVT,
+              expression: "showVVT"
+            }
+          ],
+          staticClass: "form-check"
+        },
+        [
           _c(
-            "span",
-            {
-              staticClass: "button button_small_small sel_all",
-              on: { click: _vm.allVVT }
-            },
-            [_vm._v("Выбрать все")]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          _vm._b(
-            {
-              staticClass: "form-check-label grid-col-check-6",
-              attrs: { id: "form-check-vvt_types" }
-            },
             "div",
-            _vm.bindTagGrid("#form-check-vvt_types", this.vvt_types.length, 4),
-            false
-          ),
-          _vm._l(_vm.vvt_types, function(vvt_type) {
-            return _c(
-              "label",
-              { staticClass: "d-flex flex-row align-items-start check_box" },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selvvt_types,
-                      expression: "selvvt_types"
-                    }
-                  ],
-                  attrs: { name: "vvt_types[]", type: "checkbox" },
-                  domProps: {
-                    value: vvt_type.id,
-                    checked: Array.isArray(_vm.selvvt_types)
-                      ? _vm._i(_vm.selvvt_types, vvt_type.id) > -1
-                      : _vm.selvvt_types
-                  },
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$a = _vm.selvvt_types,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = vvt_type.id,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.selvvt_types = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.selvvt_types = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.selvvt_types = $$c
-                        }
-                      },
-                      function($event) {
-                        return _vm.checkboxfilter()
-                      }
-                    ]
-                  }
-                }),
-                _vm._v(" "),
-                _c("span", [_vm._v(_vm._s(vvt_type.title))])
-              ]
-            )
-          }),
-          0
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row mb30" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("h4", { staticClass: "mb_1" }, [
-          _vm._v("Компании и организации\n        "),
-          _c(
-            "span",
-            {
-              staticClass: "button button_small_small sel_all",
-              on: { click: _vm.allCompanies }
-            },
-            [_vm._v("Выбрать все")]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          _vm._b(
-            {
-              staticClass: "form-check-label grid-col-check-2",
-              attrs: { id: "form-check-companies" }
-            },
-            "div",
-            _vm.bindTagGrid("#form-check-companies", this.companies.length, 2),
-            false
-          ),
-          _vm._l(_vm.companies, function(company) {
-            return _c(
-              "label",
-              { staticClass: "d-flex flex-row align-items-start check_box" },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selcompanies,
-                      expression: "selcompanies"
-                    }
-                  ],
-                  attrs: { name: "companies[]", type: "checkbox" },
-                  domProps: {
-                    value: company.id,
-                    checked: Array.isArray(_vm.selcompanies)
-                      ? _vm._i(_vm.selcompanies, company.id) > -1
-                      : _vm.selcompanies
-                  },
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$a = _vm.selcompanies,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = company.id,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.selcompanies = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.selcompanies = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.selcompanies = $$c
-                        }
-                      },
-                      function($event) {
-                        return _vm.checkboxfilter()
-                      }
-                    ]
-                  }
-                }),
-                _vm._v(" "),
-                _c("span", [_vm._v(_vm._s(company.title))])
-              ]
-            )
-          }),
-          0
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row mb30" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("h4", { staticClass: "mb_1" }, [
-          _vm._v("Персоналии \n        "),
-          _c(
-            "span",
-            {
-              staticClass: "button button_small_small sel_all",
-              on: { click: _vm.allPersonalities }
-            },
-            [_vm._v("Выбрать все")]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          _vm._b(
-            {
-              staticClass: "form-check-label grid-col-check-6",
-              attrs: { id: "form-check-personalities" }
-            },
-            "div",
-            _vm.bindTagGrid(
-              "#form-check-personalities",
-              this.personalities.length,
-              3
+            _vm._b(
+              {
+                staticClass: "form-check-label grid-col-check-6",
+                attrs: { id: "form-check-vvt_types" }
+              },
+              "div",
+              _vm.bindTagGrid(
+                "#form-check-vvt_types",
+                this.vvt_types.length,
+                4
+              ),
+              false
             ),
-            false
-          ),
-          _vm._l(_vm.personalities, function(personality) {
-            return _c(
-              "label",
-              { staticClass: "d-flex flex-row align-items-start check_box" },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selpersonalities,
-                      expression: "selpersonalities"
-                    }
-                  ],
-                  attrs: { name: "personalities[]", type: "checkbox" },
-                  domProps: {
-                    value: personality.id,
-                    checked: Array.isArray(_vm.selpersonalities)
-                      ? _vm._i(_vm.selpersonalities, personality.id) > -1
-                      : _vm.selpersonalities
-                  },
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$a = _vm.selpersonalities,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = personality.id,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              (_vm.selpersonalities = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.selpersonalities = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.selpersonalities = $$c
-                        }
-                      },
-                      function($event) {
-                        return _vm.checkboxfilter()
+            _vm._l(_vm.vvt_types, function(vvt_type) {
+              return _c(
+                "label",
+                { staticClass: "d-flex flex-row align-items-start check_box" },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.selvvt_types,
+                        expression: "selvvt_types"
                       }
-                    ]
-                  }
-                }),
-                _vm._v(" "),
-                _c("span", [_vm._v(_vm._s(personality.title))])
-              ]
-            )
-          }),
-          0
-        )
-      ])
+                    ],
+                    attrs: { name: "vvt_types[]", type: "checkbox" },
+                    domProps: {
+                      value: vvt_type.id,
+                      checked: Array.isArray(_vm.selvvt_types)
+                        ? _vm._i(_vm.selvvt_types, vvt_type.id) > -1
+                        : _vm.selvvt_types
+                    },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$a = _vm.selvvt_types,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = vvt_type.id,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.selvvt_types = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.selvvt_types = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.selvvt_types = $$c
+                          }
+                        },
+                        function($event) {
+                          return _vm.checkboxfilter()
+                        }
+                      ]
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v(_vm._s(vvt_type.title))])
+                ]
+              )
+            }),
+            0
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c(
+        "header",
+        {
+          staticClass: "form-header",
+          class: { active: _vm.showCompany },
+          on: {
+            click: function($event) {
+              _vm.showCompany = !_vm.showCompany
+            }
+          }
+        },
+        [
+          _c("h4", { staticClass: "mb_1" }, [_vm._v("Компании и организации")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "check-all" }, [
+            _c("input", { attrs: { type: "checkbox" } }),
+            _vm._v(" "),
+            _c("span", { on: { click: _vm.allCompanies } }, [
+              _vm._v("Выбрать все")
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showCompany,
+              expression: "showCompany"
+            }
+          ],
+          staticClass: "form-check"
+        },
+        [
+          _c(
+            "div",
+            _vm._b(
+              {
+                staticClass: "form-check-label grid-col-check-2",
+                attrs: { id: "form-check-companies" }
+              },
+              "div",
+              _vm.bindTagGrid(
+                "#form-check-companies",
+                this.companies.length,
+                4
+              ),
+              false
+            ),
+            _vm._l(_vm.companies, function(company) {
+              return _c(
+                "label",
+                { staticClass: "d-flex flex-row align-items-start check_box" },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.selcompanies,
+                        expression: "selcompanies"
+                      }
+                    ],
+                    attrs: { name: "companies[]", type: "checkbox" },
+                    domProps: {
+                      value: company.id,
+                      checked: Array.isArray(_vm.selcompanies)
+                        ? _vm._i(_vm.selcompanies, company.id) > -1
+                        : _vm.selcompanies
+                    },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$a = _vm.selcompanies,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = company.id,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.selcompanies = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.selcompanies = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.selcompanies = $$c
+                          }
+                        },
+                        function($event) {
+                          return _vm.checkboxfilter()
+                        }
+                      ]
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v(_vm._s(company.title))])
+                ]
+              )
+            }),
+            0
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c(
+        "header",
+        {
+          staticClass: "form-header",
+          class: { active: _vm.showPersonalities },
+          on: {
+            click: function($event) {
+              _vm.showPersonalities = !_vm.showPersonalities
+            }
+          }
+        },
+        [
+          _c("h4", { staticClass: "mb_1" }, [_vm._v("Персоналии")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "check-all" }, [
+            _c("input", { attrs: { type: "checkbox" } }),
+            _vm._v(" "),
+            _c("span", { on: { click: _vm.allPersonalities } }, [
+              _vm._v("Выбрать все")
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showPersonalities,
+              expression: "showPersonalities"
+            }
+          ],
+          staticClass: "form-check"
+        },
+        [
+          _c(
+            "div",
+            _vm._b(
+              {
+                staticClass: "form-check-label grid-col-check-6",
+                attrs: { id: "form-check-personalities" }
+              },
+              "div",
+              _vm.bindTagGrid(
+                "#form-check-personalities",
+                this.personalities.length,
+                4
+              ),
+              false
+            ),
+            _vm._l(_vm.personalities, function(personality) {
+              return _c(
+                "label",
+                { staticClass: "d-flex flex-row align-items-start check_box" },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.selpersonalities,
+                        expression: "selpersonalities"
+                      }
+                    ],
+                    attrs: { name: "personalities[]", type: "checkbox" },
+                    domProps: {
+                      value: personality.id,
+                      checked: Array.isArray(_vm.selpersonalities)
+                        ? _vm._i(_vm.selpersonalities, personality.id) > -1
+                        : _vm.selpersonalities
+                    },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$a = _vm.selpersonalities,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = personality.id,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                (_vm.selpersonalities = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.selpersonalities = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.selpersonalities = $$c
+                          }
+                        },
+                        function($event) {
+                          return _vm.checkboxfilter()
+                        }
+                      ]
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v(_vm._s(personality.title))])
+                ]
+              )
+            }),
+            0
+          )
+        ]
+      )
     ])
   ])
 }
@@ -51750,7 +51883,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.search_result[data-v-6406c664] {\n  position: relative;\n  z-index: 100;\n  padding-bottom: 30px;\n  background-color: white;\n  border: 1px solid #0d004c;\n  -webkit-box-shadow: 0 0 21px 0 rgba(0, 0, 1, 0.4);\n          box-shadow: 0 0 21px 0 rgba(0, 0, 1, 0.4);\n}\n.all_res_link[data-v-6406c664] {\n  position: absolute;\n  bottom: 10px;\n  left: 50%;\n  z-index: 200;\n  margin-bottom: 0;\n  font-size: 14px;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n}\n.search_result ul[data-v-6406c664] {\n  max-height: 250px;\n  overflow: auto;\n}\n\n", ""]);
+exports.push([module.i, "\n.search_result[data-v-6406c664] {\n  position: relative;\n  z-index: 100;\n  padding-bottom: 30px;\n  background-color: white;\n  border: 1px solid #0d004c;\n  -webkit-box-shadow: 0 0 21px 0 rgba(0, 0, 1, 0.4);\n          box-shadow: 0 0 21px 0 rgba(0, 0, 1, 0.4);\n}\n.all_res_link[data-v-6406c664] {\n  position: absolute;\n  bottom: 10px;\n  left: 50%;\n  z-index: 200;\n  margin-bottom: 0;\n  font-size: 14px;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n}\n.search_result ul[data-v-6406c664] {\n  max-height: 250px;\n  overflow: auto;\n}\n.search[data-v-6406c664] {\n  color: #787878;\n  background: #e7e7e7;\n}\n\n", ""]);
 
 // exports
 
@@ -51761,9 +51894,6 @@ exports.push([module.i, "\n.search_result[data-v-6406c664] {\n  position: relati
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
 //
 //
 //
@@ -51795,25 +51925,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         search: function search() {
-            var _this = this;
-
             if (this.q.length >= 2) {
                 document.cookie = "pdfitems=; path=/;";
 
-                axios.post('/simply_search', { q: this.q }).then(function (response) {
-                    _this.result = response.data;
-                    console.log(123);
-                    console.log(response.data);
-                });
+                //                    axios.post('/api/redis', ).then(response => {
+                //                        this.result = response.data;
+                //                    console.log(response.data);
+                //                })
+
+                //                    axios.post('/simply_search', {q: this.q}).then(response => {
+                //                        this.result = response.data;
+                //                        console.log(response.data);
+                //                    })
             }
         },
         close: function close() {
             this.result = false;
         },
         search_result: function search_result() {
+            var _this = this;
+
             if (this.q.length >= 1) {
 
-                window.location.href = "/simply_search?q=" + this.q;
+                axios.post('/redis', { newsearch: 1 }).then(function (response) {
+                    window.location.href = "/simply_search?q=" + _this.q + "&random_key=" + response.data;
+                });
             }
         }
     }
@@ -51827,51 +51963,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "right-box" }, [
-      _c("div", [
-        _c("label", { staticClass: "search-box" }, [
-          _c("a", { attrs: { href: "/search/form" } }, [
-            _vm._v("Расширенный поиск")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.q,
-                expression: "q"
+  return _c("div", { staticClass: "right-box" }, [
+    _c("label", { staticClass: "search-box" }, [
+      _c("a", { attrs: { href: "/search/form" } }, [
+        _vm._v("Расширенный поиск")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          { name: "model", rawName: "v-model", value: _vm.q, expression: "q" }
+        ],
+        staticClass: "search",
+        attrs: { type: "text", placeholder: "Введите слово" },
+        domProps: { value: _vm.q },
+        on: {
+          keyup: [
+            function($event) {
+              if (!$event.type.indexOf("key") && $event.keyCode !== 13) {
+                return null
               }
-            ],
-            staticClass: "search",
-            attrs: { type: "text", placeholder: "Введите слово" },
-            domProps: { value: _vm.q },
-            on: {
-              keyup: [
-                function($event) {
-                  if (!$event.type.indexOf("key") && $event.keyCode !== 13) {
-                    return null
-                  }
-                  return _vm.search_result($event)
-                },
-                _vm.search
-              ],
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.q = $event.target.value
-              }
+              return _vm.search_result($event)
+            },
+            _vm.search
+          ],
+          input: function($event) {
+            if ($event.target.composing) {
+              return
             }
-          }),
-          _vm._v(" "),
-          _c("span", {
-            staticClass: "butt_search",
-            on: { click: _vm.search_result }
-          })
-        ])
-      ])
+            _vm.q = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("span", {
+        staticClass: "butt_search",
+        on: { click: _vm.search_result }
+      })
     ])
   ])
 }
@@ -51899,6 +52026,12 @@ if (false) {
 
 /***/ }),
 /* 61 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 62 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -165,7 +165,7 @@ class PdfController extends Controller {
         $report_slug = 'search';
         $template = 'pdf.pdf_item';
 
-		Redis::del('search:key'.$request->random_key);
+//		Redis::del('search:key'.$request->random_key);
 
         $pdf = \PDF::loadView($template, compact('report', 'items','report_slug','descriptions'), [], $format);
         return $pdf->stream( 'Результаты поиска' .'.pdf' );
