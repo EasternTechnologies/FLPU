@@ -11,6 +11,8 @@ $y = date("Y");
 
     <div class="container add_form_step2 posr">
 
+        <input type="hidden" name="random_key" value="{{empty($q)?'000':$q}}">
+
         @if($q)
             <h3 class="title">Выбранные документы</h3>
 
@@ -87,7 +89,7 @@ $y = date("Y");
                 @else
                     <a href="{{ URL::previous() }}" class="button butt_back">Назад</a>
                 @endif
-                @if( $role != 'user' && $role !='employee' )
+                @if( $role != 'user' && $role !='employee' && empty($q))
                     <a class="button butt_def" href="/report/{{$report->types->slug}}/add2/{{ $report->id }}">Редактировать</a>
                 @endif
                 @if(!$q)

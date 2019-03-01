@@ -27,6 +27,7 @@ class RedisController extends Controller
 
         $array = unserialize(Redis::get('search:key'.$request->random_key));
 //        return $array;
+//        return 123;
 //        echo response()->json($array);
         $key = array_search($request->id,$array);
 //        echo response()->json($key);
