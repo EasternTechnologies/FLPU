@@ -123,7 +123,7 @@ $y = date("Y");
                 <a href="/reglament">Правила и регламент регистрации</a>
             </div>
             <div class="portfolio_box">
-                Разработка сайта<span class="logo_east_tech"></span><a href="http://east-tech.by/">“Восточные технологии”</a>
+                Разработка системы<span class="logo_east_tech"></span><a href="http://east-tech.by/">“Восточные технологии”</a>
             </div>
         </div>
     </footer>
