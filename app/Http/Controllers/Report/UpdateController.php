@@ -191,10 +191,14 @@ class UpdateController extends Controller
                 $fileName = time() . '_' . $photo->getClientOriginalName();
                 $r        = $photo->storeAs('article_images', $fileName, ['disk' => 'bsvt']);
 
-                $pathToFile  = Storage::disk('bsvt')->getDriver()->getAdapter()->getPathPrefix();
-                $whereToSave = $pathToFile . 'article_images/' . 'th-' . $fileName;
+				if($article->reports->types->slug != 'plannedexhibition') {
+					$pathToFile  = Storage::disk( 'bsvt' )->getDriver()->getAdapter()->getPathPrefix();
+					$whereToSave = $pathToFile . 'article_images/' . 'th-' . $fileName;
+					Image::make($pathToFile . $r)->fit(616, 308)->save($whereToSave, 100);
+				}
+
                 $thumbnails  = 'article_images/' . 'th-' . $fileName;
-                Image::make($pathToFile . $r)->fit(616, 308)->save($whereToSave, 100);
+
 
                 $article->images()->create([
                     'image'     => $r,
