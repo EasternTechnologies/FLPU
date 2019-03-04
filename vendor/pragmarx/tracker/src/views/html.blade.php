@@ -33,7 +33,9 @@
 
 <body>
     <div class="row_top">
-      <div class="user_rolles">Аналитик : Лученок Павел</div> 
+      <div class="user_rolles">@auth
+          {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
+          @endauth</div>
       <ul class="menu_auth">
         <li>
           <a href="/stats">Статистика</a>
