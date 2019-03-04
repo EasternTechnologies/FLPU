@@ -10,6 +10,15 @@
 	</div>
 	<div class="form_default sing_in_form box_center_form">
 		<h3>Вход</h3>
+		@if (session('status_access'))
+			<div class="row">
+				<div class="container">
+					<ul class="alert alert-danger">
+						{{ session('status_access') }}
+					</ul>
+				</div>
+			</div>
+		@endif
 		<form method="POST" action="{{ route('login') }}">
 			@csrf
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class LoginController extends Controller
 {
@@ -39,7 +41,37 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function authenticated ( Request $request, $user ) {
+    public function logout ( Request $request ) {
+
+	    $userIdAll = str_replace(Auth::user()->id.',','',Redis::get('user:all:id'));
+
+	    Redis::set('user:all:id', $userIdAll);
+
+	    $this->guard()->logout();
+
+	    $request->session()->invalidate();
+
+	    return $this->loggedOut($request) ?: redirect('/');
+
+    }
+
+	protected function authenticated ( Request $request, $user ) {
+
+	    if ($this->getIdUser($user->id))
+	    {
+		    $this->guard()->logout();
+
+		    $request->session()->invalidate();
+
+		    return $this->loggedOut($request) ?: redirect('/login')->with('status_access', 'Пользователь авторизован. Вход под темже именем не возможен.');
+
+	    } else {
+
+	    	$userIdAll = Redis::get('user:all:id').$user->id.',';
+
+		    Redis::set('user:all:id', $userIdAll);
+	    }
+
         if ( $user->isadmin() ) {
             return redirect()->to('/report');
         }
@@ -49,6 +81,24 @@ class LoginController extends Controller
         if ( $user->ismanager() ) {
             return redirect()->to('/manager');
         }
+
+    }
+
+    protected function getIdUser($userId){
+
+	    $userIdAll = explode(',', Redis::get('user:all:id'));
+
+	    if(array_search($userId, $userIdAll) !== false ) {
+
+		    return true;
+
+	    } else {
+
+		    return false;
+
+	    }
+
+
 
     }
 }
