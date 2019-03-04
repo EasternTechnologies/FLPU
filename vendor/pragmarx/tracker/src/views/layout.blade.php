@@ -41,9 +41,20 @@
             </ul>
 
             <div class="side-menu__buttons">
+                @if(empty($summary))
+                <a class="button" href="/stats/summary">Сводка</a>
+                @else
+                 <a class="button" href="/stats">Вся статистика</a>
+                @endif
               <a class="button stats_back" href="#">Назад</a>
+                    @if(empty($summary))
               <a class="button excel_link" href="/stats/excel">Экспорт в Excel</a>
+                    @else
+                        <a class="button" href="/stats/excel_summary">Экспорт в Excel</a>
+                    @endif
+                @if(empty($summary))
               <a class="button change_table_stats" href="#">Общая статистика</a>
+                    @endif
             </div>
             <!-- /#side-menu -->
             </div>

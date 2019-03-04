@@ -72,21 +72,15 @@ class Helper
 
         foreach ($sessions as $session) {
 
-            $logs = $session->log;
+            $logs = $session->log->where('method','GET'); //only get QUERY
 
             $timestamps = array_reverse($logs->pluck('updated_at')->toArray());
 
             $paths_id = array_merge($paths_id,$logs->pluck('path_id')->toArray());
 
-//            $paths_id[] = array_merge($paths_id,$logs->pluck('path_id')->toArray());
-
-//            dump($paths);
-
-//            dump($timestamps);
+            $paths_id = array_unique($paths_id);
 
             if(count($timestamps)>1) {
-
-//                dump($timestamps[1]->diffInSeconds($timestamps[0]));
 
                 for($i = 0; $i < count($timestamps)-1; $i++){
 
@@ -96,39 +90,15 @@ class Helper
 
             }
 
-//            dump(array_reverse($logs->pluck('updated_at')->toArray()));
-
         }
 
-//        dump(array_unique($paths_id));
-
-
-            $paths = Path::whereIn('id',$paths_id)->select('path')->get();
-
-//        $paths = Path::whereIn('id',$paths_id)->where(function ($query) use($cats) {
-//            for ($i = 0; $i < count($cats); $i++){
-//                $query->orWhere('path', 'like',  '%' . $cats[$i] .'%');
-//            }
-//        })->select('path')->get();
-
-       // $paths = Path::whereIn('id',$paths_id)->where('path', 'like',  '%' . $cats[5] .'%')->select('path')->get();
+        $paths = Path::whereIn('id',$paths_id)->select('path')->get();
 
         $cats_rus = [];
 
-//        $paths = $paths->where('path', 'like',  '%login%');
-
         $paths = $paths->pluck('path')->toArray();
 
-//        dump($paths);
-
-//        dump($paths->pluck('path')->toArray());
-//        dump($paths);
-
-//        echo in_array('countrycatalog',$paths->pluck('path')->toArray());
-
         $path = implode(" ",$paths);
-
-//        dump(self::$report_types);
 
         foreach (self::$report_types as $slug=>$report_type) {
             if(strpos($path,$slug)!==false) {
@@ -136,17 +106,9 @@ class Helper
             }
         }
 
-//        dump($cats_rus);
-
-        //dump($paths->pluck('path')->toArray());
-
-//        Path::whereIn('id',$paths_id)->get();
-
-
 //        dump($times);
         $sum = array_sum($times);
 //        dump($sum);
-
         $sum?$average=round($sum/count($times),2):$average=0;
 //        dump($average);
 
@@ -158,7 +120,7 @@ class Helper
     {
         $count = 0;
         foreach ($sessions as $session) {
-            $logs = $session->log;
+            $logs = $session->log->where('method','GET'); //only get QUERY
 
             $count += $logs->count();
         }

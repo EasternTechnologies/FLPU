@@ -1052,11 +1052,6 @@ footer a:hover {
   display: table-cell;
 }
 
-.change_table_stats.active {
-  color: #ffffff;
-  text-decoration: none;
-  background: #161f5a;
-}
 
 .stats_paths,.stats_more_info{
   cursor: pointer;
