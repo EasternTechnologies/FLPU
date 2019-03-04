@@ -13,7 +13,7 @@ class RedisController extends Controller
     {
         if($request->newsearch) {
             $random_key = mt_rand(1,1000000);
-            Redis::set('search:key'.$random_key,serialize([]));
+            Redis::set('search:key'.$random_key,serialize([]),'EX',3600);
             return response()->json($random_key);
         }
     }
