@@ -91,7 +91,7 @@
               <td>{{$result['date']}}</td>
             @endif
 
-            <td data-id="{{$result['id']}}" class="stats_more_info">
+            <td data-id="{{$result['id']}}" class="{{empty($summary)?'stats_more_info':''}}">
               {{empty($result['name'])?'Гость':$result['name']}}
             </td>
               @if(empty($summary))
