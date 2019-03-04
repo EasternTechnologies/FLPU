@@ -113,7 +113,7 @@
             <td class="stats_paths">{{$result['count']}} <br>
               <div class="">
               @foreach($result['paths'] as $path)
-                <a href="{{$path}}">{{$path}}</a> <br>
+                <a href="{{$path[0]!='/'?'/':''}}{{$path}}" target="_blank">{{$path}}</a> <br>
               @endforeach
               </div>
             </td>
