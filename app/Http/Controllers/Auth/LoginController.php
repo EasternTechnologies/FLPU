@@ -43,9 +43,9 @@ class LoginController extends Controller
 
     public function logout ( Request $request ) {
 
-	    $userIdAll = str_replace(Auth::user()->id.',','',Redis::get('user:all:id'));
+	    $userId = Redis::get('user:all:'.Auth::user()->id);
 
-	    Redis::set('user:all:id', $userIdAll);
+	    Redis::del('user:all:'.$userId, $userId, 'EX', 3600);
 
 	    $this->guard()->logout();
 
@@ -57,7 +57,7 @@ class LoginController extends Controller
 
 	protected function authenticated ( Request $request, $user ) {
 
-	    if ($this->getIdUser($user->id))
+	    if ( $this->getIdUser($user->id) )
 	    {
 		    $this->guard()->logout();
 
@@ -67,9 +67,7 @@ class LoginController extends Controller
 
 	    } else {
 
-	    	$userIdAll = Redis::get('user:all:id').$user->id.',';
-
-		    Redis::set('user:all:id', $userIdAll);
+	    	Redis::set('user:all:'.$user->id, $user->id, 'EX', 3600);
 	    }
 
         if ( $user->isadmin() ) {
@@ -86,9 +84,9 @@ class LoginController extends Controller
 
     protected function getIdUser($userId){
 
-	    $userIdAll = explode(',', Redis::get('user:all:id'));
+	    $userIdNow = Redis::get('user:all:'.$userId);
 
-	    if(array_search($userId, $userIdAll) !== false ) {
+	    if( $userIdNow == $userId ) {
 
 		    return true;
 
