@@ -121,7 +121,7 @@ Route::middleware('checkadmin')->group(function()
     Route::get('/stats/routes/{route}', 'Admin\AdminController@count_visits_byroutes');
 
     /*ElasticIndex*/
-	//Route::get('/index', 'User\HomeController@indexes');
+	Route::get('/index', 'User\HomeController@indexes');
 
 });
 
