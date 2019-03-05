@@ -41,9 +41,17 @@
 					@endif
 				</div>
 			</div>
-
+			<div class="form-group row">
+				<div class="col-md-12">
+			{!! Recaptcha::render() !!}
+				</div>
+				@if ($errors->has('g-recaptcha-response'))
+					<span class="invalid-feedback d-block"> <strong>{{ $errors->first('g-recaptcha-response') }}</strong> </span>
+				@endif
+				</div>
 			<div class="form-group row mb-0">
 				<div class="col-md-12 d-flex justify-content-center">
+
 					<button type="submit" class="butt">
 						Войти
 					</button>

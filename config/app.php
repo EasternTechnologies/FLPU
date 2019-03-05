@@ -154,7 +154,7 @@ return [
        // Barryvdh\DomPDF\ServiceProvider::class,
         PragmaRX\Tracker\Vendor\Laravel\ServiceProvider::class,
 	    niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
-
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -216,7 +216,7 @@ return [
         'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
         'Tracker' => PragmaRX\Tracker\Vendor\Laravel\Facade::class,
         'Es' => Elasticquent\ElasticquentElasticsearchFacade::class,
-
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
     ],
 
 ];
