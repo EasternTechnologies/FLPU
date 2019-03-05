@@ -42,7 +42,7 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<div class="col-md-12">
+				<div class="col-md-12 d-flex justify-content-center">
 			{!! Recaptcha::render() !!}
 				</div>
 				@if ($errors->has('g-recaptcha-response'))
