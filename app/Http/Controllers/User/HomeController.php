@@ -76,11 +76,11 @@ class HomeController extends Controller
 
 	    if($request->ajax()){
 
-		    $q = str_replace(['{','}','[',']'], '',$request->q);
+		    $q = str_replace(['{','}','[',']','"'], '',$request->q);
 
 	    } else {
 
-		    $q = strip_tags(str_replace(['{','}','[',']'], '',$request->q));
+		    $q = strip_tags(str_replace(['{','}','[',']','"'], '',$request->q));
 
 	    }
 
