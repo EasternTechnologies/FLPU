@@ -14,10 +14,7 @@ return [
     |
     */
     'public_key'     => env('RECAPTCHA_PUBLIC_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'),
-//    'public_key'     => env('RECAPTCHA_PUBLIC_KEY', '6Lf1gJUUAAAAAGFxLez7SawDglNJY56LlBO7IgY2'),
     'private_key'    => env('RECAPTCHA_PRIVATE_KEY', '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'),
-//    'private_key'    => env('RECAPTCHA_PRIVATE_KEY', '6Lf1gJUUAAAAADwf60rFf0xbOxLX0l_FNiCCtWvI'),
-
     /*
     |--------------------------------------------------------------------------
     | Template
