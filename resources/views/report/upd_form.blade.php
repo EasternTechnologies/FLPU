@@ -272,7 +272,7 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
 
             <tags-component :selectedtags="{{json_encode($tags)}}"></tags-component>
             
-            <div class="row box_save_article mt30">
+            <div class="row fixed_bottom box_save_article mt30">
 
                 
                 @if($article->status == 0)
