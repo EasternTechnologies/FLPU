@@ -76,11 +76,11 @@ class HomeController extends Controller
 
 	    if($request->ajax()){
 
-		    $q = $request->q;
+		    $q = str_replace(['{','}','[',']','"'], '',$request->q);
 
 	    } else {
 
-		    $q = strip_tags($request->q);
+		    $q = strip_tags(str_replace(['{','}','[',']','"'], '',$request->q));
 
 	    }
 
@@ -528,10 +528,10 @@ class HomeController extends Controller
 
     public function indexes() {
 
-	   // ArticleReports::deleteIndex();
-	    ArticleReports::createIndex();
-    	ArticleReports::putMapping($ignoreConflicts = true);
-    	ArticleReports::addAllToIndex();
+//	    ArticleReports::deleteIndex();
+//	    ArticleReports::createIndex();
+//    	ArticleReports::putMapping($ignoreConflicts = true);
+//    	ArticleReports::addAllToIndex();
 
 	    return redirect()->to('/report');
 

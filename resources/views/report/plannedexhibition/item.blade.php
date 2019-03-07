@@ -29,6 +29,7 @@ $role = Auth::user()->roles[0]->title;
             </span>
             @endif
         </div>
+        <div class="pagination">{{$items}}</div>
         <div class="row justify-content-center">
             <div class="col-md-12 out_table analyst_report">
                 <table style="border: 1px solid">

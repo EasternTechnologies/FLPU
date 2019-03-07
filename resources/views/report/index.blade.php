@@ -10,6 +10,7 @@
             @if( $role != 'user' && $role != 'employee' )
             <a href="/report/{{$report_type->slug}}/add1"><button class="butt margin_b butt_def">Создать новый отчет</button></a>
             @endif
+            <div class="pagination">{{$reports->links()}}</div>
             <div class="col-md-12 out_table analyst_report">
                 <table style="border: 1px solid">
                     <thead>
