@@ -50,7 +50,7 @@
         </li> 
         <span>|</span> 
         <li>
-          <a href="https://analytics.bsvt.by/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Выход </a> 
+          <a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Выход </a>
 
           <form id="logout-form" action="https://analytics.bsvt.by/logout" method="POST" style="display: none;">
             <input name="_token" type="hidden" value="bO57tRRRTVS5iwMVBiSngjGZyC5KLjUhyHQQq35N">
