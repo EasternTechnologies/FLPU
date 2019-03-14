@@ -70,7 +70,7 @@ $y = date("Y");
                             <li class="menu-current">
                         @else
                             <li>
-                                @endif <a href="{{ route('cabinet') }}">Личный кабинет</a>
+                                @endif <a href="/cabinet/{{\Illuminate\Support\Facades\Auth::user()->id}}">Личный кабинет</a>
                             </li>
                             <span>|</span>
                             <li>
