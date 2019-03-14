@@ -98,6 +98,11 @@ class Session extends Repository
         } else {
             $session = $this->find($this->getSessionData('id'));
 
+            foreach( session()->all() as $key => $value ){
+                if(stristr($key, 'login_web_')){
+                    $session->user_id = $value;
+                }
+            }
             $session->updated_at = Carbon::now();
 
             $session->save();
