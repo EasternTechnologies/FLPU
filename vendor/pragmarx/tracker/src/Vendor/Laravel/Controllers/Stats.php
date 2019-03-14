@@ -180,7 +180,7 @@ class Stats extends Controller
         }
 
         if($name) {
-            $users_name = User::where('surname','like','%'.$name.'%')->get()->pluck('id')->toArray();
+            $users_name = User::where('surname','like','%'.$name.'%')->orWhere('name','like','%'.$name.'%')->get()->pluck('id')->toArray();
             $query->whereIn('user_id',$users_name);
         }
 
