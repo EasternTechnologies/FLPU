@@ -49,8 +49,9 @@ class LoginController extends Controller
 
 	    $this->guard()->logout();
 
-	    //$request->session()->invalidate();
-        $request->session()->flush();
+	    $request->session()->invalidate();
+        //$request->session()->flush();
+        session_destroy();
 
 	    return $this->loggedOut($request) ?: redirect('/');
 
