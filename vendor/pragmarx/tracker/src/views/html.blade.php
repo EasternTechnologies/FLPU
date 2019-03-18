@@ -31,7 +31,7 @@
 	/>
 </head>
 
-<body>
+<body class="page-stats">
     <div class="row_top">
       <div class="user_rolles">@auth
           {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}

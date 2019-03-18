@@ -1128,6 +1128,32 @@ footer a:hover {
 .stats_back {
   display: none;
 }
+
 .stats_back.active {
   display: block;
+}
+
+html {
+  height: 100%;
+}
+
+body.page-stats {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body.page-stats .row_top {
+  flex: 0 0 auto;
+}
+
+body.page-stats .container {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+
+body.page-stats footer {
+  flex: 0 0 auto;
 }
