@@ -63,6 +63,7 @@ class Stats extends Controller
 
 
         if (!$this->isAuthenticated()) {
+            session_destroy();
             return View::make('pragmarx/tracker::message')->with('message', trans('tracker::tracker.auth_required'));
         }
 
