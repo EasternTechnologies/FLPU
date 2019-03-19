@@ -35,19 +35,22 @@
     <div class="row_top">
       <div class="user_rolles">@auth
           {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
-          @endauth</div>
+          @endauth
+      </div>
       <ul class="menu_auth">
         <li>
           <a href="/stats">Статистика</a>
-        </li> 
+        </li>
         <span>|</span>
         <li>
           <a href="/report">Управление материалами</a>
-        </li>      
+        </li>
         <span>|</span>
         <li>
-          <a href="/cabinet/30">Личный кабинет</a>
-        </li> 
+            @if(Auth::user())
+                <a href="/cabinet/{{\Illuminate\Support\Facades\Auth::user()->id}}">Личный кабинет</a>
+            @endif
+        </li>
         <span>|</span>
           <li>
               <a href="{{ route('logout') }}"
