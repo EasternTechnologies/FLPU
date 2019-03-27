@@ -9,6 +9,13 @@
             <input type="checkbox">
             <span @click="allCountries">Выбрать все</span>
           </label>
+          <label class="form-search">
+            <span class="form-search__text">Искать в разделе</span>
+            <input  @input="onChange"
+                    v-model="search_country"
+                    type="text">
+            <span class="form-search__btn"></span>
+          </label>
         </header>
         <div v-show="showCountry" class="form-check">
           <div id="form-check-countries" class="form-check-label grid-col-check-5"
@@ -33,6 +40,13 @@
             <input type="checkbox">
             <span @click="allVVT">Выбрать все</span>
           </label>
+          <label class="form-search">
+            <span class="form-search__text">Искать в разделе</span>
+            <input  @input="onChange"
+                    v-model="search_vvt"
+                    type="text">
+            <span class="form-search__btn"></span>
+          </label>
         </header>
         <div v-show="showVVT" class="form-check">
           <div id="form-check-vvt_types" class="form-check-label grid-col-check-6"
@@ -55,6 +69,13 @@
           <label class="check-all">
             <input type="checkbox">
             <span @click="allCompanies">Выбрать все</span>
+          </label>
+          <label class="form-search">
+            <span class="form-search__text">Искать в разделе</span>
+            <input  @input="onChange"
+                    v-model="search_company"
+                    type="text">
+            <span class="form-search__btn"></span>
           </label>
         </header>        
         <div v-show="showCompany" class="form-check">
@@ -79,6 +100,13 @@
             <input type="checkbox">
             <span @click="allPersonalities">Выбрать все</span>
           </label>
+          <label class="form-search">
+            <span class="form-search__text">Искать в разделе</span>
+            <input  @input="onChange"
+                    v-model="search_person"
+                    type="text">
+            <span class="form-search__btn"></span>
+          </label>
         </header>
         <div v-show="showPersonalities" class="form-check">
           <div id="form-check-personalities" class="form-check-label grid-col-check-6"
@@ -100,9 +128,14 @@
 
 <script>
 export default {
-  props: ["selectedtags"],
+  props: ["selectedtags",
+          ],
   data() {
     return {
+      search_company: '',
+      search_country: '',
+      search_person: '',
+      search_vvt: '',
       countries: [],
       selcountries: [],
       vvt_types: [],
@@ -135,7 +168,7 @@ export default {
           vvt_type: this.selvvt_types
         })
         .then(response => {
-          console.log(response.data)
+          //console.log(response.data)
           this.countries = response.data.countries;
           this.companies = response.data.companies;
           this.vvt_types = response.data.vvt_types;
@@ -186,10 +219,87 @@ export default {
         this.selpersonalities = this.personalities.map(item => item.id);
       }
       this.checkboxfilter();
-    }
+    },
+      onChange() {
+          axios
+              .post("/search_tag", {
+
+                      search_country: this.search_country,
+                      search_vvt: this.search_vvt,
+                      search_person: this.search_person,
+                      search_company: this.search_company,
+
+              })
+              .then(response => {
+                  //console.log(response.data)
+                  this.countries = response.data.countries;
+                  this.companies = response.data.companies;
+                  this.vvt_types = response.data.vvt_types;
+                  this.personalities = response.data.personalities;
+              });
+      },
   }
 };
 </script>
 
 <style>
+  .form-header {
+    padding-right: 50px;
+  }
+
+  .form-search {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0;
+    margin-left: auto;
+  }
+
+  .form-search__text {
+    display: block;
+    width: 100%;
+  }
+
+  .form-search input {
+    height: 30px !important;
+    color: #939393;
+    font-size: 13px;
+    padding: 0 45px 0 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    max-width: 325px;
+    width: 100%;
+  }
+
+  .form-search__btn {
+    width: 30px;
+    height: 100%;
+    background: #0d004c;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .form-search__btn::before {
+    content: "";
+    background: url(/images/search.png) no-repeat center center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
 </style>

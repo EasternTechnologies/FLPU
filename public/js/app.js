@@ -16007,11 +16007,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["selectedtags"],
   data: function data() {
     return {
+      search_company: '',
+      search_country: '',
+      search_person: '',
+      search_vvt: '',
       countries: [],
       selcountries: [],
       vvt_types: [],
@@ -16045,7 +16077,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         countries: this.selcountries,
         vvt_type: this.selvvt_types
       }).then(function (response) {
-        console.log(response.data);
+        //console.log(response.data)
         _this.countries = response.data.countries;
         _this.companies = response.data.companies;
         _this.vvt_types = response.data.vvt_types;
@@ -16106,6 +16138,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
       }
       this.checkboxfilter();
+    },
+    onChange: function onChange() {
+      var _this3 = this;
+
+      axios.post("/search_tag", {
+
+        search_country: this.search_country,
+        search_vvt: this.search_vvt,
+        search_person: this.search_person,
+        search_company: this.search_company
+
+      }).then(function (response) {
+        //console.log(response.data)
+        _this3.countries = response.data.countries;
+        _this3.companies = response.data.companies;
+        _this3.vvt_types = response.data.vvt_types;
+        _this3.personalities = response.data.personalities;
+      });
     }
   }
 });
@@ -20123,7 +20173,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.form-header {\n  padding-right: 50px;\n}\n.form-search {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  position: relative;\n  margin: 0;\n  margin-left: auto;\n}\n.form-search__text {\n  display: block;\n  width: 100%;\n}\n.form-search input {\n  height: 30px !important;\n  color: #939393;\n  font-size: 13px;\n  padding: 0 45px 0 15px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -ms-flex-pack: start;\n  justify-content: flex-start;\n  -ms-flex-align: center;\n  align-items: center;\n  max-width: 325px;\n  width: 100%;\n}\n.form-search__btn {\n  width: 30px;\n  height: 100%;\n  background: #0d004c;\n  color: #fff;\n  position: absolute;\n  top: 0;\n  right: 0;\n}\n.form-search__btn::before {\n  content: \"\";\n  background: url(/images/search.png) no-repeat center center;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n\n", ""]);
 
 /***/ }),
 /* 45 */
@@ -38463,7 +38513,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.allCountries
     }
-  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_country),
+      expression: "search_country"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_country)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_country = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -38539,7 +38614,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.allVVT
     }
-  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_vvt),
+      expression: "search_vvt"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_vvt)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_vvt = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -38615,7 +38715,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.allCompanies
     }
-  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_company),
+      expression: "search_company"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_company)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_company = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -38691,7 +38816,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.allPersonalities
     }
-  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_person),
+      expression: "search_person"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_person)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_person = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",

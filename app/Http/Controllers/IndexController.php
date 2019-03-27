@@ -135,4 +135,15 @@ class IndexController extends Controller
             }
     }
 
+    public function search_country(Request $request)
+    {
+
+        $countries     = Country::where('title', 'like', $request->search_country."%")->orderBy('title')->get();
+        $companies     = Company::where('title', 'like', $request->search_company."%")->orderBy('title')->get();
+        $vvt_types     = VvtType::where('title', 'like', $request->search_vvt."%")->orderBy('title')->get();
+        $personalities = Personality::where('title', 'like', "%".$request->search_person."%")->orderBy('title')->get();
+
+
+        return compact('countries', 'companies', 'vvt_types', 'personalities');
+    }
 }

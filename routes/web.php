@@ -149,6 +149,7 @@ Route::resource('/country', 'Analyst\resources\CountryController');
 Route::resource('/vvttypes', 'Analyst\resources\VvttypesController');
 Route::resource('/vvttypes', 'Analyst\resources\VvttypesController');
 Route::resource('/personalities', 'Analyst\resources\PersonalitiesController');
+Route::resource('/search_countries', 'Analyst\resources\CountryController');
 
 
 Route::get('/predistest','User\HomeController@predis');
@@ -158,7 +159,7 @@ Route::post('/redis/change','RedisController@change');
 
 Route::get('/treckertest','User\HomeController@tracker');
 
-
+Route::post('/search_tag', 'IndexController@search_country');
 /*
 * CKeditor
 **/
