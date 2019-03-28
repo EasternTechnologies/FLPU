@@ -32,7 +32,7 @@ $y = date("Y");
                     @elseif($report->types->slug=='yearly')
                     Ежегодный справочник "{{$report->types->title}}" <!--№ {{ $report->number }}--> за {{date("Y",$report->date_start)}} год
                     @elseif($report->types->slug=='various')
-                    {{$report->types->title}}
+                    {{$report->types->description}}
                 @endif
                 @if(!$q)
                     <a target="_blank" href="/pdf_item/{{ $report->id }}" class="pdf"></a>
