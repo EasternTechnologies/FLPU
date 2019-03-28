@@ -95,7 +95,7 @@ class ReportController extends Controller
         }
         else {
 
-            $items = $report->articles()->where('report_id', $report->id )->paginate(10);
+            $items = $report->articles()->where('report_id', $report->id )->orderBy('date_start', 'ASC')->paginate(10);
             $template = 'report.plannedexhibition.item';
             $page = $request->page;
         }

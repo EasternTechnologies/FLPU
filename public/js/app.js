@@ -38513,32 +38513,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.allCountries
     }
-  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
-    staticClass: "form-search"
-  }, [_c('span', {
-    staticClass: "form-search__text"
-  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.search_country),
-      expression: "search_country"
-    }],
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": (_vm.search_country)
-    },
-    on: {
-      "input": [function($event) {
-        if ($event.target.composing) { return; }
-        _vm.search_country = $event.target.value
-      }, _vm.onChange]
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "form-search__btn"
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -38614,32 +38589,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.allVVT
     }
-  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
-    staticClass: "form-search"
-  }, [_c('span', {
-    staticClass: "form-search__text"
-  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.search_vvt),
-      expression: "search_vvt"
-    }],
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": (_vm.search_vvt)
-    },
-    on: {
-      "input": [function($event) {
-        if ($event.target.composing) { return; }
-        _vm.search_vvt = $event.target.value
-      }, _vm.onChange]
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "form-search__btn"
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -38715,32 +38665,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.allCompanies
     }
-  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
-    staticClass: "form-search"
-  }, [_c('span', {
-    staticClass: "form-search__text"
-  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.search_company),
-      expression: "search_company"
-    }],
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": (_vm.search_company)
-    },
-    on: {
-      "input": [function($event) {
-        if ($event.target.composing) { return; }
-        _vm.search_company = $event.target.value
-      }, _vm.onChange]
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "form-search__btn"
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -38816,32 +38741,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.allPersonalities
     }
-  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
-    staticClass: "form-search"
-  }, [_c('span', {
-    staticClass: "form-search__text"
-  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.search_person),
-      expression: "search_person"
-    }],
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": (_vm.search_person)
-    },
-    on: {
-      "input": [function($event) {
-        if ($event.target.composing) { return; }
-        _vm.search_person = $event.target.value
-      }, _vm.onChange]
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "form-search__btn"
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
