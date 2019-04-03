@@ -65,7 +65,7 @@ class LoginController extends Controller
 
 		    $request->session()->invalidate();
 
-		    return $this->loggedOut($request) ?: redirect('/login')->with('status_access', 'Пользователь авторизован. Вход под темже именем не возможен.');
+		    return $this->loggedOut($request) ?: redirect('/login')->with('status_access', 'Пользователь авторизован. Вход под тем же именем не возможен.');
 
 	    } else {
 
