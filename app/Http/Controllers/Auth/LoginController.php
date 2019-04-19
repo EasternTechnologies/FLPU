@@ -45,7 +45,7 @@ class LoginController extends Controller
 
 	    $userId = Redis::get('user:all:'.Auth::user()->id);
 
-	    Redis::del('user:all:'.$userId, $userId, 'EX', 360000);
+	    Redis::del('user:all:'.$userId, $userId, 'EX', 1);
 
 	    $this->guard()->logout();
 
@@ -69,7 +69,7 @@ class LoginController extends Controller
 
 	    } else {
 
-	    	Redis::set('user:all:'.$user->id, $user->id, 'EX', 360000);
+	    	Redis::set('user:all:'.$user->id, $user->id, 'EX', 1);
 	    }
 
         if ( $user->isadmin() ) {
