@@ -112,6 +112,7 @@ class UpdateController extends Controller
     }
 
     public function upd_form ( $slug, ArticleReports $article ) {
+        
         $vvt_types_array = VvtType::find($article->companies->pluck('id'));
         $vvt_types = [];
         foreach($vvt_types_array as $vvt_type) {
@@ -129,6 +130,7 @@ class UpdateController extends Controller
     }
 
     public function update ( Request $request, $slug ='',$flag = null  ) {
+        
         $this->validate($request, [
             'editor1' => 'required',
         ]);
@@ -148,7 +150,7 @@ class UpdateController extends Controller
 
         $article               = $request->input('article');
         $article               = ArticleReports::find($article);
-
+    
         if(($end_period - $start_period) < 0) { //++
             return back()->with('status', 'Неправильный промежуток');
             die();
@@ -164,15 +166,15 @@ class UpdateController extends Controller
             $article->title        = $theme;
             $article->place        = $place;
         }
-
+        
         $article->save();
 
         $article->countries()->sync($countries);
         $article->companies()->sync($companies);
         $article->personalities()->sync($personalities);
         $article->vvttypes()->sync($vvt_types);
-        $article->updateIndex();
-
+        //$article->updateIndex();
+        
         $pics = $article->images()->get();//++
         foreach ( $pics as $pic ) {
 
@@ -185,7 +187,7 @@ class UpdateController extends Controller
             }
 
         }
-
+        
         if ( $request->hasFile('pic') ) {
             foreach ( $request->file('pic') as $photo ) {
                 $fileName = time() . '_' . $photo->getClientOriginalName();
@@ -219,7 +221,7 @@ class UpdateController extends Controller
         }
 
         $path = '/report/'. $report->types->slug .'/add2/'. $article->report_id;
-
+        
         return redirect()->to($path)->with('status', 'Статья обновлена!');
     }
 
