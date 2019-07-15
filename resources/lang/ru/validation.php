@@ -99,6 +99,7 @@ return [
     'required_with'        => 'Поле :attribute обязательно для заполнения, когда :values указано.',
     'required_with_all'    => 'Поле :attribute обязательно для заполнения, когда :values указано.',
     'required_without'     => 'Поле :attribute обязательно для заполнения, когда :values не указано.',
+    'recaptcha'            => 'Подтвердите что вы не робот',
     'required_without_all' => 'Поле :attribute обязательно для заполнения, когда ни одно из :values не указано.',
     'same'                 => 'Значения полей :attribute и :other должны совпадать.',
     'size'                 => [

@@ -11,3 +11,7 @@ public/images/email_photo
 .gitignore
 composer.phar
 !/public/templates/sb-admin-2/css
+.well-known/
+b2b.sql
+public/storage
+public/templates_/

@@ -121,17 +121,7 @@ Route::middleware('checkadmin')->group(function()
     Route::get('/stats/routes/{route}', 'Admin\AdminController@count_visits_byroutes');
 
     /*ElasticIndex*/
-	//Route::get('/index', 'User\HomeController@indexes');
-
-	/*Migrate*/
-//	Route::get('/migrate', 'Migrate\MigrateController@migrate');
-//	Route::get('/migrate_one', 'Migrate\MigrateController@migrate_one');
-//	Route::get('/migrate_two', 'Migrate\MigrateController@migrate_two');
-//	Route::get('/migrate_three', 'Migrate\MigrateController@migrate_three');
-//	Route::get('/migrate_four', 'Migrate\MigrateController@migrate_four');
-//	Route::get('/migrate_five', 'Migrate\MigrateController@migrate_five');
-//	Route::get('/delete', 'Migrate\MigrateController@delete');
-
+	Route::get('/index', 'User\HomeController@indexes');
 
 });
 
@@ -159,6 +149,7 @@ Route::resource('/country', 'Analyst\resources\CountryController');
 Route::resource('/vvttypes', 'Analyst\resources\VvttypesController');
 Route::resource('/vvttypes', 'Analyst\resources\VvttypesController');
 Route::resource('/personalities', 'Analyst\resources\PersonalitiesController');
+Route::resource('/search_countries', 'Analyst\resources\CountryController');
 
 
 Route::get('/predistest','User\HomeController@predis');
@@ -166,10 +157,9 @@ Route::get('/predistest','User\HomeController@predis');
 Route::post('/redis','RedisController@newsearch');
 Route::post('/redis/change','RedisController@change');
 
-
 Route::get('/treckertest','User\HomeController@tracker');
 
-
+Route::post('/search_tag', 'IndexController@search_country');
 /*
 * CKeditor
 **/

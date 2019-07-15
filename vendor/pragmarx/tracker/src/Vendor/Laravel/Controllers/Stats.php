@@ -22,6 +22,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use PhpOffice\PhpSpreadsheet\Shared\File as Excel;
 
 class Stats extends Controller
 {
@@ -31,6 +32,26 @@ class Stats extends Controller
         'is_admin',
         'is_root',
     ];
+
+    protected $sort_array = [
+        'all'=>'Все',
+        'log'=>'Зарегистрированные',
+        'unlog'=>'Гости',
+        'admin'=>'Администраторы',
+        'analitic'=>'Аналитики',
+        'employee'=>'Сотрудники',
+        'user'=>'Пользователи',
+        'manager'=>'Менеджеры',
+    ];
+
+    protected $show_array = [
+        5,
+        10,
+        25,
+        50,
+        100
+    ];
+
 
     public function __construct()
     {
@@ -42,6 +63,7 @@ class Stats extends Controller
 
 
         if (!$this->isAuthenticated()) {
+            session_destroy();
             return View::make('pragmarx/tracker::message')->with('message', trans('tracker::tracker.auth_required'));
         }
 
@@ -77,26 +99,6 @@ class Stats extends Controller
     public function visits(Session $session)
     {
 
-
-        $sort_array = [
-          'all'=>'Все',
-          'log'=>'Зарегистрированные',
-          'unlog'=>'Гости',
-          'admin'=>'Администраторы',
-          'analitic'=>'Аналитики',
-          'employee'=>'Сотрудники',
-          'user'=>'Пользователи',
-          'manager'=>'Менеджеры',
-        ];
-
-        $show_array = [
-            5,
-            10,
-            25,
-            50,
-            100
-        ];
-
         $start = Input::get('start_date');
         $end = Input::get('end_date');
 
@@ -104,11 +106,27 @@ class Stats extends Controller
         $range = new Minutes();
 
         if(empty($start) && empty($end)) {
-            $range->setStart(Carbon::now()->startOfDay());
-            $range->setEnd(Carbon::now()->endOfDay());
-        } else {
-            $range->setStart(Carbon::createFromTimestamp(strtotime($start)));
-            $range->setEnd(Carbon::createFromTimestamp(strtotime($end)));
+            $start = Carbon::now()->startOfDay();
+            $end = Carbon::now()->endOfDay();
+
+            $range->setStart($start);
+            $range->setEnd($end);
+        }
+        elseif(!empty($start) && empty($end)) {
+            $end = Carbon::now()->endOfDay();
+
+            $range->setStart(Carbon::createFromTimestamp(strtotime($start))->startOfDay());
+            $range->setEnd($end);
+        }
+        elseif(empty($start) && !empty($end)) {
+            $start = Carbon::createFromTimestamp(strtotime($end))->startOfDay();
+
+            $range->setStart($start);
+            $range->setEnd(Carbon::createFromTimestamp(strtotime($end))->endOfDay());
+        }
+        else {
+            $range->setStart(Carbon::createFromTimestamp(strtotime($start))->startOfDay());
+            $range->setEnd(Carbon::createFromTimestamp(strtotime($end))->endOfDay());
         }
 
         $show = Input::get('show');
@@ -116,30 +134,8 @@ class Stats extends Controller
         $name = Input::get('name');
         $sort = Input::get('sort');
         if(empty($sort)) $sort = 'all';
-//        DefaultSession::put('sort',$sort);
-//        DefaultSession::put('name',$name);
-
-        $datatables_data =
-        [
-            'datatables_ajax_route' => route('tracker.stats.api.visits'),
-            'datatables_columns'    => '
-                { "data" : "id",          "title" : "'.trans('tracker::tracker.id').'", "orderable": true, "searchable": true },
-                { "data" : "client_ip",   "title" : "'.trans('tracker::tracker.ip_address').'", "orderable": true, "searchable": true },
-                { "data" : "country",     "title" : "'.trans('tracker::tracker.country_city').'", "orderable": true, "searchable": true },
-                { "data" : "user",        "title" : "'.trans('tracker::tracker.user').'", "orderable": true, "searchable": true },
-                { "data" : "role",        "title" : "'.trans('tracker::tracker.role').'", "orderable": true, "searchable": true },
-                { "data" : "device",      "title" : "'.trans('tracker::tracker.device').'", "orderable": true, "searchable": true },
-                { "data" : "browser",     "title" : "'.trans('tracker::tracker.browser').'", "orderable": true, "searchable": true },
-                { "data" : "language",    "title" : "'.trans('tracker::tracker.language').'", "orderable": true, "searchable": true },
-//                { "data" : "referer",     "title" : "'.trans('tracker::tracker.referer').'", "orderable": true, "searchable": true },
-                { "data" : "pages",      "title" : "'.trans('tracker::tracker.pages').'", "orderable": true, "searchable": true },
-//                { "data" : "pageViews",   "title" : "'.trans('tracker::tracker.page_views').'", "orderable": true, "searchable": true },
-                { "data" : "lastActivity","title" : "'.trans('tracker::tracker.last_activity').'", "orderable": true, "searchable": true },
-            ',
-        ];
 
         $query = Tracker::sessions($range, false);
-
 
         $query->select([
             'id',
@@ -161,7 +157,7 @@ class Stats extends Controller
         $users_all = User::whereIn('id',$users)->get();
 
 
-          switch ($sort) {
+        switch ($sort) {
 
             case 'log': $query->where('user_id','!=',null); break;
 
@@ -184,9 +180,12 @@ class Stats extends Controller
             }
         }
 
-        if($name) {
-            $users_name = User::where('surname','like','%'.$name.'%')->get()->pluck('id')->toArray();
+        if($name && $name != 'Гость') {
+            $users_name = User::where('surname','like','%'.$name.'%')->orWhere('name','like','%'.$name.'%')->get()->pluck('id')->toArray();
             $query->whereIn('user_id',$users_name);
+        }
+        if($name == 'Гость') {
+            $query->where('user_id',null);
         }
 
         if(Input::get('ajax')) {
@@ -194,15 +193,53 @@ class Stats extends Controller
         }
 //
 
-        $results = $query->get()->groupBy([function($date) {
+        $results = $query->get()->groupBy([
+            function($date) {
             return Carbon::parse($date->updated_at)->format('d.m.Y');
-        },'user_id']);
+        },
+            'user_id',
+        ]);
 
-//        dump($results);
+
+//        $results = $query->groupBy([DB::raw('DATE(updated_at)'),'user_id',])->paginate(5);
+
+//        dump($query->groupBy([DB::raw('DATE(updated_at)'),'user_id',])->paginate(5));
+//        dump($query->groupBy([DB::raw('DATE(updated_at)'),'user_id',])->paginate(5)[0]->log instanceof Collection);
 
         Input::get('page')?$page=Input::get('page'):$page=1;
-
+//
         $new_result = collect([]);
+//
+//        foreach ($results as $session) {
+//
+//                if($session->user) $name = $session->user->name.' '.$session->user->surname.
+//                    " \n".$session->user->email; else $name = '';
+//
+////                $data = Helper::logsInfo($user);
+//
+//                $browser = '';
+//                if($session->agent) {
+//                    $browser = $session->agent->browser.' ('.$session->agent->browser_version.')';
+//                }
+//
+//                $new_result[] = [
+//                    'date'=>$session->update_at,
+//                    'name'=>$name,
+//                    'id'=>$id,
+//                    'ip'=>$user[0]->client_ip,
+//                    'country'=>Helper::country($user[0]),
+//                    'device'=>Helper::device($user[0]),
+//                    'browser'=>$browser,
+//                    'categories'=>$data[0],
+//                    'count'=>Helper::logsCount($user),
+//                    'paths'=>$data[3],
+//                    'sum'=>gmdate('z:H:i:s',$data[1]),
+//                    'average'=>gmdate('z:H:i:s',$data[2])
+//                ];
+//        }
+
+
+
 
         foreach ($results as $key=>$users_collection) {
             foreach ($users_collection as $id=>$user) {
@@ -251,35 +288,34 @@ class Stats extends Controller
             return View::make('pragmarx/tracker::full_table')->with('results',$new_result );
         }
 
+        $title = 'Посещения пользователей за период c '.date('d.m.Y',strtotime($start)).' по '.date('d.m.Y',strtotime($end));
+
         return View::make('pragmarx/tracker::index')
             ->with('sessions', Tracker::sessions($session->getMinutes()))
-            ->with('title', ''.trans('tracker::tracker.visits').'')
+            ->with('title', $title)
             ->with('username_column', Tracker::getConfig('authenticated_user_username_column'))
-            ->with('datatables_data', $datatables_data)
+            //->with('datatables_data', $datatables_data)
             ->with('users_array',$users_all)
-            ->with('sort_array',$sort_array)->with('results',$paginate )->with('show_array',$show_array);
+            ->with('sort_array',$this->sort_array)->with('results',$paginate )->with('show_array',$this->show_array);
     }
 
     public function excel()
     {
-        
-//        dd(session('table'));
-
         $results = session('table');
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        $sheet->setCellValue('A1', 'Дата');
-        $sheet->setCellValue('B1', 'Пользователь');
-        $sheet->setCellValue('C1', 'Разделы');
-        $sheet->setCellValue('D1', 'Кол-во материалов');
-        $sheet->setCellValue('E1', 'Общее время');
-        $sheet->setCellValue('F1', 'Среднее время');
 
+        $sheet->setCellValue('A1', 'Статистика пользователей');
+        $sheet->mergeCells('A1:F1');
 
-//        $sheet->getStyle('A1')->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
-
+        $sheet->setCellValue('A2', 'Дата');
+        $sheet->setCellValue('B2', 'Пользователь');
+        $sheet->setCellValue('C2', 'Разделы');
+        $sheet->setCellValue('D2', 'Кол-во материалов');
+        $sheet->setCellValue('E2', 'Общее время');
+        $sheet->setCellValue('F2', 'Среднее время');
 
         $sheet->getColumnDimension('A')->setAutoSize(true);
         $sheet->getColumnDimension('B')->setAutoSize(true);
@@ -288,7 +324,7 @@ class Stats extends Controller
         $sheet->getColumnDimension('E')->setAutoSize(true);
         $sheet->getColumnDimension('F')->setAutoSize(true);
 
-        $row = 2;
+        $row = 3;
 
         foreach($results as $result){
 
@@ -313,14 +349,14 @@ class Stats extends Controller
 
         $sheet->getStyle('C1:C'.$row)->getAlignment()->setWrapText(true);
         $writer = new Xlsx($spreadsheet);
+	    Excel::setUseUploadTempDirectory(true);
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file.xlsx"');
+        header('Content-Disposition: attachment; filename="common.xlsx"');
         $writer->save("php://output");
         exit();
 
     }
-
 
     public function excelv2()
     {
@@ -329,16 +365,19 @@ class Stats extends Controller
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        $sheet->setCellValue('A1', 'Дата');
-        $sheet->setCellValue('B1', 'Пользователь');
-        $sheet->setCellValue('C1', 'IP Адрес');
-        $sheet->setCellValue('D1', 'Страна');
-        $sheet->setCellValue('E1', 'Устройство');
-        $sheet->setCellValue('F1', 'Браузер');
-        $sheet->setCellValue('G1', 'Разделы');
-        $sheet->setCellValue('H1', 'Кол-во материалов');
-        $sheet->setCellValue('I1', 'Общее время');
-        $sheet->setCellValue('J1', 'Среднее время');
+        $sheet->setCellValue('A1', 'Статистика пользователей');
+        $sheet->mergeCells('A1:F1');
+
+        $sheet->setCellValue('A2', 'Дата');
+        $sheet->setCellValue('B2', 'Пользователь');
+        $sheet->setCellValue('C2', 'IP Адрес');
+        $sheet->setCellValue('D2', 'Страна');
+        $sheet->setCellValue('E2', 'Устройство');
+        $sheet->setCellValue('F2', 'Браузер');
+        $sheet->setCellValue('G2', 'Разделы');
+        $sheet->setCellValue('H2', 'Кол-во материалов');
+        $sheet->setCellValue('I2', 'Общее время');
+        $sheet->setCellValue('J2', 'Среднее время');
 
 //        $sheet->getStyle('A1')->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
 
@@ -351,7 +390,7 @@ class Stats extends Controller
             }
         }
 
-        $row = 2;
+        $row = 3;
 
         foreach($results as $result){
 
@@ -381,13 +420,187 @@ class Stats extends Controller
         $sheet->getStyle('C1:C'.$row)->getAlignment()->setWrapText(true);
         $writer = new Xlsx($spreadsheet);
 
+	    Excel::setUseUploadTempDirectory(true);
+
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file.xlsx"');
+        header('Content-Disposition: attachment; filename="detail.xlsx"');
         $writer->save("php://output");
         exit();
     }
 
+    public function excel_summary()
+        
+    {
+        $results = session('table');
+        $start = session('start_period');
+        $end = session('end_period');
 
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $title = 'Сводка статистики за период c '.date('d.m.Y',strtotime($start)).' по '.date('d.m.Y',strtotime($end));
+
+        $sheet->setCellValue('A1', $title);
+        $sheet->mergeCells('A1:E1');
+
+        $sheet->setCellValue('A2', 'Пользователь');
+        $sheet->setCellValue('B2', 'Разделы');
+        $sheet->setCellValue('C2', 'Кол-во материалов');
+        $sheet->setCellValue('D2', 'Общее время');
+        $sheet->setCellValue('E2', 'Среднее время');
+
+        $sheet->getColumnDimension('A')->setAutoSize(true);
+        $sheet->getColumnDimension('B')->setWidth(40);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+
+        $row = 3;
+
+        foreach($results as $result){
+
+            if(empty($result['name']))
+                $sheet->setCellValue('A'.$row, 'Гость');
+            else
+            {
+                $sheet->setCellValue('A'.$row, $result['name']);
+            }
+
+            $cats = implode(" \n",$result['categories']);
+
+            $sheet->setCellValue('B'.$row, $cats);
+
+            $sheet->setCellValue('C'.$row, $result['count']);
+            $sheet->setCellValue('D'.$row, $result['sum']);
+            $sheet->setCellValue('E'.$row, $result['average']);
+            $sheet->getRowDimension($row)->setRowHeight(-1);
+            $row++;
+        }
+
+        $sheet->getStyle('B1:B'.$row)->getAlignment()->setWrapText(true);
+        $writer = new Xlsx($spreadsheet);
+        Excel::setUseUploadTempDirectory(true);
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="summary.xlsx"');
+        $writer->save("php://output");
+        exit();
+    }
+
+    public function summary_stats()
+    {
+
+        $sort = Input::get('sort');
+        if(empty($sort)) $sort = 'all';
+
+        $start = Input::get('start_date');
+        $end = Input::get('end_date');
+
+
+        $range = new Minutes();
+
+        if(empty($start) && empty($end)) {
+            $start = Carbon::now()->startOfDay();
+            $end = Carbon::now()->endOfDay();
+
+            $range->setStart($start);
+            $range->setEnd($end);
+        }
+        elseif(!empty($start) && empty($end)) {
+            $end = Carbon::now()->endOfDay();
+
+            $range->setStart(Carbon::createFromTimestamp(strtotime($start))->startOfDay());
+            $range->setEnd($end);
+        }
+        elseif(empty($start) && !empty($end)) {
+            $start = Carbon::createFromTimestamp(strtotime($end))->startOfDay();
+
+            $range->setStart($start);
+            $range->setEnd(Carbon::createFromTimestamp(strtotime($end))->endOfDay());
+        }
+        else {
+            $range->setStart(Carbon::createFromTimestamp(strtotime($start))->startOfDay());
+            $range->setEnd(Carbon::createFromTimestamp(strtotime($end))->endOfDay());
+        }
+
+        $query = Tracker::sessions($range, false);
+
+        $query->select([
+            'id',
+            'uuid',
+            'user_id',
+            'referer_id',
+            'cookie_id',
+            'language_id',
+            'is_robot',
+            'updated_at',
+        ]);
+
+        $users = array_unique($query->pluck('user_id')->toArray());
+
+        $users_all = User::whereIn('id',$users)->get();
+
+
+        switch ($sort) {
+
+            case 'log': $query->where('user_id','!=',null); break;
+
+            case 'unlog':  $query->where('user_id',null); break;
+
+            case 'admin': {
+                $users = Role::where('id',1)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+            case 'analitic': {
+                $users = Role::where('id',5)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+            case 'employee': {
+                $users = Role::where('id',3)->first()->users->pluck('id')->toArray();$query->whereIn('user_id',$users); break;
+            }
+            case 'user': {
+                $users = Role::where('id',4)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+            case 'manager': {
+                $users = Role::where('id',2)->first()->users->pluck('id')->toArray(); $query->whereIn('user_id',$users);break;
+            }
+        }
+
+        $results = $query->get()->groupBy('user_id');
+
+
+        $results = $results->sortKeys();
+
+        $new_result = collect([]);
+
+            foreach ($results as $id=>$user) {
+
+                if($id) $name = $users_all->where('id',$id)->first()->name.' '.$users_all->where('id',$id)->first()->surname.
+                    " \n".$users_all->where('id',$id)->first()->email; else $name = '';
+                $data = Helper::logsInfo($user);
+                $new_result[] = [
+                    'name'=>$name,
+                    'id'=>$id,
+                    'categories'=>$data[0],
+                    'count'=>Helper::logsCount($user),
+                    'paths'=>$data[3],
+                    'sum'=>gmdate('z:H:i:s',$data[1]),
+                    'average'=>gmdate('z:H:i:s',$data[2])
+                ];
+            }
+
+        if(!Input::get('ajax')) session(['table'=>$new_result]);
+
+        $summary = true;
+
+        if(!Input::get('ajax')) session(['start_period'=>$start]);
+        if(!Input::get('ajax')) session(['end_period'=>$end]);
+
+        $title = 'Сводка статистики за период c '.date('d.m.Y',strtotime($start)).' по '.date('d.m.Y',strtotime($end));
+
+        return View::make('pragmarx/tracker::index')
+            ->with('title', $title)->with('results',$new_result)
+            ->with('summary',$summary)->with('sort_array',$this->sort_array);
+    }
+    
     public function log($uuid)
     {
         $session = Tracker::sessionLog($uuid);

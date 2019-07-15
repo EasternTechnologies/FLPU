@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use App\Report;
-
+//test
 class CreateController extends Controller
 {
     protected $report = 0;
@@ -131,8 +131,10 @@ class CreateController extends Controller
 
         $items = [];
         $items[false]  = [];
+
         foreach ($categories as $category) {
             $items[$category->id] = [];
+            $items[$category->id][false] = [];
         }
 
         foreach ($subcategories_array as $subcategory)
@@ -143,14 +145,14 @@ class CreateController extends Controller
 
         foreach ($articles as $key => $article) {
             if ($article->category_id) {
-                $subcategory = $article->subcategory_id != false ? $article->subcategory_id : false; // problem
+                $subcategory = $article->subcategory_id != false ? $article->subcategory_id : false;
                 $category = $article->category_id != false ? $article->category_id : false;
                 $items[$category][$subcategory][] = $articles->pull($key);
             }
         }
 
         foreach ($articles as $key => $article) {
-            $subcategory = $article->subcategory_id != false ?  $article->subcategory_id: false; // problem
+            $subcategory = $article->subcategory_id != false ?  $article->subcategory_id: false;
             $items[false][$subcategory][] = $article;
         }
 
@@ -235,10 +237,13 @@ class CreateController extends Controller
                 $fileName = time() . '_' . $photo->getClientOriginalName();
                 $r        = $photo->storeAs('article_images', $fileName, ['disk' => 'bsvt']);
 
-                $pathToFile  = Storage::disk('bsvt')->getDriver()->getAdapter()->getPathPrefix();
-                $whereToSave = $pathToFile . 'article_images/' . 'th-' . $fileName;
+	            if($article->reports->types->slug != 'plannedexhibition') {
+		            $pathToFile  = Storage::disk( 'bsvt' )->getDriver()->getAdapter()->getPathPrefix();
+		            $whereToSave = $pathToFile . 'article_images/' . 'th-' . $fileName;
+		            Image::make($pathToFile . $r)->fit(616, 308)->save($whereToSave, 100);
+	            }
+
                 $thumbnails  = 'article_images/' . 'th-' . $fileName;
-                Image::make($pathToFile . $r)->fit(616, 308)->save($whereToSave, 100);
 
                 $article->images()->create([
                     'image'     => $r,

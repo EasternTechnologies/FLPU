@@ -10,7 +10,7 @@
             @elseif($report_slug=='yearly')
             {{ $report->types->title }} за {{ date('Y', $report->date_start) }} год
             @elseif($report_slug=='various')
-            {{$report->types->title}}
+            {{$report->title}}
             @elseif($report_slug=='search')
             Результаты поиска
         @endif

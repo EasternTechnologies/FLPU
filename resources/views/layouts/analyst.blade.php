@@ -34,6 +34,9 @@ $y = date("Y");
     <!-- Styles MEDIA -->
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
 
+    <!-- NEW STYLES -->
+    <link href="{{ asset('css/new_design.css') }}" rel="stylesheet">
+
 </head>
 <body>
 <div id="app" class="analyst">
@@ -67,7 +70,7 @@ $y = date("Y");
                             <li class="menu-current">
                         @else
                             <li>
-                                @endif <a href="{{ route('cabinet') }}">Личный кабинет</a>
+                                @endif <a href="/cabinet/{{\Illuminate\Support\Facades\Auth::user()->id}}">Личный кабинет</a>
                             </li>
                             <span>|</span>
                             <li>

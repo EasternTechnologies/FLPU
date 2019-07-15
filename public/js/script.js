@@ -55,20 +55,58 @@ $(document).on('click','.pdf-checkbox input', function (eo) {
     var val = $(this).val();
     var random_key = $('input[name="random_key"]').val();
 
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url:'/redis/change',
-        method:'post',
-        data:'id='+val+'&random_key='+random_key,
-        success:function (result) {
-           if(!result) {
-               $('.show_pdf_search, .show_pdf_search_choose,.show_pdf_for_search').prop('disabled',true);
-           }
-            else $('.show_pdf_search, .show_pdf_search_choose,.show_pdf_for_search').prop('disabled',false);
-        }
-    });
+    if(random_key=='000') {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:'/redis',
+            method:'post',
+            data:'newsearch=1',
+            success:function (result) {
+                console.log(result);
+                random_key = result;
+                $('input[name="random_key"]').val(random_key)
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url:'/redis/change',
+                    method:'post',
+                    data:'id='+val+'&random_key='+random_key,
+                    success:function (result) {
+                        console.log(result);
+                        if(!result) {
+                            $('.show_pdf_search, .show_pdf_search_choose,.show_pdf_for_search').prop('disabled',true);
+                        }
+                        else $('.show_pdf_search, .show_pdf_search_choose,.show_pdf_for_search').prop('disabled',false);
+                    }
+                });
+
+
+            }
+        });
+    }
+    else {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:'/redis/change',
+            method:'post',
+            data:'id='+val+'&random_key='+random_key,
+            success:function (result) {
+                console.log(result);
+                if(!result) {
+                    $('.show_pdf_search, .show_pdf_search_choose,.show_pdf_for_search').prop('disabled',true);
+                }
+                else $('.show_pdf_search, .show_pdf_search_choose,.show_pdf_for_search').prop('disabled',false);
+            }
+        });
+    }
+
+
     //
     // if(getCookie('pdfitems')) {
     //     var ids = JSON.parse(getCookie('pdfitems'));
@@ -166,7 +204,7 @@ function make_form(url) {
 }
 
 $(document).on('click','.show_pdf_search_choose',function () {
-        make_form(document.URL + '/1');
+        make_form(document.URL + '/'+ $('input[name="random_key"]').val());
 });
 
 $(document).on('click','.show_pdf_search',function () {
@@ -177,8 +215,8 @@ $(document).on('click','.show_pdf_for_search',function () {
     make_form('/search/choose');
 });
 
-$( document ).ready(function () {
-    $('input[data-result="1"]').click();
-});
+// $( document ).ready(function () {
+//     $('input[data-result="1"]').click();
+// });
 
 

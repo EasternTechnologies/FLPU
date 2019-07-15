@@ -1,8 +1,9 @@
 @extends($stats_layout)
 
 @section('page-contents')
-  <div class="statistics-filter"> 
-    <form class="statistics-form" action="/stats" method="get">
+  <div class="statistics-filter">
+
+    <form class="statistics-form" action="{{empty($summary)?'/stats':'/stats/summary'}}" method="get">
       <p class="statistics-form__block">
         <label>
           Тип пользователя
@@ -26,6 +27,7 @@
         </label>
       </p>
 
+      @if(empty($summary))
       <p class="statistics-form__block">
         <label>
           Показать
@@ -37,12 +39,16 @@
           записей
         </label>
       </p>
-      
+      @endif
       <p class="statistics-form__block statistics-form__block--search">
+        @if(empty($summary))
         <label>
           <input class="statistics-form__field" name="name" type="search" placeholder="Поиск по пользователям" value="{{app('request')->input('name')}}">
         </label>
-        <button type="submit" aria-label="Отправить форму"></button>
+          <button type="submit" aria-label="Отправить форму"></button>
+        @else
+          <input type="submit" class="button statistics-form__field" value="Найти">
+        @endif
       </p>
     </form>
   </div>
@@ -62,12 +68,16 @@
     <table>
       <thead>
         <tr>
+          @if(empty($summary))
           <th>Дата</th>
+          @endif
           <th>Пользователь</th>
+            @if(empty($summary))
           <th class="hidden_column">IP Адрес</th>
           <th class="hidden_column">Страна</th>
           <th class="hidden_column">Устройство</th>
           <th class="hidden_column">Браузер</th>
+            @endif
           <th>Разделы</th>
           <th>Кол-во материалов</th>
           <th>Общее время</th>
@@ -77,15 +87,14 @@
       <tbody>
       @foreach($results as $result)
           <tr>
+            @if(empty($summary))
               <td>{{$result['date']}}</td>
-            <td data-id="{{$result['id']}}" class="stats_more_info">
-              @if(empty($result['name']))
-                Гость
-              @else
-                {!! $result['name'] !!}
-              @endif
-            </td>
+            @endif
 
+            <td data-id="{{$result['id']}}" class="{{empty($summary)?'stats_more_info':''}}">
+              {{empty($result['name'])?'Гость':$result['name']}}
+            </td>
+              @if(empty($summary))
             <td class="hidden_column">{{$result['ip']}}</td>
             <td class="hidden_column">{!! $result['country'] !!}</td>
             <td class="hidden_column">{{$result['device']}}</td>
@@ -93,7 +102,7 @@
             <td class="hidden_column">{{
             $result['browser']
             }}</td>
-
+            @endif
             <td>
               @forelse($result['categories'] as $cat)
                 {{$cat}} <br>
@@ -104,7 +113,7 @@
             <td class="stats_paths">{{$result['count']}} <br>
               <div class="">
               @foreach($result['paths'] as $path)
-                <a href="{{$path}}">{{$path}}</a> <br>
+                <a href="{{$path[0]!='/'?'/':''}}{{$path}}" target="_blank">{{$path}}</a> <br>
               @endforeach
               </div>
             </td>
@@ -116,7 +125,8 @@
     </table>
   </div>
 
-  {{$results->links()}}
+{{empty($summary)?$results->links():''}}
+
 
 
   {{--@if($pages_count>1)--}}
