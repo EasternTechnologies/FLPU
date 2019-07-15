@@ -524,3 +524,46 @@ body.active::after {
   text-align: center;
 }
 
+.search_block {
+  position: relative;
+}
+
+.pdf-checkbox {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.pdf-checkbox input {
+  height: unset;
+}
+
+button:disabled {
+  color: graytext;
+  border-color: graytext;
+}
+
+button:disabled:hover {
+  color: graytext !important;
+  background: white !important;
+  border-color: graytext !important;
+}
+
+.fixed_bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  width: 100%;
+  margin: 0;
+  padding: 10px 0;
+  background: #ffffff;
+}
+

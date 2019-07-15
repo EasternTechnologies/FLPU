@@ -47,14 +47,14 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
 
                         <span class="select_wrap calendar_wrap" style="display: none;">
 			        	<input name="start_period_picker" value="" class="calendar_start_3"/>
-			        	<input type="hidden" value="<?php echo $report->date_start; ?>" name="start_period">
+			        	<input type="hidden" value="<?php echo $article->date_start; ?>" name="start_period">
 		        	</span>
 			        </span>
                         <span> по </span>
 
                         <span class="select_wrap calendar_wrap" style="display: none;">
 				        	<input name="end_period_picker" value="" class="calendar_end_3"/>
-				        	<input type="hidden" value="<?php echo $report->date_end; ?>" name="end_period">
+				        	<input type="hidden" value="<?php echo $article->date_end; ?>" name="end_period">
 				        </span>
                     </p>
 
@@ -178,7 +178,12 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                     </p>
                     @if($report->types->slug != 'various')
                     <p class="d-flex justify-content-start">
-                        <span class="name">Раздел: </span><span class="text">@if(isset($article->category)){{ $article->category->title }} @else {{ $article->subcategory->title }} @endif</span>
+                        @if($article->category_id or $article->subcategory_id)
+                            <span class="name">Раздел: </span><span class="text">
+                                @if($article->category_id){{ $article->category->title }}
+                                @elseif($article->subcategory_id) {{ $article->subcategory->title }} @endif
+                            </span>
+                            @endif
                     </p>
                     @endif
                     <input type="text" hidden name="year" value="<?= $y?>">
@@ -275,7 +280,7 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                 	<button class="button_save butt butt_def">Сохранить</button>
 	            	<button onclick="jQuery('#form').attr('action','/report/{{ $report->types->slug }}/upd/1'); jQuery('#form').submit(); return false;" class="button_save butt butt_def">Сохранить и отправить на утверждение</button>
 	        	@elseif($article->status == 1 || $article->status == 2)
-	        		<a href="report/{{$report->types->slug}}/add2/{{$report->id}}" class="button butt_back">Вернуться к отчету</a>
+	        		<a href="/report/{{$report->types->slug}}/add2/{{$report->id}}" class="button butt_back">Вернуться к отчету</a>
 	                <button onclick="jQuery('#form').attr('action','/report/{{ $report->types->slug }}/upd/2'); jQuery('#form').submit(); return false;" class="button_save butt butt_def">Сохранить и утвердить</button>
 	        	@else
 	        		<a href="report/{{$report->types->slug}}/add2/{{$report->id}}" class="button butt_back">Вернуться к отчету</a>
@@ -325,7 +330,7 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
                 locale: 'ru-ru',
                 minDate: '<?php echo date("d.m.Y",$report->date_start); ?>',
                 maxDate: '<?php echo date("d.m.Y",$report->date_end); ?>',
-                value: '<?php echo date("d.m.Y",$article->date_start); ?>',
+                value: '<?php echo date("d.m.Y",$article->date_end); ?>',
                 format: 'dd.mm.yyyy',
 
             });

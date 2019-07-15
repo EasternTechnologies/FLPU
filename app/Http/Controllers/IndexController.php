@@ -17,31 +17,18 @@ class IndexController extends Controller
 
     public function test () {
         $sessions = \Tracker::sessions(60 * 24);
-        /*dd(\Tracker::logByRouteName('weekly.article')
-                   ->where(function($query)
-                   {
-                       $query
-                         ->where('parameter', 'weeklyarticle')
-                         ->where('value', 2);
-                   })
-                   ->count());*/
+
         foreach ( $sessions as $session ) {
             if ( isset($session->user) ) {
 
-                //dump( $session->user->email );
+
                 foreach ( $session->log as $log ) {
                     $users[ $session->user->email ][] = $log->path->path;
 
-                    //dump( $log->path->path );
+
                 }
             }
         }
-        //dump($users);
-        //dump( $session->device->kind . ' - ' . $session->device->platform );
-
-        //dump( $session->agent->browser . ' - ' . $session->agent->browser_version );
-
-        //var_dump( $session->geoIp->country_name );
         return view('admin.users', compact('users'));
 
     }
@@ -88,36 +75,15 @@ class IndexController extends Controller
 
                         }
 
-//                $companies     = Company::join('company_country', 'companies.id', '=', 'company_country.company_id')
-//                                        ->join('countries', 'countries.id', '=', 'company_country.country_id')
-//                                        ->whereIn('countries.id', $country_id)
-//                                        ->select('companies.*')
-//                                        ->get();
 
                         foreach($country_id as $country) {
 
                             $personalities = $personalities->merge(Country::find( $country )->personalities()->get())->unique('id');
 
                         }
-//                $personalities = Personality::join('country_personality', 'personalities.id', '=', 'country_personality.personality_id')
-//                                            ->join('countries', 'countries.id', '=', 'country_personality.country_id')
-//                                            ->whereIn('countries.id', $country_id)
-//                                            ->select('personalities.*')
-//                                            ->get();
+
                     }
-//            else {
-//
-//                $companies     = Company::join('company_country', 'companies.id', '=', 'company_country.company_id')
-//                                        ->join('countries', 'countries.id', '=', 'company_country.country_id')
-//                                        ->where('countries.id', $country_id)
-//                                        ->select('companies.*')
-//                                        ->get();
-//                $personalities = Personality::join('country_personality', 'personalities.id', '=', 'country_personality.personality_id')
-//                                            ->join('countries', 'countries.id', '=', 'country_personality.country_id')
-//                                            ->where('countries.id', $country_id)
-//                                            ->select('personalities.*')
-//                                            ->get();
-//            }
+
                 }
 
                 if ( isset($vvt_type_id) && !empty($vvt_type_id) ) {
@@ -142,12 +108,6 @@ class IndexController extends Controller
                             }
                         }
 
-
-//                $companies     = Company::join('company_vvt_type', 'companies.id', '=', 'company_vvt_type.company_id')
-//                                        ->join('vvt_types', 'vvt_types.id', '=', 'company_vvt_type.vvt_type_id')
-//                                        ->whereIn('vvt_types.id', $vvt_type_id)
-//                                        ->select('companies.*')
-//                                        ->get();
                         $vvts = collect();
                         foreach ( $personalities as $personality ) {
 
@@ -156,7 +116,6 @@ class IndexController extends Controller
 
                         }
 
-                        //$personalities = collect();
                         foreach ( $vvt_type_id as $vvt_type ) {
                             foreach ( $vvts as $vvt ) {
                                 if ( $vvt->pivot->vvt_type_id == $vvt_type ) {
@@ -164,34 +123,7 @@ class IndexController extends Controller
                                 }
                             }
                         }
-                        // dd($personalities);
-//		        foreach ( $vvt_type_id as $vvt_type ) {
-//
-//			        $personalities = $personalities->merge( VvtType::find( $vvt_type )->personalities()->get() )->unique( 'id' );
-//
-//		        }
-
-//                $personalities = Personality::join('personality_vvt_type', 'personalities.id', '=', 'personality_vvt_type.personality_id')
-//                                            ->join('vvt_types', 'vvt_types.id', '=', 'personality_vvt_type.vvt_type_id')
-//                                            ->whereIn('vvt_types.id', $vvt_type_id)
-//                                            ->select('personalities.*')
-//                                            ->get();
                     }
-//            else {
-//
-//                $companies     = Company::join('company_vvt_type', 'companies.id', '=', 'company_vvt_type.company_id')
-//                                        ->join('vvt_types', 'vvt_types.id', '=', 'company_vvt_type.vvt_type_id')
-//                                        ->where('vvt_types.id', $country_id)
-//                                        ->select('companies.*')
-//                                        ->get();
-//                $personalities = Personality::join('personality_vvt_type', 'personalities.id', '=', 'personality_vvt_type.personality_id')
-//                                            ->join('vvt_types', 'vvt_types.id', '=', 'personality_vvt_type.vvt_type_id')
-//                                            ->where('vvt_types.id', $country_id)
-//                                            ->select('personalities.*')
-//                                            ->get();
-//            }
-
-
                 }
 
                 $vvt_types = VvtType::orderBy('title')->get();

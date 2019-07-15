@@ -66,8 +66,6 @@
                     <h3 class="title padlr30">{{ $article->title }}</h3>
                      @endif
                 @endif
-
-
                 @if($article->reports->types->slug == 'plannedexhibition')
                         <p><strong>Отчет: </strong> <span class="italic_14"><a class="text_decor" href="/report/{{ $article->reports->types->slug }}/show/{{ $article->report_id }}">{{ $article->reports->types->title }}</a></span></p>
                     <p class="mb10 w100 fll"><strong>Место:&nbsp</strong>
@@ -84,16 +82,14 @@
                                 @endforeach
                             @endif
                         </div>
-
                 @else
-                
-                <a target="_blank" href="/report/{{ $article->reports->types->slug }}/pdf_article/{{ $article->id }}" class="pdf pos_tr_article_out"></a>
+                <a target="_blank" href="/pdf_article/{{ $article->id }}" class="pdf pos_tr_article_out"></a>
                 <p><strong>Отчет: </strong> <span class="italic_14"><a class="text_decor" href="/report/{{ $article->reports->types->slug }}/show/{{ $article->report_id }}">{{ $article->reports->types->title }}</a></span></p>
                     @if(isset($article->category))
                     <p class="mb30"><strong>Раздел: </strong>
                     <span class="italic_14">{{$article->category->title }} </span></p>
                     @endif
-                <div class="content_text">{!!   $article->description !!}</div>
+                <div class="content_text">{!!  $article->description !!}</div>
                 <div class="gallery_img_content mb30">
                     @if(isset($article->images))
                         @foreach($article->images as $image)

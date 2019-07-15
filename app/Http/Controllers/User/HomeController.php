@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-
+use Illuminate\Support\Facades\Redis;
+use PragmaRX\Tracker\Tracker;
 
 class HomeController extends Controller
 {
@@ -73,7 +74,6 @@ class HomeController extends Controller
     public function search ( Request $request) {
 
 
-
 	    if($request->ajax()){
 
 		    $q = $request->q;
@@ -86,11 +86,11 @@ class HomeController extends Controller
 
 		//$results = ArticleReports::search($q)->active()->paginate(40);
 
-	    $results = ArticleReports::search($q, $size = 10000);
+	    $articles = ArticleReports::search($q, $size = 10000);
 //dd($results);
-		$results = $this->paginate($results, 20);
+		$articles = $this->paginate($articles, 20);
 
-	    $results->appends($request->all())->setPath('/simply_search');
+		$articles->appends($request->all())->setPath('/simply_search');
 
 	    if($request->ajax()){
 
@@ -99,10 +99,14 @@ class HomeController extends Controller
 //			   $article->titleTags($article->title);
 //
 //            }
-		    return   $results;
+		    return   $articles;
 	    }
+
+		$random_key = $request->random_key;
+		$choose_array = unserialize(Redis::get('search:key'.$request->random_key));
 //dd($request);
-        return view('user.simplysearch', compact('results'));
+//        return view('user.simplysearch', compact('results'));
+        return view('user.advan_search_result', compact('articles','random_key','choose_array'));
     }
 
     public function advanced_search_form () {
@@ -200,7 +204,7 @@ class HomeController extends Controller
 				        //если одна запись вытянулась на каждый тег
 				        if ( $value->count() == $tags_count ) {
 					        //добавляем ее в массив, передаваемый во вьюху
-					        $strong = $strong->concat($value);
+					        $strong = $strong->concat($value)->keyBy('id');;
 				        }
 			        };
 		        }
@@ -257,7 +261,7 @@ class HomeController extends Controller
 					        //если одна запись вытянулась на каждый тег
 					        if ( $value->count() == $tags_count ) {
 						        //добавляем ее в массив, передаваемый во вьюху
-						        $strong = $strong->concat($value);
+						        $strong = $strong->concat($value)->keyBy('id');
 					        }
 				        };
 			        }
@@ -310,7 +314,7 @@ class HomeController extends Controller
 					        //если одна запись вытянулась на каждый тег
 					        if ( $value->count() == $tags_count ) {
 						        //добавляем ее в массив, передаваемый во вьюху
-						        $strong = $strong->concat($value);
+						        $strong = $strong->concat($value)->keyBy('id');
 					        }
 				        };
 			        }
@@ -322,12 +326,43 @@ class HomeController extends Controller
     }
 	        }
 
+		
+		$random_key = $request->random_key_before;
+		$choose_array = unserialize(Redis::get('search:key'.$request->random_key_before));
 
-
-
-        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types'));
+			$isadvantage  =true;
+			$type = true;
+        return view('user.advan_search_result',
+			compact(
+				'articles',
+				'report_type',
+				'start_period',
+				'end_period',
+				'countries',
+				'companies',
+				'personalities',
+				'vvt_types',
+				'isadvantage',
+				'random_key',
+				'choose_array',
+				'type'
+				));
     }
 
+	public function search_choose(Request $request)
+	{
+//		dump($request->all());
+
+		$array = unserialize(Redis::get('search:key'.$request->random_key));
+
+		if(!empty($array) && count($array)){
+			$articles = ArticleReports::whereIn('id',$array)->get();
+		}
+//		dump($articles);
+		$random_key = $request->random_key;
+		$choose = true;
+		return view('user.advan_search_result', compact('articles','choose','random_key'));
+	}
 
     public function findbytagsinalltables ( $countries, $companies, $vvt_types, $personalities, $start_period, $end_period, &$articles ) {
 
@@ -493,10 +528,46 @@ class HomeController extends Controller
 
     public function indexes() {
 
+	   // ArticleReports::deleteIndex();
+	    ArticleReports::createIndex();
     	ArticleReports::putMapping($ignoreConflicts = true);
     	ArticleReports::addAllToIndex();
 
 	    return redirect()->to('/report');
 
     }
+
+	public function predis()
+	{
+		Redis::set('test:key',5);
+		Redis::set('test:key2', serialize(['key1'=>1,2,3,4,5]));
+
+		Redis::set('test:key3',15);
+		echo Redis::get('test:key');
+		dump(Redis::get('test:key2'));
+
+		dump(unserialize(Redis::get('test:key2')));
+		Redis::del('test:key');
+		dump(Redis::get('test:key'));
+	}
+
+	public function tracker()
+	{
+
+		dump(\Tracker::onlineUsers(1));
+		dump(\Tracker::pageViews(60 * 24 * 30));
+
+		$visitor = \Tracker::currentSession();
+
+		echo $visitor->device->platform ;
+		$users = \Tracker::users(1);
+		dump($users);
+
+		$events = \Tracker::events(60 * 24);
+
+		dump($events);
+
+	}
+
+
 }

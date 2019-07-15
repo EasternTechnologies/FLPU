@@ -8,7 +8,7 @@
         @else
             <li>
                 @endif
-                <a href="/analyst">Управление материалами</a>
+                <a href="/report">Управление материалами</a>
             </li>
             <span>|</span>
         @endif

@@ -95,13 +95,14 @@
 
 					</div>
 
-					@if( $report->types->slug == 'countrycatalog')
+					@if( $report->types->slug == 'countrycatalog' && $cat!=null)
 						<div class="row padl_sub2 out_list_title">
 							<div class="vpor_box">
 								<p class="vpor_title">Военно-политическая обстановка в регионе
 
 								</p>
 								<div class="vpor_desc" style="display:none;">
+
 									{!!$categories->where('id',$cat)->first()->description !!}
 								</div>
 							</div>
@@ -260,7 +261,7 @@
         @if(Request::url() == URL::previous())
 		    <a href="/" class="button butt_back">Все отчеты</a>
 		@else
-			<a href="{{ URL::previous() }}" class="button butt_back">Назад</a>
+			<a href="/report/{{ $report->types->slug }}" class="button butt_back">Назад</a>
 		@endif
 			
         @if($report->status == 1)

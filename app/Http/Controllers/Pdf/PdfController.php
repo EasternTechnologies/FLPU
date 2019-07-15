@@ -4,28 +4,11 @@ namespace App\Http\Controllers\Pdf;
 use App\ArticleReports;
 use App\Report;
 use App\Http\Controllers\Controller;
-use App\models\analyst\yearly\Yearlyarticle;
-use App\models\analyst\exhibitions\Plannedexhibition;
-use App\models\analyst\yearly\InfoCountry;
-use App\models\analyst\yearly\Countrycatalog;
-use App\models\analyst\weekly\Weeklyarticle;
-use App\models\analyst\weekly\Weeklyreport;
-use App\models\analyst\monthly\Monthlyarticle;
-use App\models\analyst\monthly\Monthlyreport;
-use App\models\analyst\various\Variousarticle;
-use App\models\analyst\yearly\Yearlycategory;
-use App\models\analyst\yearly\Yearlyreport;
-use App\models\analyst\various\Variousreport;
-use App\models\analyst\various\Variouscategory;
-use App\models\analyst\yearly\Yearlysubcategory;
-use App\models\analyst\yearly\Region;
-use App\models\analyst\exhibitions\Plannedexhibitionyear;
-use App\ReportType;
 use App\Category;
 use App\Subcategory;
-use GuzzleHttp\Psr7\Request;
 
 use Illuminate\Http\Request as RequestSearchPdf;
+use Illuminate\Support\Facades\Redis;
 
 
 class PdfController extends Controller {
@@ -59,8 +42,6 @@ class PdfController extends Controller {
 
 /**********************************************************************************************************************/
 	public function pdf_item ( $id ) {
-
-
 
 		$report = Report::find($id);
 		$report_slug = $report->types->slug;
@@ -139,6 +120,8 @@ class PdfController extends Controller {
 			$descriptions[] = $category->description;
 		}
 
+//		dd($items);
+
 		$pdf = \PDF::loadView($template, compact('report','items','report_slug','descriptions'));
 		return $pdf->stream( $report->types->title.'.pdf' );
 	}
@@ -161,6 +144,8 @@ class PdfController extends Controller {
 				}
 			}
 
+//		dd($items);
+
 		$pdf = \PDF::loadView($template, compact('report','items','report_slug'));
 		return $pdf->stream( $report->types->title.'.pdf' );
 	}
@@ -168,13 +153,19 @@ class PdfController extends Controller {
 /**********************************************************************************************************************/
 	public function pdf_search(RequestSearchPdf $request)
 	{
-        $articles = ArticleReports::whereIn('id',$request->id)->get();
+
+
+		$array = unserialize(Redis::get('search:key'.$request->random_key));
+
+        $articles = ArticleReports::whereIn('id',$array)->get()->sortBy('title');
         $format = ['format' => 'A4'];
         foreach ($articles as $article) {
                 $items[false][false] [] = $article;
         }
         $report_slug = 'search';
         $template = 'pdf.pdf_item';
+
+//		Redis::del('search:key'.$request->random_key);
 
         $pdf = \PDF::loadView($template, compact('report', 'items','report_slug','descriptions'), [], $format);
         return $pdf->stream( 'Результаты поиска' .'.pdf' );

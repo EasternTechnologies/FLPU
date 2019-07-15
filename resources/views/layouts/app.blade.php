@@ -3,7 +3,7 @@ $d = date("d");
 $m = date("m");
 $y = date("Y");
 ?>
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
@@ -38,58 +38,61 @@ $y = date("Y");
     <!-- Styles MEDIA -->
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
 
+    <!-- NEW STYLES -->
+    <link href="{{ asset('css/new_design.css') }}" rel="stylesheet">
+
 </head>
 <body>
-<div id="app" class="analyst">
-
-    <header>
+<div id="app" data-sticky_parent>
+    <header class="page-header">
         <div class="container row_top">
             <div class="user_rolles">
                 @auth
                 {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
                 @endauth
             </div>
-            @include('partials.cabinets')
-            <div id="menu-mob1" class="menu-mob">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-        <div class="container row_2">
-            @include('partials.row_with_search')
+
+            @include('partials.cabinets')        
         </div>
     </header>
 
-    @section('nav_header_other')
-        <div class="nav_header_other">
-            <div class="container">
-
-                <ul class="">
-
-                    @foreach(\App\ReportType::$data as $link => $title)
-
-                        <li class="@if(Request::is('report/'. $link) || Request::is('report/'. $link.'/*') || Request::is('analyst/'.$link) || Request::is('analyst/'.$link.'/*') || Request::is('manager/'.$link) || Request::is('manager/'.$link.'/*')) {{'active'}} @endif">
-
-                            <a href="/report/{{ $link }}" class="nav-link">{{ $title }}</a>
-
-                        </li>
-                    @endforeach
-
-
-                </ul>
-                <span class="close-mob">
-                		x
-                	</span>
+    <aside class="page-aside">
+        <div class="page-aside__wrapper" data-sticky_column>
+            <div class="logo-box">
+                <a class="logo-text" href="{{ url('/') }}">             <img src="{{asset('images/logo.png')}}" alt=""/> </a>
             </div>
-        </div>
-    @endsection
-    <div id="menu-mob2" class="container menu-mob">
-        Меню
-    </div>
-    @yield('nav_header_other')
+            <ul class="nav__list">
+                @foreach(\App\ReportType::$data as $link => $title)
+                    <li class="nav__item @if(Request::is('report/'. $link) || Request::is('report/'. $link.'/*') || Request::is('analyst/'.$link) || Request::is('analyst/'.$link.'/*') || Request::is('manager/'.$link) || Request::is('manager/'.$link.'/*')) {{'active'}} @endif">
 
-    <main>
+                        <a href="/report/{{ $link }}" class="nav__link">{{ $title }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </aside>
+
+    <main class="page-main">
+        <div class="page-title container">
+          <h1>Аналитика</h1>
+        </div>
+
+        <div class="page-info container">
+          <div class="page-subtitle">
+            @if(isset($type))
+            <h2>Поиск</h2>
+            @elseif(isset($report_type))
+            <h2>{{ $report_type->description }}</h2>
+            @else
+            <h2>Создание и управление отчетами</h2>
+            @endif
+          </div>
+
+          <div class="page-search">
+            <search-component></search-component>
+          </div>
+        </div>
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -109,33 +112,28 @@ $y = date("Y");
             </div>
         @endif
         @yield('content')
-
     </main>
-
-    <footer>
-        <div class="row">
-            <div class="container">
-                <div class="flex_box">
-                    <div class="col-md-4 copyright">
-                        © Copyright 2018. Все права защищены
-                    </div>
-                    <div class="col-md-4 footer_doc">
-                        <a href="/reglament">Правила и регламент регистрации</a>
-                    </div>
-                    <div class="col-md-4 portfolio_box">
-                        Разработка сайта<span class="logo_east_tech"></span><a href="http://east-tech.by/">“Восточные технологии”</a>
-                    </div>
-                </div>
+    
+    <footer class="page-footer">
+        <div class="container">
+            <div class="copyright">
+                © Copyright 2018. Все права защищены
+            </div>
+            <div class="footer_doc">
+                <a href="/reglament">Правила и регламент регистрации</a>
+            </div>
+            <div class="portfolio_box">
+                Разработка системы<span class="logo_east_tech"></span><a href="http://east-tech.by/">“Восточные технологии”</a>
             </div>
         </div>
     </footer>
-
-    <div class="bugs" oncLick="showModalBugs();">
-        <span>Нашли баг?</span>
-    </div>
 </div>
 
-<!-- bugs modal -->
+<div class="bugs" oncLick="showModalBugs();">
+    <span>Нашли баг?</span>
+</div>
+  
+  <!-- bugs modal -->
 <div class="modal modal__bugs">
     <div class="modal__close" oncLick="closeModal();"></div>
     <div class="bugs-form">
@@ -531,14 +529,6 @@ $y = date("Y");
         })
 
         //tag
-//        jQuery(".butt_add_tag1").click(function (e) {
-//            e.preventDefault();
-//            jQuery('.popup_tag_country').fadeIn(500);
-//        });
-//        jQuery(".butt_add_tag2").click(function (e) {
-//            e.preventDefault();
-//            jQuery('.popup_tag_vvttype').fadeIn(500);
-//        });
         jQuery(".butt_add_tag3").click(function (e) {
             e.preventDefault();
             jQuery('.popup_tag_company').fadeIn(500);
@@ -561,18 +551,6 @@ $y = date("Y");
             hide_company_select_vvt_name = [];
             hide_personalities_select_contry_id = [];
             hide_personalities_select_contry_name = [];
-
-            // jQuery('.personalities_select_country option').removeAttr('selected');
-            // jQuery('.company_select_country option').removeAttr('selected');
-            // jQuery('.company_select_vvt option').removeAttr('selected');
-
-            jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');
-
-            jQuery('.personalities_select_country option').removeClass('active');
-            jQuery('.company_select_country option').removeClass('active');
-            jQuery('.company_select_vvt option').removeClass('active');
         });
 
         jQuery(".bg_popup_tag").click(function (e) {
@@ -591,9 +569,6 @@ $y = date("Y");
             hide_personalities_select_contry_id = [];
             hide_personalities_select_contry_name = [];
 
-            // jQuery('.personalities_select_country option').removeAttr('selected');
-            // jQuery('.company_select_country option').removeAttr('selected');
-
             jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
             jQuery('.company_select_country option:first-child').attr('selected', 'selected');
         });
@@ -602,14 +577,6 @@ $y = date("Y");
             e.preventDefault();
 
             jQuery('[name="tag"]').val("");
-
-            jQuery('.personalities_select_country option').removeAttr('selected');
-            jQuery('.company_select_country option').removeAttr('selected');
-            jQuery('.company_select_vvt option').removeAttr('selected');
-
-            jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_country option:first-child').attr('selected', 'selected');
-            jQuery('.company_select_vvt option:first-child').attr('selected', 'selected');
         });
 
         jQuery(".butt_add_tag").click(function (e) {
@@ -697,27 +664,6 @@ $y = date("Y");
                 }
             }
 
-            // if(jQuery('[name=country]').length) {
-            //     if (jQuery('[name=country]').val() == '' || !jQuery('[name=country]').val()) {
-            //         error++;
-            //         jQuery('[name=country]').addClass('error');
-            //     }
-            // }
-
-            // if(jQuery('[name=region]').length) {
-            //     if (jQuery('[name=region]').val() == '' || !jQuery('[name=region]').val()) {
-            //         error++;
-            //         jQuery('[name=region]').addClass('error');
-            //     }
-            // }
-
-            // if(jQuery('[name=military_expenses]').length) {
-            //     if (jQuery('[name=military_expenses]').val() == '' || !jQuery('[name=military_expenses]').val()) {
-            //         error++;
-            //         jQuery('[name=military_expenses]').addClass('error');
-            //     }
-            // }
-
             if(jQuery('[name=editor1]').length) {
 
                 var edit1 = CKEDITOR.instances.editor1.getData();
@@ -737,7 +683,6 @@ $y = date("Y");
             }
 
             if (error) {
-                //jQuery('.alert-mess').append('<li class="error">Заполните обязательные поля!</li>');
                 jQuery('.popup_alert').fadeIn(250);
                 jQuery('.popup_alert .popup_form').show(500);
                 jQuery('.alert_text_out').html('<p class="error">Заполните обязательные поля!</p>');
@@ -811,23 +756,10 @@ $y = date("Y");
             jQuery('.nav_header_other').removeClass('mob-active');
 
         });
-
-        /*end menu-mob */
-
-        /*jQuery('.butt_search').click(function() {
-         jQuery('header .container.row_2 .right-box>form').submit();
-         })*/
     });
 </script>
 <script type="text/javascript" charset="utf-8">
     window.onload = function () {
-
-        //init select
-        jQuery('.personalities_select_country option').removeAttr('selected');
-        jQuery('.company_select_country option').removeAttr('selected');
-
-        jQuery('.personalities_select_country option:first-child').attr('selected', 'selected');
-        jQuery('.company_select_country option:first-child').attr('selected', 'selected');
 
         //date
         var $w = jQuery('select.start_period option:selected').attr('data-week');
@@ -923,8 +855,6 @@ $y = date("Y");
                 jQuery(elem).attr('selected', 'selected');
             });
         });
-
-
     }
 
 
@@ -946,6 +876,8 @@ $y = date("Y");
 </script>
 
 <script src="{{asset('js/script.js')}}"></script>
+
+<script src="{{asset('js/sticky-kit.js')}}"></script>
 
 </body>
 </html>

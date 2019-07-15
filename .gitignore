@@ -1,0 +1,17 @@
+.env
+/vendor/*
+!/vendor/elasticquent/
+!/vendor/elasticsearch/
+!/vendor/pragmarx/
+/node_modules
+public/images/article_images
+public/images/email_photo
+/storage
+.idea
+.gitignore
+composer.phar
+!/public/templates/sb-admin-2/css
+.well-known/
+b2b.sql
+public/storage
+public/templates_/

@@ -7,142 +7,69 @@ $y = date("Y");
 
 @section('content')
     <div class="container">
-        <h3 class="full_row_center title">Расширенный поиск</h3>
-        <form action="/search" method="get">
+      
+        <form action="/search" class="search_form_adv" method="get">
             @csrf
             <div class="col-md-12">
-                <div class="row row_panel">
-                    <div class="col-md-6 pl0 item_panel">
-                        <span>Тип отчета</span>
-                        <span class="select_wrap w100">
-				        	<select class="report_type" name="report_type">
-                                <option value="all_reports">Все отчеты</option>
-                                @foreach($report_types as $slug =>$report_type)
-                                    <option value="{{ $slug }}">{{ $report_type }}</option>
+                <div class="search-form__filter">
+                    <p class="search-form__block">
+                        <label> Тип отчета
+                            <select class="search-form__field report_type" name="report_type">
+                              <option value="all_reports">Все отчеты</option>
+
+                                @foreach($report_types as $slug =>$type)
+                                <option value="{{ $slug }}">{{ $type }}</option>
                                 @endforeach
-		                    </select>
-			        	</span>
-                    </div>
-                    <div class="col-md-3 item_panel">
-                        <span>Период с</span>
-                        <span class="select_wrap calendar_wrap" style="display: none;">
-				        	<input name="start_period_picker" value="" class="calendar_start_3"/>
-				        	<input type="hidden" value="<?php echo mktime(0, 0, 0, 1, 1, 2015); ?>" name="start_period">
-			        	</span>
-                    </div>
-                    <div class="col-md-3 item_panel">
-                        <span>Период по</span>
-                        <span class="select_wrap calendar_wrap" style="display: none;">
-				        	<input name="end_period_picker" value="" class="calendar_end_3"/>
-				        	<input type="hidden" value="<?php echo mktime(0, 0, 0, $m, $d, $y); ?>" name="end_period">
-				        </span>
-                    </div>
-                    <div class="col-md-6 mt30 pl0 item_panel weekly_block">
-                        <span>Категории</span>
-                        <span class="select_wrap w100">
-				        	<select class="new_field" name="new_weekly">
+                            </select>
+                        </label>
+                    </p>
+
+                    <p class="search-form__block weekly_block">
+                        <label> Категории
+                            <select class="search-form__field" name="new_weekly">
                                 <option value="0">Все отчеты</option>
 
-                                {{-- ТУТ НОВЫЙ КОД --}}
                                 @foreach($weeklycategories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                <option value="{{ $category->id }}">{{ $category->title }}</option>
                                 @endforeach
-		                    </select>
-			        	</span>
-                    </div>
-                    <div class="col-md-6 mt30 pl0 item_panel monthly_block">
-                        <span>Категории</span>
-                        <span class="select_wrap w100">
-				        	<select class="new_field" name="new_monthly">
-                                <option value="0">Все отчеты</option>
+                            </select>
+                        </label>
+                    </p>
 
-                                {{-- ТУТ НОВЫЙ КОД --}}
-                                @foreach($monthlycategories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                @endforeach
-		                    </select>
-			        	</span>
-                    </div>
-                </div>
-            </div>
-            {{--<div class="container tags_form mt30">
-                <div class="row mb30">
-                    <div class="form-group">
-                        <h4 class="mb_1">
-                          Страны и регионы 
-                          <!-- <span class="button button_small_small sel_all">Выбрать все</span> -->
-                        </h4>
-                        <div class="form-check">
-                            <div id="form-check-countries" class="form-check-label grid-col-check-5">
-                                @foreach($countries as $country)
-                                    <label class="d-flex flex-row align-items-start check_box">
-                                        <input name="countries[]" type="checkbox" value="{{$country->id}}"><span>{{ $country->title }}</span></label>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb30">
-                    <div class="form-group">
-                        <h4 class="mb_1">
-                        	Тип ВВТ
-                        	 <!-- <span class="button button_small_small sel_all">Выбрать все</span> -->
-                        	
-                        </h4>
-                        <div class="form-check ">
-                            <div id="form-check-vvt_types" class="form-check-label grid-col-check-6">
-                                @foreach($vvt_types as $vvt_type)
-                                    <label class="d-flex flex-row align-items-start check_box">
-                                        <input name="vvt_types[]" type="checkbox" value="{{ $vvt_type->id }}"><span>{{ $vvt_type->title }}</span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb30">
-                    <div class="form-group">
-                        <h4 class="mb_1">Компании и организации
-                            <!-- <span class="button button_small_small sel_all">Выбрать все</span> -->
-                        </h4>
-                        <div class="form-check ">
-                            <div id="form-check-companies" class="form-check-label grid-col-check-2">
-                                @foreach($companies as $company)
-                                    <label class="d-flex flex-row align-items-start check_box">
-                                        <input name="companies[]" type="checkbox" value="{{ $company->id }}"><span>{{ $company->title }}</span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb30">
-                    <div class="form-group">
-                        <h4 class="mb_1">Персоналии
-                            <!-- <span class="button button_small_small sel_all">Выбрать все</span> -->
-                        </h4>
-                        <div class="form-check ">
-                            <div id="form-check-personalities" class="form-check-label grid-col-check-6">
-                                @foreach($personalities as $personality)
-                                    <label class="d-flex flex-row align-items-start check_box">
-                                        <input name="personalities[]" type="checkbox" value="{{ $personality->id }}">
-                                        <span>{{ $personality->title }}</span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>--}}
+                    <p class="search-form__block monthly_block">
+                        <label> Категории
+                          <select class="search-form__field" name="new_monthly">
+                            <option value="0">Все отчеты</option>
 
-            <div class="row box_save_article">
-                <button class="button_save butt butt_def pdf-reset">Поиск</button>
+                            @foreach($monthlycategories as $category)
+                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                            @endforeach
+                        </select>
+                      </label>
+                    </p>
+
+                    <p class="search-form__block search-form__block--date">
+                        <label class="search-form__title">
+                            Период с
+                            <input name="start_period_picker" value="" class="calendar_start_3 search-form__field"/>
+                            <input type="hidden" value="<?php echo mktime(0, 0, 0, 1, 1, 2015); ?>" name="start_period">
+                        </label>
+                        <label class="search-form__title">
+                            Период по
+                            <input name="end_period_picker" value="" class="calendar_end_3 search-form__field"/>
+                            <input type="hidden" value="<?php echo mktime(0, 0, 0, $m, $d, $y); ?>" name="end_period">
+                        </label>
+                    </p>
+
+                </div>
             </div>
 
             <tagsforsearch-component></tagsforsearch-component>
 
+            <input type="hidden" name="random_key_before" value="">
+
             <div class="row box_save_article">
-                <button class="button_save butt butt_def pdf-reset">Поиск</button>
+                <button class="button button--search pdf-reset">Поиск</button>
             </div>
         </form>
     </div>
@@ -155,8 +82,7 @@ $y = date("Y");
 
             jQuery('.report_type').change(function() {
 
-                var val = $(this).find(':selected').val();
-                console.log(val);
+              var val = $(this).find(':selected').val();
 
               if(val == "weekly") {
                 jQuery('.weekly_block').css('position', 'relative');
@@ -175,6 +101,20 @@ $y = date("Y");
               }
             });
 
+            jQuery('.checked').click(function () {
+                if (jQuery(this).parents('.form-group').hasClass('active')) {
+                    jQuery(this).parents('.form-group').removeClass('active');
+                    jQuery(this).parents('.form-group').addClass('no_active');
+                    jQuery(this).text('Выбрать все');
+                    jQuery('.form-group.no_active input[type=checkbox]').removeAttr('checked');
+                } else {
+                    jQuery(this).parents('.form-group').addClass('active');
+                    jQuery(this).parents('.form-group').removeClass('no_active');
+                    jQuery(this).text('Отменить все');
+                    jQuery('.form-group.active input[type=checkbox]').attr('checked', 'checked');
+                }
+            })
+
             jQuery('.sel_all').click(function () {
                 if (jQuery(this).parents('.form-group').hasClass('active')) {
                     jQuery(this).parents('.form-group').removeClass('active');
@@ -187,7 +127,6 @@ $y = date("Y");
                     jQuery(this).text('Отменить все');
                     jQuery('.form-group.active input[type=checkbox]').attr('checked', 'checked');
                 }
-
             })
 
             jQuery('.calendar_start_3').datepicker({
@@ -215,7 +154,7 @@ $y = date("Y");
 
             jQuery('.calendar_start_3').change(function () {
 
-                jQuery('.calendar_wrap').removeClass('error');
+                jQuery('.search-form__title').removeClass('error');
 
                 var data_change = jQuery(this).val();
                 var arr = data_change.split('.');
@@ -228,7 +167,7 @@ $y = date("Y");
 
             jQuery('.calendar_end_3').change(function () {
 
-                jQuery('.calendar_wrap').removeClass('error');
+                jQuery('.search-form__title').removeClass('error');
 
                 var data_change = jQuery(this).val();
                 var arr = data_change.split('.');

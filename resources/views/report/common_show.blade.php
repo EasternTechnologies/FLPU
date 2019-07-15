@@ -11,8 +11,14 @@ $y = date("Y");
 
     <div class="container add_form_step2 posr">
 
+        <input type="hidden" name="random_key" value="{{empty($q)?'000':$q}}">
+
         @if($q)
-            <h3 id="title_h3">Выбранные документы</h3>
+            <h3 class="title">Выбранные документы</h3>
+
+            <div class="row fixed_bottom box_save_article mt30">
+                <button id="drop_cookie" class="button butt_def show_pdf_search">Показать в PDF</button>
+            </div>
         @endif
 
         <h3 class="title">
@@ -28,7 +34,9 @@ $y = date("Y");
                     @elseif($report->types->slug=='various')
                     {{$report->types->title}}
                 @endif
+                @if(!$q)
                     <a target="_blank" href="/pdf_item/{{ $report->id }}" class="pdf"></a>
+                @endif
            </span>
         </h3>
 
@@ -40,7 +48,6 @@ $y = date("Y");
                         <span class="status st_inherit">Статус:</span> Все материалы утверждены
                     @elseif($report->status == 0)
                         <span class="status st_inherit">Статус:</span> Не опубликован
-
                     @endif
                 </span>
             @endif
@@ -58,9 +65,11 @@ $y = date("Y");
                                     <p class="title title_cat pdf_box">
                                         <span>{{ $cat }}</span>
                                     @endif
-                                        <span >
-                                            <a target="_blank" href="/pdf_category/{{$report->id}}/{{ $categories->where('title',$cat)->first()->id }}" class="pdf"></a>
-                                        </span>
+                                    @if(!$q)
+                                    <span >
+                                        <a target="_blank" href="/pdf_category/{{$report->id}}/{{ $categories->where('title',$cat)->first()->id }}" class="pdf"></a>
+                                    </span>
+                                    @endif
                                     </p>
                                 </div>
                             @endif
@@ -74,17 +83,18 @@ $y = date("Y");
                             @endif
                 @endforeach
             @endif
-            <div class="row box_save_article mt30">
+            <div class="row fixed_bottom box_save_article mt30">
                 @if(Request::url() == URL::previous())
                     <a href="/{{ $report->types->slug }}/" class="button butt_back">Все отчеты</a>
                 @else
                     <a href="{{ URL::previous() }}" class="button butt_back">Назад</a>
                 @endif
-                @if( $role != 'user' && $role !='employee' )
+                @if( $role != 'user' && $role !='employee' && empty($q))
                     <a class="button butt_def" href="/report/{{$report->types->slug}}/add2/{{ $report->id }}">Редактировать</a>
                 @endif
                 @if(!$q)
-                    <button id="drop_cookie" class="button butt_def show_pdf_search_choose">Выбрать</button>
+                    <button id="drop_cookie" class="button butt_def show_pdf_search_choose">Показать выборку</button>
+                    <button id="drop_cookie" class="button butt_def show_pdf_search">Выборка в PDF</button>
                 @else
                     <button id="drop_cookie" class="button butt_def show_pdf_search">Показать в PDF</button>
                 @endif

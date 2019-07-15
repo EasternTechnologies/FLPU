@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="form-group">
                     <h4 class="mb_1">Тип ВВТ
-                        <a class="butt_add" @click="addTag('vvttype')" href="#">
+                        <a class="butt_add" @click="addTag('vvttypes')" href="#">
                         <button class="butt_tag_click button_small">Добавить тег</button>
                     </a>
                     </h4>
@@ -71,7 +71,6 @@
         <div class="popup_tag popup_tag_simple" style="display: none;">
             <div class="bg_popup_tag"></div>
 
-            <template v-if="name_tag=='country'">
                 <div class="popup_tag_form">
 
                     <div class="close_tag">x</div>
@@ -79,33 +78,15 @@
 
                     <div class="popup_tag_form_box mb30">
 
-                        <input v-if="name_tag=='country'" name="tag" placeholder="Введите название страны" v-model="addcountry"/>
-                        <input v-if="name_tag=='vvttype'" name="tag" placeholder="Введите название типа ВВТ" v-model="addvvt"/>
+                        <input v-if="name_tag=='country'" name="tag" placeholder="Введите название страны" v-model="addsimpletag"/>
+                        <input v-if="name_tag=='vvttypes'" name="tag" placeholder="Введите название типа ВВТ" v-model="addsimpletag"/>
                     </div>
                     <a class="butt_save butt_add_tag" href="#">
-                        <button v-if="name_tag=='country'" @click="storecountry()">Сохранить тег</button>
-                        <button v-if="name_tag=='vvttype'" @click="storevvt()">Сохранить тег</button>
+                        <button @click="storesimpletag(name_tag)">Сохранить тег</button>
                     </a>
                 </div>
-            </template>
 
-            <template v-else>
-                <div class="popup_tag_form">
 
-                    <div class="close_tag">x</div>
-                    <h4 class="mb30">Добавить <span>поисковую метку</span></h4>
-
-                    <div class="popup_tag_form_box mb30">
-
-                        <input v-if="name_tag=='country'" name="tag" placeholder="Введите название страны" v-model="addcountry"/>
-                        <input v-if="name_tag=='vvttype'" name="tag" placeholder="Введите название типа ВВТ" v-model="addvvt"/>
-                    </div>
-                    <a class="butt_save butt_add_tag" href="#">
-                        <button v-if="name_tag=='country'" @click="storecountry()">Сохранить тег</button>
-                        <button v-if="name_tag=='vvttype'" @click="storevvt()">Сохранить тег</button>
-                    </a>
-                </div>
-            </template>
 
         </div>
 
@@ -187,21 +168,22 @@
                 <div class="popup_tag_form_box">
                     <input class="title_tag" name="title_tag" value="">
 
-                    <div v-if="name_tag == 'company' || name_tag == 'personalities'" class="select_wrap">
+                    <div v-if="name_tag == 'company' || name_tag == 'personalities'" class="select_wrap d-none">
                         <select name="company_select_country" v-model="tocountries" @change="pushtocountryupdate()" class="company_select_country_edit">
                             <option value="" disabled selected>--Страна--</option>
                             <option v-for="country in countries" :value="country.id">{{country.title}}</option>
                         </select>
                     </div>
 
-                    <div v-if="name_tag == 'company'" class="select_wrap">
+                    <div v-if="name_tag == 'company'" class="select_wrap d-none">
                         <select name="company_select_vvt" v-model="tovvt" @change="pushtovvtupdate()" class="company_select_vvt_edit">
                             <option value="" disabled selected>--Тип ВВТ--</option>
                             <option v-for="vvt_type in vvt_types" :value="vvt_type.id">{{vvt_type.title}}</option>
                         </select>
                     </div>
 
-                    <div class="mb10 d-flex flex-column justify-content-center">
+                    <div class="mb10  flex-column justify-content-center d-none">
+                        <!--d-flex-->
                         <span class="out_country_select_edit pl20"></span>
                         <span v-if="name_tag == 'company'" class="out_vvt_select_edit pl20"></span>
                     </div>
@@ -233,8 +215,7 @@
                 selcompanies: [],
                 personalities: [],
                 selpersonalities: [],
-                addcountry: '',
-                addvvt: '',
+                addsimpletag: '',
 
                 addvalue:'',
 
@@ -275,24 +256,37 @@
             })
             },
 
-            storecountry(e) {
+
+            storesimpletag(tag) {
                 //e.preventDefault();
                 jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').text('');
 
                 var is_tag = 0;
-                var title = this.addcountry;
+                var title = this.addsimpletag;
+
+                if(tag=='country')
                 this.countries.forEach(function (country) {
                     if (country.title == title) {
                         is_tag++;
                     }
                 });
+                else
+                    this.vvt_types.forEach(function (vvt) {
+                    if (vvt.title == title) {
+                        is_tag++;
+                    }
+                });
+
+
 
                 if (is_tag == 0) {
-                    axios.post('/country', {title: this.addcountry}).then(response => {
 
-                        this.checkboxfilter();
-                });
-                    this.addcountry = '';
+                        axios.post('/'+tag, {title: this.addsimpletag}).then(response => {
+                            this.checkboxfilter();
+                    });
+
+
+                    this.addsimpletag = '';
                     jQuery('.close_tag').click();
                 } else {
                     if (jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').length) {
@@ -303,35 +297,63 @@
                 }
             },
 
-            storevvt(e) {
-
-                jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').text('');
-
-                var is_tag = 0;
-                var title = this.addvvt;
-                this.vvt_types.forEach(function (vvt) {
-                    if (vvt.title == title) {
-                        is_tag++;
-                    }
-                });
-
-                if (is_tag == 0) {
-                    axios.post('/vvttypes', {title: this.addvvt}).then(response => {
-                        console.log(response);
-                    this.checkboxfilter();
-                });
-                    this.addvvt = '';
-                    jQuery('.close_tag').click();
-                } else {
-                    if (jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').length) {
-                        jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').text('Тег уже существует');
-                    } else {
-                        jQuery('.popup_tag_vvttype .popup_tag_form_box').append('<p class="mess_er_tag mb30">Тег уже существует</p>');
-                    }
-
-                }
-
-            },
+//            storecountry(e) {
+//                //e.preventDefault();
+//                jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').text('');
+//
+//                var is_tag = 0;
+//                var title = this.addsimpletag;
+//                this.countries.forEach(function (country) {
+//                    if (country.title == title) {
+//                        is_tag++;
+//                    }
+//                });
+//
+//                if (is_tag == 0) {
+//                    axios.post('/country', {title: this.addcountry}).then(response => {
+//
+//                        this.checkboxfilter();
+//                });
+//                    this.addsimpletag = '';
+//                    jQuery('.close_tag').click();
+//                } else {
+//                    if (jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').length) {
+//                        jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').text('Тег уже существует');
+//                    } else {
+//                        jQuery('.popup_tag_country .popup_tag_form_box').append('<p class="mess_er_tag mb30">Тег уже существует</p>');
+//                    }
+//                }
+//            },
+//
+//            storevvt(e) {
+//
+//                jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').text('');
+//
+//                var is_tag = 0;
+//                var title = this.addsimpletag;
+//                this.vvt_types.forEach(function (vvt) {
+//                    if (vvt.title == title) {
+//                        is_tag++;
+//                    }
+//                });
+//
+//                if (is_tag == 0) {
+//                    axios.post('/vvttypes', {title: this.addvvt}).then(response => {
+//                        console.log(response);
+//                    this.checkboxfilter();
+//                });
+//                    this.addsimpletag = '';
+//                    jQuery('.close_tag').click();
+//                } else {
+//                    if (jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').length) {
+//                        jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').text('Тег уже существует');
+//                    } else {
+//                        jQuery('.popup_tag_vvttype .popup_tag_form_box').append('<p class="mess_er_tag mb30">Тег уже существует</p>');
+//                    }
+//
+//                }
+//
+//            },
 
             storetag(tag) {
                 jQuery('.popup_tag_company .popup_tag_form_box .mess_er_tag').text('');
@@ -437,7 +459,7 @@
                 if(name_tag == 'country') {
                     jQuery('.popup_tag_simple').fadeIn(500);
                 }
-                else if(name_tag=='vvttype') {
+                else if(name_tag=='vvttypes') {
                     jQuery('.popup_tag_simple').fadeIn(500);
                 }
                 else {
