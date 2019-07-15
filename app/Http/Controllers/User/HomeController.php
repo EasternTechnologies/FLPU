@@ -76,11 +76,11 @@ class HomeController extends Controller
 
 	    if($request->ajax()){
 
-		    $q = $request->q;
+		    $q = str_replace(['{','}','[',']','"'], '',$request->q);
 
 	    } else {
 
-		    $q = strip_tags($request->q);
+		    $q = strip_tags(str_replace(['{','}','[',']','"'], '',$request->q));
 
 	    }
 
@@ -101,9 +101,12 @@ class HomeController extends Controller
 //            }
 		    return   $articles;
 	    }
+
+		$random_key = $request->random_key;
+		$choose_array = unserialize(Redis::get('search:key'.$request->random_key));
 //dd($request);
 //        return view('user.simplysearch', compact('results'));
-        return view('user.advan_search_result', compact('articles'));
+        return view('user.advan_search_result', compact('articles','random_key','choose_array'));
     }
 
     public function advanced_search_form () {
@@ -525,9 +528,10 @@ class HomeController extends Controller
 
     public function indexes() {
 
-	   // ArticleReports::deleteIndex();
-    	ArticleReports::putMapping($ignoreConflicts = true);
-    	ArticleReports::addAllToIndex();
+//	    ArticleReports::deleteIndex();
+//	    ArticleReports::createIndex();
+//    	ArticleReports::putMapping($ignoreConflicts = true);
+//    	ArticleReports::addAllToIndex();
 
 	    return redirect()->to('/report');
 

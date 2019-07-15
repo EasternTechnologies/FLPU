@@ -31,29 +31,36 @@
 	/>
 </head>
 
-<body>
+<body class="page-stats">
     <div class="row_top">
-      <div class="user_rolles">Аналитик : Лученок Павел</div> 
+      <div class="user_rolles">@auth
+          {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
+          @endauth
+      </div>
       <ul class="menu_auth">
         <li>
           <a href="/stats">Статистика</a>
-        </li> 
+        </li>
         <span>|</span>
         <li>
           <a href="/report">Управление материалами</a>
-        </li>      
+        </li>
         <span>|</span>
         <li>
-          <a href="/cabinet/30">Личный кабинет</a>
-        </li> 
-        <span>|</span> 
-        <li>
-          <a href="https://analytics.bsvt.by/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Выход </a> 
-
-          <form id="logout-form" action="https://analytics.bsvt.by/logout" method="POST" style="display: none;">
-            <input name="_token" type="hidden" value="bO57tRRRTVS5iwMVBiSngjGZyC5KLjUhyHQQq35N">
-          </form>
+            @if(Auth::user())
+                <a href="/cabinet/{{\Illuminate\Support\Facades\Auth::user()->id}}">Личный кабинет</a>
+            @endif
         </li>
+        <span>|</span>
+          <li>
+              <a href="{{ route('logout') }}"
+                 onclick="event.preventDefault();
+							document.getElementById('logout-form').submit();"> Выход </a>
+
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+              </form>
+          </li>
       </ul>
     </div>
 

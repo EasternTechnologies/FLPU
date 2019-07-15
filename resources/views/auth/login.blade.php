@@ -10,6 +10,15 @@
 	</div>
 	<div class="form_default sing_in_form box_center_form">
 		<h3>Вход</h3>
+		@if (session('status_access'))
+			<div class="row">
+				<div class="container">
+					<ul class="alert alert-danger">
+						{{ session('status_access') }}
+					</ul>
+				</div>
+			</div>
+		@endif
 		<form method="POST" action="{{ route('login') }}">
 			@csrf
 
@@ -32,9 +41,17 @@
 					@endif
 				</div>
 			</div>
-
+			<div class="form-group row">
+				<div class="col-md-12 d-flex justify-content-center">
+			{!! Recaptcha::render() !!}
+				</div>
+				@if ($errors->has('g-recaptcha-response'))
+					<span class="invalid-feedback d-block"> <strong>{{ $errors->first('g-recaptcha-response') }}</strong> </span>
+				@endif
+				</div>
 			<div class="form-group row mb-0">
 				<div class="col-md-12 d-flex justify-content-center">
+
 					<button type="submit" class="butt">
 						Войти
 					</button>

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Auth;
 use App\Report;
+use Illuminate\Support\Facades\Redis;
 
 class ReportController extends Controller
 {
@@ -67,7 +68,9 @@ class ReportController extends Controller
                 $articles = $report->articles()->where('report_id', $report->id)->get();
             }
             else{
-                $articles = ArticleReports::whereIN('id',$request->id)->get()->sortBy('title');
+
+                $choose_array = unserialize(Redis::get('search:key'.$q));
+                $articles = ArticleReports::whereIN('id',$choose_array)->get()->sortBy('title');
             }
 
             $subcategories = Subcategory::whereIn('id',array_unique($articles->pluck('subcategory_id')->toArray()))->
@@ -92,7 +95,7 @@ class ReportController extends Controller
         }
         else {
 
-            $items = $report->articles()->where('report_id', $report->id )->paginate(10);
+            $items = $report->articles()->where('report_id', $report->id )->orderBy('date_start', 'ASC')->paginate(10);
             $template = 'report.plannedexhibition.item';
             $page = $request->page;
         }

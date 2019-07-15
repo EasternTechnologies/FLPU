@@ -76,12 +76,12 @@ $(function() {
 
     $(".change_table_stats").click(function () {
         if($(this).hasClass('active')){
-                        $('.change_table_stats').removeClass('active').blur();
+                        $('.change_table_stats').removeClass('active').text('Общая статистика').blur();
                         $('.hidden_column').removeClass('active');
                         $('.excel_link').attr('href','/stats/excel');
         }
         else {
-                        $('.change_table_stats').addClass('active').blur();
+                        $('.change_table_stats').addClass('active').text('Назад').blur();
                         $('.hidden_column').addClass('active');
                         $('.excel_link').attr('href','/stats/excelv2');
        }

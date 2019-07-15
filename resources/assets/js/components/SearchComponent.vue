@@ -49,7 +49,10 @@
             search_result() {
                 if (this.q.length >= 1) {
 
-                    window.location.href = "/simply_search?q=" + this.q;
+                    axios.post('/redis', {newsearch: 1}).then(response => {
+                        window.location.href = "/simply_search?q=" + this.q+"&random_key="+response.data;
+                    })
+
                 }
             }
 

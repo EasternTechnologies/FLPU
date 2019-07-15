@@ -69,7 +69,7 @@ $y = date("Y");
             <input type="hidden" name="random_key_before" value="">
 
             <div class="row box_save_article">
-                <button class="button button--search">Поиск</button>
+                <button class="button button--search pdf-reset">Поиск</button>
             </div>
         </form>
     </div>
