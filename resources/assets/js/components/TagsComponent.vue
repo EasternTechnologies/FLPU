@@ -9,6 +9,13 @@
                             <button class="butt_tag_click button_small">Добавить тег</button>
                         </a>
                     </h4>
+                    <label class="form-search">
+                        <span class="form-search__text">Искать в разделе</span>
+                        <input  @input="onChange"
+                                v-model="search_country"
+                                type="text">
+                        <span class="form-search__btn"></span>
+                    </label>
                     <div id="form-check-countries" class="form-check grid-col-check-5" v-bind="bindTagGrid('#form-check-countries',this.countries.length,5)">
                         <div class="form-check-label" v-for="country in countries">
                             <label class="d-flex flex-row align-items-start check_box"><input @change="checkboxfilter()" name="countries[]" type="checkbox" :value="country.id" v-model="selcountries"><span>{{ country.title}}</span></label>
@@ -26,6 +33,13 @@
                         <button class="butt_tag_click button_small">Добавить тег</button>
                     </a>
                     </h4>
+                    <label class="form-search">
+                        <span class="form-search__text">Искать в разделе</span>
+                        <input  @input="onChange"
+                                v-model="search_vvt"
+                                type="text">
+                        <span class="form-search__btn"></span>
+                    </label>
                     <div id="form-check-vvt_types" class="form-check grid-col-check-6" v-bind="bindTagGrid('#form-check-vvt_types',this.vvt_types.length,6)">
                         <div class="form-check-label" v-for="vvt_type in vvt_types">
                             <label class="d-flex flex-row align-items-start check_box"><input @change="checkboxfilter()" name="vvt_types[]" type="checkbox" :value="vvt_type.id" v-model="selvvt_types"><span>{{ vvt_type.title}}</span></label>
@@ -41,6 +55,13 @@
                     <h4 class="mb_1">Компании и организации <a class="butt_add butt_tag_click butt_add_tag3 button_small" href="#">
                         <button @click="addTag('company')" >Добавить тег</button>
                     </a></h4>
+                    <label class="form-search">
+                        <span class="form-search__text">Искать в разделе</span>
+                        <input  @input="onChange"
+                                v-model="search_company"
+                                type="text">
+                        <span class="form-search__btn"></span>
+                    </label>
                     <div id="form-check-companies" class="form-check grid-col-check-2" v-bind="bindTagGrid('#form-check-companies',this.companies.length,2)">
                         <div class="form-check-label" v-for="company in companies">
                             <label class="d-flex flex-row align-items-start check_box"><input name="companies[]" type="checkbox" :value="company.id" v-model="selcompanies"><span>{{ company.title}}</span></label>
@@ -56,6 +77,13 @@
                     <h4 class="mb_1">Персоналии <a class="butt_add butt_tag_click butt_add_tag3 button_small" href="#">
                         <button @click="addTag('personalities')">Добавить тег</button>
                     </a></h4>
+                    <label class="form-search">
+                        <span class="form-search__text">Искать в разделе</span>
+                        <input  @input="onChange"
+                                v-model="search_person"
+                                type="text">
+                        <span class="form-search__btn"></span>
+                    </label>
                     <div id="form-check-personalities" class="form-check grid-col-check-6" v-bind="bindTagGrid('#form-check-personalities',this.personalities.length,6)">
                         <div class="form-check-label" v-for="personality in personalities">
                             <label class="d-flex flex-row align-items-start check_box"><input name="personalities[]" type="checkbox" :value="personality.id" v-model="selpersonalities"><span>{{ personality.title}}</span></label>
@@ -216,7 +244,10 @@
                 personalities: [],
                 selpersonalities: [],
                 addsimpletag: '',
-
+                search_company: '',
+                search_country: '',
+                search_person: '',
+                search_vvt: '',
                 addvalue:'',
 
 
@@ -354,6 +385,24 @@
 //                }
 //
 //            },
+            onChange() {
+                axios
+                    .post("/search_tag", {
+
+                        search_country: this.search_country,
+                        search_vvt: this.search_vvt,
+                        search_person: this.search_person,
+                        search_company: this.search_company,
+
+                    })
+                    .then(response => {
+                        //console.log(response.data)
+                        this.countries = response.data.countries;
+                        this.companies = response.data.companies;
+                        this.vvt_types = response.data.vvt_types;
+                        this.personalities = response.data.personalities;
+                    });
+            },
 
             storetag(tag) {
                 jQuery('.popup_tag_company .popup_tag_form_box .mess_er_tag').text('');

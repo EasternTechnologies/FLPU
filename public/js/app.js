@@ -15383,6 +15383,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['selectedtags'],
@@ -15397,7 +15425,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             personalities: [],
             selpersonalities: [],
             addsimpletag: '',
-
+            search_company: '',
+            search_country: '',
+            search_person: '',
+            search_vvt: '',
             addvalue: '',
 
             countryarray: [],
@@ -15533,9 +15564,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //                }
         //
         //            },
-
-        storetag: function storetag(tag) {
+        onChange: function onChange() {
             var _this3 = this;
+
+            axios.post("/search_tag", {
+
+                search_country: this.search_country,
+                search_vvt: this.search_vvt,
+                search_person: this.search_person,
+                search_company: this.search_company
+
+            }).then(function (response) {
+                //console.log(response.data)
+                _this3.countries = response.data.countries;
+                _this3.companies = response.data.companies;
+                _this3.vvt_types = response.data.vvt_types;
+                _this3.personalities = response.data.personalities;
+            });
+        },
+        storetag: function storetag(tag) {
+            var _this4 = this;
 
             jQuery('.popup_tag_company .popup_tag_form_box .mess_er_tag').text('');
 
@@ -15581,13 +15629,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (tag == 'company') {
 
                     axios.post('/company', data).then(function (response) {
-                        _this3.selcompanies = response.data;
-                        _this3.checkboxfilter();
+                        _this4.selcompanies = response.data;
+                        _this4.checkboxfilter();
                     });
                 } else {
                     axios.post('/personalities', data).then(function (response) {
-                        _this3.selpersonalities = response.data;
-                        _this3.checkboxfilter();
+                        _this4.selpersonalities = response.data;
+                        _this4.checkboxfilter();
                     });
                 }
 
@@ -15616,13 +15664,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         gettags: function gettags() {
-            var _this4 = this;
+            var _this5 = this;
 
             axios.get('/tags').then(function (response) {
-                _this4.countries = response.data.countries;
-                _this4.companies = response.data.companies;
-                _this4.vvt_types = response.data.vvt_types;
-                _this4.personalities = response.data.personalities;
+                _this5.countries = response.data.countries;
+                _this5.companies = response.data.companies;
+                _this5.vvt_types = response.data.vvt_types;
+                _this5.personalities = response.data.personalities;
             });
         },
         addTag: function addTag(name_tag) {
@@ -15752,7 +15800,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             jQuery('.deltag_text_out').text(text);
         },
         edit_tag: function edit_tag(value, name_tag, title) {
-            var _this5 = this;
+            var _this6 = this;
 
             $('.title_tag').val(title);
 
@@ -15786,13 +15834,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     company_name.push(" " + key);
 
                     var index = -1;
-                    if (_this5.countryarraytocompany.length) {
-                        index = _this5.countryarraytocompany.indexOf(response.data.countries[key]);
+                    if (_this6.countryarraytocompany.length) {
+                        index = _this6.countryarraytocompany.indexOf(response.data.countries[key]);
                     }
                     if (index >= 0) {
-                        _this5.countryarraytocompany.splice(index, 1);
+                        _this6.countryarraytocompany.splice(index, 1);
                     } else {
-                        _this5.countryarraytocompany.push(response.data.countries[key]);
+                        _this6.countryarraytocompany.push(response.data.countries[key]);
                     }
                 }
                 jQuery(".out_country_select_edit").text(company_name);
@@ -15805,13 +15853,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         vvt_name.push(" " + key);
 
                         var index = -1;
-                        if (_this5.vvtarraytocompany.length) {
-                            index = _this5.vvtarraytocompany.indexOf(response.data.vvt[key]);
+                        if (_this6.vvtarraytocompany.length) {
+                            index = _this6.vvtarraytocompany.indexOf(response.data.vvt[key]);
                         }
                         if (index >= 0) {
-                            _this5.vvtarraytocompany.splice(index, 1);
+                            _this6.vvtarraytocompany.splice(index, 1);
                         } else {
-                            _this5.vvtarraytocompany.push(response.data.vvt[key]);
+                            _this6.vvtarraytocompany.push(response.data.vvt[key]);
                         }
                     }
                     jQuery(".out_vvt_select_edit").text(vvt_name);
@@ -15828,13 +15876,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // jQuery('.edittag_text_out').text(title);
         },
         dellTagContinue: function dellTagContinue() {
-            var _this6 = this;
+            var _this7 = this;
 
             var name_tag = jQuery('.name_tag').attr('data-name');
             var value = jQuery('.value_tag').attr('data-value');
 
             axios.delete('/' + name_tag + '/' + value).then(function (response) {
-                _this6.checkboxfilter();
+                _this7.checkboxfilter();
                 jQuery('.popup_alert').fadeIn(250);
                 jQuery('.popup_alert .popup_form').show(500);
                 jQuery('.alert_text_out').html('<p>Поисковая метка удалена!</p>');
@@ -15848,7 +15896,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             jQuery('.value_tag').attr('data-value', '');
         },
         editTagContinue: function editTagContinue() {
-            var _this7 = this;
+            var _this8 = this;
 
             var data = {
                 title: $('.title_tag').val(),
@@ -15860,7 +15908,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(data);
 
             axios.put('/' + this.name_tag + '/' + this.value, data).then(function (response) {
-                _this7.checkboxfilter();
+                _this8.checkboxfilter();
                 jQuery('.popup_alert').fadeIn(250);
                 jQuery('.popup_alert .popup_form').show(500);
                 jQuery('.alert_text_out').html('<p>Поисковая метка отредактирована!</p>');
@@ -20173,7 +20221,7 @@ exports.push([module.i, "\n.search_result[data-v-30d308e6] {\r\n  position: rela
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 45 */
@@ -38193,7 +38241,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('button', {
     staticClass: "butt_tag_click button_small"
-  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('div', _vm._b({
+  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_country),
+      expression: "search_country"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_country)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_country = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })]), _vm._v(" "), _c('div', _vm._b({
     staticClass: "form-check grid-col-check-5",
     attrs: {
       "id": "form-check-countries"
@@ -38273,7 +38346,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('button', {
     staticClass: "butt_tag_click button_small"
-  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('div', _vm._b({
+  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_vvt),
+      expression: "search_vvt"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_vvt)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_vvt = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })]), _vm._v(" "), _c('div', _vm._b({
     staticClass: "form-check grid-col-check-6",
     attrs: {
       "id": "form-check-vvt_types"
@@ -38352,7 +38450,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.addTag('company')
       }
     }
-  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('div', _vm._b({
+  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_company),
+      expression: "search_company"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_company)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_company = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })]), _vm._v(" "), _c('div', _vm._b({
     staticClass: "form-check grid-col-check-2",
     attrs: {
       "id": "form-check-companies"
@@ -38429,7 +38552,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.addTag('personalities')
       }
     }
-  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('div', _vm._b({
+  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_person),
+      expression: "search_person"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_person)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_person = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })]), _vm._v(" "), _c('div', _vm._b({
     staticClass: "form-check grid-col-check-6",
     attrs: {
       "id": "form-check-personalities"
