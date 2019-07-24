@@ -9,13 +9,13 @@
             <input type="checkbox">
             <span @click="allCountries">Выбрать все</span>
           </label>
-          <!--label class="form-search">
+          <label class="form-search">
             <span class="form-search__text">Искать в разделе</span>
             <input  @input="onChange"
                     v-model="search_country"
                     type="text">
             <span class="form-search__btn"></span>
-          </label-->
+          </label>
         </header>
         <div v-show="showCountry" class="form-check">
           <div id="form-check-countries" class="form-check-label grid-col-check-5"
@@ -40,13 +40,13 @@
             <input type="checkbox">
             <span @click="allVVT">Выбрать все</span>
           </label>
-          <!--label class="form-search">
+          <label class="form-search">
             <span class="form-search__text">Искать в разделе</span>
             <input  @input="onChange"
                     v-model="search_vvt"
                     type="text">
             <span class="form-search__btn"></span>
-          </label-->
+          </label>
         </header>
         <div v-show="showVVT" class="form-check">
           <div id="form-check-vvt_types" class="form-check-label grid-col-check-6"
@@ -70,13 +70,13 @@
             <input type="checkbox">
             <span @click="allCompanies">Выбрать все</span>
           </label>
-          <!--label class="form-search">
+          <label class="form-search">
             <span class="form-search__text">Искать в разделе</span>
             <input  @input="onChange"
                     v-model="search_company"
                     type="text">
             <span class="form-search__btn"></span>
-          </label-->
+          </label>
         </header>        
         <div v-show="showCompany" class="form-check">
           <div id="form-check-companies" class="form-check-label grid-col-check-2"
@@ -100,13 +100,13 @@
             <input type="checkbox">
             <span @click="allPersonalities">Выбрать все</span>
           </label>
-          <!--label class="form-search">
+          <label class="form-search">
             <span class="form-search__text">Искать в разделе</span>
             <input  @input="onChange"
                     v-model="search_person"
                     type="text">
             <span class="form-search__btn"></span>
-          </label-->
+          </label>
         </header>
         <div v-show="showPersonalities" class="form-check">
           <div id="form-check-personalities" class="form-check-label grid-col-check-6"
