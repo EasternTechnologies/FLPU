@@ -20159,21 +20159,21 @@ if (token) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.search_result[data-v-013700e6] {\n  position: relative;\n  z-index: 100;\n  padding-bottom: 30px;\n  background-color: white;\n  border: 1px solid #0d004c;\n  box-shadow: 0 0 21px 0 rgba(0, 0, 1, 0.4);\n}\n.all_res_link[data-v-013700e6] {\n  position: absolute;\n  bottom: 10px;\n  left: 50%;\n  z-index: 200;\n  margin-bottom: 0;\n  font-size: 14px;\n  transform: translateX(-50%);\n}\n.search_result ul[data-v-013700e6] {\n  max-height: 250px;\n  overflow: auto;\n}\n.search[data-v-013700e6] {\n  color: #787878;\n  background: #e7e7e7;\n}\n\n", ""]);
+exports.push([module.i, "\n.form-header {\n  padding-right: 50px;\n}\n.form-search {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  position: relative;\n  margin: 0;\n  margin-left: auto;\n}\n.form-search__text {\n  display: block;\n  width: 100%;\n}\n.form-search input {\n  height: 30px !important;\n  color: #939393;\n  font-size: 13px;\n  padding: 0 45px 0 15px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -ms-flex-pack: start;\n  justify-content: flex-start;\n  -ms-flex-align: center;\n  align-items: center;\n  max-width: 325px;\n  width: 100%;\n}\n.form-search__btn {\n  width: 30px;\n  height: 100%;\n  background: #0d004c;\n  color: #fff;\n  position: absolute;\n  top: 0;\n  right: 0;\n}\n.form-search__btn::before {\n  content: \"\";\n  background: url(/images/search.png) no-repeat center center;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n\n", ""]);
 
 /***/ }),
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.search_result[data-v-30d308e6] {\r\n  position: relative;\r\n  z-index: 100;\r\n  padding-bottom: 30px;\r\n  background-color: white;\r\n  border: 1px solid #0d004c;\r\n  box-shadow: 0 0 21px 0 rgba(0, 0, 1, 0.4);\n}\n.all_res_link[data-v-30d308e6] {\r\n  position: absolute;\r\n  bottom: 10px;\r\n  left: 50%;\r\n  z-index: 200;\r\n  margin-bottom: 0;\r\n  font-size: 14px;\r\n  transform: translateX(-50%);\n}\n.search_result ul[data-v-30d308e6] {\r\n  max-height: 250px;\r\n  overflow: auto;\n}\n.search[data-v-30d308e6] {\r\n  color: #787878;\r\n  background: #e7e7e7;\n}\r\n\r\n", ""]);
 
 /***/ }),
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.form-header {\n  padding-right: 50px;\n}\n.form-search {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  position: relative;\n  margin: 0;\n  margin-left: auto;\n}\n.form-search__text {\n  display: block;\n  width: 100%;\n}\n.form-search input {\n  height: 30px !important;\n  color: #939393;\n  font-size: 13px;\n  padding: 0 45px 0 15px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -ms-flex-pack: start;\n  justify-content: flex-start;\n  -ms-flex-align: center;\n  align-items: center;\n  max-width: 325px;\n  width: 100%;\n}\n.form-search__btn {\n  width: 30px;\n  height: 100%;\n  background: #0d004c;\n  color: #fff;\n  position: absolute;\n  top: 0;\n  right: 0;\n}\n.form-search__btn::before {\n  content: \"\";\n  background: url(/images/search.png) no-repeat center center;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 45 */
@@ -37586,19 +37586,19 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 
 /* styles */
-__webpack_require__(55)
+__webpack_require__(56)
 
 var Component = __webpack_require__(4)(
   /* script */
   __webpack_require__(37),
   /* template */
-  __webpack_require__(52),
+  __webpack_require__(53),
   /* scopeId */
-  "data-v-013700e6",
+  "data-v-30d308e6",
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/flpu/resources/assets/js/components/SearchComponent.vue"
+Component.options.__file = "G:\\openserver\\OSPanel\\domains\\FLPU\\resources\\assets\\js\\components\\SearchComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] SearchComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -37609,9 +37609,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-013700e6", Component.options)
+    hotAPI.createRecord("data-v-30d308e6", Component.options)
   } else {
-    hotAPI.reload("data-v-013700e6", Component.options)
+    hotAPI.reload("data-v-30d308e6", Component.options)
   }
 })()}
 
@@ -37624,19 +37624,19 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(56)
+__webpack_require__(57)
 
 var Component = __webpack_require__(4)(
   /* script */
   __webpack_require__(38),
   /* template */
-  __webpack_require__(53),
+  __webpack_require__(54),
   /* scopeId */
-  "data-v-3def7756",
+  "data-v-4ff36756",
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/flpu/resources/assets/js/components/TagsComponent.vue"
+Component.options.__file = "G:\\openserver\\OSPanel\\domains\\FLPU\\resources\\assets\\js\\components\\TagsComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] TagsComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -37647,9 +37647,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3def7756", Component.options)
+    hotAPI.createRecord("data-v-4ff36756", Component.options)
   } else {
-    hotAPI.reload("data-v-3def7756", Component.options)
+    hotAPI.reload("data-v-4ff36756", Component.options)
   }
 })()}
 
@@ -37662,19 +37662,19 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(57)
+__webpack_require__(55)
 
 var Component = __webpack_require__(4)(
   /* script */
   __webpack_require__(39),
   /* template */
-  __webpack_require__(54),
+  __webpack_require__(52),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/flpu/resources/assets/js/components/TagsforsearchComponent.vue"
+Component.options.__file = "G:\\openserver\\OSPanel\\domains\\FLPU\\resources\\assets\\js\\components\\TagsforsearchComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] TagsforsearchComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -37685,9 +37685,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-951d6cf8", Component.options)
+    hotAPI.createRecord("data-v-07bc4184", Component.options)
   } else {
-    hotAPI.reload("data-v-951d6cf8", Component.options)
+    hotAPI.reload("data-v-07bc4184", Component.options)
   }
 })()}
 
@@ -37696,6 +37696,427 @@ module.exports = Component.exports
 
 /***/ }),
 /* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "tags_form mt30"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('header', {
+    staticClass: "form-header",
+    class: {
+      'active': _vm.showCountry
+    },
+    on: {
+      "click": function($event) {
+        _vm.showCountry = !_vm.showCountry
+      }
+    }
+  }, [_c('h4', {
+    staticClass: "mb_1"
+  }, [_vm._v("Страны и регионы")]), _vm._v(" "), _c('label', {
+    staticClass: "check-all"
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox"
+    }
+  }), _vm._v(" "), _c('span', {
+    on: {
+      "click": _vm.allCountries
+    }
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_country),
+      expression: "search_country"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_country)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_country = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.showCountry),
+      expression: "showCountry"
+    }],
+    staticClass: "form-check"
+  }, [_c('div', _vm._b({
+    staticClass: "form-check-label grid-col-check-5",
+    attrs: {
+      "id": "form-check-countries"
+    }
+  }, 'div', _vm.bindTagGrid('#form-check-countries', this.countries.length, 4), false), _vm._l((_vm.countries), function(country) {
+    return _c('label', {
+      staticClass: "d-flex flex-row align-items-start check_box"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.selcountries),
+        expression: "selcountries"
+      }],
+      attrs: {
+        "name": "countries[]",
+        "type": "checkbox"
+      },
+      domProps: {
+        "value": country.id,
+        "checked": Array.isArray(_vm.selcountries) ? _vm._i(_vm.selcountries, country.id) > -1 : (_vm.selcountries)
+      },
+      on: {
+        "change": [function($event) {
+          var $$a = _vm.selcountries,
+            $$el = $event.target,
+            $$c = $$el.checked ? (true) : (false);
+          if (Array.isArray($$a)) {
+            var $$v = country.id,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.selcountries = $$a.concat([$$v]))
+            } else {
+              $$i > -1 && (_vm.selcountries = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            }
+          } else {
+            _vm.selcountries = $$c
+          }
+        }, function($event) {
+          return _vm.checkboxfilter()
+        }]
+      }
+    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(country.title))])])
+  }), 0)])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('header', {
+    staticClass: "form-header",
+    class: {
+      'active': _vm.showVVT
+    },
+    on: {
+      "click": function($event) {
+        _vm.showVVT = !_vm.showVVT
+      }
+    }
+  }, [_c('h4', {
+    staticClass: "mb_1"
+  }, [_vm._v("Тип ВВТ")]), _vm._v(" "), _c('label', {
+    staticClass: "check-all"
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox"
+    }
+  }), _vm._v(" "), _c('span', {
+    on: {
+      "click": _vm.allVVT
+    }
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_vvt),
+      expression: "search_vvt"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_vvt)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_vvt = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.showVVT),
+      expression: "showVVT"
+    }],
+    staticClass: "form-check"
+  }, [_c('div', _vm._b({
+    staticClass: "form-check-label grid-col-check-6",
+    attrs: {
+      "id": "form-check-vvt_types"
+    }
+  }, 'div', _vm.bindTagGrid('#form-check-vvt_types', this.vvt_types.length, 4), false), _vm._l((_vm.vvt_types), function(vvt_type) {
+    return _c('label', {
+      staticClass: "d-flex flex-row align-items-start check_box"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.selvvt_types),
+        expression: "selvvt_types"
+      }],
+      attrs: {
+        "name": "vvt_types[]",
+        "type": "checkbox"
+      },
+      domProps: {
+        "value": vvt_type.id,
+        "checked": Array.isArray(_vm.selvvt_types) ? _vm._i(_vm.selvvt_types, vvt_type.id) > -1 : (_vm.selvvt_types)
+      },
+      on: {
+        "change": [function($event) {
+          var $$a = _vm.selvvt_types,
+            $$el = $event.target,
+            $$c = $$el.checked ? (true) : (false);
+          if (Array.isArray($$a)) {
+            var $$v = vvt_type.id,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.selvvt_types = $$a.concat([$$v]))
+            } else {
+              $$i > -1 && (_vm.selvvt_types = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            }
+          } else {
+            _vm.selvvt_types = $$c
+          }
+        }, function($event) {
+          return _vm.checkboxfilter()
+        }]
+      }
+    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(vvt_type.title))])])
+  }), 0)])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('header', {
+    staticClass: "form-header",
+    class: {
+      'active': _vm.showCompany
+    },
+    on: {
+      "click": function($event) {
+        _vm.showCompany = !_vm.showCompany
+      }
+    }
+  }, [_c('h4', {
+    staticClass: "mb_1"
+  }, [_vm._v("Компании и организации")]), _vm._v(" "), _c('label', {
+    staticClass: "check-all"
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox"
+    }
+  }), _vm._v(" "), _c('span', {
+    on: {
+      "click": _vm.allCompanies
+    }
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_company),
+      expression: "search_company"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_company)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_company = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.showCompany),
+      expression: "showCompany"
+    }],
+    staticClass: "form-check"
+  }, [_c('div', _vm._b({
+    staticClass: "form-check-label grid-col-check-2",
+    attrs: {
+      "id": "form-check-companies"
+    }
+  }, 'div', _vm.bindTagGrid('#form-check-companies', this.companies.length, 4), false), _vm._l((_vm.companies), function(company) {
+    return _c('label', {
+      staticClass: "d-flex flex-row align-items-start check_box"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.selcompanies),
+        expression: "selcompanies"
+      }],
+      attrs: {
+        "name": "companies[]",
+        "type": "checkbox"
+      },
+      domProps: {
+        "value": company.id,
+        "checked": Array.isArray(_vm.selcompanies) ? _vm._i(_vm.selcompanies, company.id) > -1 : (_vm.selcompanies)
+      },
+      on: {
+        "change": [function($event) {
+          var $$a = _vm.selcompanies,
+            $$el = $event.target,
+            $$c = $$el.checked ? (true) : (false);
+          if (Array.isArray($$a)) {
+            var $$v = company.id,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.selcompanies = $$a.concat([$$v]))
+            } else {
+              $$i > -1 && (_vm.selcompanies = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            }
+          } else {
+            _vm.selcompanies = $$c
+          }
+        }, function($event) {
+          return _vm.checkboxfilter()
+        }]
+      }
+    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(company.title))])])
+  }), 0)])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('header', {
+    staticClass: "form-header",
+    class: {
+      'active': _vm.showPersonalities
+    },
+    on: {
+      "click": function($event) {
+        _vm.showPersonalities = !_vm.showPersonalities
+      }
+    }
+  }, [_c('h4', {
+    staticClass: "mb_1"
+  }, [_vm._v("Персоналии")]), _vm._v(" "), _c('label', {
+    staticClass: "check-all"
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox"
+    }
+  }), _vm._v(" "), _c('span', {
+    on: {
+      "click": _vm.allPersonalities
+    }
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
+    staticClass: "form-search"
+  }, [_c('span', {
+    staticClass: "form-search__text"
+  }, [_vm._v("Искать в разделе")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search_person),
+      expression: "search_person"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.search_person)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search_person = $event.target.value
+      }, _vm.onChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "form-search__btn"
+  })])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.showPersonalities),
+      expression: "showPersonalities"
+    }],
+    staticClass: "form-check"
+  }, [_c('div', _vm._b({
+    staticClass: "form-check-label grid-col-check-6",
+    attrs: {
+      "id": "form-check-personalities"
+    }
+  }, 'div', _vm.bindTagGrid('#form-check-personalities', this.personalities.length, 4), false), _vm._l((_vm.personalities), function(personality) {
+    return _c('label', {
+      staticClass: "d-flex flex-row align-items-start check_box"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.selpersonalities),
+        expression: "selpersonalities"
+      }],
+      attrs: {
+        "name": "personalities[]",
+        "type": "checkbox"
+      },
+      domProps: {
+        "value": personality.id,
+        "checked": Array.isArray(_vm.selpersonalities) ? _vm._i(_vm.selpersonalities, personality.id) > -1 : (_vm.selpersonalities)
+      },
+      on: {
+        "change": [function($event) {
+          var $$a = _vm.selpersonalities,
+            $$el = $event.target,
+            $$c = $$el.checked ? (true) : (false);
+          if (Array.isArray($$a)) {
+            var $$v = personality.id,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.selpersonalities = $$a.concat([$$v]))
+            } else {
+              $$i > -1 && (_vm.selpersonalities = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            }
+          } else {
+            _vm.selpersonalities = $$c
+          }
+        }, function($event) {
+          return _vm.checkboxfilter()
+        }]
+      }
+    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(personality.title))])])
+  }), 0)])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-07bc4184", module.exports)
+  }
+}
+
+/***/ }),
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -37743,12 +38164,12 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-013700e6", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-30d308e6", module.exports)
   }
 }
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -38478,328 +38899,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-3def7756", module.exports)
-  }
-}
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "tags_form mt30"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('header', {
-    staticClass: "form-header",
-    class: {
-      'active': _vm.showCountry
-    },
-    on: {
-      "click": function($event) {
-        _vm.showCountry = !_vm.showCountry
-      }
-    }
-  }, [_c('h4', {
-    staticClass: "mb_1"
-  }, [_vm._v("Страны и регионы")]), _vm._v(" "), _c('label', {
-    staticClass: "check-all"
-  }, [_c('input', {
-    attrs: {
-      "type": "checkbox"
-    }
-  }), _vm._v(" "), _c('span', {
-    on: {
-      "click": _vm.allCountries
-    }
-  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.showCountry),
-      expression: "showCountry"
-    }],
-    staticClass: "form-check"
-  }, [_c('div', _vm._b({
-    staticClass: "form-check-label grid-col-check-5",
-    attrs: {
-      "id": "form-check-countries"
-    }
-  }, 'div', _vm.bindTagGrid('#form-check-countries', this.countries.length, 4), false), _vm._l((_vm.countries), function(country) {
-    return _c('label', {
-      staticClass: "d-flex flex-row align-items-start check_box"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (_vm.selcountries),
-        expression: "selcountries"
-      }],
-      attrs: {
-        "name": "countries[]",
-        "type": "checkbox"
-      },
-      domProps: {
-        "value": country.id,
-        "checked": Array.isArray(_vm.selcountries) ? _vm._i(_vm.selcountries, country.id) > -1 : (_vm.selcountries)
-      },
-      on: {
-        "change": [function($event) {
-          var $$a = _vm.selcountries,
-            $$el = $event.target,
-            $$c = $$el.checked ? (true) : (false);
-          if (Array.isArray($$a)) {
-            var $$v = country.id,
-              $$i = _vm._i($$a, $$v);
-            if ($$el.checked) {
-              $$i < 0 && (_vm.selcountries = $$a.concat([$$v]))
-            } else {
-              $$i > -1 && (_vm.selcountries = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-            }
-          } else {
-            _vm.selcountries = $$c
-          }
-        }, function($event) {
-          return _vm.checkboxfilter()
-        }]
-      }
-    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(country.title))])])
-  }), 0)])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('header', {
-    staticClass: "form-header",
-    class: {
-      'active': _vm.showVVT
-    },
-    on: {
-      "click": function($event) {
-        _vm.showVVT = !_vm.showVVT
-      }
-    }
-  }, [_c('h4', {
-    staticClass: "mb_1"
-  }, [_vm._v("Тип ВВТ")]), _vm._v(" "), _c('label', {
-    staticClass: "check-all"
-  }, [_c('input', {
-    attrs: {
-      "type": "checkbox"
-    }
-  }), _vm._v(" "), _c('span', {
-    on: {
-      "click": _vm.allVVT
-    }
-  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.showVVT),
-      expression: "showVVT"
-    }],
-    staticClass: "form-check"
-  }, [_c('div', _vm._b({
-    staticClass: "form-check-label grid-col-check-6",
-    attrs: {
-      "id": "form-check-vvt_types"
-    }
-  }, 'div', _vm.bindTagGrid('#form-check-vvt_types', this.vvt_types.length, 4), false), _vm._l((_vm.vvt_types), function(vvt_type) {
-    return _c('label', {
-      staticClass: "d-flex flex-row align-items-start check_box"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (_vm.selvvt_types),
-        expression: "selvvt_types"
-      }],
-      attrs: {
-        "name": "vvt_types[]",
-        "type": "checkbox"
-      },
-      domProps: {
-        "value": vvt_type.id,
-        "checked": Array.isArray(_vm.selvvt_types) ? _vm._i(_vm.selvvt_types, vvt_type.id) > -1 : (_vm.selvvt_types)
-      },
-      on: {
-        "change": [function($event) {
-          var $$a = _vm.selvvt_types,
-            $$el = $event.target,
-            $$c = $$el.checked ? (true) : (false);
-          if (Array.isArray($$a)) {
-            var $$v = vvt_type.id,
-              $$i = _vm._i($$a, $$v);
-            if ($$el.checked) {
-              $$i < 0 && (_vm.selvvt_types = $$a.concat([$$v]))
-            } else {
-              $$i > -1 && (_vm.selvvt_types = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-            }
-          } else {
-            _vm.selvvt_types = $$c
-          }
-        }, function($event) {
-          return _vm.checkboxfilter()
-        }]
-      }
-    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(vvt_type.title))])])
-  }), 0)])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('header', {
-    staticClass: "form-header",
-    class: {
-      'active': _vm.showCompany
-    },
-    on: {
-      "click": function($event) {
-        _vm.showCompany = !_vm.showCompany
-      }
-    }
-  }, [_c('h4', {
-    staticClass: "mb_1"
-  }, [_vm._v("Компании и организации")]), _vm._v(" "), _c('label', {
-    staticClass: "check-all"
-  }, [_c('input', {
-    attrs: {
-      "type": "checkbox"
-    }
-  }), _vm._v(" "), _c('span', {
-    on: {
-      "click": _vm.allCompanies
-    }
-  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.showCompany),
-      expression: "showCompany"
-    }],
-    staticClass: "form-check"
-  }, [_c('div', _vm._b({
-    staticClass: "form-check-label grid-col-check-2",
-    attrs: {
-      "id": "form-check-companies"
-    }
-  }, 'div', _vm.bindTagGrid('#form-check-companies', this.companies.length, 4), false), _vm._l((_vm.companies), function(company) {
-    return _c('label', {
-      staticClass: "d-flex flex-row align-items-start check_box"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (_vm.selcompanies),
-        expression: "selcompanies"
-      }],
-      attrs: {
-        "name": "companies[]",
-        "type": "checkbox"
-      },
-      domProps: {
-        "value": company.id,
-        "checked": Array.isArray(_vm.selcompanies) ? _vm._i(_vm.selcompanies, company.id) > -1 : (_vm.selcompanies)
-      },
-      on: {
-        "change": [function($event) {
-          var $$a = _vm.selcompanies,
-            $$el = $event.target,
-            $$c = $$el.checked ? (true) : (false);
-          if (Array.isArray($$a)) {
-            var $$v = company.id,
-              $$i = _vm._i($$a, $$v);
-            if ($$el.checked) {
-              $$i < 0 && (_vm.selcompanies = $$a.concat([$$v]))
-            } else {
-              $$i > -1 && (_vm.selcompanies = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-            }
-          } else {
-            _vm.selcompanies = $$c
-          }
-        }, function($event) {
-          return _vm.checkboxfilter()
-        }]
-      }
-    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(company.title))])])
-  }), 0)])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('header', {
-    staticClass: "form-header",
-    class: {
-      'active': _vm.showPersonalities
-    },
-    on: {
-      "click": function($event) {
-        _vm.showPersonalities = !_vm.showPersonalities
-      }
-    }
-  }, [_c('h4', {
-    staticClass: "mb_1"
-  }, [_vm._v("Персоналии")]), _vm._v(" "), _c('label', {
-    staticClass: "check-all"
-  }, [_c('input', {
-    attrs: {
-      "type": "checkbox"
-    }
-  }), _vm._v(" "), _c('span', {
-    on: {
-      "click": _vm.allPersonalities
-    }
-  }, [_vm._v("Выбрать все")])])]), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.showPersonalities),
-      expression: "showPersonalities"
-    }],
-    staticClass: "form-check"
-  }, [_c('div', _vm._b({
-    staticClass: "form-check-label grid-col-check-6",
-    attrs: {
-      "id": "form-check-personalities"
-    }
-  }, 'div', _vm.bindTagGrid('#form-check-personalities', this.personalities.length, 4), false), _vm._l((_vm.personalities), function(personality) {
-    return _c('label', {
-      staticClass: "d-flex flex-row align-items-start check_box"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (_vm.selpersonalities),
-        expression: "selpersonalities"
-      }],
-      attrs: {
-        "name": "personalities[]",
-        "type": "checkbox"
-      },
-      domProps: {
-        "value": personality.id,
-        "checked": Array.isArray(_vm.selpersonalities) ? _vm._i(_vm.selpersonalities, personality.id) > -1 : (_vm.selpersonalities)
-      },
-      on: {
-        "change": [function($event) {
-          var $$a = _vm.selpersonalities,
-            $$el = $event.target,
-            $$c = $$el.checked ? (true) : (false);
-          if (Array.isArray($$a)) {
-            var $$v = personality.id,
-              $$i = _vm._i($$a, $$v);
-            if ($$el.checked) {
-              $$i < 0 && (_vm.selpersonalities = $$a.concat([$$v]))
-            } else {
-              $$i > -1 && (_vm.selpersonalities = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-            }
-          } else {
-            _vm.selpersonalities = $$c
-          }
-        }, function($event) {
-          return _vm.checkboxfilter()
-        }]
-      }
-    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(personality.title))])])
-  }), 0)])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-951d6cf8", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-4ff36756", module.exports)
   }
 }
 
@@ -38814,13 +38914,13 @@ var content = __webpack_require__(42);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("6425c862", content, false);
+var update = __webpack_require__(5)("1caaf794", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-013700e6\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SearchComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-013700e6\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SearchComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-07bc4184\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsforsearchComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-07bc4184\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsforsearchComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -38840,13 +38940,13 @@ var content = __webpack_require__(43);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("48ff34d4", content, false);
+var update = __webpack_require__(5)("613f4f33", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-3def7756\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-3def7756\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-30d308e6\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SearchComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-30d308e6\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SearchComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -38866,13 +38966,13 @@ var content = __webpack_require__(44);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("ea00b3f2", content, false);
+var update = __webpack_require__(5)("6ef81868", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-951d6cf8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsforsearchComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-951d6cf8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsforsearchComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-4ff36756\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-4ff36756\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
