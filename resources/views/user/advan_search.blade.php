@@ -52,7 +52,7 @@ $y = date("Y");
                         <label class="search-form__title">
                             Период с
                             <input name="start_period_picker" value="" class="calendar_start_3 search-form__field"/>
-                            <input type="hidden" value="<?php echo mktime(0, 0, 0, 1, 1, 2015); ?>" name="start_period">
+                            <input type="hidden" value="<?php echo mktime(0, 0, 0, 1, 1, $y); ?>" name="start_period">
                         </label>
                         <label class="search-form__title">
                             Период по
@@ -136,7 +136,7 @@ $y = date("Y");
                 footer: true,
                 uiLibrary: 'bootstrap4',
                 locale: 'ru-ru',
-                value: '01.01.2015',
+                value: '01.01.{{$y}}',
                 format: 'dd.mm.yyyy',
             });
 
@@ -158,7 +158,7 @@ $y = date("Y");
 
                 var data_change = jQuery(this).val();
                 var arr = data_change.split('.');
-                var d = Number(arr[0]) + 1;
+                var d = Number(arr[0]);
                 var m = Number(arr[1]) - 1;
                 var y = Number(arr[2]);
                 var date = new Date(y, m, d).getTime() / 1000;
@@ -171,7 +171,7 @@ $y = date("Y");
 
                 var data_change = jQuery(this).val();
                 var arr = data_change.split('.');
-                var d = Number(arr[0]) + 1;
+                var d = Number(arr[0]);
                 var m = Number(arr[1]) - 1;
                 var y = Number(arr[2]);
                 var date = new Date(y, m, d).getTime() / 1000;

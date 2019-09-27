@@ -169,9 +169,10 @@ class HomeController extends Controller
 
 				$reports = Report::where([
 					['type_id' , $report_slug],
-					['date_start', '>=', $start_period],
-					['date_end', '<=', $end_period],
+					['date_start', '<=', $start_period],
+					['date_end', '>=', $end_period],
 				])->pluck('id')->toArray();
+		
 
 				if ( $category === 0 ) {
 

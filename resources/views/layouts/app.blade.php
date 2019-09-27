@@ -416,21 +416,21 @@ $y = date("Y");
         jQuery('.calendar_start').change(function () {
             var data_change = jQuery(this).val();
             var arr = data_change.split('.');
-            var d = Number(arr[0]) + 1;
+            var d = Number(arr[0]);
             var m = Number(arr[1]) - 1;
             var y = Number(arr[2]);
             var date = new Date(y, m, d).getTime() / 1000;
-            jQuery('[name=start_period]').val(date);
+            jQuery('[name=date_start]').val(date);
         })
 
         jQuery('.calendar_end').change(function () {
             var data_change = jQuery(this).val();
             var arr = data_change.split('.');
-            var d = Number(arr[0]) + 1;
+            var d = Number(arr[0]);
             var m = Number(arr[1]) - 1;
             var y = Number(arr[2]);
             var date = new Date(y, m, d).getTime() / 1000;
-            jQuery('[name=end_period]').val(date);
+            jQuery('[name=date_end]').val(date);
         })
 
         if (jQuery('[data-fancybox="gallery"]').length)
