@@ -167,17 +167,21 @@ class HomeController extends Controller
 				$articles->appends($request->all());
 			} else {
 
-				$reports = Report::where([
-					['type_id' , $report_slug],
-					['date_start', '<=', $start_period],
-					['date_end', '>=', $end_period],
-				])->pluck('id')->toArray();
+				$reports = Report::where([/**/
+                  ['type_id', $report_slug],
+                  /*['date_start', '<=', $start_period],
+                  // обязательны оба условия или по одному можно выдавать?
+                  ['date_end', '>=', $end_period],*/
+                ])->pluck('id')->toArray();
 		
 
 				if ( $category === 0 ) {
 
-					$articles = ArticleReports::whereIn( 'report_id', $reports )->active()->paginate(40);
-					$articles->appends($request->all());
+$articles = ArticleReports::whereIn('report_id', $reports)->active()->where([['date_start', '>=', $start_period],
+                                                                                                 // обязательны оба условия или по одному можно выдавать?
+                                                                                                 ['date_end', '<=', $end_period]])->paginate(40);
+
+                    					$articles->appends($request->all());
 
 				} else {
 
