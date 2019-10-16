@@ -31,39 +31,7 @@
 	/>
 </head>
 
-<body class="page-stats">
-    <div class="row_top">
-      <div class="user_rolles">@auth
-          {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
-          @endauth
-      </div>
-      <ul class="menu_auth">
-        <li>
-          <a href="/stats">Статистика</a>
-        </li>
-        <span>|</span>
-        <li>
-          <a href="/report">Управление материалами</a>
-        </li>
-        <span>|</span>
-        <li>
-            @if(Auth::user())
-                <a href="/cabinet/{{\Illuminate\Support\Facades\Auth::user()->id}}">Личный кабинет</a>
-            @endif
-        </li>
-        <span>|</span>
-          <li>
-              <a href="{{ route('logout') }}"
-                 onclick="event.preventDefault();
-							document.getElementById('logout-form').submit();"> Выход </a>
-
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                  @csrf
-              </form>
-          </li>
-      </ul>
-    </div>
-
+<body>
     @yield('body')
 
     <!-- Core Scripts - Include with every page -->
@@ -82,19 +50,9 @@
 
 	@yield('required-scripts-bottom')
 
-    <script>@yield('inline-javascript')
+    <script>
+	    @yield('inline-javascript')
     </script>
-
-    <footer>
-      <div class="copyright">© Copyright 2018. Все права защищены</div> 
-      <div class="footer_doc">
-        <a href="/reglament">Правила и регламент регистрации</a>
-      </div> 
-      <div class="portfolio_box">
-        Разработка сайта<span class="logo_east_tech"></span>
-        <a href="http://east-tech.by/">“Восточные технологии”</a>
-      </div>
-    </footer>
 </body>
 
 </html>

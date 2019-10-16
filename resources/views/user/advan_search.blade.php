@@ -4,21 +4,21 @@ $m = date("m");
 $y = date("Y");
 ?>
 @extends('layouts.app')
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@voerro/vue-tagsinput@2.0.2/dist/style.css">
 @section('content')
     <div class="container">
-      
-        <form action="/search" class="search_form_adv" method="get">
+
+        <form action="/search" class="search_form_adv" method="post">
             @csrf
             <div class="col-md-12">
                 <div class="search-form__filter">
                     <p class="search-form__block">
                         <label> Тип отчета
                             <select class="search-form__field report_type" name="report_type">
-                              <option value="all_reports">Все отчеты</option>
+                                <option value="all_reports">Все отчеты</option>
 
                                 @foreach($report_types as $slug =>$type)
-                                <option value="{{ $slug }}">{{ $type }}</option>
+                                    <option value="{{ $slug }}">{{ $type }}</option>
                                 @endforeach
                             </select>
                         </label>
@@ -30,7 +30,7 @@ $y = date("Y");
                                 <option value="0">Все отчеты</option>
 
                                 @foreach($weeklycategories as $category)
-                                <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
                                 @endforeach
                             </select>
                         </label>
@@ -38,21 +38,21 @@ $y = date("Y");
 
                     <p class="search-form__block monthly_block">
                         <label> Категории
-                          <select class="search-form__field" name="new_monthly">
-                            <option value="0">Все отчеты</option>
+                            <select class="search-form__field" name="new_monthly">
+                                <option value="0">Все отчеты</option>
 
-                            @foreach($monthlycategories as $category)
-                            <option value="{{ $category->id }}">{{ $category->title }}</option>
-                            @endforeach
-                        </select>
-                      </label>
+                                @foreach($monthlycategories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                @endforeach
+                            </select>
+                        </label>
                     </p>
 
                     <p class="search-form__block search-form__block--date">
                         <label class="search-form__title">
                             Период с
                             <input name="start_period_picker" value="" class="calendar_start_3 search-form__field"/>
-                            <input type="hidden" value="<?php echo mktime(0, 0, 0, 1, 1, $y); ?>" name="start_period">
+                            <input type="hidden" value="<?php echo mktime(0, 0, 0, 1, 1, 2015); ?>" name="start_period">
                         </label>
                         <label class="search-form__title">
                             Период по
@@ -63,7 +63,6 @@ $y = date("Y");
 
                 </div>
             </div>
-
             <tagsforsearch-component></tagsforsearch-component>
 
             <input type="hidden" name="random_key_before" value="">
@@ -80,25 +79,25 @@ $y = date("Y");
 
         jQuery(document).ready(function () {
 
-            jQuery('.report_type').change(function() {
+            jQuery('.report_type').change(function () {
 
-              var val = $(this).find(':selected').val();
+                var val = $(this).find(':selected').val();
 
-              if(val == "weekly") {
-                jQuery('.weekly_block').css('position', 'relative');
-                jQuery('.weekly_block').css('top', '0');
-              } else {
-                jQuery('.weekly_block').css('top', '-9999px');
-                jQuery('.weekly_block').css('position', 'absolute');
-              }
+                if (val == "weekly") {
+                    jQuery('.weekly_block').css('position', 'relative');
+                    jQuery('.weekly_block').css('top', '0');
+                } else {
+                    jQuery('.weekly_block').css('top', '-9999px');
+                    jQuery('.weekly_block').css('position', 'absolute');
+                }
 
-              if(val == "monthly") {
-                jQuery('.monthly_block').css('position', 'relative');
-                jQuery('.monthly_block').css('top', '0');
-              } else {
-                jQuery('.monthly_block').css('position', 'absolute');
-                jQuery('.monthly_block').css('top', '-9999px');
-              }
+                if (val == "monthly") {
+                    jQuery('.monthly_block').css('position', 'relative');
+                    jQuery('.monthly_block').css('top', '0');
+                } else {
+                    jQuery('.monthly_block').css('position', 'absolute');
+                    jQuery('.monthly_block').css('top', '-9999px');
+                }
             });
 
             jQuery('.checked').click(function () {
@@ -136,7 +135,7 @@ $y = date("Y");
                 footer: true,
                 uiLibrary: 'bootstrap4',
                 locale: 'ru-ru',
-                value: '01.01.{{$y}}',
+                value: '01.01.2015',
                 format: 'dd.mm.yyyy',
             });
 
@@ -171,6 +170,7 @@ $y = date("Y");
 
                 var data_change = jQuery(this).val();
                 var arr = data_change.split('.');
+                //TODO: 1
                 var d = Number(arr[0]);
                 var m = Number(arr[1]) - 1;
                 var y = Number(arr[2]);

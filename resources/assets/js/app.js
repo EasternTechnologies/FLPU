@@ -11,7 +11,9 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+import VoerroTagsInput from '@voerro/vue-tagsinput';
 
+Vue.component('tags-input', VoerroTagsInput);
 Vue.component('tags-component', require('./components/TagsComponent.vue'));
 Vue.component('tagsforsearch-component', require('./components/TagsforsearchComponent.vue'));
 Vue.component('search-component', require('./components/SearchComponent.vue'));

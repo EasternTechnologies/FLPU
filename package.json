@@ -20,5 +20,8 @@
         "vue": "^2.6.10",
         "vue-template-compiler": "^2.6.10",
         "webpack-dev-server": "^2.9.7"
+    },
+    "dependencies": {
+        "@voerro/vue-tagsinput": "^2.0.2"
     }
 }

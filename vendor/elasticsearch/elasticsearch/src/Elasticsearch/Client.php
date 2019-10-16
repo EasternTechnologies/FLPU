@@ -937,7 +937,7 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
-        $params = $this->extractArgument($params, 'body');
+        $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -945,8 +945,8 @@ class Client
         /** @var \Elasticsearch\Endpoints\Search $endpoint */
         $endpoint = $endpointBuilder('Search');
         $endpoint->setIndex($index)
-                 ->setType($type);
-                // ->setBody($body);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);

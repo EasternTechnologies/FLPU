@@ -3,7 +3,7 @@ $d = date("d");
 $m = date("m");
 $y = date("Y");
 ?>
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
@@ -48,11 +48,11 @@ $y = date("Y");
         <div class="container row_top">
             <div class="user_rolles">
                 @auth
-                {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
+                    {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
                 @endauth
             </div>
 
-            @include('partials.cabinets')        
+            @include('partials.cabinets')
         </div>
     </header>
 
@@ -74,23 +74,23 @@ $y = date("Y");
 
     <main class="page-main">
         <div class="page-title container">
-          <h1>Аналитика</h1>
+            <h1>Аналитика</h1>
         </div>
 
         <div class="page-info container">
-          <div class="page-subtitle">
-            @if(isset($type))
-            <h2>Поиск</h2>
-            @elseif(isset($report_type))
-            <h2>{{ $report_type->description }}</h2>
-            @else
-            <h2>Создание и управление отчетами</h2>
-            @endif
-          </div>
+            <div class="page-subtitle">
+                @if(isset($type))
+                    <h2>Поиск</h2>
+                @elseif(isset($report_type))
+                    <h2>{{ $report_type->description }}</h2>
+                @else
+                    <h2>Создание и управление отчетами</h2>
+                @endif
+            </div>
 
-          <div class="page-search">
-            <search-component></search-component>
-          </div>
+            <div class="page-search">
+                <search-component></search-component>
+            </div>
         </div>
 
         @if ($errors->any())
@@ -113,7 +113,7 @@ $y = date("Y");
         @endif
         @yield('content')
     </main>
-    
+
     <footer class="page-footer">
         <div class="container">
             <div class="copyright">
@@ -132,8 +132,8 @@ $y = date("Y");
 <div class="bugs" oncLick="showModalBugs();">
     <span>Нашли баг?</span>
 </div>
-  
-  <!-- bugs modal -->
+
+<!-- bugs modal -->
 <div class="modal modal__bugs">
     <div class="modal__close" oncLick="closeModal();"></div>
     <div class="bugs-form">
@@ -420,6 +420,10 @@ $y = date("Y");
             var m = Number(arr[1]) - 1;
             var y = Number(arr[2]);
             var date = new Date(y, m, d).getTime() / 1000;
+            console.log(arr);
+
+            console.log(m);
+            console.log(new Date(y, m, d));
             jQuery('[name=date_start]').val(date);
         })
 
@@ -454,10 +458,10 @@ $y = date("Y");
                 var result;
 
                 if (file_type == 'jpg'
-                        || file_type == 'jpeg'
-                        || file_type == 'png'
-                        || file_type == 'gif'
-                        || file_type == 'svg') {
+                    || file_type == 'jpeg'
+                    || file_type == 'png'
+                    || file_type == 'gif'
+                    || file_type == 'svg') {
                     reader.onload = function (e) {
                         jQuery('.pic_img.num_' + num).attr('src', e.target.result);
                     };
@@ -503,10 +507,10 @@ $y = date("Y");
         jQuery('.pic_img').each(function(){
             var file_type_img = $(this).attr('src').split('.').pop();
             if (file_type_img == 'jpg'
-                    || file_type_img == 'jpeg'
-                    || file_type_img == 'png'
-                    || file_type_img == 'gif'
-                    || file_type_img == 'svg') {
+                || file_type_img == 'jpeg'
+                || file_type_img == 'png'
+                || file_type_img == 'gif'
+                || file_type_img == 'svg') {
                 $(this).show();
                 $(this).siblings('span').hide();
             } else {

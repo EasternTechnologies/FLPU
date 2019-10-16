@@ -274,15 +274,14 @@ trait ElasticquentTrait
      *
      * @return ElasticquentResultCollection
      */
-    public static function search($term = '', $size = null)
+    public static function search($term = '')
     {
         $instance = new static;
 
         $params = $instance->getBasicEsParams();
 
-        $params['body']['q'] = $term;
-	    $params['body']['size'] = $size;
-	    $params['query']['fizzy']['description'] = $term;
+        $params['body']['query']['match']['_all'] = $term;
+
         $result = $instance->getElasticSearchClient()->search($params);
 
         return static::hydrateElasticsearchResult($result);

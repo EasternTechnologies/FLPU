@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use PragmaRX\Support\Config;
 use PragmaRX\Support\PhpSession;
 use Ramsey\Uuid\Uuid as UUID;
-use Illuminate\Support\Facades\Auth;
 
 class Session extends Repository
 {
@@ -29,7 +28,6 @@ class Session extends Repository
 
     public function findByUuid($uuid)
     {
-
         list($model, $cacheKey) = $this->cache->findCached($uuid, 'uuid', 'PragmaRX\Tracker\Vendor\Laravel\Models\Session');
 
         if (!$model) {
@@ -100,11 +98,6 @@ class Session extends Repository
         } else {
             $session = $this->find($this->getSessionData('id'));
 
-            foreach( session()->all() as $key => $value ){
-                if(stristr($key, 'login_web_')){
-                    $session->user_id = $value;
-                }
-            }
             $session->updated_at = Carbon::now();
 
             $session->save();

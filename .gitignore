@@ -1,5 +1,5 @@
 .env
-/vendor/*
+vendor/*
 !/vendor/elasticquent/
 !/vendor/elasticsearch/
 !/vendor/pragmarx/

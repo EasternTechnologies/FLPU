@@ -51,6 +51,8 @@ class ServiceProvider extends PragmaRXServiceProvider
 
     protected $packageNameCapitalized = 'Tracker';
 
+    protected $repositoryManagerIsBooted = false;
+
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -84,6 +86,16 @@ class ServiceProvider extends PragmaRXServiceProvider
         }
 
         $this->loadTranslations();
+    }
+
+    /**
+     * Check if the service provider is full booted.
+     *
+     * @return void
+     */
+    public function isFullyBooted()
+    {
+        return $this->repositoryManagerIsBooted;
     }
 
     /**
@@ -259,7 +271,7 @@ class ServiceProvider extends PragmaRXServiceProvider
                 $app['request']->server('HTTP_USER_AGENT')
             );
 
-            return new RepositoryManager(
+            $manager = new RepositoryManager(
                 new GeoIp($this->getConfig('geoip_database_path')),
 
                 new MobileDetect(),
@@ -334,6 +346,10 @@ class ServiceProvider extends PragmaRXServiceProvider
 
                 new LanguageDetect()
             );
+
+            $this->repositoryManagerIsBooted = true;
+
+            return $manager;
         });
     }
 
@@ -473,7 +489,7 @@ class ServiceProvider extends PragmaRXServiceProvider
         });
 
         $this->app['events']->listen('*', function ($object = null) use ($me) {
-            if ($me->app['tracker.events']->isOff()) {
+            if ($me->app['tracker.events']->isOff() || !$me->isFullyBooted()) {
                 return;
             }
 
@@ -528,14 +544,6 @@ class ServiceProvider extends PragmaRXServiceProvider
             $router->group($filters, function () use ($prefix, $router) {
                 $router->group(['prefix' => $prefix], function ($router) {
                     $router->get('/', ['as' => 'tracker.stats.index', 'uses' => 'Stats@index']);
-
-                    $router->get('/excel', ['as' => 'tracker.stats.excel', 'uses' => 'Stats@excel']);
-
-                    $router->get('/excelv2', ['as' => 'tracker.stats.excelv2', 'uses' => 'Stats@excelv2']);
-
-                    $router->get('/excel_summary', ['as' => 'tracker.stats.excel_summary', 'uses' => 'Stats@excel_summary']);
-
-                    $router->get('/summary', ['as' => 'tracker.stats.summary_stats', 'uses' => 'Stats@summary_stats']);
 
                     $router->get('log/{uuid}', ['as' => 'tracker.stats.log', 'uses' => 'Stats@log']);
 

@@ -43,34 +43,34 @@ class LoginController extends Controller
 
     public function logout ( Request $request ) {
 
-	    $userId = Redis::get('user:all:'.Auth::user()->id);
+        $userId = Redis::get('user:all:' . Auth::user()->id);
 
-	    Redis::del('user:all:'.$userId, $userId, 'EX', 1);
+        Redis::del('user:all:' . $userId, $userId, 'EX', 1);
 
-	    $this->guard()->logout();
+        $this->guard()->logout();
 
-	    $request->session()->invalidate();
+        $request->session()->invalidate();
         //$request->session()->flush();
         session_destroy();
 
-	    return $this->loggedOut($request) ?: redirect('/');
+        return $this->loggedOut($request) ? : redirect('/');
 
     }
 
-	protected function authenticated ( Request $request, $user ) {
+    protected function authenticated ( Request $request, $user ) {
 
-	    if ( $this->getIdUser($user->id) )
-	    {
-		    $this->guard()->logout();
+        if ( $this->getIdUser($user->id) ) {
+            $this->guard()->logout();
 
-		    $request->session()->invalidate();
+            $request->session()->invalidate();
 
-		    return $this->loggedOut($request) ?: redirect('/login')->with('status_access', 'Пользователь авторизован. Вход под тем же именем не возможен.');
+            return $this->loggedOut($request) ? : redirect('/login')->with('status_access', 'Пользователь авторизован. Вход под тем же именем не возможен.');
 
-	    } else {
+        }
+        else {
 
-	    	Redis::set('user:all:'.$user->id, $user->id, 'EX', 1);
-	    }
+            Redis::set('user:all:' . $user->id, $user->id, 'EX', 1);
+        }
 
         if ( $user->isadmin() ) {
             return redirect()->to('/report');
@@ -84,33 +84,30 @@ class LoginController extends Controller
 
     }
 
-    protected function getIdUser($userId){
+    protected function getIdUser ( $userId ) {
 
-	    $userIdNow = Redis::get('user:all:'.$userId);
+        $userIdNow = Redis::get('user:all:' . $userId);
 
-	    if( $userIdNow == $userId ) {
+        if ( $userIdNow == $userId ) {
 
-		    return true;
+            return TRUE;
 
-	    } else {
+        }
+        else {
 
-		    return false;
+            return FALSE;
 
-	    }
-
-
+        }
 
     }
 
+    protected function validateLogin ( Request $request ) {
+        /*$this->validate($request, [
+          $this->username()      => 'required|string',
+          'password'             => 'required|string',
+          'g-recaptcha-response' => 'required|recaptcha',
 
-	protected function validateLogin(Request $request)
-	{
-		$this->validate($request, [
-			$this->username() => 'required|string',
-			'password' => 'required|string',
-			'g-recaptcha-response' => 'required|recaptcha',
-
-		]);
-	}
+        ]);*/
+    }
 
 }
