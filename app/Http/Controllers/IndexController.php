@@ -59,10 +59,10 @@ class IndexController extends Controller
             $vvt_type_id = $request->input('vvt_type');
             $personality_id = $request->input('personalities');
             $company_id = $request->input('companies');
-            $countriesForVoero =  Country::orderBy('title')->whereIn('id',$country_id)->get();
-            $selvvt_typesForVoero =  VvtType::orderBy('title')->whereIn('id',$vvt_type_id)->get();
-            $companiesForVoero =  Company::orderBy('title')->whereIn('id',$company_id)->get();
-            $personalitiesForVoero =  Personality::orderBy('title')->whereIn('id',$personality_id)->get();
+            $countriesForVoero = $country_id ? Country::orderBy('title')->whereIn('id',$country_id)->get():collect([]);
+            $selvvt_typesForVoero =  $vvt_type_id? VvtType::orderBy('title')->whereIn('id',$vvt_type_id)->get():collect([]);
+            $companiesForVoero =  $company_id? Company::orderBy('title')->whereIn('id',$company_id)->get():collect([]);
+            $personalitiesForVoero =  $personality_id?Personality::orderBy('title')->whereIn('id',$personality_id)->get():collect([]);
             $companies     = Company::orderBy('title')->get();
             $personalities = Personality::orderBy('title')->get();
 
