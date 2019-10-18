@@ -20,6 +20,7 @@
                       typeahead-style="dropdown"
                       :only-existing-tags="true"
                       @tag-added="onTagAdded"
+                      @tag-removed="onTagRemoved"
                       placeholder=""></tags-input>
           <!--<input @input="onChange"
                  v-model="search_country"
@@ -61,6 +62,7 @@
                       typeahead-style="dropdown"
                       :only-existing-tags="true"
                       @tag-added="onTagAdded"
+                      @tag-removed="onTagRemoved"
                       placeholder=""></tags-input>
         </label>
       </header>
@@ -97,6 +99,7 @@
                       typeahead-style="dropdown"
                       :only-existing-tags="true"
                       @tag-added="onTagAdded"
+                      @tag-removed="onTagRemoved"
                       placeholder=""></tags-input>
         </label>
       </header>
@@ -124,10 +127,17 @@
         </label>
         <label class="form-search">
           <span class="form-search__text">Искать в разделе</span>
-          <input @input="onChange"
-                 v-model="search_person"
-                 type="text">
-          <span class="form-search__btn"></span>
+          <tags-input type="text"
+                      element-id="selcompaniesForVoero"
+                      v-model="selpersonalitiesForVoero"
+                      :existing-tags="personalitiesForVoero"
+                      :caseSensitiveTags="false"
+                      :typeahead="true"
+                      typeahead-style="dropdown"
+                      :only-existing-tags="true"
+                      @tag-added="onTagAdded"
+                      @tag-removed="onTagRemoved"
+                      placeholder=""></tags-input>
         </label>
       </header>
       <div v-show="showPersonalities" class="form-check">
@@ -226,12 +236,12 @@
                     this.companiesForVoero = response.data.companies.map(function (country) {
                         return {key: country.id, value: country.title}
                     });
-                    /*this.selpersonalitiesForVoero = response.data.personalitiesForVoero.map(function (country) {
+                    this.selpersonalitiesForVoero = response.data.personalitiesForVoero.map(function (country) {
                         return {key: country.id, value: country.title}
                     });
                     this.personalitiesForVoero = response.data.personalities.map(function (country) {
                         return {key: country.id, value: country.title}
-                    });*/
+                    });
                     //console.log(this.vvt_typesForVoero);
                 });
 
@@ -301,6 +311,36 @@
                 });
             },
             onTagAdded(slug) {
+                this.selcountries = this.selcountriesForVoero.map(function (item) {
+                    return item.key
+                });
+                this.selvvt_types = this.selvvt_typesForVoero.map(function (item) {
+                    return item.key
+                });
+                this.selcompanies = this.selcompaniesForVoero.map(function (item) {
+                    return item.key
+                });
+                this.selpersonalities = this.selpersonalitiesForVoero.map(function (item) {
+                    return item.key
+                });
+                axios
+                .post("/tags", {
+                    countries: this.selcountries,
+                    vvt_type: this.selvvt_types
+                })
+                .then(response => {
+                    //console.log(response.data);
+                    this.countries = response.data.countries;
+                    this.companies = response.data.companies;
+                    this.vvt_types = response.data.vvt_types;
+                    this.personalities = response.data.personalities;
+
+                    //console.log(this.selcountriesForVoero);
+                });
+                //console.log(this.selcountries);
+            },
+            onTagRemoved(slug) {
+                console.log(`Tag removed: ${slug}`);
                 this.selcountries = this.selcountriesForVoero.map(function (item) {
                     return item.key
                 });
