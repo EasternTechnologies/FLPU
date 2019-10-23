@@ -170,7 +170,7 @@ $y = date("Y");
 
                 var data_change = jQuery(this).val();
                 var arr = data_change.split('.');
-                //TODO: 1
+
                 var d = Number(arr[0]);
                 var m = Number(arr[1]) - 1;
                 var y = Number(arr[2]);
