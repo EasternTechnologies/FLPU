@@ -1,8 +1,5 @@
 .env
 vendor/*
-!/vendor/elasticquent/
-!/vendor/elasticsearch/
-!/vendor/pragmarx/
 /node_modules
 public/images/article_images
 public/images/email_photo
@@ -15,4 +12,4 @@ composer.phar
 b2b.sql
 public/storage
 public/templates_/
-public/js/app.js
+/public/js/app.js
