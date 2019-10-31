@@ -3,36 +3,43 @@
         <div class="container tags_form">
 
             <div class="row">
+
                 <div class="form-group">
-                    <h4 class="mb_1">Страны и регионы
-                        <a class="butt_add" @click="addTag('country')" href="#">
-                            <button class="butt_tag_click button_small">Добавить тег</button>
-                        </a>
-                    </h4>
-                    <label class="form-search">
-                        <span class="form-search__text">Искать в разделе</span>
-                        <tags-input type="text"
-                                    element-id="selcountriesForVoero"
-                                    v-model="selcountriesForVoero"
-                                    :existing-tags="countriesForVoero"
-                                    :caseSensitiveTags="false"
-                                    :typeahead="true"
-                                    typeahead-style="dropdown"
-                                    :only-existing-tags="true"
-                                    @tag-added="onTagAdded"
-                                    @tag-removed="onTagRemoved"
-                                    placeholder=""></tags-input>
-                        <!--<input @input="onChange"
-                               v-model="search_country"
-                               type="text">-->
-                        <span class="form-search__btn"></span>
-                    </label>
-                    <div id="form-check-countries" class="form-check grid-col-check-5" v-bind="bindTagGrid('#form-check-countries',this.countries.length,5)">
-                        <div class="form-check-label" v-for="country in countries">
-                            <label class="d-flex flex-row align-items-start check_box"><input @change="checkboxfilter()" name="countries[]" type="checkbox" :value="country.id" v-model="selcountries"><span>{{ country.title}}</span></label>
-                            <div class="del_tag" @click="del_tag(country.id,'country',country.title)">x</div>
-                            <div class="edit_tag" @click="edit_tag(country.id,'country',country.title)">
-                                <i class="fas fa-pencil-alt"></i></div>
+                    <header :class="{'active': showCountry}" class="form-header" @click="showCountry = !showCountry">
+
+                        <h4 class="mb_1">Страны и регионы
+                            <a class="butt_add" @click="addTag('country')" href="#">
+                                <button class="butt_tag_click button_small">Добавить тег</button>
+                            </a>
+                        </h4>
+                        <label class="form-search">
+                            <span class="form-search__text">Искать в разделе</span>
+                            <tags-input type="text"
+                                        element-id="selcountriesForVoero"
+                                        v-model="selcountriesForVoero"
+                                        :existing-tags="countriesForVoero"
+                                        :caseSensitiveTags="false"
+                                        :typeahead="true"
+                                        typeahead-style="dropdown"
+                                        :only-existing-tags="true"
+                                        @tag-added="onTagAdded"
+                                        @tag-removed="onTagRemoved"
+                                        placeholder=""></tags-input>
+                            <!--<input @input="onChange"
+                                   v-model="search_country"
+                                   type="text">-->
+                            <span class="form-search__btn"></span>
+                        </label>
+                    </header>
+                    <div v-show="showCountry" class="form-check">
+
+                        <div id="form-check-countries" class="form-check grid-col-check-5" v-bind="bindTagGrid('#form-check-countries',this.countries.length,5)">
+                            <div class="form-check-label" v-for="country in countries">
+                                <label class="d-flex flex-row align-items-start check_box"><input @change="checkboxfilter()" name="countries[]" type="checkbox" :value="country.id" v-model="selcountries"><span>{{ country.title}}</span></label>
+                                <div class="del_tag" @click="del_tag(country.id,'country',country.title)">x</div>
+                                <div class="edit_tag" @click="edit_tag(country.id,'country',country.title)">
+                                    <i class="fas fa-pencil-alt"></i></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -40,32 +47,37 @@
 
             <div class="row">
                 <div class="form-group">
-                    <h4 class="mb_1">Тип ВВТ
-                        <a class="butt_add" @click="addTag('vvttypes')" href="#">
-                            <button class="butt_tag_click button_small">Добавить тег</button>
-                        </a>
-                    </h4>
-                    <label class="form-search">
-                        <span class="form-search__text">Искать в разделе</span>
-                        <tags-input type="text"
-                                    element-id="selvvt_typesForVoero"
-                                    v-model="selvvt_typesForVoero"
-                                    :existing-tags="vvt_typesForVoero"
-                                    :caseSensitiveTags="false"
-                                    :typeahead="true"
-                                    typeahead-style="dropdown"
-                                    :only-existing-tags="true"
-                                    @tag-added="onTagAdded"
-                                    @tag-removed="onTagRemoved"
-                                    placeholder=""></tags-input>
-                        <span class="form-search__btn"></span>
-                    </label>
-                    <div id="form-check-vvt_types" class="form-check grid-col-check-6" v-bind="bindTagGrid('#form-check-vvt_types',this.vvt_types.length,6)">
-                        <div class="form-check-label" v-for="vvt_type in vvt_types">
-                            <label class="d-flex flex-row align-items-start check_box"><input @change="checkboxfilter()" name="vvt_types[]" type="checkbox" :value="vvt_type.id" v-model="selvvt_types"><span>{{ vvt_type.title}}</span></label>
-                            <div class="del_tag" @click="del_tag(vvt_type.id,'vvttypes',vvt_type.title)">x</div>
-                            <div class="edit_tag" @click="edit_tag(vvt_type.id,'vvttypes',vvt_type.title)">
-                                <i class="fas fa-pencil-alt"></i></div>
+                    <header :class="{'active': showVVT}" class="form-header" @click="showVVT = !showVVT">
+                        <h4 class="mb_1">Тип ВВТ
+                            <a class="butt_add" @click="addTag('vvttypes')" href="#">
+                                <button class="butt_tag_click button_small">Добавить тег</button>
+                            </a>
+                        </h4>
+                        <label class="form-search">
+                            <span class="form-search__text">Искать в разделе</span>
+                            <tags-input type="text"
+                                        element-id="selvvt_typesForVoero"
+                                        v-model="selvvt_typesForVoero"
+                                        :existing-tags="vvt_typesForVoero"
+                                        :caseSensitiveTags="false"
+                                        :typeahead="true"
+                                        typeahead-style="dropdown"
+                                        :only-existing-tags="true"
+                                        @tag-added="onTagAdded"
+                                        @tag-removed="onTagRemoved"
+                                        placeholder=""></tags-input>
+                            <span class="form-search__btn"></span>
+                        </label>
+                    </header>
+                    <div v-show="showVVT" class="form-check">
+
+                        <div id="form-check-vvt_types" class="form-check grid-col-check-6" v-bind="bindTagGrid('#form-check-vvt_types',this.vvt_types.length,6)">
+                            <div class="form-check-label" v-for="vvt_type in vvt_types">
+                                <label class="d-flex flex-row align-items-start check_box"><input @change="checkboxfilter()" name="vvt_types[]" type="checkbox" :value="vvt_type.id" v-model="selvvt_types"><span>{{ vvt_type.title}}</span></label>
+                                <div class="del_tag" @click="del_tag(vvt_type.id,'vvttypes',vvt_type.title)">x</div>
+                                <div class="edit_tag" @click="edit_tag(vvt_type.id,'vvttypes',vvt_type.title)">
+                                    <i class="fas fa-pencil-alt"></i></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -73,31 +85,37 @@
 
             <div class="row">
                 <div class="form-group">
-                    <h4 class="mb_1">Компании и организации
-                        <a class="butt_add butt_tag_click butt_add_tag3 button_small" href="#">
-                            <button @click="addTag('company')">Добавить тег</button>
-                        </a></h4>
-                    <label class="form-search">
-                        <span class="form-search__text">Искать в разделе</span>
-                        <tags-input type="text"
-                                    element-id="selcompaniesForVoero"
-                                    v-model="selcompaniesForVoero"
-                                    :existing-tags="companiesForVoero"
-                                    :caseSensitiveTags="false"
-                                    :typeahead="true"
-                                    typeahead-style="dropdown"
-                                    :only-existing-tags="true"
-                                    @tag-added="onTagAdded"
-                                    @tag-removed="onTagRemoved"
-                                    placeholder=""></tags-input>
-                        <span class="form-search__btn"></span>
-                    </label>
-                    <div id="form-check-companies" class="form-check grid-col-check-2" v-bind="bindTagGrid('#form-check-companies',this.companies.length,2)">
-                        <div class="form-check-label" v-for="company in companies">
-                            <label class="d-flex flex-row align-items-start check_box"><input name="companies[]" type="checkbox" :value="company.id" v-model="selcompanies"><span>{{ company.title}}</span></label>
-                            <div class="del_tag" @click="del_tag(company.id,'company',company.title)">x</div>
-                            <div class="edit_tag" @click="edit_tag(company.id,'company',company.title)">
-                                <i class="fas fa-pencil-alt"></i></div>
+                    <header :class="{'active': showCompany}" class="form-header" @click="showCompany = !showCompany">
+
+                        <h4 class="mb_1">Компании и организации
+                            <a class="butt_add butt_tag_click butt_add_tag3 button_small" href="#">
+                                <button @click="addTag('company')">Добавить тег</button>
+                            </a></h4>
+                        <label class="form-search">
+                            <span class="form-search__text">Искать в разделе</span>
+                            <tags-input type="text"
+                                        element-id="selcompaniesForVoero"
+                                        v-model="selcompaniesForVoero"
+                                        :existing-tags="companiesForVoero"
+                                        :caseSensitiveTags="false"
+                                        :typeahead="true"
+                                        typeahead-style="dropdown"
+                                        :only-existing-tags="true"
+                                        @tag-added="onTagAdded"
+                                        @tag-removed="onTagRemoved"
+                                        placeholder=""></tags-input>
+                            <span class="form-search__btn"></span>
+                        </label>
+                    </header>
+                    <div v-show="showCompany" class="form-check">
+
+                        <div id="form-check-companies" class="form-check grid-col-check-2" v-bind="bindTagGrid('#form-check-companies',this.companies.length,2)">
+                            <div class="form-check-label" v-for="company in companies">
+                                <label class="d-flex flex-row align-items-start check_box"><input name="companies[]" type="checkbox" :value="company.id" v-model="selcompanies"><span>{{ company.title}}</span></label>
+                                <div class="del_tag" @click="del_tag(company.id,'company',company.title)">x</div>
+                                <div class="edit_tag" @click="edit_tag(company.id,'company',company.title)">
+                                    <i class="fas fa-pencil-alt"></i></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -105,30 +123,37 @@
 
             <div class="row">
                 <div class="form-group">
-                    <h4 class="mb_1">Персоналии <a class="butt_add butt_tag_click butt_add_tag3 button_small" href="#">
-                        <button @click="addTag('personalities')">Добавить тег</button>
-                    </a></h4>
-                    <label class="form-search">
-                        <span class="form-search__text">Искать в разделе</span>
-                        <tags-input type="text"
-                                    element-id="selcompaniesForVoero"
-                                    v-model="selpersonalitiesForVoero"
-                                    :existing-tags="personalitiesForVoero"
-                                    :caseSensitiveTags="false"
-                                    :typeahead="true"
-                                    typeahead-style="dropdown"
-                                    :only-existing-tags="true"
-                                    @tag-added="onTagAdded"
-                                    @tag-removed="onTagRemoved"
-                                    placeholder=""></tags-input>
-                        <span class="form-search__btn"></span>
-                    </label>
-                    <div id="form-check-personalities" class="form-check grid-col-check-6" v-bind="bindTagGrid('#form-check-personalities',this.personalities.length,6)">
-                        <div class="form-check-label" v-for="personality in personalities">
-                            <label class="d-flex flex-row align-items-start check_box"><input name="personalities[]" type="checkbox" :value="personality.id" v-model="selpersonalities"><span>{{ personality.title}}</span></label>
-                            <div class="del_tag" @click="del_tag(personality.id,'personalities',personality.title)">x</div>
-                            <div class="edit_tag" @click="edit_tag(personality.id,'personalities',personality.title)">
-                                <i class="fas fa-pencil-alt"></i></div>
+                    <header :class="{'active': showPersonalities}" class="form-header" @click="showPersonalities = !showPersonalities">
+
+                        <h4 class="mb_1">Персоналии
+                            <a class="butt_add butt_tag_click butt_add_tag3 button_small" href="#">
+                                <button @click="addTag('personalities')">Добавить тег</button>
+                            </a></h4>
+                        <label class="form-search">
+                            <span class="form-search__text">Искать в разделе</span>
+                            <tags-input type="text"
+                                        element-id="selcompaniesForVoero"
+                                        v-model="selpersonalitiesForVoero"
+                                        :existing-tags="personalitiesForVoero"
+                                        :caseSensitiveTags="false"
+                                        :typeahead="true"
+                                        typeahead-style="dropdown"
+                                        :only-existing-tags="true"
+                                        @tag-added="onTagAdded"
+                                        @tag-removed="onTagRemoved"
+                                        placeholder=""></tags-input>
+                            <span class="form-search__btn"></span>
+                        </label>
+                    </header>
+                    <div v-show="showPersonalities" class="form-check">
+
+                        <div id="form-check-personalities" class="form-check grid-col-check-6" v-bind="bindTagGrid('#form-check-personalities',this.personalities.length,6)">
+                            <div class="form-check-label" v-for="personality in personalities">
+                                <label class="d-flex flex-row align-items-start check_box"><input name="personalities[]" type="checkbox" :value="personality.id" v-model="selpersonalities"><span>{{ personality.title}}</span></label>
+                                <div class="del_tag" @click="del_tag(personality.id,'personalities',personality.title)">x</div>
+                                <div class="edit_tag" @click="edit_tag(personality.id,'personalities',personality.title)">
+                                    <i class="fas fa-pencil-alt"></i></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -274,6 +299,10 @@
         props: ['selectedtags'],
         data() {
             return {
+                showCountry: false,
+                showCompany: false,
+                showVVT: false,
+                showPersonalities: false,
                 countries: [],
                 selcountries: [],
                 vvt_types: [],
