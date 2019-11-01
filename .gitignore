@@ -1,11 +1,10 @@
 .env
-vendor/*
+/vendor
 /node_modules
 public/images/article_images
 public/images/email_photo
 /storage
 .idea
-.gitignore
 composer.phar
 !/public/templates/sb-admin-2/css
 .well-known/
