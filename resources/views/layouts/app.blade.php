@@ -88,9 +88,9 @@ $y = date("Y");
                 @endif
             </div>
 
-            <div class="page-search">
+
                 <search-component></search-component>
-            </div>
+
         </div>
 
         @if ($errors->any())

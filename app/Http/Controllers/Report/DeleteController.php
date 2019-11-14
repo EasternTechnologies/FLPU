@@ -33,6 +33,7 @@ class DeleteController extends Controller
             $article->personalities()->detach();
 
             $article->delete();
+
             $article->removeFromIndex();
 
         }

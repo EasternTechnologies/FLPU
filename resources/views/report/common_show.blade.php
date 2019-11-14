@@ -122,5 +122,8 @@ $y = date("Y");
         </script>
     @endsection
 @endif
+@section('scripts')
+    words.replace(query, '<span class=\'highlight\'>' + query + '</span>')
+    @endsection
 
 
