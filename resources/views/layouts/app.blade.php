@@ -59,7 +59,7 @@ $y = date("Y");
     <aside class="page-aside">
         <div class="page-aside__wrapper" data-sticky_column>
             <div class="logo-box">
-                <a class="logo-text" href="{{ url('/') }}">             <img src="{{asset('images/logo.png')}}" alt=""/> </a>
+                <a class="logo-text" href="{{ url('/') }}"> <img src="{{asset('images/logo.png')}}" alt=""/> </a>
             </div>
             <ul class="nav__list">
                 @foreach(\App\ReportType::$data as $link => $title)
@@ -87,10 +87,9 @@ $y = date("Y");
                     <h2>Создание и управление отчетами</h2>
                 @endif
             </div>
-
-
+            @if(Request::path()!='search/form')
                 <search-component></search-component>
-
+            @endif
         </div>
 
         @if ($errors->any())
@@ -263,7 +262,6 @@ $y = date("Y");
 {{-- CKEDITOR settings --}}
 
 
-
 <script type="text/javascript" charset="utf-8">
 
     var form;
@@ -382,10 +380,10 @@ $y = date("Y");
         if (jQuery('[name=editor1]').length) {
             CKEDITOR.replace('editor1');
         }
-        if(jQuery('[name=title_1]').length) {
+        if (jQuery('[name=title_1]').length) {
             CKEDITOR.replace('title_1');
         }
-        if(jQuery('[name=place]').length) {
+        if (jQuery('[name=place]').length) {
             CKEDITOR.replace('place');
         }
 
@@ -504,7 +502,7 @@ $y = date("Y");
         jQuery('.item_add_gallery').children('img').hide();
         jQuery('.item_add_gallery.active').children('img').show();
 
-        jQuery('.pic_img').each(function(){
+        jQuery('.pic_img').each(function () {
             var file_type_img = $(this).attr('src').split('.').pop();
             if (file_type_img == 'jpg'
                 || file_type_img == 'jpeg'
@@ -626,7 +624,7 @@ $y = date("Y");
             var title = jQuery('[name=title]').val();
             if (title == '' || !title) {
                 error++;
-                if(!jQuery('[name=title]').hasClass('error')) {
+                if (!jQuery('[name=title]').hasClass('error')) {
                     jQuery('[name=title]').addClass('error');
                     jQuery('[name=title]').parent().parent().addClass('error-block');
                     jQuery('[name=title]').parent().prev().append('<p class="error-text alert alert-danger">Это поле должно быть заполнено!</p>');
@@ -638,7 +636,7 @@ $y = date("Y");
                 jQuery('[name=title]').parent().prev().children().last().remove();
             }
 
-            if(jQuery('[name=place]').length) {
+            if (jQuery('[name=place]').length) {
                 if (jQuery('[name=place]').val() == '' || !jQuery('[name=place]').val()) {
                     error++;
                     if (!jQuery('[name=place]').hasClass('error')) {
@@ -653,7 +651,7 @@ $y = date("Y");
                 }
             }
 
-            if(jQuery('[name=theme]').length) {
+            if (jQuery('[name=theme]').length) {
                 if (jQuery('[name=theme]').val() == '' || !jQuery('[name=theme]').val()) {
                     error++;
                     if (!jQuery('[name=theme]').hasClass('error')) {
@@ -668,7 +666,7 @@ $y = date("Y");
                 }
             }
 
-            if(jQuery('[name=editor1]').length) {
+            if (jQuery('[name=editor1]').length) {
 
                 var edit1 = CKEDITOR.instances.editor1.getData();
 
@@ -723,7 +721,7 @@ $y = date("Y");
         /* menu-mob */
         jQuery('#menu-mob1').click(function () {
 
-            if(jQuery(this).hasClass('active')) {
+            if (jQuery(this).hasClass('active')) {
                 jQuery(this).removeClass('active');
                 jQuery('.menu_auth').removeClass('mob-active');
             } else {
@@ -743,7 +741,7 @@ $y = date("Y");
 
         jQuery('#menu-mob2').click(function () {
 
-            if(jQuery(this).hasClass('active')) {
+            if (jQuery(this).hasClass('active')) {
                 jQuery(this).removeClass('active');
                 jQuery('.nav_header_other').removeClass('mob-active');
             } else {
@@ -866,7 +864,7 @@ $y = date("Y");
 @yield('scripts')
 
 <script>
-    var showModalBugs = function() {
+    var showModalBugs = function () {
         $('.bugs').toggleClass('active');
         $('.modal__bugs').toggleClass('active');
         $('body').toggleClass('active');

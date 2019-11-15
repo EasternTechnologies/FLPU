@@ -60,6 +60,12 @@ $y = date("Y");
                             <input type="hidden" value="<?php echo mktime(0, 0, 0, $m, $d, $y); ?>" name="end_period">
                         </label>
                     </p>
+                    <p class="search-form__block">
+                    <label class="search-form__title">
+
+                        <input name="q" class="search" type="text"   placeholder="Поиск по тексту"/>
+                    </label>
+                    </p>
 
                 </div>
             </div>

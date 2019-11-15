@@ -87,7 +87,7 @@ class HomeController extends Controller
         //$results = ArticleReports::search($q)->active()->paginate(40);
 
         $articles = ArticleReports::search($q, $size = 10000);
-        //dd($results);
+        //dd($articles);
         $articles = $this->paginate($articles, 20);
 
         $articles->appends($request->all())->setPath('/simply_search');
@@ -341,10 +341,19 @@ class HomeController extends Controller
                     }
 
                     $articles = isset($strong) ? $strong : collect([]);
+
+
                     $articles = $this->paginate($articles);
                     $articles->appends($request->all())->setPath('search');
                 }
             }
+        }
+        if (isset($request->q)){
+            $articles = $articles->filter(function ($post) use ( $request )
+            {
+                return mb_stripos($post['description'], $request->q) !== false;});
+            $articles = $this->paginate($articles);
+            $articles->appends($request->all())->setPath('search');
         }
 
         $random_key   = $request->random_key_before;
@@ -353,6 +362,7 @@ class HomeController extends Controller
         $isadvantage = TRUE;
         $type        = TRUE;
 
+        //dd($articles);
         return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type'));
     }
 
