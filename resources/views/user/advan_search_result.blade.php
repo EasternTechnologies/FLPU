@@ -85,8 +85,14 @@
                         <span class="span-checkbox">Выбрать</span>
                         <input type="checkbox" value="{{$item->id}}" @if(!empty($choose_array) && in_array($item->id,$choose_array) || !empty($choose)) checked @endif></span>
                     </label>
+
                     <p><!--strong>Анонс:</strong-->
-                        {{ mb_substr(ltrim(html_entity_decode(strip_tags($item->description))),0,200) }}
+                        {{!! isset($q) ?
+                                preg_replace("~($q)~","<b class=\"highlight\">$q.</b>",mb_substr(ltrim(html_entity_decode(strip_tags(
+                            $item->description))),0,200))
+                            : mb_substr(ltrim(html_entity_decode(strip_tags(
+                            $item->description))),0,200);
+                             !!}}
                     </p>
                     <p>
                         <strong>Отчет: </strong>

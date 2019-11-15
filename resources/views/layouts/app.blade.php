@@ -40,7 +40,11 @@ $y = date("Y");
 
     <!-- NEW STYLES -->
     <link href="{{ asset('css/new_design.css') }}" rel="stylesheet">
-
+    <style>
+        .highlight{
+            background-color: #FFB6C1;
+        }
+    </style>
 </head>
 <body>
 <div id="app" data-sticky_parent>

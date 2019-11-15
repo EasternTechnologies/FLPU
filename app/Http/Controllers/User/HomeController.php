@@ -106,7 +106,7 @@ class HomeController extends Controller
         $choose_array = unserialize(Redis::get('search:key' . $request->random_key));
        //dd($choose_array);
 //        return view('user.simplysearch', compact('results'));
-        return view('user.advan_search_result', compact('articles', 'random_key', 'choose_array'));
+        return view('user.advan_search_result', compact('articles', 'random_key', 'choose_array','q'));
     }
 
     public function paginate ( $items, $perPage = 40, $page = NULL, $options = [] ) {
@@ -164,9 +164,9 @@ class HomeController extends Controller
             $category = 0;
 
         }
-
+        //поиск без учета тегов
         if ( $countries->count() == 0 and $companies->count() == 0 and $personalities->count() == 0 and $vvt_types->count() == 0 ) {
-            //поиск без учета тегов
+
 
             if ( $report_slug == 'all_reports' ) {
                 $articles = ArticleReports::where([
@@ -208,8 +208,9 @@ class HomeController extends Controller
             }
 
         }
+        //поиск с учетом тегов
         else {
-            //поиск с учетом тегов
+
             //Получаем количество отмеченных тегов
             $tags_count = $countries->count() + $companies->count() + $vvt_types->count() + $personalities->count();
 
@@ -348,6 +349,7 @@ class HomeController extends Controller
                 }
             }
         }
+        $q =$request->q;
         if (isset($request->q)){
             $articles = $articles->filter(function ($post) use ( $request )
             {
@@ -363,7 +365,7 @@ class HomeController extends Controller
         $type        = TRUE;
 
         //dd($articles);
-        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type'));
+        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type','q'));
     }
 
     public function findbytagsinalltables ( $countries, $companies, $vvt_types, $personalities, $start_period, $end_period, &$articles ) {
