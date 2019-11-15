@@ -63,7 +63,7 @@ $y = date("Y");
                     <p class="search-form__block">
                     <label class="search-form__title">
 
-                        <input name="q" class="search" type="text"   placeholder="Поиск по тексту"/>
+                        <input name="q" class="search" type="text"   placeholder="Ключевая фраза"/>
                     </label>
                     </p>
 
