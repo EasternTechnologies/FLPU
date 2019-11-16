@@ -115,7 +115,7 @@ class ReportController extends Controller
         return view($template, compact('report', 'items', 'page', 'subcategories', 'categories', 'q'));
     }
 
-    public function item_article ( $slug, ArticleReports $article ) {
+    public function item_article ( $slug, ArticleReports $article, $q=NULL ) {
 
         if ( $slug != $article->reports->types->slug ) {
             return redirect(route('show_report', ['slug'   => $article->reports->types->slug,
@@ -131,6 +131,6 @@ class ReportController extends Controller
             $arr[ 'subcategory' ] = Subcategory::find($article->subcategory_id)->title;
         }
 
-        return view('report.item_article', ['article' => $article]);
+        return view('report.item_article', compact('article','q'));
     }
 }

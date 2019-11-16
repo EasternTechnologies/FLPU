@@ -104,9 +104,9 @@ class HomeController extends Controller
 
         $random_key   = $request->random_key;
         $choose_array = unserialize(Redis::get('search:key' . $request->random_key));
-       //dd($choose_array);
+        //dd($choose_array);
 //        return view('user.simplysearch', compact('results'));
-        return view('user.advan_search_result', compact('articles', 'random_key', 'choose_array','q'));
+        return view('user.advan_search_result', compact('articles', 'random_key', 'choose_array', 'q'));
     }
 
     public function paginate ( $items, $perPage = 40, $page = NULL, $options = [] ) {
@@ -148,7 +148,45 @@ class HomeController extends Controller
                                                          ->first()->id : $request->input('report_type');
         $new_weekly    = (int) $request->input('new_weekly');
         $new_monthly   = (int) $request->input('new_monthly');
+        $patterns      = [];
+        $replacements  = [];
+        if ( isset($request->q) ) {
+            $patterns[] = "~($request->q)~";
+            $patterns_for_replacement[] = $request->q;
 
+        }
+        if ( $countries->isNotEmpty() ) {
+            foreach ( $countries->pluck('title')->toArray() as $title ) {
+                $patterns[] = "~($title)~";
+                $patterns_for_replacement[] = $title;
+            };
+
+        }
+        if ( $companies->isNotEmpty() ) {
+            foreach ( $companies->pluck('title')->toArray() as $title ) {
+                $patterns[] = "~($title)~";
+                $patterns_for_replacement[] = $title;
+            };
+        }
+        if ( $personalities->isNotEmpty() ) {
+            foreach ( $personalities->pluck('title')->toArray() as $title ) {
+                $patterns[] = "~($title)~";
+                $patterns_for_replacement[] = $title;
+            };
+        }
+        if ( $vvt_types->isNotEmpty() ) {
+            foreach ( $vvt_types->pluck('title')->toArray() as $title ) {
+                $patterns[] = "~($title)~";
+                $patterns_for_replacement[] = $title;
+            };
+        }
+        if ( !empty($patterns_for_replacement) ) {
+            foreach ( $patterns_for_replacement as $pattern ) {
+                $replacements[] = "<b class=\"highlight\">$pattern</b>";
+            }
+        }
+
+        //dd($patterns, $replacements,$patterns_for_replacement);
         if ( $new_weekly !== 0 ) {
 
             $category = $new_weekly;
@@ -166,7 +204,6 @@ class HomeController extends Controller
         }
         //поиск без учета тегов
         if ( $countries->count() == 0 and $companies->count() == 0 and $personalities->count() == 0 and $vvt_types->count() == 0 ) {
-
 
             if ( $report_slug == 'all_reports' ) {
                 $articles = ArticleReports::where([
@@ -343,17 +380,17 @@ class HomeController extends Controller
 
                     $articles = isset($strong) ? $strong : collect([]);
 
-
                     $articles = $this->paginate($articles);
                     $articles->appends($request->all())->setPath('search');
                 }
             }
         }
-        $q =$request->q;
-        if (isset($request->q)){
-            $articles = $articles->filter(function ($post) use ( $request )
+        $q = $request->q;
+        if ( isset($request->q) ) {
+            $articles = $articles->filter(function( $post ) use ( $request )
             {
-                return mb_stripos($post['description'], $request->q) !== false;});
+                return mb_stripos($post[ 'description' ], $request->q) !== FALSE;
+            });
             $articles = $this->paginate($articles);
             $articles->appends($request->all())->setPath('search');
         }
@@ -365,7 +402,7 @@ class HomeController extends Controller
         $type        = TRUE;
 
         //dd($articles);
-        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type','q'));
+        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns', 'replacements'));
     }
 
     public function findbytagsinalltables ( $countries, $companies, $vvt_types, $personalities, $start_period, $end_period, &$articles ) {
@@ -538,10 +575,10 @@ class HomeController extends Controller
 
         //ArticleReports::deleteIndex();
         //ArticleReports::createIndex();
-        //   ArticleReports::putMapping($ignoreConflicts = TRUE);
-        dd(ArticleReports::addAllToIndex());
+        //ArticleReports::putMapping($ignoreConflicts = TRUE);
+        //ArticleReports::addAllToIndex();
 
-        //return redirect()->to('/report');
+        return redirect()->to('/report');
 
     }
 

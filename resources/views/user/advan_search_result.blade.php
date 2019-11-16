@@ -25,7 +25,12 @@
             <strong>Период: </strong>
             <span class="italic_14">c {{date("d.m.Y",$start_period)}} по {{date("d.m.Y",$end_period)}}</span>
         </p>
-
+        @if(isset($q))
+            <p>
+                <strong>Ключевая фраза:</strong>
+                {{$q}}
+            </p>
+        @endif
         @if($countries->count()!=0)
             <p>
                 <strong>Страны:</strong>
@@ -76,7 +81,7 @@
         @if(isset($articles))
             @foreach($articles as $item)
                 <div class="search_block">
-                    <a href="/report/{{ $item->reports->types->slug }}/article/{{$item->id}}" target="_blank" class="title_link text_decor">
+                    <a href="/report/{{ $item->reports->types->slug }}/article/{{$item->id}}@if(isset($q)){{"/$q"}} @endif" target="_blank" class="title_link text_decor">
                         <?php echo
 	                    strip_tags ($item->title, "<p><a><h1><h2><h3><h4><h5><h6>");
 	                    ?>
@@ -87,12 +92,14 @@
                     </label>
 
                     <p><!--strong>Анонс:</strong-->
-                        {{!! isset($q) ?
-                                preg_replace("~($q)~","<b class=\"highlight\">$q.</b>",mb_substr(ltrim(html_entity_decode(strip_tags(
-                            $item->description))),0,200))
-                            : mb_substr(ltrim(html_entity_decode(strip_tags(
-                            $item->description))),0,200);
-                             !!}}
+                        {{!!
+                            isset($q) ?
+                                preg_replace(//["~($q)~"],
+                                                $patterns,
+                                            $replacements,
+                                            mb_substr(ltrim(html_entity_decode(strip_tags($item->description))),0,200))
+                            :               mb_substr(ltrim(html_entity_decode(strip_tags($item->description))),0,200);
+                        !!}}
                     </p>
                     <p>
                         <strong>Отчет: </strong>

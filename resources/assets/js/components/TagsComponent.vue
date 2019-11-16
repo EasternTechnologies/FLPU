@@ -28,7 +28,7 @@
                             <!--<input @input="onChange"
                                    v-model="search_country"
                                    type="text">-->
-                            <span class="form-search__btn"></span>
+
                         </label>
                     </header>
                     <div v-show="showCountry" class="form-check">
@@ -66,7 +66,6 @@
                                         @tag-added="onTagAdded"
                                         @tag-removed="onTagRemoved"
                                         placeholder=""></tags-input>
-                            <span class="form-search__btn"></span>
                         </label>
                     </header>
                     <div v-show="showVVT" class="form-check">
@@ -104,7 +103,6 @@
                                         @tag-added="onTagAdded"
                                         @tag-removed="onTagRemoved"
                                         placeholder=""></tags-input>
-                            <span class="form-search__btn"></span>
                         </label>
                     </header>
                     <div v-show="showCompany" class="form-check">
@@ -142,7 +140,6 @@
                                         @tag-added="onTagAdded"
                                         @tag-removed="onTagRemoved"
                                         placeholder=""></tags-input>
-                            <span class="form-search__btn"></span>
                         </label>
                     </header>
                     <div v-show="showPersonalities" class="form-check">
