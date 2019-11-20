@@ -74,13 +74,12 @@
                     </p>
                     <p class="mb10 w100 fll"><strong>Тематика:&nbsp</strong>
                         <span class="italic_14">
-                            {!!
-                            isset($q) ?
-                                preg_replace("~($q)~","<b class=\"highlight\">$q</b>",(strip_tags(
-                                            $article->description)))
-                            : strip_tags($article->description);
 
-                            !!}
+                            {!!
+                            !empty($patterns) ?
+                              preg_replace($patterns,$replacements,ltrim(html_entity_decode(strip_tags($item->description))))
+                            :ltrim(html_entity_decode(strip_tags($item->description)));
+                        !!}
                         </span>
                     </p>
                     <div class="mb10">
@@ -102,10 +101,9 @@
                     @endif
                     <div class="content_text">
                         {!!
-                            isset($q) ?
-                                preg_replace("~($q)~","<b class=\"highlight\">$q</b>",(strip_tags(
-                                            $article->description)))
-                            :   strip_tags($article->description);
+                            !empty($patterns) ?
+                              preg_replace($patterns,$replacements,ltrim(html_entity_decode(strip_tags($article->description))))
+                            :ltrim(html_entity_decode(strip_tags($article->description)));
                         !!}
                     </div>
                     <div class="gallery_img_content mb30">

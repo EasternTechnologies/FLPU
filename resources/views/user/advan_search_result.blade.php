@@ -92,14 +92,11 @@
                     </label>
 
                     <p><!--strong>Анонс:</strong-->
-                        {{!!
-                            isset($q) ?
-                                preg_replace(//["~($q)~"],
-                                                $patterns,
-                                            $replacements,
-                                            mb_substr(ltrim(html_entity_decode(strip_tags($item->description))),0,200))
-                            :               mb_substr(ltrim(html_entity_decode(strip_tags($item->description))),0,200);
-                        !!}}
+                        {!!
+                            !empty($patterns) ?
+                              preg_replace($patterns,$replacements,mb_substr(ltrim(html_entity_decode(strip_tags($item->description))),0,200))
+                            : mb_substr(ltrim(html_entity_decode(strip_tags($item->description))),0,200);
+                        !!}
                     </p>
                     <p>
                         <strong>Отчет: </strong>

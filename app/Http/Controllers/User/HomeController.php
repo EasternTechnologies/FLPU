@@ -20,6 +20,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -400,7 +401,9 @@ class HomeController extends Controller
 
         $isadvantage = TRUE;
         $type        = TRUE;
-
+        $request->session()->put('replacements',$replacements);
+        //$request->session()->put('patterns_for_replacement',$patterns_for_replacement);
+        $request->session()->put('patterns',$patterns);
         //dd($articles);
         return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns', 'replacements'));
     }
