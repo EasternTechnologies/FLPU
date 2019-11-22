@@ -115,16 +115,17 @@ class ReportController extends Controller
         return view($template, compact('report', 'items', 'page', 'subcategories', 'categories', 'q'));
     }
 
-    public function item_article ( $slug, ArticleReports $article, $q=NULL, Request $request ) {
-        $replacements = $request->session()->get('replacements');
-        //dd($replacements);
-        $patterns = $request->session()->get('patterns');
+    public function item_article ( $slug, ArticleReports $article, $q = NULL, Request $request ) {
+        $replacements = explode(';', urldecode($request->get('replacements')));
+        $patterns     = explode(';', urldecode($request->get('patterns')));
+
         //$patterns_for_replacement = $request->session()->get('patterns_for_replacement');
-        $request->session()->forget(['replacements', 'patterns','patterns_for_replacement']);
+        //$request->session()->forget(['replacements', 'patterns','patterns_for_replacement']);
         //dd($request->session());
         if ( $slug != $article->reports->types->slug ) {
-            return redirect(route('show_report', ['slug'   => $article->reports->types->slug,
-                                                  'report' => $article->reports->id,
+            return redirect(route('show_report', [
+              'slug'   => $article->reports->types->slug,
+              'report' => $article->reports->id,
             ]))->with('status', 'Отчет не найден');
         }
 
@@ -136,6 +137,6 @@ class ReportController extends Controller
             $arr[ 'subcategory' ] = Subcategory::find($article->subcategory_id)->title;
         }
 
-        return view('report.item_article', compact('article','q','replacements', 'patterns'));
+        return view('report.item_article', compact('article', 'q', 'replacements', 'patterns'));
     }
 }

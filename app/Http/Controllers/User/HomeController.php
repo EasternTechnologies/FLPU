@@ -149,43 +149,7 @@ class HomeController extends Controller
                                                          ->first()->id : $request->input('report_type');
         $new_weekly    = (int) $request->input('new_weekly');
         $new_monthly   = (int) $request->input('new_monthly');
-        $patterns      = [];
-        $replacements  = [];
-        if ( isset($request->q) ) {
-            $patterns[] = "~($request->q)~";
-            $patterns_for_replacement[] = $request->q;
 
-        }
-        if ( $countries->isNotEmpty() ) {
-            foreach ( $countries->pluck('title')->toArray() as $title ) {
-                $patterns[] = "~($title)~";
-                $patterns_for_replacement[] = $title;
-            };
-
-        }
-        if ( $companies->isNotEmpty() ) {
-            foreach ( $companies->pluck('title')->toArray() as $title ) {
-                $patterns[] = "~($title)~";
-                $patterns_for_replacement[] = $title;
-            };
-        }
-        if ( $personalities->isNotEmpty() ) {
-            foreach ( $personalities->pluck('title')->toArray() as $title ) {
-                $patterns[] = "~($title)~";
-                $patterns_for_replacement[] = $title;
-            };
-        }
-        if ( $vvt_types->isNotEmpty() ) {
-            foreach ( $vvt_types->pluck('title')->toArray() as $title ) {
-                $patterns[] = "~($title)~";
-                $patterns_for_replacement[] = $title;
-            };
-        }
-        if ( !empty($patterns_for_replacement) ) {
-            foreach ( $patterns_for_replacement as $pattern ) {
-                $replacements[] = "<b class=\"highlight\">$pattern</b>";
-            }
-        }
 
         //dd($patterns, $replacements,$patterns_for_replacement);
         if ( $new_weekly !== 0 ) {
@@ -215,7 +179,7 @@ class HomeController extends Controller
             }
             else {
 
-                $reports = Report::where([/**/
+                $reports = Report::where([
                                           ['type_id', $report_slug],
                                           /*['date_start', '<=', $start_period],
                                           // обязательны оба условия или по одному можно выдавать?
@@ -386,11 +350,46 @@ class HomeController extends Controller
                 }
             }
         }
-        $q = $request->q;
+        $patterns      = [];
+        $replacements  = [];
         if ( isset($request->q) ) {
-            $articles = $articles->filter(function( $post ) use ( $request )
+            $patterns[] = "~($request->q)~";
+            $replacements[] = "<b class=\"highlight\">$request->q </b>";
+        }
+        if ( $countries->isNotEmpty() ) {
+            foreach ( $countries->pluck('title')->toArray() as $title ) {
+                $patterns[] = "~($title)~";
+                $replacements[] = "<b class=\"highlight\">$title</b>";
+            };
+
+        }
+        if ( $companies->isNotEmpty() ) {
+            foreach ( $companies->pluck('title')->toArray() as $title ) {
+                $patterns[] = "~($title)~";
+                $replacements[] = "<b class=\"highlight\">$title</b>";
+            };
+        }
+        if ( $personalities->isNotEmpty() ) {
+            foreach ( $personalities->pluck('title')->toArray() as $title ) {
+                $patterns[] = "~($title)~";
+                $replacements[] = "<b class=\"highlight\">$title</b>";
+            };
+        }
+        if ( $vvt_types->isNotEmpty() ) {
+            foreach ( $vvt_types->pluck('title')->toArray() as $title ) {
+                $patterns[] = "~($title)~";
+                $replacements[] = "<b class=\"highlight\">$title</b>";
+            };
+        }
+
+        if ( isset($request->q) ) {
+            $q = $request->q;
+            $articles = $articles->filter(function( $post ) use ( $q )
             {
-                return mb_stripos($post[ 'description' ], $request->q) !== FALSE;
+                if(mb_stripos($post[ 'description' ], ' '.$q) !== FALSE or mb_stripos($post[ 'description' ], '.'.$q) !== FALSE){
+                    return  true;
+                }
+                return false;
             });
             $articles = $this->paginate($articles);
             $articles->appends($request->all())->setPath('search');
@@ -401,11 +400,14 @@ class HomeController extends Controller
 
         $isadvantage = TRUE;
         $type        = TRUE;
-        $request->session()->put('replacements',$replacements);
+        $patterns_tourl = urlencode(implode(';',$patterns));
+        $replacements_tourl = urlencode(implode(';',$replacements));
+        //$request->session()->put('replacements',$replacements);
         //$request->session()->put('patterns_for_replacement',$patterns_for_replacement);
-        $request->session()->put('patterns',$patterns);
+        //$request->session()->put('patterns',$patterns);
         //dd($articles);
-        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns', 'replacements'));
+        //dd( explode('&', urldecode(implode('&',$patterns))));
+        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns_tourl', 'replacements_tourl','patterns', 'replacements'));
     }
 
     public function findbytagsinalltables ( $countries, $companies, $vvt_types, $personalities, $start_period, $end_period, &$articles ) {
