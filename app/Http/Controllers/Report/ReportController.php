@@ -116,8 +116,11 @@ class ReportController extends Controller
     }
 
     public function item_article ( $slug, ArticleReports $article, $q = NULL, Request $request ) {
-        $replacements = explode(';', urldecode($request->get('replacements')));
-        $patterns     = explode(';', urldecode($request->get('patterns')));
+        if (($request->get('patterns'))!=null){
+            $replacements = explode(';', urldecode($request->get('replacements')));
+            $patterns     = explode(';', urldecode($request->get('patterns')));
+
+        }
 
         //$patterns_for_replacement = $request->session()->get('patterns_for_replacement');
         //$request->session()->forget(['replacements', 'patterns','patterns_for_replacement']);

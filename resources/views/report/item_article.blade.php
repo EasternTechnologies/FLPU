@@ -43,6 +43,7 @@
                 </p>
 
             </div>
+
             <div class="col_calc_270 pl30 posr">
                 @if( $role != 'user' && $role !='employee' )
                     <span class="pos_tr_article_out status st-{{$article->status}}">
@@ -74,7 +75,6 @@
                     </p>
                     <p class="mb10 w100 fll"><strong>Тематика:&nbsp</strong>
                         <span class="italic_14">
-
                             {!!
                             !empty($patterns) ?
                               preg_replace($patterns,$replacements,ltrim(html_entity_decode(strip_tags($item->description))))
