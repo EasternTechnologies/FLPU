@@ -34,7 +34,7 @@ class DeleteController extends Controller
 
             $article->delete();
 
-            $article->removeFromIndex();
+            //$article->removeFromIndex();
 
         }
         $report->delete();
@@ -68,7 +68,7 @@ class DeleteController extends Controller
             $article->vvttypes()->detach();
             $article->personalities()->detach();
             $article->delete();
-            $article->removeFromIndex();
+            //$article->removeFromIndex();
         }
         $subcategory->delete();
 
@@ -92,7 +92,7 @@ class DeleteController extends Controller
             $article->personalities()->detach();
 
             $article->delete();
-            $article->removeFromIndex();
+            //$article->removeFromIndex();
         }
         $category->delete();
 

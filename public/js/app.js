@@ -16156,14 +16156,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.result = false;
         },
         search_result: function search_result() {
-            var _this = this;
-
-            if (this.q.length >= 1) {
-
-                axios.post('/redis', { newsearch: 1 }).then(function (response) {
-                    window.location.href = "/simply_search?q=" + _this.q + "&random_key=" + response.data;
-                });
-            }
+            /*if (this.q.length >= 1) {
+                 axios.post('/redis', {newsearch: 1}).then(response => {
+                    window.location.href = "/simply_search?q=" + this.q + "&random_key=" + response.data;
+                })
+             }*/
         }
     }
 });

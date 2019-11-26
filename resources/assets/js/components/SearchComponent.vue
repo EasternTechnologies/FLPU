@@ -50,13 +50,13 @@
                 this.result = false;
             },
             search_result() {
-                if (this.q.length >= 1) {
+                /*if (this.q.length >= 1) {
 
                     axios.post('/redis', {newsearch: 1}).then(response => {
                         window.location.href = "/simply_search?q=" + this.q + "&random_key=" + response.data;
                     })
 
-                }
+                }*/
             }
 
         },

@@ -357,7 +357,7 @@ class HomeController extends Controller
         if ( isset($request->q) ) {
             $q = $request->q;
             $patterns[] = "/$q/iu";
-            $replacements[] = "<b class=\"highlight\">$q </b>";
+            $replacements[] = "<b class=\"highlight\">$q</b>";
             //$article= $articles->where('id', '2394');
             //dd(mb_stripos($article->first()->description, ' '.$q),mb_stripos($article->first()->description, '.'.$q));
             $articles = $articles->filter(function( $post ) use ( $q )
