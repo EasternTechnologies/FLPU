@@ -51,7 +51,7 @@ class DeleteController extends Controller
         $article->personalities()->detach();
         $article->companies()->detach();
         $article->delete();
-        $article->removeFromIndex();
+        //$article->removeFromIndex();
 
         return redirect()->back()->with('status', 'Материал удален');
     }

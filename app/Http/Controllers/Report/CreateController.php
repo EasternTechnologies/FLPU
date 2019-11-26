@@ -229,7 +229,7 @@ class CreateController extends Controller
         $article->personalities()->sync($personalities);
         $article->vvttypes()->sync($vvt_types);
         $article->countries()->sync($countries);
-        $article->addToIndex();
+        //$article->addToIndex();
 
 
         if ( $request->hasFile('pic') ) {

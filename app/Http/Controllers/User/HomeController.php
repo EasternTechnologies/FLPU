@@ -168,14 +168,15 @@ class HomeController extends Controller
 
         }
         //поиск без учета тегов
-        if ( $countries->count() == 0 and $companies->count() == 0 and $personalities->count() == 0 and $vvt_types->count() == 0 ) {
+        if ( $countries->count() == 0 and $companies->count() == 0 and $personalities->count() == 0 and $vvt_types->count() == 0 )
+        {
 
             if ( $report_slug == 'all_reports' ) {
                 $articles = ArticleReports::where([
                   ['date_start', '>=', $start_period],
                   ['date_end', '<=', $end_period],
-                ])->active()->paginate(40);
-                $articles->appends($request->all());
+                ])->active()->get();//->paginate(40);
+                //$articles->appends($request->all());
             }
             else {
 
@@ -192,9 +193,9 @@ class HomeController extends Controller
                       ['date_start', '>=', $start_period],
                       // обязательны оба условия или по одному можно выдавать?
                       ['date_end', '<=', $end_period],
-                    ])->paginate(40);
+                    ])->get();
 
-                    $articles->appends($request->all());
+                    //$articles->appends($request->all());
 
                 }
                 else {
@@ -352,10 +353,26 @@ class HomeController extends Controller
         }
         $patterns      = [];
         $replacements  = [];
+        //dump($articles->all());
         if ( isset($request->q) ) {
-            $patterns[] = "~($request->q)~";
-            $replacements[] = "<b class=\"highlight\">$request->q </b>";
+            $q = $request->q;
+            $patterns[] = "/$q/iu";
+            $replacements[] = "<b class=\"highlight\">$q </b>";
+            //$article= $articles->where('id', '2394');
+            //dd(mb_stripos($article->first()->description, ' '.$q),mb_stripos($article->first()->description, '.'.$q));
+            $articles = $articles->filter(function( $post ) use ( $q )
+            {
+                //dump($post->id, mb_stripos($post[ 'description' ], ' '.$q),mb_stripos($post[ 'description' ], '.'.$q)  );
+                //mb_stripos($post[ 'description' ], $q) !== FALSE;
+                if(mb_stripos($post[ 'description' ], ' '.$q) !== FALSE or mb_stripos($post[ 'description' ], '.'.$q) !== FALSE){
+                    return  true;
+                }
+                return false;
+            });
+            $articles = $this->paginate($articles);
+            $articles->appends($request->all())->setPath('search');
         }
+        //dd($articles->pluck('id'));
         if ( $countries->isNotEmpty() ) {
             foreach ( $countries->pluck('title')->toArray() as $title ) {
                 $patterns[] = "~($title)~";
@@ -383,16 +400,10 @@ class HomeController extends Controller
         }
 
         if ( isset($request->q) ) {
-            $q = $request->q;
-            $articles = $articles->filter(function( $post ) use ( $q )
-            {
-                if(mb_stripos($post[ 'description' ], ' '.$q) !== FALSE or mb_stripos($post[ 'description' ], '.'.$q) !== FALSE){
-                    return  true;
-                }
-                return false;
-            });
-            $articles = $this->paginate($articles);
-            $articles->appends($request->all())->setPath('search');
+
+
+            //dd($request->q,$articles);
+
         }
 
         $random_key   = $request->random_key_before;

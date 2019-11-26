@@ -140,6 +140,6 @@ class ReportController extends Controller
             $arr[ 'subcategory' ] = Subcategory::find($article->subcategory_id)->title;
         }
 
-        return view('report.item_article', compact('article', 'q', 'replacements', 'patterns'));
+        return view('report.item_article', compact('article', 'replacements', 'patterns'));
     }
 }
