@@ -107,11 +107,13 @@
                         }
                         ?>
                         @if(isset ($desc))
+
                             {!!
                                 !empty($patterns) ?
                                 preg_replace($patterns,$replacements,$desc)
                                 : $desc;
                             !!}
+                            <?php unset($desc) ?>
                         @else
 
                             {!!
