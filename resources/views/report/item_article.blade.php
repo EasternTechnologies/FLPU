@@ -77,11 +77,11 @@
                         <span class="italic_14">
                             <?php
                             if ( isset ($q) ) {
-                                preg_match("/$q/ui", mb_substr(ltrim(html_entity_decode(strip_tags($article->description))), 0, 200), $q_repl);
+                                preg_match("/$q/ui", ltrim(html_entity_decode(strip_tags($article->description))), $q_repl);
                                 //dump($q_repl);
                                 if ( isset($q_repl[ 0 ]) ) {
 
-                                    $desc = preg_replace("/$q/iu", "<b class=\"highlight\">$q_repl[0]</b>", mb_substr(ltrim(html_entity_decode(strip_tags($article->description))), 0, 200));
+                                    $desc = preg_replace("/$q/iu", "<b class=\"highlight\">$q_repl[0]</b>", ltrim(html_entity_decode(strip_tags($article->description))));
                                 }
                             }
                             ?>
@@ -95,8 +95,8 @@
 
                                 {!!
                                     !empty($patterns) ?
-                                    preg_replace($patterns,$replacements,mb_substr(ltrim(html_entity_decode(strip_tags($item->description))),0,200))
-                                    : mb_substr(ltrim(html_entity_decode(strip_tags($article->description))),0,200);
+                                    preg_replace($patterns,$replacements,ltrim(html_entity_decode(strip_tags($item->description))))
+                                    : ltrim(html_entity_decode(strip_tags($article->description)));
                                 !!}
                             @endif
 
@@ -122,11 +122,11 @@
                     <div class="content_text">
                         <?php
                         if ( isset ($q) ) {
-                            preg_match("/$q/ui", mb_substr(ltrim(html_entity_decode(strip_tags($article->description))), 0, 200), $q_repl);
+                            preg_match("/$q/ui", ltrim(html_entity_decode(strip_tags($article->description))), $q_repl);
                             //dump($q_repl);
                             if ( isset($q_repl[ 0 ]) ) {
 
-                                $desc = preg_replace("/$q/iu", "<b class=\"highlight\">$q_repl[0]</b>", mb_substr(ltrim(html_entity_decode(strip_tags($article->description))), 0, 200));
+                                $desc = preg_replace("/$q/iu", "<b class=\"highlight\">$q_repl[0]</b>", ltrim(html_entity_decode(strip_tags($article->description))));
                             }
                         }
                         ?>
@@ -140,8 +140,8 @@
 
                             {!!
                                 !empty($patterns) ?
-                                preg_replace($patterns,$replacements,mb_substr(ltrim(html_entity_decode(strip_tags($article->description))),0,200))
-                                : mb_substr(ltrim(html_entity_decode(strip_tags($article->description))),0,200);
+                                preg_replace($patterns,$replacements,ltrim(html_entity_decode(strip_tags($article->description))))
+                                : ltrim(html_entity_decode(strip_tags($article->description)));
                             !!}
                         @endif
                     </div>
