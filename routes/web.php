@@ -51,7 +51,7 @@ Route::middleware('checkuser')->prefix('/report/{slug}')->group(function()
     /*Report*/
     Route::get('/', 'Report\ReportController@report_list');
     Route::get('/show/{report}/', 'Report\ReportController@report_show')->name('show_report');
-    Route::get('/article/{article}/{q?}', 'Report\ReportController@item_article');
+    Route::get('/article/{article}/', 'Report\ReportController@item_article');
 
     Route::post('/show/{report}/{q}', 'Report\ReportController@report_show');
 });

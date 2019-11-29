@@ -352,18 +352,14 @@ class HomeController extends Controller
             }
         }
         $patterns      = [];
+        $needle      = [];
         $replacements  = [];
         //dump($articles->all());
         if ( isset($request->q) ) {
             $q = $request->q;
-            $patterns[] = "/$q/iu";
-            $replacements[] = "<b class=\"highlight\">$q</b>";
-            //$article= $articles->where('id', '2394');
-            //dd(mb_stripos($article->first()->description, ' '.$q),mb_stripos($article->first()->description, '.'.$q));
+
             $articles = $articles->filter(function( $post ) use ( $q )
             {
-                //dump($post->id, mb_stripos($post[ 'description' ], ' '.$q),mb_stripos($post[ 'description' ], '.'.$q)  );
-                //mb_stripos($post[ 'description' ], $q) !== FALSE;
                 if(mb_stripos($post[ 'description' ], ' '.$q) !== FALSE or mb_stripos($post[ 'description' ], '.'.$q) !== FALSE){
                     return  true;
                 }
@@ -372,10 +368,11 @@ class HomeController extends Controller
             $articles = $this->paginate($articles);
             $articles->appends($request->all())->setPath('search');
         }
-        //dd($articles->pluck('id'));
+        //dd($q,$patterns,$replacements);
         if ( $countries->isNotEmpty() ) {
             foreach ( $countries->pluck('title')->toArray() as $title ) {
                 $patterns[] = "~($title)~";
+                $needle[] = $title;
                 $replacements[] = "<b class=\"highlight\">$title</b>";
             };
 
@@ -383,42 +380,34 @@ class HomeController extends Controller
         if ( $companies->isNotEmpty() ) {
             foreach ( $companies->pluck('title')->toArray() as $title ) {
                 $patterns[] = "~($title)~";
+                $needle[] = $title;
                 $replacements[] = "<b class=\"highlight\">$title</b>";
             };
         }
         if ( $personalities->isNotEmpty() ) {
             foreach ( $personalities->pluck('title')->toArray() as $title ) {
                 $patterns[] = "~($title)~";
+                $needle[] = $title;
                 $replacements[] = "<b class=\"highlight\">$title</b>";
             };
         }
         if ( $vvt_types->isNotEmpty() ) {
             foreach ( $vvt_types->pluck('title')->toArray() as $title ) {
                 $patterns[] = "~($title)~";
+                $needle[] = $title;
                 $replacements[] = "<b class=\"highlight\">$title</b>";
             };
         }
-
-        if ( isset($request->q) ) {
-
-
-            //dd($request->q,$articles);
-
-        }
-
+        //dd($patterns,$replacements);
         $random_key   = $request->random_key_before;
         $choose_array = unserialize(Redis::get('search:key' . $request->random_key_before));
 
         $isadvantage = TRUE;
         $type        = TRUE;
         $patterns_tourl = urlencode(implode(';',$patterns));
-        $replacements_tourl = urlencode(implode(';',$replacements));
-        //$request->session()->put('replacements',$replacements);
-        //$request->session()->put('patterns_for_replacement',$patterns_for_replacement);
-        //$request->session()->put('patterns',$patterns);
-        //dd($articles);
-        //dd( explode('&', urldecode(implode('&',$patterns))));
-        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns_tourl', 'replacements_tourl','patterns', 'replacements'));
+        $needle_tourl = urlencode(implode(';',$needle));
+
+        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q','patterns','patterns_tourl', 'replacements_tourl','needle_tourl', 'replacements'));
     }
 
     public function findbytagsinalltables ( $countries, $companies, $vvt_types, $personalities, $start_period, $end_period, &$articles ) {

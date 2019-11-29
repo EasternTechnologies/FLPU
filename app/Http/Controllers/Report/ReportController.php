@@ -115,16 +115,21 @@ class ReportController extends Controller
         return view($template, compact('report', 'items', 'page', 'subcategories', 'categories', 'q'));
     }
 
-    public function item_article ( $slug, ArticleReports $article, $q = NULL, Request $request ) {
-        if (($request->get('patterns'))!=null){
-            $replacements = explode(';', urldecode($request->get('replacements')));
-            $patterns     = explode(';', urldecode($request->get('patterns')));
+    public function item_article ( $slug, ArticleReports $article, Request $request ) {
+        if ( ( $request->get('q') ) != NULL ) {
+            $q = $request->get('q');
 
         }
+        if ( ( $request->get('needles') ) != NULL ) {
+            $needles = explode(';', urldecode($request->get('needles')));
+            foreach ( $needles as $needle ) {
+                $replacements[] = "<b class=\"highlight\">$needle</b>";
+                $patterns[]= "~($needle)~";
+            }
 
-        //$patterns_for_replacement = $request->session()->get('patterns_for_replacement');
-        //$request->session()->forget(['replacements', 'patterns','patterns_for_replacement']);
-        //dd($request->session());
+        }
+        //dd($replacements, $q);
+
         if ( $slug != $article->reports->types->slug ) {
             return redirect(route('show_report', [
               'slug'   => $article->reports->types->slug,
@@ -140,6 +145,6 @@ class ReportController extends Controller
             $arr[ 'subcategory' ] = Subcategory::find($article->subcategory_id)->title;
         }
 
-        return view('report.item_article', compact('article', 'replacements', 'patterns'));
+        return view('report.item_article', compact('article', 'replacements', 'patterns', 'q','needles'));
     }
 }

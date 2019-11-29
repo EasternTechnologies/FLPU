@@ -75,11 +75,31 @@
                     </p>
                     <p class="mb10 w100 fll"><strong>Тематика:&nbsp</strong>
                         <span class="italic_14">
-                            {!!
-                            !empty($patterns) ?
-                              preg_replace($patterns,$replacements,ltrim(html_entity_decode(strip_tags($item->description))))
-                            :ltrim(html_entity_decode(strip_tags($item->description)));
-                        !!}
+                            <?php
+                            if ( isset ($q) ) {
+                                preg_match("/$q/ui", mb_substr(ltrim(html_entity_decode(strip_tags($article->description))), 0, 200), $q_repl);
+                                //dump($q_repl);
+                                if ( isset($q_repl[ 0 ]) ) {
+
+                                    $desc = preg_replace("/$q/iu", "<b class=\"highlight\">$q_repl[0]</b>", mb_substr(ltrim(html_entity_decode(strip_tags($article->description))), 0, 200));
+                                }
+                            }
+                            ?>
+                            @if(isset ($desc))
+                                {!!
+                                    !empty($patterns) ?
+                                    preg_replace($patterns,$replacements,$desc)
+                                    : $desc;
+                                !!}
+                            @else
+
+                                {!!
+                                    !empty($patterns) ?
+                                    preg_replace($patterns,$replacements,mb_substr(ltrim(html_entity_decode(strip_tags($item->description))),0,200))
+                                    : mb_substr(ltrim(html_entity_decode(strip_tags($article->description))),0,200);
+                                !!}
+                            @endif
+
                         </span>
                     </p>
                     <div class="mb10">
@@ -100,11 +120,30 @@
                             <span class="italic_14">{{$article->category->title }} </span></p>
                     @endif
                     <div class="content_text">
-                        {!!
-                            !empty($patterns) ?
-                              preg_replace($patterns,$replacements,ltrim(html_entity_decode(strip_tags($article->description))))
-                            :ltrim(html_entity_decode(strip_tags($article->description)));
-                        !!}
+                        <?php
+                        if ( isset ($q) ) {
+                            preg_match("/$q/ui", mb_substr(ltrim(html_entity_decode(strip_tags($article->description))), 0, 200), $q_repl);
+                            //dump($q_repl);
+                            if ( isset($q_repl[ 0 ]) ) {
+
+                                $desc = preg_replace("/$q/iu", "<b class=\"highlight\">$q_repl[0]</b>", mb_substr(ltrim(html_entity_decode(strip_tags($article->description))), 0, 200));
+                            }
+                        }
+                        ?>
+                        @if(isset ($desc))
+                            {!!
+                                !empty($patterns) ?
+                                preg_replace($patterns,$replacements,$desc)
+                                : $desc;
+                            !!}
+                        @else
+
+                            {!!
+                                !empty($patterns) ?
+                                preg_replace($patterns,$replacements,mb_substr(ltrim(html_entity_decode(strip_tags($article->description))),0,200))
+                                : mb_substr(ltrim(html_entity_decode(strip_tags($article->description))),0,200);
+                            !!}
+                        @endif
                     </div>
                     <div class="gallery_img_content mb30">
                         @if(isset($article->images))
