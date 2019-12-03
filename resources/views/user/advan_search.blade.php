@@ -11,7 +11,8 @@ $y = date("Y");
         <form action="/search" class="search_form_adv" method="post">
             @csrf
             <div class="col-md-12">
-                <div class="search-form__filter">
+                <div class="search-form__filter row">
+
                     <p class="search-form__block">
                         <label> Тип отчета
                             <select class="search-form__field report_type" name="report_type">
@@ -23,7 +24,6 @@ $y = date("Y");
                             </select>
                         </label>
                     </p>
-
                     <p class="search-form__block weekly_block">
                         <label> Категории
                             <select class="search-form__field" name="new_weekly">
@@ -35,7 +35,6 @@ $y = date("Y");
                             </select>
                         </label>
                     </p>
-
                     <p class="search-form__block monthly_block">
                         <label> Категории
                             <select class="search-form__field" name="new_monthly">
@@ -47,7 +46,6 @@ $y = date("Y");
                             </select>
                         </label>
                     </p>
-
                     <p class="search-form__block search-form__block--date">
                         <label class="search-form__title">
                             Период с
@@ -60,13 +58,21 @@ $y = date("Y");
                             <input type="hidden" value="<?php echo mktime(0, 0, 0, $m, $d, $y); ?>" name="end_period">
                         </label>
                     </p>
+                </div>
+                <div class="search-form__filter row" style="padding-left: 8%;">
+{{--
                     <p class="search-form__block">
-                    <label class="search-form__title">
-
-                        <input name="q" class="search" type="text"   placeholder="Ключевая фраза"/>
-                    </label>
+--}}
+{{--
+                        <label class="search-form__title">
+--}}
+                            <input name="q" class="search" type="text"   placeholder="Ключевая фраза" style="color: rgb(120, 120, 120);max-width: 336px;"/>
+{{--
+                        </label>
+--}}
+{{--
                     </p>
-
+--}}
                 </div>
             </div>
             <tagsforsearch-component></tagsforsearch-component>
