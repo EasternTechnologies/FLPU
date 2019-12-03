@@ -233,8 +233,8 @@ class HomeController extends Controller
                 }
 
                 $articles = isset($strong) ? $strong : collect([]);
-                $articles = $this->paginate($articles);
-                $articles->appends($request->all())->setPath('search');
+                //$articles = $this->paginate($articles);
+                //$articles->appends($request->all())->setPath('search');
 
             }
             else {
@@ -291,8 +291,8 @@ class HomeController extends Controller
                     }
 
                     $articles = isset($strong) ? $strong : collect([]);
-                    $articles = $this->paginate($articles);
-                    $articles->appends($request->all())->setPath('search');
+                    //$articles = $this->paginate($articles);
+                    //$articles->appends($request->all())->setPath('search');
                 }
                 else {
                     foreach ( $countries as $country ) {
@@ -346,8 +346,8 @@ class HomeController extends Controller
 
                     $articles = isset($strong) ? $strong : collect([]);
 
-                    $articles = $this->paginate($articles);
-                    $articles->appends($request->all())->setPath('search');
+                    //$articles = $this->paginate($articles);
+                    //$articles->appends($request->all())->setPath('search');
                 }
             }
         }
@@ -357,7 +357,6 @@ class HomeController extends Controller
         //dump($articles->all());
         if ( isset($request->q) ) {
             $q = $request->q;
-
             $articles = $articles->filter(function( $post ) use ( $q )
             {
                 if(mb_stripos($post[ 'description' ], ' '.$q) !== FALSE or mb_stripos($post[ 'description' ], '.'.$q) !== FALSE){
@@ -365,9 +364,9 @@ class HomeController extends Controller
                 }
                 return false;
             });
-            $articles = $this->paginate($articles);
-            $articles->appends($request->all())->setPath('search');
         }
+        $articles = $this->paginate($articles);
+        $articles->appends($request->all())->setPath('search');
         //dd($q,$patterns,$replacements);
         if ( $countries->isNotEmpty() ) {
             foreach ( $countries->pluck('title')->toArray() as $title ) {

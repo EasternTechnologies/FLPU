@@ -85,7 +85,7 @@
         @if(isset($articles))
             @foreach($articles as $item)
                 <div class="search_block">
-                    <a href="/report/{{ $item->reports->types->slug }}/article/{{$item->id}}@if(isset($patterns)){{"?needles=$needle_tourl&q=$q"}} @endif" target="_blank" class="title_link text_decor">
+                    <a href="/report/{{ $item->reports->types->slug }}/article/{{$item->id}}@if(isset($needle_tourl)){{"?needles=$needle_tourl"}} @endif @if(isset($q)){{"&q=$q"}} @endif" target="_blank" class="title_link text_decor">
                         <?php echo strip_tags($item->title, "<p><a><h1><h2><h3><h4><h5><h6>");
                         ?>
                     </a>
