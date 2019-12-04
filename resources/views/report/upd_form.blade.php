@@ -306,6 +306,8 @@ $count = cal_days_in_month(CAL_GREGORIAN, $m, $y);
 @endsection
 
 @section('scripts')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@voerro/vue-tagsinput@2.0.2/dist/style.css">
+
     <script type="text/javascript" charset="utf-8">
         jQuery(document).ready(function () {
             jQuery('.calendar_start_3').datepicker({
