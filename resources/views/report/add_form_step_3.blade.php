@@ -4,7 +4,6 @@ $m = date("m");
 $y = date("Y");
 ?>
 @extends('layouts.app')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@voerro/vue-tagsinput@2.0.2/dist/style.css">
 
 @section('content')
 
@@ -183,6 +182,8 @@ $y = date("Y");
 @endsection
 
 @section('scripts')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@voerro/vue-tagsinput@2.0.2/dist/style.css">
+
     <script type="text/javascript" charset="utf-8">
         jQuery(document).ready(function () {
             jQuery('.calendar_start_3').datepicker({
