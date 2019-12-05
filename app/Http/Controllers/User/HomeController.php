@@ -87,8 +87,10 @@ class HomeController extends Controller
 
         //$results = ArticleReports::search($q)->active()->paginate(40);
 
-        $articles = ArticleReports::search($q, $size = 10000);
+        //$articles = ArticleReports::search($q, $size = 10000);
+        $articles = ArticleReports::where([ ['description', 'like', '% '.$q.'%']])->active()->get();
         //dd($articles);
+
         $articles = $this->paginate($articles, 20);
 
         $articles->appends($request->all())->setPath('/simply_search');

@@ -6,7 +6,7 @@
                 <span @click="search_result" class="butt_search"></span>
             </label>
         </div>
-        <div v-if="result" class="search_result">
+        <!--<div v-if="result" class="search_result">
             <p class="row_search_title_close">Результаты поиска<span class="close_res_search" @click="close">x</span>
             </p>
             <button v-if="result!=false" class="all_res_link" @click="search_result">Все результаты</button>
@@ -17,7 +17,7 @@
                     </li>
                 </div>
             </ul>
-        </div>
+        </div>-->
     </div>
 </template>
 
@@ -50,13 +50,13 @@
                 this.result = false;
             },
             search_result() {
-                /*if (this.q.length >= 1) {
+                if (this.q.length >= 1) {
 
                     axios.post('/redis', {newsearch: 1}).then(response => {
                         window.location.href = "/simply_search?q=" + this.q + "&random_key=" + response.data;
                     })
 
-                }*/
+                }
             }
 
         },

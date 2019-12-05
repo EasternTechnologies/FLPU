@@ -16156,11 +16156,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.result = false;
         },
         search_result: function search_result() {
-            /*if (this.q.length >= 1) {
-                 axios.post('/redis', {newsearch: 1}).then(response => {
-                    window.location.href = "/simply_search?q=" + this.q + "&random_key=" + response.data;
-                })
-             }*/
+            var _this = this;
+
+            if (this.q.length >= 1) {
+
+                axios.post('/redis', { newsearch: 1 }).then(function (response) {
+                    window.location.href = "/simply_search?q=" + _this.q + "&random_key=" + response.data;
+                });
+            }
         }
     }
 });
@@ -39978,32 +39981,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.search_result
     }
-  })])]), _vm._v(" "), (_vm.result) ? _c('div', {
-    staticClass: "search_result"
-  }, [_c('p', {
-    staticClass: "row_search_title_close"
-  }, [_vm._v("Результаты поиска"), _c('span', {
-    staticClass: "close_res_search",
-    on: {
-      "click": _vm.close
-    }
-  }, [_vm._v("x")])]), _vm._v(" "), (_vm.result != false) ? _c('button', {
-    staticClass: "all_res_link",
-    on: {
-      "click": _vm.search_result
-    }
-  }, [_vm._v("Все результаты")]) : _vm._e(), _vm._v(" "), _c('ul', _vm._l((_vm.result), function(items, index) {
-    return _c('div', _vm._l((items), function(item) {
-      return _c('li', {
-        staticClass: "out_list_title"
-      }, [_c('a', {
-        attrs: {
-          "target": "_blank",
-          "href": '/' + index + '/article/' + item.id
-        }
-      }, [_vm._v(_vm._s(item.title))])])
-    }), 0)
-  }), 0)]) : _vm._e()])
+  })])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
