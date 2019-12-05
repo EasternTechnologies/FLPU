@@ -59,20 +59,8 @@ $y = date("Y");
                         </label>
                     </p>
                 </div>
-                <div class="search-form__filter row" style="padding-left: 8%;">
-{{--
-                    <p class="search-form__block">
---}}
-{{--
-                        <label class="search-form__title">
---}}
-                            <input name="q" class="search" type="text"   placeholder="Ключевая фраза" style="color: rgb(120, 120, 120);max-width: 336px;"/>
-{{--
-                        </label>
---}}
-{{--
-                    </p>
---}}
+                <div class="search-form__filter row" style="padding-left: 84px;">
+                    <input name="q" class="search" type="text" placeholder="Ключевая фраза" style="color: rgb(120, 120, 120);max-width: 336px;"/>
                 </div>
             </div>
             <tagsforsearch-component></tagsforsearch-component>

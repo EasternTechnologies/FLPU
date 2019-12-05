@@ -20,7 +20,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -75,40 +74,18 @@ class HomeController extends Controller
     public function search ( Request $request ) {
 
         if ( $request->ajax() ) {
-
             $q = str_replace(['{', '}', '[', ']', '"'], '', $request->q);
-
         }
         else {
-
             $q = strip_tags(str_replace(['{', '}', '[', ']', '"'], '', $request->q));
-
         }
 
-        //$results = ArticleReports::search($q)->active()->paginate(40);
-
-        //$articles = ArticleReports::search($q, $size = 10000);
-        $articles = ArticleReports::where([ ['description', 'like', '% '.$q.'%']])->active()->get();
-        //dd($articles);
-
+        $articles = ArticleReports::where([['description', 'like', '% ' . $q . '%']])->active()->get();
         $articles = $this->paginate($articles, 20);
-
         $articles->appends($request->all())->setPath('/simply_search');
-
-        if ( $request->ajax() ) {
-
-//		    foreach( $results as $article) {
-//
-//			   $article->titleTags($article->title);
-//
-//            }
-            return $articles;
-        }
-
         $random_key   = $request->random_key;
         $choose_array = unserialize(Redis::get('search:key' . $request->random_key));
-        //dd($choose_array);
-//        return view('user.simplysearch', compact('results'));
+
         return view('user.advan_search_result', compact('articles', 'random_key', 'choose_array', 'q'));
     }
 
@@ -152,8 +129,6 @@ class HomeController extends Controller
         $new_weekly    = (int) $request->input('new_weekly');
         $new_monthly   = (int) $request->input('new_monthly');
 
-
-        //dd($patterns, $replacements,$patterns_for_replacement);
         if ( $new_weekly !== 0 ) {
 
             $category = $new_weekly;
@@ -170,8 +145,7 @@ class HomeController extends Controller
 
         }
         //поиск без учета тегов
-        if ( $countries->count() == 0 and $companies->count() == 0 and $personalities->count() == 0 and $vvt_types->count() == 0 )
-        {
+        if ( $countries->count() == 0 and $companies->count() == 0 and $personalities->count() == 0 and $vvt_types->count() == 0 ) {
 
             if ( $report_slug == 'all_reports' ) {
                 $articles = ArticleReports::where([
@@ -183,10 +157,10 @@ class HomeController extends Controller
             else {
 
                 $reports = Report::where([
-                                          ['type_id', $report_slug],
-                                          /*['date_start', '<=', $start_period],
-                                          // обязательны оба условия или по одному можно выдавать?
-                                          ['date_end', '>=', $end_period],*/
+                  ['type_id', $report_slug],
+                  /*['date_start', '<=', $start_period],
+                  // обязательны оба условия или по одному можно выдавать?
+                  ['date_end', '>=', $end_period],*/
                 ])->pluck('id')->toArray();
 
                 if ( $category === 0 ) {
@@ -353,62 +327,60 @@ class HomeController extends Controller
                 }
             }
         }
-        $patterns      = [];
-        $needle      = [];
-        $replacements  = [];
-        //dump($articles->all());
+        $patterns     = [];
+        $needle       = [];
+        $replacements = [];
         if ( isset($request->q) ) {
-            $q = $request->q;
+            $q        = $request->q;
             $articles = $articles->filter(function( $post ) use ( $q )
             {
-                if(mb_stripos($post[ 'description' ], ' '.$q) !== FALSE or mb_stripos($post[ 'description' ], '.'.$q) !== FALSE){
-                    return  true;
+                if ( mb_stripos($post[ 'description' ], ' ' . $q) !== FALSE or mb_stripos($post[ 'description' ], '.' . $q) !== FALSE ) {
+                    return TRUE;
                 }
-                return false;
+
+                return FALSE;
             });
         }
         $articles = $this->paginate($articles);
         $articles->appends($request->all())->setPath('search');
-        //dd($q,$patterns,$replacements);
         if ( $countries->isNotEmpty() ) {
             foreach ( $countries->pluck('title')->toArray() as $title ) {
-                $patterns[] = "~($title)~";
-                $needle[] = $title;
+                $patterns[]     = "~($title)~";
+                $needle[]       = $title;
                 $replacements[] = "<b class=\"highlight\">$title</b>";
             };
 
         }
         if ( $companies->isNotEmpty() ) {
             foreach ( $companies->pluck('title')->toArray() as $title ) {
-                $patterns[] = "~($title)~";
-                $needle[] = $title;
+                $patterns[]     = "~($title)~";
+                $needle[]       = $title;
                 $replacements[] = "<b class=\"highlight\">$title</b>";
             };
         }
         if ( $personalities->isNotEmpty() ) {
             foreach ( $personalities->pluck('title')->toArray() as $title ) {
-                $patterns[] = "~($title)~";
-                $needle[] = $title;
+                $patterns[]     = "~($title)~";
+                $needle[]       = $title;
                 $replacements[] = "<b class=\"highlight\">$title</b>";
             };
         }
         if ( $vvt_types->isNotEmpty() ) {
             foreach ( $vvt_types->pluck('title')->toArray() as $title ) {
-                $patterns[] = "~($title)~";
-                $needle[] = $title;
+                $patterns[]     = "~($title)~";
+                $needle[]       = $title;
                 $replacements[] = "<b class=\"highlight\">$title</b>";
             };
         }
-        //dd($patterns,$replacements);
         $random_key   = $request->random_key_before;
         $choose_array = unserialize(Redis::get('search:key' . $request->random_key_before));
 
-        $isadvantage = TRUE;
-        $type        = TRUE;
-        $patterns_tourl = urlencode(implode(';',$patterns));
-        $needle_tourl = urlencode(implode(';',$needle));
+        $isadvantage    = TRUE;
+        $type           = TRUE;
+        $patterns_tourl = urlencode(implode(';', $patterns));
+        $needle_tourl   = urlencode(implode(';', $needle));
 
-        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q','patterns','patterns_tourl', 'replacements_tourl','needle_tourl', 'replacements'));
+        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
     }
 
     public function findbytagsinalltables ( $countries, $companies, $vvt_types, $personalities, $start_period, $end_period, &$articles ) {
@@ -445,22 +417,6 @@ class HomeController extends Controller
 
         }
 
-        //Получаем количество отмеченных тегов
-//        $tags_count = $countries->count() + $companies->count() + $vvt_types->count() + $personalities->count();
-//        //отбираем недельные статьи которые вытянулсь на каждый тег
-//        if ( isset($articles) ) {
-//            //группируем все стаьи
-//            foreach ( collect($articles)->groupBy('id') as $value ) {
-//                //если одна запись вытянулась на каждый тег
-//                if ( $value->count() == $tags_count ) {
-//                    //добавляем ее в массив, передаваемый во вьюху
-//                    $strong = $value->first();
-//                }
-//            };
-//        }
-
-        //$articles = isset($strong) ? $strong : collect([]);
-//dd($articles);
         return $articles;
     }
 
