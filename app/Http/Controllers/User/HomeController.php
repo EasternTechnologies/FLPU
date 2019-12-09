@@ -178,9 +178,9 @@ class HomeController extends Controller
 
                     $articles = ArticleReports::whereIn('report_id', $reports)
                                               ->where('category_id', $category)
-                                              ->active()
-                                              ->paginate(40);
-                    $articles->appends($request->all());
+                                              ->active()->get();
+                                              /*->paginate(40);
+                    $articles->appends($request->all());*/
 
                 }
 
