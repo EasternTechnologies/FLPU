@@ -218,8 +218,8 @@ class HomeController extends Controller
                 $articles = collect();
                 $reports  = Report::where([
                   ['type_id', $report_slug],
-                  ['date_start', '>=', $start_period],
-                  ['date_end', '<=', $end_period],
+                  /*['date_start', '>=', $start_period],
+                  ['date_end', '<=', $end_period],*/
                 ])->pluck('id')->toArray();
 
                 if ( $category === 0 ) {
@@ -256,7 +256,7 @@ class HomeController extends Controller
                     }
 
                     if ( isset($articles) ) {
-                        //группируем все стаьи
+                        //группируем все статьи
                         foreach ( $articles->groupBy('id') as $value ) {
                             //если одна запись вытянулась на каждый тег
                             if ( $value->count() == $tags_count ) {

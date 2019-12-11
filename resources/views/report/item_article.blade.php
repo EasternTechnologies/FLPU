@@ -95,7 +95,7 @@
 
                                 {!!
                                     !empty($patterns) ?
-                                    preg_replace($patterns,$replacements,ltrim(html_entity_decode(strip_tags($item->description))))
+                                    preg_replace($patterns,$replacements,ltrim(html_entity_decode(strip_tags($article->description))))
                                     : ltrim(html_entity_decode(strip_tags($article->description)));
                                 !!}
                             @endif
