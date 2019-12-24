@@ -165,11 +165,11 @@ class HomeController extends Controller
 
                 if ( $category === 0 ) {
 
-                    $articles = ArticleReports::whereIn('report_id', $reports)->active()->where([
+                    $articles = ArticleReports::whereIn('report_id', $reports)->active()->/*where([
                       ['date_start', '>=', $start_period],
                       // обязательны оба условия или по одному можно выдавать?
                       ['date_end', '<=', $end_period],
-                    ])->get();
+                    ])->*/get();
 
                     //$articles->appends($request->all());
 
@@ -197,8 +197,9 @@ class HomeController extends Controller
                 //поиск по всем таблицам
                 $this->findbytagsinalltables($countries, $companies, $vvt_types, $personalities, $start_period, $end_period, $articles);
                 $strong = collect();
+
                 if ( isset($articles) ) {
-                    //группируем все стаьи
+                    //группируем все статьи
                     foreach ( $articles->groupBy('id') as $value ) {
                         //если одна запись вытянулась на каждый тег
                         if ( $value->count() == $tags_count ) {
@@ -207,8 +208,8 @@ class HomeController extends Controller
                         }
                     };
                 }
-
                 $articles = isset($strong) ? $strong : collect([]);
+
                 //$articles = $this->paginate($articles);
                 //$articles->appends($request->all())->setPath('search');
 
@@ -334,13 +335,14 @@ class HomeController extends Controller
             $q        = $request->q;
             $articles = $articles->filter(function( $post ) use ( $q )
             {
-                if ( mb_stripos($post[ 'description' ], ' ' . $q) !== FALSE or mb_stripos($post[ 'description' ], '.' . $q) !== FALSE ) {
+                if ( mb_stripos($post[ 'description' ], ' ' . $q) !== FALSE or mb_stripos($post[ 'description' ], '&laquo;' . $q) !== FALSE or mb_stripos($post[ 'description' ], '.' . $q) !== FALSE ) {
                     return TRUE;
                 }
 
                 return FALSE;
             });
         }
+
         $articles = $this->paginate($articles);
         $articles->appends($request->all())->setPath('search');
         if ( $countries->isNotEmpty() ) {
