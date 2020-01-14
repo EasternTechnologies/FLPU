@@ -366,7 +366,6 @@
                     this.countries = response.data.countries;
                     this.companies = response.data.companies;
                     this.vvt_types = response.data.vvt_types;
-                    console.log(response.data);
                     this.personalities = response.data.personalities;
                     this.country_id_array = response.data.country_id_array;
                     this.vvt_id_array = response.data.vvt_id_array;
