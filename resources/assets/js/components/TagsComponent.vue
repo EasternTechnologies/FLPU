@@ -11,7 +11,9 @@
                             <a class="butt_add" @click="addTag('country')" href="#">
                                 <button class="butt_tag_click button_small">Добавить тег</button>
                             </a>
+                            <button class="butt_tag_click button_small" @click="allCountries">Выбрать все</button>
                         </h4>
+
                         <label class="form-search">
                             <span class="form-search__text">Искать в разделе</span>
                             <tags-input type="text"
@@ -52,6 +54,7 @@
                             <a class="butt_add" @click="addTag('vvttypes')" href="#">
                                 <button class="butt_tag_click button_small">Добавить тег</button>
                             </a>
+                            <button class="butt_tag_click button_small" @click="allVVT">Выбрать все</button>
                         </h4>
                         <label class="form-search">
                             <span class="form-search__text">Искать в разделе</span>
@@ -89,7 +92,9 @@
                         <h4 class="mb_1">Компании и организации
                             <a class="butt_add butt_tag_click butt_add_tag3 button_small" href="#">
                                 <button @click="addTag('company')">Добавить тег</button>
-                            </a></h4>
+                            </a>
+                            <button class="butt_tag_click button_small" @click="allCompanies">Выбрать все</button>
+                        </h4>
                         <label class="form-search">
                             <span class="form-search__text">Искать в разделе</span>
                             <tags-input type="text"
@@ -109,7 +114,7 @@
 
                         <div id="form-check-companies" class="form-check grid-col-check-2" v-bind="bindTagGrid('#form-check-companies',this.companies.length,2)">
                             <div class="form-check-label" v-for="company in companies">
-                                <label class="d-flex flex-row align-items-start check_box"><input name="companies[]" type="checkbox" :value="company.id" v-model="selcompanies"><span>{{ company.title}}</span></label>
+                                <label class="d-flex flex-row align-items-start check_box"><input name="companies[]" @change="checkboxfilter()" type="checkbox" :value="company.id" v-model="selcompanies"><span>{{ company.title}}</span></label>
                                 <div class="del_tag" @click="del_tag(company.id,'company',company.title)">x</div>
                                 <div class="edit_tag" @click="edit_tag(company.id,'company',company.title)">
                                     <i class="fas fa-pencil-alt"></i></div>
@@ -126,7 +131,9 @@
                         <h4 class="mb_1">Персоналии
                             <a class="butt_add butt_tag_click butt_add_tag3 button_small" href="#">
                                 <button @click="addTag('personalities')">Добавить тег</button>
-                            </a></h4>
+                            </a>
+                            <button class="butt_tag_click button_small" @click="allPersonalities">Выбрать все</button>
+                        </h4>
                         <label class="form-search">
                             <span class="form-search__text">Искать в разделе</span>
                             <tags-input type="text"
@@ -146,7 +153,7 @@
 
                         <div id="form-check-personalities" class="form-check grid-col-check-6" v-bind="bindTagGrid('#form-check-personalities',this.personalities.length,6)">
                             <div class="form-check-label" v-for="personality in personalities">
-                                <label class="d-flex flex-row align-items-start check_box"><input name="personalities[]" type="checkbox" :value="personality.id" v-model="selpersonalities"><span>{{ personality.title}}</span></label>
+                                <label class="d-flex flex-row align-items-start check_box"><input name="personalities[]" @change="checkboxfilter()" type="checkbox" :value="personality.id" v-model="selpersonalities"><span>{{ personality.title}}</span></label>
                                 <div class="del_tag" @click="del_tag(personality.id,'personalities',personality.title)">x</div>
                                 <div class="edit_tag" @click="edit_tag(personality.id,'personalities',personality.title)">
                                     <i class="fas fa-pencil-alt"></i></div>
@@ -353,8 +360,48 @@
         },
         methods: {
             checkboxfilter() {
-                axios.post('/tags', {countries: this.selcountries, vvt_type: this.selvvt_types})
+
+                axios.post('/tags', {countries: this.selcountries, vvt_type: this.selvvt_types, personalities: this.selpersonalities, companies:this.selcompanies})
                 .then(response => {
+                    this.countries = response.data.countries;
+                    this.companies = response.data.companies;
+                    this.vvt_types = response.data.vvt_types;
+                    console.log(response.data);
+                    this.personalities = response.data.personalities;
+                    this.country_id_array = response.data.country_id_array;
+                    this.vvt_id_array = response.data.vvt_id_array;
+                    this.selcountriesForVoero = response.data.countriesForVoero.map(function (country) {
+                        return {key: country.id, value: country.title}
+                    });
+                    this.countriesForVoero = response.data.countries.map(function (country) {
+                        return {key: country.id, value: country.title}
+                    });
+                    this.selvvt_typesForVoero = response.data.selvvt_typesForVoero.map(function (country) {
+                        return {key: country.id, value: country.title}
+                    });
+                    this.vvt_typesForVoero = response.data.vvt_types.map(function (country) {
+                        return {key: country.id, value: country.title}
+                    });
+                    this.selcompaniesForVoero = response.data.companiesForVoero.map(function (country) {
+                        return {key: country.id, value: country.title}
+                    });
+                    this.companiesForVoero = response.data.companies.map(function (country) {
+                        return {key: country.id, value: country.title}
+                    });
+                    this.selpersonalitiesForVoero = response.data.personalitiesForVoero.map(function (country) {
+                        return {key: country.id, value: country.title}
+                    });
+                    this.personalitiesForVoero = response.data.personalities.map(function (country) {
+                        return {key: country.id, value: country.title}
+                    });
+                });
+                //console.log(this.selcountries);
+                //console.log(this.selcountriesForVoero);
+            },
+            checkboxfilteraddall() {
+                axios.post('/tags', {countries: this.selcountries, vvt_type: this.selvvt_types,personalities: this.selpersonalities, companies: this.selcompanies, all: true})
+                .then(response => {
+                    console.log(response.data.companiesForVoero);
                     this.countries = response.data.countries;
                     this.companies = response.data.companies;
                     this.vvt_types = response.data.vvt_types;
@@ -385,9 +432,10 @@
                     this.personalitiesForVoero = response.data.personalities.map(function (country) {
                         return {key: country.id, value: country.title}
                     });
-                })
+                });
+                //console.log(this.selcountries);
+                //console.log(this.selcountriesForVoero);
             },
-
             storesimpletag(tag) {
                 //e.preventDefault();
                 jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').text('');
@@ -426,7 +474,6 @@
                     }
                 }
             },
-
             onChange() {
                 axios
                 .post("/search_tag", {
@@ -445,7 +492,6 @@
                     this.personalities = response.data.personalities;
                 });
             },
-
             storetag(tag) {
                 jQuery('.popup_tag_company .popup_tag_form_box .mess_er_tag').text('');
 
@@ -533,7 +579,6 @@
                     }
                 }
             },
-
             gettags() {
                 axios.get('/tags').then(response => {
                     this.countries = response.data.countries;
@@ -543,7 +588,6 @@
 
                 })
             },
-
             addTag(name_tag) {
 
                 if (name_tag == 'country') {
@@ -568,7 +612,6 @@
 
                 this.name_tag = name_tag;
             },
-
             pushvvt() {
 
                 var index = -1;
@@ -592,7 +635,6 @@
 
                 console.log("arrary vvt: " + this.vvtarray);
             },
-
             pushcountry() {
 
                 var index = -1;
@@ -619,7 +661,6 @@
                 console.log("arrary country: " + this.countryarray);
 
             },
-
             pushtocountryupdate() {
 
                 var index = -1;
@@ -645,7 +686,6 @@
                 console.log("arrary country: " + this.countryarraytocompany);
 
             },
-
             pushtovvtupdate() {
 
                 var index = -1;
@@ -670,7 +710,6 @@
                 console.log("arrary vvt: " + this.vvtarraytocompany);
 
             },
-
             del_tag(value, name_tag, text) {
 
                 jQuery('.name_tag').attr('data-name', name_tag);
@@ -681,7 +720,6 @@
                 jQuery('.deltag_text_out').text(text);
 
             },
-
             edit_tag(value, name_tag, title) {
 
                 $('.title_tag').val(title);
@@ -761,7 +799,6 @@
                 // jQuery('.edittag_text_out').text(title);
 
             },
-
             dellTagContinue() {
                 var name_tag = jQuery('.name_tag').attr('data-name');
                 var value = jQuery('.value_tag').attr('data-value');
@@ -780,7 +817,6 @@
                 jQuery('.name_tag').attr('data-name', '');
                 jQuery('.value_tag').attr('data-value', '');
             },
-
             editTagContinue() {
 
                 var data = {
@@ -810,7 +846,6 @@
                 jQuery('.popup_edittag').fadeOut(250);
 
             },
-
             dellTagClose() {
 
                 jQuery('.deltag_text_out').text('');
@@ -820,7 +855,6 @@
                 jQuery('.name_tag').attr('data-name', '');
                 jQuery('.value_tag').attr('data-value', '');
             },
-
             editTagClose() {
 
                 //jQuery('.edittag_text_out').text('');
@@ -830,7 +864,6 @@
                 jQuery('.name_tag').attr('data-name', '');
                 jQuery('.value_tag').attr('data-value', '');
             },
-
             bindTagGrid(selector, count, n) {
                 var row = Number.parseInt(count / n) + 1;
                 jQuery(selector).css('grid-template-rows', 'repeat(' + row + ', 1fr)');
@@ -894,63 +927,46 @@
                 });
                 //console.log(this.selcountries);
             },
-            //            storecountry(e) {
-//                //e.preventDefault();
-//                jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').text('');
-//
-//                var is_tag = 0;
-//                var title = this.addsimpletag;
-//                this.countries.forEach(function (country) {
-//                    if (country.title == title) {
-//                        is_tag++;
-//                    }
-//                });
-//
-//                if (is_tag == 0) {
-//                    axios.post('/country', {title: this.addcountry}).then(response => {
-//
-//                        this.checkboxfilter();
-//                });
-//                    this.addsimpletag = '';
-//                    jQuery('.close_tag').click();
-//                } else {
-//                    if (jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').length) {
-//                        jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').text('Тег уже существует');
-//                    } else {
-//                        jQuery('.popup_tag_country .popup_tag_form_box').append('<p class="mess_er_tag mb30">Тег уже существует</p>');
-//                    }
-//                }
-//            },
-//
-//            storevvt(e) {
-//
-//                jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').text('');
-//
-//                var is_tag = 0;
-//                var title = this.addsimpletag;
-//                this.vvt_types.forEach(function (vvt) {
-//                    if (vvt.title == title) {
-//                        is_tag++;
-//                    }
-//                });
-//
-//                if (is_tag == 0) {
-//                    axios.post('/vvttypes', {title: this.addvvt}).then(response => {
-//                        console.log(response);
-//                    this.checkboxfilter();
-//                });
-//                    this.addsimpletag = '';
-//                    jQuery('.close_tag').click();
-//                } else {
-//                    if (jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').length) {
-//                        jQuery('.popup_tag_vvttype .popup_tag_form_box .mess_er_tag').text('Тег уже существует');
-//                    } else {
-//                        jQuery('.popup_tag_vvttype .popup_tag_form_box').append('<p class="mess_er_tag mb30">Тег уже существует</p>');
-//                    }
-//
-//                }
-//
-//            },
+            allCountries(e) {
+                e.preventDefault();
+                if (this.selcountries.length) {
+                    this.selcountries = []
+                } else {
+                    this.selcountries = this.countries.map(item => item.id);
+                }
+
+                //this.checkboxfilteraddall();
+            },
+            allVVT(e) {
+                e.preventDefault();
+
+                if (this.selvvt_types.length) {
+                    this.selvvt_types = []
+                } else {
+                    this.selvvt_types = this.vvt_types.map(item => item.id);
+                }
+                //this.checkboxfilteraddall();
+            },
+            allCompanies(e) {
+                e.preventDefault();
+
+                if (this.selcompanies.length) {
+                    this.selcompanies = []
+                } else {
+                    this.selcompanies = this.companies.map(item => item.id);
+                }
+                //this.checkboxfilteraddall();
+            },
+            allPersonalities(e) {
+                e.preventDefault();
+
+                if (this.selpersonalities.length) {
+                    this.selpersonalities = []
+                } else {
+                    this.selpersonalities = this.personalities.map(item => item.id);
+                }
+               //this.checkboxfilteraddall();
+            },
         }
     }
 </script>

@@ -16467,6 +16467,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['selectedtags'],
@@ -16531,10 +16538,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         checkboxfilter: function checkboxfilter() {
             var _this = this;
 
-            axios.post('/tags', { countries: this.selcountries, vvt_type: this.selvvt_types }).then(function (response) {
+            axios.post('/tags', { countries: this.selcountries, vvt_type: this.selvvt_types, personalities: this.selpersonalities, companies: this.selcompanies }).then(function (response) {
                 _this.countries = response.data.countries;
                 _this.companies = response.data.companies;
                 _this.vvt_types = response.data.vvt_types;
+                console.log(response.data);
                 _this.personalities = response.data.personalities;
                 _this.country_id_array = response.data.country_id_array;
                 _this.vvt_id_array = response.data.vvt_id_array;
@@ -16563,9 +16571,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return { key: country.id, value: country.title };
                 });
             });
+            //console.log(this.selcountries);
+            //console.log(this.selcountriesForVoero);
+        },
+        checkboxfilteraddall: function checkboxfilteraddall() {
+            var _this2 = this;
+
+            axios.post('/tags', { countries: this.selcountries, vvt_type: this.selvvt_types, personalities: this.selpersonalities, companies: this.selcompanies, all: true }).then(function (response) {
+                console.log(response.data.companiesForVoero);
+                _this2.countries = response.data.countries;
+                _this2.companies = response.data.companies;
+                _this2.vvt_types = response.data.vvt_types;
+                _this2.personalities = response.data.personalities;
+                _this2.country_id_array = response.data.country_id_array;
+                _this2.vvt_id_array = response.data.vvt_id_array;
+                _this2.selcountriesForVoero = response.data.countriesForVoero.map(function (country) {
+                    return { key: country.id, value: country.title };
+                });
+                _this2.countriesForVoero = response.data.countries.map(function (country) {
+                    return { key: country.id, value: country.title };
+                });
+                _this2.selvvt_typesForVoero = response.data.selvvt_typesForVoero.map(function (country) {
+                    return { key: country.id, value: country.title };
+                });
+                _this2.vvt_typesForVoero = response.data.vvt_types.map(function (country) {
+                    return { key: country.id, value: country.title };
+                });
+                _this2.selcompaniesForVoero = response.data.companiesForVoero.map(function (country) {
+                    return { key: country.id, value: country.title };
+                });
+                _this2.companiesForVoero = response.data.companies.map(function (country) {
+                    return { key: country.id, value: country.title };
+                });
+                _this2.selpersonalitiesForVoero = response.data.personalitiesForVoero.map(function (country) {
+                    return { key: country.id, value: country.title };
+                });
+                _this2.personalitiesForVoero = response.data.personalities.map(function (country) {
+                    return { key: country.id, value: country.title };
+                });
+            });
+            //console.log(this.selcountries);
+            //console.log(this.selcountriesForVoero);
         },
         storesimpletag: function storesimpletag(tag) {
-            var _this2 = this;
+            var _this3 = this;
 
             //e.preventDefault();
             jQuery('.popup_tag_country .popup_tag_form_box .mess_er_tag').text('');
@@ -16586,7 +16635,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (is_tag == 0) {
 
                 axios.post('/' + tag, { title: this.addsimpletag }).then(function (response) {
-                    _this2.checkboxfilter();
+                    _this3.checkboxfilter();
                 });
 
                 this.addsimpletag = '';
@@ -16600,7 +16649,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         onChange: function onChange() {
-            var _this3 = this;
+            var _this4 = this;
 
             axios.post("/search_tag", {
 
@@ -16611,14 +16660,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             }).then(function (response) {
                 //console.log(response.data)
-                _this3.countries = response.data.countries;
-                _this3.companies = response.data.companies;
-                _this3.vvt_types = response.data.vvt_types;
-                _this3.personalities = response.data.personalities;
+                _this4.countries = response.data.countries;
+                _this4.companies = response.data.companies;
+                _this4.vvt_types = response.data.vvt_types;
+                _this4.personalities = response.data.personalities;
             });
         },
         storetag: function storetag(tag) {
-            var _this4 = this;
+            var _this5 = this;
 
             jQuery('.popup_tag_company .popup_tag_form_box .mess_er_tag').text('');
 
@@ -16664,13 +16713,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (tag == 'company') {
 
                     axios.post('/company', data).then(function (response) {
-                        _this4.selcompanies = response.data;
-                        _this4.checkboxfilter();
+                        _this5.selcompanies = response.data;
+                        _this5.checkboxfilter();
                     });
                 } else {
                     axios.post('/personalities', data).then(function (response) {
-                        _this4.selpersonalities = response.data;
-                        _this4.checkboxfilter();
+                        _this5.selpersonalities = response.data;
+                        _this5.checkboxfilter();
                     });
                 }
 
@@ -16699,13 +16748,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         gettags: function gettags() {
-            var _this5 = this;
+            var _this6 = this;
 
             axios.get('/tags').then(function (response) {
-                _this5.countries = response.data.countries;
-                _this5.companies = response.data.companies;
-                _this5.vvt_types = response.data.vvt_types;
-                _this5.personalities = response.data.personalities;
+                _this6.countries = response.data.countries;
+                _this6.companies = response.data.companies;
+                _this6.vvt_types = response.data.vvt_types;
+                _this6.personalities = response.data.personalities;
             });
         },
         addTag: function addTag(name_tag) {
@@ -16835,7 +16884,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             jQuery('.deltag_text_out').text(text);
         },
         edit_tag: function edit_tag(value, name_tag, title) {
-            var _this6 = this;
+            var _this7 = this;
 
             $('.title_tag').val(title);
 
@@ -16869,13 +16918,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     company_name.push(" " + key);
 
                     var index = -1;
-                    if (_this6.countryarraytocompany.length) {
-                        index = _this6.countryarraytocompany.indexOf(response.data.countries[key]);
+                    if (_this7.countryarraytocompany.length) {
+                        index = _this7.countryarraytocompany.indexOf(response.data.countries[key]);
                     }
                     if (index >= 0) {
-                        _this6.countryarraytocompany.splice(index, 1);
+                        _this7.countryarraytocompany.splice(index, 1);
                     } else {
-                        _this6.countryarraytocompany.push(response.data.countries[key]);
+                        _this7.countryarraytocompany.push(response.data.countries[key]);
                     }
                 }
                 jQuery(".out_country_select_edit").text(company_name);
@@ -16888,13 +16937,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         vvt_name.push(" " + key);
 
                         var index = -1;
-                        if (_this6.vvtarraytocompany.length) {
-                            index = _this6.vvtarraytocompany.indexOf(response.data.vvt[key]);
+                        if (_this7.vvtarraytocompany.length) {
+                            index = _this7.vvtarraytocompany.indexOf(response.data.vvt[key]);
                         }
                         if (index >= 0) {
-                            _this6.vvtarraytocompany.splice(index, 1);
+                            _this7.vvtarraytocompany.splice(index, 1);
                         } else {
-                            _this6.vvtarraytocompany.push(response.data.vvt[key]);
+                            _this7.vvtarraytocompany.push(response.data.vvt[key]);
                         }
                     }
                     jQuery(".out_vvt_select_edit").text(vvt_name);
@@ -16911,13 +16960,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // jQuery('.edittag_text_out').text(title);
         },
         dellTagContinue: function dellTagContinue() {
-            var _this7 = this;
+            var _this8 = this;
 
             var name_tag = jQuery('.name_tag').attr('data-name');
             var value = jQuery('.value_tag').attr('data-value');
 
             axios.delete('/' + name_tag + '/' + value).then(function (response) {
-                _this7.checkboxfilter();
+                _this8.checkboxfilter();
                 jQuery('.popup_alert').fadeIn(250);
                 jQuery('.popup_alert .popup_form').show(500);
                 jQuery('.alert_text_out').html('<p>Поисковая метка удалена!</p>');
@@ -16931,7 +16980,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             jQuery('.value_tag').attr('data-value', '');
         },
         editTagContinue: function editTagContinue() {
-            var _this8 = this;
+            var _this9 = this;
 
             var data = {
                 title: $('.title_tag').val(),
@@ -16943,7 +16992,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(data);
 
             axios.put('/' + this.name_tag + '/' + this.value, data).then(function (response) {
-                _this8.checkboxfilter();
+                _this9.checkboxfilter();
                 jQuery('.popup_alert').fadeIn(250);
                 jQuery('.popup_alert .popup_form').show(500);
                 jQuery('.alert_text_out').html('<p>Поисковая метка отредактирована!</p>');
@@ -16982,38 +17031,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             jQuery(selector).css('grid-template-rows', 'repeat(' + row + ', 1fr)');
         },
         onTagAdded: function onTagAdded(slug) {
-            var _this9 = this;
-
-            this.selcountries = this.selcountriesForVoero.map(function (item) {
-                return item.key;
-            });
-            this.selvvt_types = this.selvvt_typesForVoero.map(function (item) {
-                return item.key;
-            });
-            this.selcompanies = this.selcompaniesForVoero.map(function (item) {
-                return item.key;
-            });
-            this.selpersonalities = this.selpersonalitiesForVoero.map(function (item) {
-                return item.key;
-            });
-            axios.post("/tags", {
-                countries: this.selcountries,
-                vvt_type: this.selvvt_types
-            }).then(function (response) {
-                //console.log(response.data);
-                _this9.countries = response.data.countries;
-                _this9.companies = response.data.companies;
-                _this9.vvt_types = response.data.vvt_types;
-                _this9.personalities = response.data.personalities;
-
-                //console.log(this.selcountriesForVoero);
-            });
-            //console.log(this.selcountries);
-        },
-        onTagRemoved: function onTagRemoved(slug) {
             var _this10 = this;
 
-            console.log('Tag removed: ' + slug);
             this.selcountries = this.selcountriesForVoero.map(function (item) {
                 return item.key;
             });
@@ -17039,6 +17058,84 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 //console.log(this.selcountriesForVoero);
             });
             //console.log(this.selcountries);
+        },
+        onTagRemoved: function onTagRemoved(slug) {
+            var _this11 = this;
+
+            console.log('Tag removed: ' + slug);
+            this.selcountries = this.selcountriesForVoero.map(function (item) {
+                return item.key;
+            });
+            this.selvvt_types = this.selvvt_typesForVoero.map(function (item) {
+                return item.key;
+            });
+            this.selcompanies = this.selcompaniesForVoero.map(function (item) {
+                return item.key;
+            });
+            this.selpersonalities = this.selpersonalitiesForVoero.map(function (item) {
+                return item.key;
+            });
+            axios.post("/tags", {
+                countries: this.selcountries,
+                vvt_type: this.selvvt_types
+            }).then(function (response) {
+                //console.log(response.data);
+                _this11.countries = response.data.countries;
+                _this11.companies = response.data.companies;
+                _this11.vvt_types = response.data.vvt_types;
+                _this11.personalities = response.data.personalities;
+
+                //console.log(this.selcountriesForVoero);
+            });
+            //console.log(this.selcountries);
+        },
+        allCountries: function allCountries(e) {
+            e.preventDefault();
+            if (this.selcountries.length) {
+                this.selcountries = [];
+            } else {
+                this.selcountries = this.countries.map(function (item) {
+                    return item.id;
+                });
+            }
+
+            //this.checkboxfilteraddall();
+        },
+        allVVT: function allVVT(e) {
+            e.preventDefault();
+
+            if (this.selvvt_types.length) {
+                this.selvvt_types = [];
+            } else {
+                this.selvvt_types = this.vvt_types.map(function (item) {
+                    return item.id;
+                });
+            }
+            //this.checkboxfilteraddall();
+        },
+        allCompanies: function allCompanies(e) {
+            e.preventDefault();
+
+            if (this.selcompanies.length) {
+                this.selcompanies = [];
+            } else {
+                this.selcompanies = this.companies.map(function (item) {
+                    return item.id;
+                });
+            }
+            //this.checkboxfilteraddall();
+        },
+        allPersonalities: function allPersonalities(e) {
+            e.preventDefault();
+
+            if (this.selpersonalities.length) {
+                this.selpersonalities = [];
+            } else {
+                this.selpersonalities = this.personalities.map(function (item) {
+                    return item.id;
+                });
+            }
+            //this.checkboxfilteraddall();
         }
     }
 });
@@ -21950,7 +22047,7 @@ exports.push([module.i, "\n.search_result[data-v-30d308e6] {\n    position: rela
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 46 */
@@ -39533,16 +39630,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h4', {
     staticClass: "mb_1"
   }, [_vm._v("Страны и регионы")]), _vm._v(" "), _c('label', {
-    staticClass: "check-all"
-  }, [_c('input', {
-    attrs: {
-      "type": "checkbox"
-    }
-  }), _vm._v(" "), _c('span', {
-    on: {
-      "click": _vm.allCountries
-    }
-  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
     staticClass: "form-search"
   }, [_c('span', {
     staticClass: "form-search__text"
@@ -39635,16 +39722,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h4', {
     staticClass: "mb_1"
   }, [_vm._v("Тип ВВТ")]), _vm._v(" "), _c('label', {
-    staticClass: "check-all"
-  }, [_c('input', {
-    attrs: {
-      "type": "checkbox"
-    }
-  }), _vm._v(" "), _c('span', {
-    on: {
-      "click": _vm.allVVT
-    }
-  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
     staticClass: "form-search"
   }, [_c('span', {
     staticClass: "form-search__text"
@@ -39737,16 +39814,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h4', {
     staticClass: "mb_1"
   }, [_vm._v("Компании и организации")]), _vm._v(" "), _c('label', {
-    staticClass: "check-all"
-  }, [_c('input', {
-    attrs: {
-      "type": "checkbox"
-    }
-  }), _vm._v(" "), _c('span', {
-    on: {
-      "click": _vm.allCompanies
-    }
-  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
     staticClass: "form-search"
   }, [_c('span', {
     staticClass: "form-search__text"
@@ -39839,16 +39906,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h4', {
     staticClass: "mb_1"
   }, [_vm._v("Персоналии")]), _vm._v(" "), _c('label', {
-    staticClass: "check-all"
-  }, [_c('input', {
-    attrs: {
-      "type": "checkbox"
-    }
-  }), _vm._v(" "), _c('span', {
-    on: {
-      "click": _vm.allPersonalities
-    }
-  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
     staticClass: "form-search"
   }, [_c('span', {
     staticClass: "form-search__text"
@@ -40026,7 +40083,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('button', {
     staticClass: "butt_tag_click button_small"
-  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('label', {
+  }, [_vm._v("Добавить тег")])]), _vm._v(" "), _c('button', {
+    staticClass: "butt_tag_click button_small",
+    on: {
+      "click": _vm.allCountries
+    }
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
     staticClass: "form-search"
   }, [_c('span', {
     staticClass: "form-search__text"
@@ -40150,7 +40212,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('button', {
     staticClass: "butt_tag_click button_small"
-  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('label', {
+  }, [_vm._v("Добавить тег")])]), _vm._v(" "), _c('button', {
+    staticClass: "butt_tag_click button_small",
+    on: {
+      "click": _vm.allVVT
+    }
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
     staticClass: "form-search"
   }, [_c('span', {
     staticClass: "form-search__text"
@@ -40273,7 +40340,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.addTag('company')
       }
     }
-  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('label', {
+  }, [_vm._v("Добавить тег")])]), _vm._v(" "), _c('button', {
+    staticClass: "butt_tag_click button_small",
+    on: {
+      "click": _vm.allCompanies
+    }
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
     staticClass: "form-search"
   }, [_c('span', {
     staticClass: "form-search__text"
@@ -40333,7 +40405,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "checked": Array.isArray(_vm.selcompanies) ? _vm._i(_vm.selcompanies, company.id) > -1 : (_vm.selcompanies)
       },
       on: {
-        "change": function($event) {
+        "change": [function($event) {
           var $$a = _vm.selcompanies,
             $$el = $event.target,
             $$c = $$el.checked ? (true) : (false);
@@ -40348,7 +40420,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           } else {
             _vm.selcompanies = $$c
           }
-        }
+        }, function($event) {
+          return _vm.checkboxfilter()
+        }]
       }
     }), _c('span', [_vm._v(_vm._s(company.title))])]), _vm._v(" "), _c('div', {
       staticClass: "del_tag",
@@ -40394,7 +40468,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.addTag('personalities')
       }
     }
-  }, [_vm._v("Добавить тег")])])]), _vm._v(" "), _c('label', {
+  }, [_vm._v("Добавить тег")])]), _vm._v(" "), _c('button', {
+    staticClass: "butt_tag_click button_small",
+    on: {
+      "click": _vm.allPersonalities
+    }
+  }, [_vm._v("Выбрать все")])]), _vm._v(" "), _c('label', {
     staticClass: "form-search"
   }, [_c('span', {
     staticClass: "form-search__text"
@@ -40454,7 +40533,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "checked": Array.isArray(_vm.selpersonalities) ? _vm._i(_vm.selpersonalities, personality.id) > -1 : (_vm.selpersonalities)
       },
       on: {
-        "change": function($event) {
+        "change": [function($event) {
           var $$a = _vm.selpersonalities,
             $$el = $event.target,
             $$c = $$el.checked ? (true) : (false);
@@ -40469,7 +40548,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           } else {
             _vm.selpersonalities = $$c
           }
-        }
+        }, function($event) {
+          return _vm.checkboxfilter()
+        }]
       }
     }), _c('span', [_vm._v(_vm._s(personality.title))])]), _vm._v(" "), _c('div', {
       staticClass: "del_tag",

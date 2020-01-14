@@ -5,10 +5,10 @@
     <div class="form-group">
       <header :class="{'active': showCountry}" class="form-header" @click="showCountry = !showCountry">
         <h4 class="mb_1">Страны и регионы</h4>
-        <label class="check-all">
+        <!--<label class="check-all">
           <input type="checkbox">
           <span @click="allCountries">Выбрать все</span>
-        </label>
+        </label>-->
         <label class="form-search">
           <span class="form-search__text">Искать в разделе</span>
           <tags-input type="text"
@@ -47,10 +47,10 @@
     <div class="form-group">
       <header :class="{'active': showVVT}" class="form-header" @click="showVVT = !showVVT">
         <h4 class="mb_1">Тип ВВТ</h4>
-        <label class="check-all">
+        <!--<label class="check-all">
           <input type="checkbox">
           <span @click="allVVT">Выбрать все</span>
-        </label>
+        </label>-->
         <label class="form-search">
           <span class="form-search__text">Искать в разделе</span>
           <tags-input type="text"
@@ -84,10 +84,10 @@
     <div class="form-group">
       <header :class="{'active': showCompany}" class="form-header" @click="showCompany = !showCompany">
         <h4 class="mb_1">Компании и организации</h4>
-        <label class="check-all">
+        <!--<label class="check-all">
           <input type="checkbox">
           <span @click="allCompanies">Выбрать все</span>
-        </label>
+        </label>-->
         <label class="form-search">
           <span class="form-search__text">Искать в разделе</span>
           <tags-input type="text"
@@ -121,10 +121,10 @@
     <div class="form-group">
       <header :class="{'active': showPersonalities}" class="form-header" @click="showPersonalities = !showPersonalities">
         <h4 class="mb_1">Персоналии</h4>
-        <label class="check-all">
+        <!--<label class="check-all">
           <input type="checkbox">
           <span @click="allPersonalities">Выбрать все</span>
-        </label>
+        </label>-->
         <label class="form-search">
           <span class="form-search__text">Искать в разделе</span>
           <tags-input type="text"
