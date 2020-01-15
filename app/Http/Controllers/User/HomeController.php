@@ -373,6 +373,8 @@ $articles->appends($request->all());*/
         $replacements = [];
         if ( isset($request->q) ) {
             $q        = $request->q;
+            $request->session()->put('q',  $q);
+
             $articles = $articles->filter(function( $post ) use ( $q )
             {
                 if ( mb_stripos($post[ 'description' ], ' ' . $q) !== FALSE or mb_stripos($post[ 'description' ], '&laquo;' . $q) !== FALSE or mb_stripos($post[ 'description' ], '.' . $q) !== FALSE ) {
@@ -421,7 +423,7 @@ $articles->appends($request->all());*/
         $type           = TRUE;
         $patterns_tourl = urlencode(implode(';', $patterns));
         $needle_tourl   = urlencode(implode(';', $needle));
-
+        $request->session()->put('needletourl',  $needle_tourl);
         //Redis::set('search:key'.$request->random_key,serialize($array),'EX',3600);
 
         return view('user.advan_search_result', compact('report_types', 'tags', 'request', 'weeklycategories', 'monthlycategories', 'articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
@@ -465,7 +467,8 @@ $articles->appends($request->all());*/
     }
 
     public function search_choose ( Request $request ) {
-        //dd($request->all());
+        //dd( $request->session()->get('needletourl'));
+        $report_types      = \App\ReportType::$data;
         $start_period  = $request->input('start_period');
         $end_period    = $request->input('end_period');
         $countries     = $request->input('countries') ? Country::whereIn('id', $request->input('countries'))
@@ -485,7 +488,7 @@ $articles->appends($request->all());*/
         if ( !empty($array) && count($array) ) {
             $articles = ArticleReports::whereIn('id', $array)->get();
         }
-//		dump($articles);
+
         $random_key = $request->random_key;
         $choose     = TRUE;
 
@@ -541,9 +544,10 @@ $articles->appends($request->all());*/
         $isadvantage    = TRUE;
         $type           = TRUE;
         $patterns_tourl = urlencode(implode(';', $patterns));
-        $needle_tourl   = urlencode(implode(';', $needle));
+        $needle_tourl   = $request->session()->get('needletourl');
+        //dd($needle_tourl);
 
-        return view('user.advan_search_result', compact('articles', 'choose', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
+        return view('user.advan_search_result', compact('articles','request', 'report_types', 'choose', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
 
         //return view('user.advan_search_result', compact('articles', 'choose', 'random_key'));
     }

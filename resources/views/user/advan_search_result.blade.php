@@ -7,6 +7,7 @@ $y = date("Y");
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@voerro/vue-tagsinput@2.0.2/dist/style.css">
 
 @section('content')
+    @if(empty($choose))
     <div class="container">
 
         <button class="butt_tag_click button_small" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -82,6 +83,7 @@ $y = date("Y");
         </div>
     </div>
     </div>
+    @endif
     <input type="hidden" name="random_key" value="{{$random_key}}">
     @if(empty($choose))
         <div class="pagination">{{ $articles->links() }}</div>
@@ -294,10 +296,6 @@ $y = date("Y");
                     jQuery('.monthly_block').css('top', '-9999px');
                 }
             });
-
-
-
-
         });
     </script>
 @endsection
