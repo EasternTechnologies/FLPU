@@ -65,69 +65,70 @@ class IndexController extends Controller
             $personalitiesForVoero =  $personality_id?Personality::orderBy('title')->whereIn('id',$personality_id)->get():collect([]);
             $companies     = Company::orderBy('title')->get();
             $personalities = Personality::orderBy('title')->get();
-            if (!isset( $request->all ) or $request->all == false){
 
-                if ( isset($country_id) && !empty($country_id) ) {
-                    if ( is_array($country_id) ) {
+                if (count($country_id) !== Country::count()){
+                    if ( isset($country_id) && !empty($country_id) ) {
+                        if ( is_array($country_id) ) {
 
-                        $companies     = collect();
-                        $personalities = collect();
+                            $companies     = collect();
+                            $personalities = collect();
 
-                        foreach ( $country_id as $country ) {
+                            foreach ( $country_id as $country ) {
 
-                            $companies = $companies->merge(Country::find($country)->companies()->get())->unique('id');
+                                $companies = $companies->merge(Country::find($country)->companies()->get())->unique('id');
 
-                        }
+                            }
 
-                        foreach ( $country_id as $country ) {
+                            foreach ( $country_id as $country ) {
 
-                            $personalities = $personalities->merge(Country::find($country)->personalities()->get())
-                                                           ->unique('id');
+                                $personalities = $personalities->merge(Country::find($country)->personalities()->get())
+                                                               ->unique('id');
+
+                            }
 
                         }
 
                     }
+                };
+                if (count($vvt_type_id) !== VvtType::count()) {
+                    if ( isset($vvt_type_id) && !empty($vvt_type_id) ) {
+                        if ( is_array($vvt_type_id) ) {
 
-                }
+                            $vvts = collect();
+                            foreach ( $companies as $company ) {
 
-                if ( isset($vvt_type_id) && !empty($vvt_type_id) ) {
-                    if ( is_array($vvt_type_id) ) {
-
-                        $vvts = collect();
-                        foreach ( $companies as $company ) {
-
-                            $vvts = $vvts->merge($company->vvttypes()->get());
-
-                        }
-
-                        $companies = collect();
-                        foreach ( $vvt_type_id as $vvt_type ) {
-                            foreach ( $vvts as $vvt ) {
-                                if ( $vvt->pivot->vvt_type_id == $vvt_type ) {
-                                    $companies = $companies->merge([$vvt->pivot->pivotParent])->unique('id');
-                                }
+                                $vvts = $vvts->merge($company->vvttypes()->get());
 
                             }
-                        }
 
-                        $vvts = collect();
-                        foreach ( $personalities as $personality ) {
+                            $companies = collect();
+                            foreach ( $vvt_type_id as $vvt_type ) {
+                                foreach ( $vvts as $vvt ) {
+                                    if ( $vvt->pivot->vvt_type_id == $vvt_type ) {
+                                        $companies = $companies->merge([$vvt->pivot->pivotParent])->unique('id');
+                                    }
 
-                            $vvts = $vvts->merge($personality->vvttypes()->get());
+                                }
+                            }
 
-                        }
+                            $vvts = collect();
+                            foreach ( $personalities as $personality ) {
 
-                        foreach ( $vvt_type_id as $vvt_type ) {
-                            foreach ( $vvts as $vvt ) {
-                                if ( $vvt->pivot->vvt_type_id == $vvt_type ) {
-                                    $personalities = $personalities->merge([$vvt->pivot->pivotParent])->unique('id');
+                                $vvts = $vvts->merge($personality->vvttypes()->get());
+
+                            }
+
+                            foreach ( $vvt_type_id as $vvt_type ) {
+                                foreach ( $vvts as $vvt ) {
+                                    if ( $vvt->pivot->vvt_type_id == $vvt_type ) {
+                                        $personalities = $personalities->merge([$vvt->pivot->pivotParent])
+                                                                       ->unique('id');
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-
 
             $vvt_types = VvtType::orderBy('title')->get();
 

@@ -109,7 +109,9 @@ class HomeController extends Controller
     }
 
     public function advanced_search ( Request $request ) {
-
+        $report_types      = \App\ReportType::$data;
+        $weeklycategories  = Category::where('report_type_id', 1)->get();
+        $monthlycategories = Category::where('report_type_id', 2)->get();
         $start_period  = $request->input('start_period');
         $end_period    = $request->input('end_period');
         $countries     = $request->input('countries') ? Country::whereIn('id', $request->input('countries'))
@@ -381,8 +383,10 @@ class HomeController extends Controller
         $type           = TRUE;
         $patterns_tourl = urlencode(implode(';', $patterns));
         $needle_tourl   = urlencode(implode(';', $needle));
+        //Redis::set('search:key'.$request->random_key,serialize($array),'EX',3600);
+        $request->flash();
 
-        return view('user.advan_search_result', compact('articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
+        return view('user.advan_search_result', compact('report_types', 'request','weeklycategories', 'monthlycategories','articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
     }
 
     public function findbytagsinalltables ( $countries, $companies, $vvt_types, $personalities, $start_period, $end_period, &$articles ) {
@@ -423,7 +427,19 @@ class HomeController extends Controller
     }
 
     public function search_choose ( Request $request ) {
-//		dump($request->all());
+		//dd($request->all());
+        $start_period  = $request->input('start_period');
+        $end_period    = $request->input('end_period');
+        $countries     = $request->input('countries') ? Country::whereIn('id', $request->input('countries'))
+                                                               ->get() : collect([]);
+        $companies     = $request->input('companies') ? Company::whereIn('id', $request->input('companies'))
+                                                               ->get() : collect([]);
+        $personalities = $request->input('personalities') ? Personality::whereIn('id', $request->input('personalities'))
+                                                                       ->get() : collect([]);
+        $vvt_types     = $request->input('vvt_types') ? VvtType::whereIn('id', $request->input('vvt_types'))->get() : collect([]);;
+        $report_type   = ReportType::where('slug', $request->input('report_type'))
+                                     ->first() ? ReportType::where('slug', $request->input('report_type'))
+                                                           ->first() : $request->input('report_type');
 
         $array = unserialize(Redis::get('search:key' . $request->random_key));
 
@@ -434,7 +450,63 @@ class HomeController extends Controller
         $random_key = $request->random_key;
         $choose     = TRUE;
 
-        return view('user.advan_search_result', compact('articles', 'choose', 'random_key'));
+        $patterns     = [];
+        $needle       = [];
+        $replacements = [];
+        if ( isset($request->q) ) {
+            $q        = $request->q;
+            $articles = $articles->filter(function( $post ) use ( $q )
+            {
+                if ( mb_stripos($post[ 'description' ], ' ' . $q) !== FALSE or mb_stripos($post[ 'description' ], '&laquo;' . $q) !== FALSE or mb_stripos($post[ 'description' ], '.' . $q) !== FALSE ) {
+                    return TRUE;
+                }
+
+                return FALSE;
+            });
+        }
+
+        $articles = $this->paginate($articles);
+        $articles->appends($request->all())->setPath('search');
+        if ( $countries->isNotEmpty() ) {
+            foreach ( $countries->pluck('title')->toArray() as $title ) {
+                $patterns[]     = "~($title)~";
+                $needle[]       = $title;
+                $replacements[] = "<b class=\"highlight\">$title</b>";
+            };
+
+        }
+        if ( $companies->isNotEmpty() ) {
+            foreach ( $companies->pluck('title')->toArray() as $title ) {
+                $patterns[]     = "~($title)~";
+                $needle[]       = $title;
+                $replacements[] = "<b class=\"highlight\">$title</b>";
+            };
+        }
+        if ( $personalities->isNotEmpty() ) {
+            foreach ( $personalities->pluck('title')->toArray() as $title ) {
+                $patterns[]     = "~($title)~";
+                $needle[]       = $title;
+                $replacements[] = "<b class=\"highlight\">$title</b>";
+            };
+        }
+        if ( $vvt_types->isNotEmpty() ) {
+            foreach ( $vvt_types->pluck('title')->toArray() as $title ) {
+                $patterns[]     = "~($title)~";
+                $needle[]       = $title;
+                $replacements[] = "<b class=\"highlight\">$title</b>";
+            };
+        }
+        $random_key   = $request->random_key_before;
+        $choose_array = unserialize(Redis::get('search:key' . $request->random_key_before));
+
+        $isadvantage    = TRUE;
+        $type           = TRUE;
+        $patterns_tourl = urlencode(implode(';', $patterns));
+        $needle_tourl   = urlencode(implode(';', $needle));
+
+        return view('user.advan_search_result', compact('articles', 'choose', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
+
+        //return view('user.advan_search_result', compact('articles', 'choose', 'random_key'));
     }
 
     public function apisearch ( Request $request ) {

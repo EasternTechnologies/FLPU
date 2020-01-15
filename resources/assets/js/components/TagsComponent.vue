@@ -349,7 +349,7 @@
         },
         mounted() {
             if (this.selectedtags != undefined) {
-                console.log(this.selectedtags);
+                //console.log(this.selectedtags);
                 this.selcountries = this.selectedtags.countries;
                 this.selvvt_types = this.selectedtags.vvt_types;
                 this.selcompanies = this.selectedtags.companies;
@@ -880,8 +880,7 @@
                 this.selpersonalities = this.selpersonalitiesForVoero.map(function (item) {
                     return item.key
                 });
-                axios
-                .post("/tags", {
+                /*axios.post("/tags", {
                     countries: this.selcountries,
                     vvt_type: this.selvvt_types
                 })
@@ -891,10 +890,7 @@
                     this.companies = response.data.companies;
                     this.vvt_types = response.data.vvt_types;
                     this.personalities = response.data.personalities;
-
-                    //console.log(this.selcountriesForVoero);
-                });
-                //console.log(this.selcountries);
+                });*/
             },
             onTagRemoved(slug) {
                 console.log(`Tag removed: ${slug}`);
@@ -934,7 +930,7 @@
                     this.selcountries = this.countries.map(item => item.id);
                 }
 
-                //this.checkboxfilteraddall();
+                this.checkboxfilter();
             },
             allVVT(e) {
                 e.preventDefault();
@@ -944,7 +940,7 @@
                 } else {
                     this.selvvt_types = this.vvt_types.map(item => item.id);
                 }
-                //this.checkboxfilteraddall();
+                this.checkboxfilter();
             },
             allCompanies(e) {
                 e.preventDefault();
@@ -954,7 +950,7 @@
                 } else {
                     this.selcompanies = this.companies.map(item => item.id);
                 }
-                //this.checkboxfilteraddall();
+                this.checkboxfilter();
             },
             allPersonalities(e) {
                 e.preventDefault();
@@ -964,7 +960,7 @@
                 } else {
                     this.selpersonalities = this.personalities.map(item => item.id);
                 }
-               //this.checkboxfilteraddall();
+               this.checkboxfilter();
             },
         }
     }
