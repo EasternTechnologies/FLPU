@@ -212,7 +212,6 @@
                     companies: this.selcompanies
                 })
                 .then(response => {
-                    console.log(response.data);
                     this.countries = response.data.countries;
                     this.companies = response.data.companies;
                     this.vvt_types = response.data.vvt_types;

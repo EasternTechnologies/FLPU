@@ -17353,7 +17353,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 personalities: this.selpersonalities,
                 companies: this.selcompanies
             }).then(function (response) {
-                console.log(response.data);
                 _this.countries = response.data.countries;
                 _this.companies = response.data.companies;
                 _this.vvt_types = response.data.vvt_types;

@@ -109,9 +109,48 @@ class HomeController extends Controller
     }
 
     public function advanced_search ( Request $request ) {
+        $request->flash();
         $report_types      = \App\ReportType::$data;
         $weeklycategories  = Category::where('report_type_id', 1)->get();
         $monthlycategories = Category::where('report_type_id', 2)->get();
+        $new_weekly        = (int) $request->input('new_weekly');
+        $new_monthly       = (int) $request->input('new_monthly');
+        $tags              = [];
+        if ( $request->old('companies') != NULL ) {
+            $old_companies = [];
+            foreach ( $request->old('companies') as $item ) {
+                $old_companies []     = (int) $item;
+
+            }
+            $tags [ 'companies' ] = $old_companies;
+        }
+        if ( $request->old('countries') != NULL ) {
+            $old_countries = [];
+            foreach ( $request->old('countries') as $item ) {
+                $old_countries [] = (int) $item;
+            }
+            $tags [ 'countries' ] = $old_countries;
+        }
+        if ( $request->old('vvt_types') != NULL ) {
+            $old_vvt_types = [];
+            foreach ( $request->old('vvt_types') as $item ) {
+                $old_vvt_types [] = (int) $item;
+            }
+            $tags [ 'vvt_types' ] = $old_vvt_types;
+        }
+        if ( $request->old('personalities') != NULL ) {
+            $old_personalities = [];
+            foreach ( $request->old('personalities') as $item ) {
+                $old_personalities [] = (int) $item;
+            }
+            $tags [ 'personalities' ] = $old_personalities;
+        }
+
+
+        /*$tags [ 'vvt_types' ]     = $article->vvttypes->pluck('id');
+        $tags [ 'personalities' ] = $article->personalities->pluck('id');*/
+        //dd($tags);
+
         $start_period  = $request->input('start_period');
         $end_period    = $request->input('end_period');
         $countries     = $request->input('countries') ? Country::whereIn('id', $request->input('countries'))
@@ -128,9 +167,6 @@ class HomeController extends Controller
         $report_slug   = ReportType::where('slug', $request->input('report_type'))
                                    ->first() ? ReportType::where('slug', $request->input('report_type'))
                                                          ->first()->id : $request->input('report_type');
-        $new_weekly    = (int) $request->input('new_weekly');
-        $new_monthly   = (int) $request->input('new_monthly');
-
         if ( $new_weekly !== 0 ) {
 
             $category = $new_weekly;
@@ -171,7 +207,8 @@ class HomeController extends Controller
                       ['date_start', '>=', $start_period],
                       // обязательны оба условия или по одному можно выдавать?
                       ['date_end', '<=', $end_period],
-                    ])->*/get();
+                    ])->*/
+                    get();
 
                     //$articles->appends($request->all());
 
@@ -180,9 +217,10 @@ class HomeController extends Controller
 
                     $articles = ArticleReports::whereIn('report_id', $reports)
                                               ->where('category_id', $category)
-                                              ->active()->get();
-                                              /*->paginate(40);
-                    $articles->appends($request->all());*/
+                                              ->active()
+                                              ->get();
+                    /*->paginate(40);
+$articles->appends($request->all());*/
 
                 }
 
@@ -383,10 +421,10 @@ class HomeController extends Controller
         $type           = TRUE;
         $patterns_tourl = urlencode(implode(';', $patterns));
         $needle_tourl   = urlencode(implode(';', $needle));
-        //Redis::set('search:key'.$request->random_key,serialize($array),'EX',3600);
-        $request->flash();
 
-        return view('user.advan_search_result', compact('report_types', 'request','weeklycategories', 'monthlycategories','articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
+        //Redis::set('search:key'.$request->random_key,serialize($array),'EX',3600);
+
+        return view('user.advan_search_result', compact('report_types', 'tags', 'request', 'weeklycategories', 'monthlycategories', 'articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
     }
 
     public function findbytagsinalltables ( $countries, $companies, $vvt_types, $personalities, $start_period, $end_period, &$articles ) {
@@ -427,7 +465,7 @@ class HomeController extends Controller
     }
 
     public function search_choose ( Request $request ) {
-		//dd($request->all());
+        //dd($request->all());
         $start_period  = $request->input('start_period');
         $end_period    = $request->input('end_period');
         $countries     = $request->input('countries') ? Country::whereIn('id', $request->input('countries'))
@@ -436,10 +474,11 @@ class HomeController extends Controller
                                                                ->get() : collect([]);
         $personalities = $request->input('personalities') ? Personality::whereIn('id', $request->input('personalities'))
                                                                        ->get() : collect([]);
-        $vvt_types     = $request->input('vvt_types') ? VvtType::whereIn('id', $request->input('vvt_types'))->get() : collect([]);;
-        $report_type   = ReportType::where('slug', $request->input('report_type'))
-                                     ->first() ? ReportType::where('slug', $request->input('report_type'))
-                                                           ->first() : $request->input('report_type');
+        $vvt_types     = $request->input('vvt_types') ? VvtType::whereIn('id', $request->input('vvt_types'))
+                                                               ->get() : collect([]);;
+        $report_type = ReportType::where('slug', $request->input('report_type'))
+                                 ->first() ? ReportType::where('slug', $request->input('report_type'))
+                                                       ->first() : $request->input('report_type');
 
         $array = unserialize(Redis::get('search:key' . $request->random_key));
 

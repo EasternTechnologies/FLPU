@@ -1,7 +1,87 @@
+<?php
+$d = date("d");
+$m = date("m");
+$y = date("Y");
+?>
 @extends('layouts.app')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@voerro/vue-tagsinput@2.0.2/dist/style.css">
 
 @section('content')
+    <div class="container">
 
+        <button class="butt_tag_click button_small" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Фасетный поиск
+        </button>
+    </div>
+    <div class="container">
+        <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <form action="/search" class="search_form_adv" method="post">
+                @csrf
+                <div class="col-md-12">
+                    <div class="search-form__filter row">
+
+                        <p class="search-form__block">
+                            <label> Тип отчета
+                                <select class="search-form__field report_type" name="report_type">
+                                    <option value="all_reports">Все отчеты</option>
+
+                                    @foreach($report_types as $slug =>$type)
+                                        <option value="{{ $slug }}" @if ($slug == $request->old('report_type')){{ 'selected' }} @endif >{{ $type }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+                        </p>
+                        <p class="search-form__block weekly_block">
+                            <label> Категории
+                                <select class="search-form__field" name="new_weekly">
+                                    <option value="0">Все отчеты</option>
+
+                                    @foreach($weeklycategories as $category)
+                                        <option value="{{ $category->id }}" @if ($category->id == $request->old('new_weekly')){{ 'selected' }} @endif>{{ $category->title }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+                        </p>
+                        <p class="search-form__block monthly_block">
+                            <label> Категории
+
+                                <select class="search-form__field" name="new_monthly">
+                                    <option value="0">Все отчеты</option>
+                                    @foreach($monthlycategories as $category)
+                                        <option value="{{ $category->id }}" @if ($category->id == (int)$request->old('new_monthly')){{ 'selected' }} @endif>{{ $category->title }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+                        </p>
+                        <p class="search-form__block search-form__block--date">
+                            <label class="search-form__title">
+                                Период с
+                                <input name="date_start" value="{{date("d.m.Y",$start_period)}}" class="calendar_start_3 search-form__field"/>
+                                <input type="hidden" value="{{$request->old('start_period') }}" name="start_period">
+                            </label>
+                            <label class="search-form__title">
+                                Период по
+                                <input name="date_end" value="{{date("d.m.Y",$end_period)}}" class="calendar_end_3 search-form__field"/>
+                                <input type="hidden" value="{{$request->old('end_period') }}" name="end_period">
+                            </label>
+                        </p>
+                    </div>
+                    <div class="search-form__filter row" style="padding-left: 84px;">
+                        <input name="q" class="search" value="{{$request->old('q') }}" type="text" placeholder="Ключевая фраза" style="color: rgb(120, 120, 120);max-width: 336px;"/>
+                    </div>
+                </div>
+                <tagsforsearch-component :selectedtags="{{ json_encode($tags) }}"></tagsforsearch-component>
+
+                <input type="hidden" name="random_key_before" value="">
+
+                <div class="row box_save_article">
+                    <button class="button button--search pdf-reset">Поиск</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
     <input type="hidden" name="random_key" value="{{$random_key}}">
     @if(empty($choose))
         <div class="pagination">{{ $articles->links() }}</div>
@@ -171,4 +251,53 @@
 
 @endsection
 
+@section('scripts')
+    <script type="text/javascript" charset="utf-8">
 
+        jQuery(document).ready(function () {
+
+
+                var val = $('.report_type').find(':selected').val();
+
+                if (val == "weekly") {
+                    jQuery('.weekly_block').css('position', 'relative');
+                    jQuery('.weekly_block').css('top', '0');
+                } else {
+                    jQuery('.weekly_block').css('top', '-9999px');
+                    jQuery('.weekly_block').css('position', 'absolute');
+                }
+
+                if (val == "monthly") {
+                    jQuery('.monthly_block').css('position', 'relative');
+                    jQuery('.monthly_block').css('top', '0');
+                } else {
+                    jQuery('.monthly_block').css('position', 'absolute');
+                    jQuery('.monthly_block').css('top', '-9999px');
+                };
+            jQuery('.report_type').change(function () {
+
+                var val = $(this).find(':selected').val();
+
+                if (val == "weekly") {
+                    jQuery('.weekly_block').css('position', 'relative');
+                    jQuery('.weekly_block').css('top', '0');
+                } else {
+                    jQuery('.weekly_block').css('top', '-9999px');
+                    jQuery('.weekly_block').css('position', 'absolute');
+                }
+
+                if (val == "monthly") {
+                    jQuery('.monthly_block').css('position', 'relative');
+                    jQuery('.monthly_block').css('top', '0');
+                } else {
+                    jQuery('.monthly_block').css('position', 'absolute');
+                    jQuery('.monthly_block').css('top', '-9999px');
+                }
+            });
+
+
+
+
+        });
+    </script>
+@endsection

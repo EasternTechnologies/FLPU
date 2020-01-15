@@ -66,7 +66,7 @@ class IndexController extends Controller
             $companies     = Company::orderBy('title')->get();
             $personalities = Personality::orderBy('title')->get();
 
-                if (count($country_id) !== Country::count()){
+                if (isset($country_id) && count($country_id) !== Country::count()){
                     if ( isset($country_id) && !empty($country_id) ) {
                         if ( is_array($country_id) ) {
 
@@ -90,7 +90,7 @@ class IndexController extends Controller
 
                     }
                 };
-                if (count($vvt_type_id) !== VvtType::count()) {
+                if (isset($vvt_type_id) && count($vvt_type_id) !== VvtType::count()) {
                     if ( isset($vvt_type_id) && !empty($vvt_type_id) ) {
                         if ( is_array($vvt_type_id) ) {
 
