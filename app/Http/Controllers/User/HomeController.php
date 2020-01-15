@@ -543,7 +543,7 @@ $articles->appends($request->all());*/
 
         $isadvantage    = TRUE;
         $type           = TRUE;
-        $patterns_tourl = urlencode(implode(';', $patterns));
+        $q = $request->session()->get('q');
         $needle_tourl   = $request->session()->get('needletourl');
         //dd($needle_tourl);
 
