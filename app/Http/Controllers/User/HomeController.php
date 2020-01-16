@@ -538,16 +538,16 @@ $articles->appends($request->all());*/
                 $replacements[] = "<b class=\"highlight\">$title</b>";
             };
         }
-        $random_key   = $request->random_key_before;
-        $choose_array = unserialize(Redis::get('search:key' . $request->random_key_before));
+        //$random_key   = $request->random_key_before;
+        $choose_array = unserialize(Redis::get('search:key' . $request->random_key));
 
         $isadvantage    = TRUE;
         $type           = TRUE;
         $q = $request->session()->get('q');
         $needle_tourl   = $request->session()->get('needletourl');
-        //dd($needle_tourl);
+        //dd($request->random_key);
 
-        return view('user.advan_search_result', compact('articles','request', 'report_types', 'choose', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
+        return view('user.advan_search_result', compact('articles','request', 'choose_array', 'random_key', 'report_types', 'choose', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
 
         //return view('user.advan_search_result', compact('articles', 'choose', 'random_key'));
     }

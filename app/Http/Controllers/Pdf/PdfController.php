@@ -156,8 +156,9 @@ class PdfController extends Controller {
 
 
 		$array = unserialize(Redis::get('search:key'.$request->random_key));
-
+      //dd($request->random_key);
         $articles = ArticleReports::whereIn('id',$array)->get()->sortBy('title');
+
         $format = ['format' => 'A4'];
         foreach ($articles as $article) {
                 $items[false][false] [] = $article;
