@@ -54,88 +54,76 @@ class IndexController extends Controller
             return compact('countries', 'vvt');
         }
         else {
-            $countries   = Country::orderBy('title')->get();
-            $country_id  = $request->input('countries');
-            $vvt_type_id = $request->input('vvt_type');
-            $personality_id = $request->input('personalities');
-            $company_id = $request->input('companies');
-            $countriesForVoero = $country_id ? Country::orderBy('title')->whereIn('id',$country_id)->get():collect([]);
-            $selvvt_typesForVoero =  $vvt_type_id? VvtType::orderBy('title')->whereIn('id',$vvt_type_id)->get():collect([]);
-            $companiesForVoero =  $company_id? Company::orderBy('title')->whereIn('id',$company_id)->get():collect([]);
-            $personalitiesForVoero =  $personality_id?Personality::orderBy('title')->whereIn('id',$personality_id)->get():collect([]);
-            $companies     = Company::orderBy('title')->get();
-            $personalities = Personality::orderBy('title')->get();
+            $countries             = Country::orderBy('title')->get();
+            $country_id            = $request->input('countries');
+            $vvt_type_id           = $request->input('vvt_type');
+            $personality_id        = $request->input('personalities');
+            $company_id            = $request->input('companies');
+            $countriesForVoero     = $country_id ? Country::orderBy('title')
+                                                          ->whereIn('id', $country_id)
+                                                          ->get() : collect([]);
+            $selvvt_typesForVoero  = $vvt_type_id ? VvtType::orderBy('title')
+                                                           ->whereIn('id', $vvt_type_id)
+                                                           ->get() : collect([]);
+            $companiesForVoero     = $company_id ? Company::orderBy('title')
+                                                          ->whereIn('id', $company_id)
+                                                          ->get() : collect([]);
+            $personalitiesForVoero = $personality_id ? Personality::orderBy('title')
+                                                                  ->whereIn('id', $personality_id)
+                                                                  ->get() : collect([]);
+            $companies             = Company::orderBy('title')->get();
+            $personalities         = Personality::orderBy('title')->get();
 
-                if (isset($country_id) && count($country_id) !== Country::count()){
-                    if ( isset($country_id) && !empty($country_id) ) {
-                        if ( is_array($country_id) ) {
-
-                            $companies     = collect();
-                            $personalities = collect();
-
-                            foreach ( $country_id as $country ) {
-
-                                $companies = $companies->merge(Country::find($country)->companies()->get())->unique('id');
-
-                            }
-
-                            foreach ( $country_id as $country ) {
-
-                                $personalities = $personalities->merge(Country::find($country)->personalities()->get())
-                                                               ->unique('id');
-
-                            }
-
+            if ( isset($country_id) && count($country_id) !== Country::count() ) {
+                if ( isset($country_id) && !empty($country_id) ) {
+                    if ( is_array($country_id) ) {
+                        $companies     = collect();
+                        $personalities = collect();
+                        foreach ( $country_id as $country ) {
+                            $companies = $companies->merge(Country::find($country)->companies()->get())->unique('id');
                         }
-
+                        foreach ( $country_id as $country ) {
+                            $personalities = $personalities->merge(Country::find($country)->personalities()->get())
+                                                           ->unique('id');
+                        }
                     }
-                };
-                if (isset($vvt_type_id) && count($vvt_type_id) !== VvtType::count()) {
-                    if ( isset($vvt_type_id) && !empty($vvt_type_id) ) {
-                        if ( is_array($vvt_type_id) ) {
-
-                            $vvts = collect();
-                            foreach ( $companies as $company ) {
-
-                                $vvts = $vvts->merge($company->vvttypes()->get());
-
-                            }
-
-                            $companies = collect();
-                            foreach ( $vvt_type_id as $vvt_type ) {
-                                foreach ( $vvts as $vvt ) {
-                                    if ( $vvt->pivot->vvt_type_id == $vvt_type ) {
-                                        $companies = $companies->merge([$vvt->pivot->pivotParent])->unique('id');
-                                    }
-
+                }
+            };
+            if ( isset($vvt_type_id) && count($vvt_type_id) !== VvtType::count() ) {
+                if ( isset($vvt_type_id) && !empty($vvt_type_id) ) {
+                    if ( is_array($vvt_type_id) ) {
+                        $vvts = collect();
+                        foreach ( $companies as $company ) {
+                            $vvts = $vvts->merge($company->vvttypes()->get());
+                        }
+                        $companies = collect();
+                        foreach ( $vvt_type_id as $vvt_type ) {
+                            foreach ( $vvts as $vvt ) {
+                                if ( $vvt->pivot->vvt_type_id == $vvt_type ) {
+                                    $companies = $companies->merge([$vvt->pivot->pivotParent])->unique('id');
                                 }
                             }
+                        }
 
-                            $vvts = collect();
-                            foreach ( $personalities as $personality ) {
-
-                                $vvts = $vvts->merge($personality->vvttypes()->get());
-
-                            }
-
-                            foreach ( $vvt_type_id as $vvt_type ) {
-                                foreach ( $vvts as $vvt ) {
-                                    if ( $vvt->pivot->vvt_type_id == $vvt_type ) {
-                                        $personalities = $personalities->merge([$vvt->pivot->pivotParent])
-                                                                       ->unique('id');
-                                    }
+                        $vvts = collect();
+                        foreach ( $personalities as $personality ) {
+                            $vvts = $vvts->merge($personality->vvttypes()->get());
+                        }
+                        foreach ( $vvt_type_id as $vvt_type ) {
+                            foreach ( $vvts as $vvt ) {
+                                if ( $vvt->pivot->vvt_type_id == $vvt_type ) {
+                                    $personalities = $personalities->merge([$vvt->pivot->pivotParent])->unique('id');
                                 }
                             }
                         }
                     }
                 }
-
+            }
             $vvt_types = VvtType::orderBy('title')->get();
-
             $country_id_array = Country::select(['id', 'title'])->get()->keyBy('id');
             $vvt_id_array     = VvtType::select(['id', 'title'])->get()->keyBy('id');
 
-            return compact('countries', 'companies', 'vvt_types', 'personalities', 'country_id', 'country_id_array', 'vvt_id_array','countriesForVoero','selvvt_typesForVoero','companiesForVoero','personalitiesForVoero');
+            return compact('countries', 'companies', 'vvt_types', 'personalities', 'country_id', 'country_id_array', 'vvt_id_array', 'countriesForVoero', 'selvvt_typesForVoero', 'companiesForVoero', 'personalitiesForVoero');
         }
     }
 

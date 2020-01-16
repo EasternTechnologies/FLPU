@@ -4,7 +4,6 @@ $m = date("m");
 $y = date("Y");
 ?>
 @extends('layouts.app')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@voerro/vue-tagsinput@2.0.2/dist/style.css">
 @section('content')
     <div class="container">
 
@@ -182,4 +181,6 @@ $y = date("Y");
 
         });
     </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@voerro/vue-tagsinput@2.0.2/dist/style.css">
+
 @endsection

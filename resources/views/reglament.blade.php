@@ -1,6 +1,5 @@
 @extends('layouts.guest')
 
-@section('nav_header_other','')
 
 @section('content')
 <div class="container">

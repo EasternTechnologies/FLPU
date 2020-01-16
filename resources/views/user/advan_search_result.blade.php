@@ -4,17 +4,15 @@ $m = date("m");
 $y = date("Y");
 ?>
 @extends('layouts.app')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@voerro/vue-tagsinput@2.0.2/dist/style.css">
-
 @section('content')
-    @if(empty($choose))
-    <div class="container">
+    @if(empty($choose) and isset($isadvantage) )
+    <div class="container" id="myModalId">
 
         <button class="butt_tag_click button_small" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             Фасетный поиск
         </button>
     </div>
-    <div class="container">
+    <div class="container" >
         <div class="collapse" id="collapseExample">
         <div class="card card-body">
             <form action="/search" class="search_form_adv" method="post">
@@ -55,7 +53,7 @@ $y = date("Y");
                                 </select>
                             </label>
                         </p>
-                        <p class="search-form__block search-form__block--date">
+                        <p class="search-form__block search-form__block--date" id="mymodalexample">
                             <label class="search-form__title">
                                 Период с
                                 <input name="date_start" value="{{date("d.m.Y",$start_period)}}" class="calendar_start_3 search-form__field"/>
@@ -258,7 +256,6 @@ $y = date("Y");
 
         jQuery(document).ready(function () {
 
-
                 var val = $('.report_type').find(':selected').val();
 
                 if (val == "weekly") {
@@ -296,6 +293,61 @@ $y = date("Y");
                     jQuery('.monthly_block').css('top', '-9999px');
                 }
             });
+
+            jQuery('.calendar_start_3').datepicker({
+                container:'#mymodalexample',
+                keyboardNavigation: true,
+                modal: true,
+                header: true,
+                footer: true,
+                uiLibrary: 'bootstrap4',
+                locale: 'ru-ru',
+                //value: '01.01.{{$y}}',
+                format: 'dd.mm.yyyy',
+            });
+
+            jQuery('.calendar_end_3').datepicker({
+                keyboardNavigation: true,
+                modal: true,
+                header: true,
+                footer: true,
+                uiLibrary: 'bootstrap4',
+                locale: 'ru-ru',
+                //value: '{{$d}}.{{$m}}.{{$y}}',
+                format: 'dd.mm.yyyy',
+
+            });
+
+            jQuery('.calendar_start_3').change(function () {
+
+                jQuery('.search-form__title').removeClass('error');
+
+                var data_change = jQuery(this).val();
+                var arr = data_change.split('.');
+                var d = Number(arr[0]);
+                var m = Number(arr[1]) - 1;
+                var y = Number(arr[2]);
+                var date = new Date(y, m, d).getTime() / 1000;
+                jQuery('[name=start_period]').val(date);
+            });
+
+            jQuery('.calendar_end_3').change(function () {
+
+                jQuery('.search-form__title').removeClass('error');
+
+                var data_change = jQuery(this).val();
+                var arr = data_change.split('.');
+                var d = Number(arr[0]);
+                var m = Number(arr[1]) - 1;
+                var y = Number(arr[2]);
+                var date = new Date(y, m, d).getTime() / 1000;
+                jQuery('[name=end_period]').val(date);
+            });
+
+            jQuery('.calendar_wrap').show(500);
+
         });
     </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@voerro/vue-tagsinput@2.0.2/dist/style.css">
+
 @endsection

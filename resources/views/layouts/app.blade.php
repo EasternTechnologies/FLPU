@@ -388,53 +388,6 @@ $y = date("Y");
         }
 
 
-        jQuery('.calendar_start').datepicker({
-            keyboardNavigation: true,
-            modal: true,
-            header: true,
-            footer: true,
-            uiLibrary: 'bootstrap4',
-            locale: 'ru-ru',
-            value: '<?php echo $d . '.' . $m . '.' . $y; ?>',
-            format: 'dd.mm.yyyy',
-        });
-
-        jQuery('.calendar_end').datepicker({
-            keyboardNavigation: true,
-            modal: true,
-            header: true,
-            footer: true,
-            uiLibrary: 'bootstrap4',
-            locale: 'ru-ru',
-            value: '<?php echo $d . '.' . $m . '.' . $y; ?>',
-            format: 'dd.mm.yyyy',
-
-        });
-
-        jQuery('.calendar_start').change(function () {
-            var data_change = jQuery(this).val();
-            var arr = data_change.split('.');
-            var d = Number(arr[0]);
-            var m = Number(arr[1]) - 1;
-            var y = Number(arr[2]);
-            var date = new Date(y, m, d).getTime() / 1000;
-            console.log(arr);
-
-            console.log(m);
-            console.log(new Date(y, m, d));
-            jQuery('[name=date_start]').val(date);
-        })
-
-        jQuery('.calendar_end').change(function () {
-            var data_change = jQuery(this).val();
-            var arr = data_change.split('.');
-            var d = Number(arr[0]);
-            var m = Number(arr[1]) - 1;
-            var y = Number(arr[2]);
-            var date = new Date(y, m, d).getTime() / 1000;
-            jQuery('[name=date_end]').val(date);
-        })
-
         if (jQuery('[data-fancybox="gallery"]').length)
             jQuery('[data-fancybox="gallery"]').fancybox();
 

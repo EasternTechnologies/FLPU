@@ -12,17 +12,14 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <!-- Styles -->
-
-    <!-- fancybox -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css"/>
-
     <!-- app -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Styles for analyst -->
-    <link href="{{ asset('css/user.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/analyst.css') }}" rel="stylesheet">
 
     <!-- Styles MEDIA -->
     <link href="{{ asset('css/media.css') }}" rel="stylesheet">
@@ -30,12 +27,15 @@
     <!-- Styles AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <!-- fancybox -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css"/>
+
     <!-- Styles MEDIA -->
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
 
     <!-- NEW STYLES -->
     <link href="{{ asset('css/new_design.css') }}" rel="stylesheet">
-    
+
 </head>
 <body>
 <div id="app" class="analyst">
@@ -47,7 +47,6 @@
                     {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
                 @endauth
             </div>
-            @include('partials.cabinets')
             <div id="menu-mob1" class="menu-mob">
             	<span></span>
             	<span></span>
@@ -114,7 +113,7 @@
 
         /* menu-mob */
 		jQuery('#menu-mob1').click(function () {
-			
+
 			if(jQuery(this).hasClass('active')) {
 				jQuery(this).removeClass('active');
 				jQuery('.menu_auth').removeClass('mob-active');
@@ -122,17 +121,17 @@
 				jQuery(this).addClass('active');
 				jQuery('.menu_auth').addClass('mob-active');
 			}
-			
+
 		});
-		
+
 		//close
 		jQuery('header .menu_auth .close-mob').click(function () {
-			
+
 			jQuery('#menu-mob1').removeClass('active');
 			jQuery('.menu_auth').removeClass('mob-active');
-			
+
 		});
-		
+
 		/*end menu-mob */
 
     });

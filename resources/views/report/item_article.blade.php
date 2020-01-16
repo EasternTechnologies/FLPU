@@ -75,7 +75,8 @@
                     </p>
                     <p class="mb10 w100 fll"><strong>Тематика:&nbsp</strong>
                         <span class="italic_14">
-                            <?php
+
+                        <?php
                             if ( isset ($q) ) {
                                 preg_match("/$q/ui", ltrim(html_entity_decode(strip_tags($article->description))), $q_repl);
                                 //dump($q_repl);
@@ -95,8 +96,8 @@
 
                                 {!!
                                     !empty($patterns) ?
-                                    preg_replace($patterns,$replacements,ltrim(html_entity_decode(strip_tags($article->description))))
-                                    : ltrim(html_entity_decode(strip_tags($article->description)));
+                                    preg_replace($patterns,$replacements,ltrim($article->description))
+                                    : ltrim($article->description);
                                 !!}
                             @endif
 
@@ -120,16 +121,20 @@
                             <span class="italic_14">{{$article->category->title }} </span></p>
                     @endif
                     <div class="content_text">
+
                         <?php
                         if ( isset ($q) ) {
-                            preg_match("/$q/ui", ltrim(html_entity_decode(strip_tags($article->description))), $q_repl);
+                            preg_match("/$q/ui", ltrim(html_entity_decode($article->description)), $q_repl);
                             //dump($q_repl);
                             if ( isset($q_repl[ 0 ]) ) {
 
-                                $desc = preg_replace("/$q/iu", "<b class=\"highlight\">$q_repl[0]</b>", ltrim(html_entity_decode(strip_tags($article->description))));
+                                $desc = preg_replace("/$q/iu", "<b class=\"highlight\">$q_repl[0]</b>", ltrim(html_entity_decode($article->description)));
                             }
                         }
                         ?>
+{{--
+                        @dd(preg_replace($patterns,$replacements,ltrim(html_entity_decode($article->description))))
+--}}
                         @if(isset ($desc))
                             {!!
                                 !empty($patterns) ?
@@ -140,8 +145,8 @@
 
                             {!!
                                 !empty($patterns) ?
-                                preg_replace($patterns,$replacements,ltrim(html_entity_decode($article->description)))
-                                : ltrim(html_entity_decode($article->description));
+                                preg_replace($patterns,$replacements,ltrim($article->description))
+                                : ltrim($article->description);
                             !!}
                         @endif
                     </div>

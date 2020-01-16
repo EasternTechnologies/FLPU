@@ -79,14 +79,14 @@ class HomeController extends Controller
         else {
             $q = strip_tags(str_replace(['{', '}', '[', ']', '"'], '', $request->q));
         }
-
-        $articles = ArticleReports::where([['description', 'like', '% ' . $q . '%']])->active()->get();
+        $articles = ArticleReports::where('description', 'like', '% ' . $q . '%')->orWhere('description', 'like', ' &laquo;' . $q.'%' )->active()->get();
         $articles = $this->paginate($articles, 20);
         $articles->appends($request->all())->setPath('/simply_search');
         $random_key   = $request->random_key;
         $choose_array = unserialize(Redis::get('search:key' . $request->random_key));
+        $report_types      = \App\ReportType::$data;
 
-        return view('user.advan_search_result', compact('articles', 'random_key', 'choose_array', 'q'));
+        return view('user.advan_search_result', compact('articles', 'report_types','random_key', 'choose_array', 'q'));
     }
 
     public function paginate ( $items, $perPage = 40, $page = NULL, $options = [] ) {
@@ -196,19 +196,16 @@ class HomeController extends Controller
 
                 $reports = Report::where([
                   ['type_id', $report_slug],
-                  /*['date_start', '<=', $start_period],
-                  // обязательны оба условия или по одному можно выдавать?
-                  ['date_end', '>=', $end_period],*/
+                  ['date_start', '>=', $start_period],
+                  ['date_end', '<=', $end_period],
                 ])->pluck('id')->toArray();
 
                 if ( $category === 0 ) {
 
-                    $articles = ArticleReports::whereIn('report_id', $reports)->active()->/*where([
+                    $articles = ArticleReports::whereIn('report_id', $reports)->active()->where([
                       ['date_start', '>=', $start_period],
-                      // обязательны оба условия или по одному можно выдавать?
                       ['date_end', '<=', $end_period],
-                    ])->*/
-                    get();
+                    ])->get();
 
                     //$articles->appends($request->all());
 
@@ -259,8 +256,8 @@ $articles->appends($request->all());*/
                 $articles = collect();
                 $reports  = Report::where([
                   ['type_id', $report_slug],
-                  /*['date_start', '>=', $start_period],
-                  ['date_end', '<=', $end_period],*/
+                  ['date_start', '>=', $start_period],
+                  ['date_end', '<=', $end_period],
                 ])->pluck('id')->toArray();
 
                 if ( $category === 0 ) {
@@ -377,7 +374,7 @@ $articles->appends($request->all());*/
 
             $articles = $articles->filter(function( $post ) use ( $q )
             {
-                if ( mb_stripos($post[ 'description' ], ' ' . $q) !== FALSE or mb_stripos($post[ 'description' ], '&laquo;' . $q) !== FALSE or mb_stripos($post[ 'description' ], '.' . $q) !== FALSE ) {
+                if ( mb_stripos($post[ 'description' ], ' ' . $q) !== FALSE or mb_stripos($post[ 'description' ], '&laquo;' . $q) or mb_stripos($post[ 'description' ], '"' . $q) !== FALSE or mb_stripos($post[ 'description' ], '.' . $q) !== FALSE ) {
                     return TRUE;
                 }
 
