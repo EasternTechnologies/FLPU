@@ -81,7 +81,7 @@ class HomeController extends Controller
         }
         $articles = ArticleReports::where('description', 'like', '% ' . $q . '%')
                                   ->orWhere('description', 'like',  $q . '%')
-                                  ->orWhere('description', 'like', '.' . $q.'%' )
+                                  ->orWhere('description', 'like', '%.' . $q.'%' )
                                   ->orWhere('description', 'like', '%_' . $q.'%' )
                                   ->active()->get();
         if ( isset($request->q) ) {
