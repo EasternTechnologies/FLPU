@@ -126,15 +126,12 @@
                         if ( isset ($q) ) {
 
                             preg_match("/$q/ui", ltrim(html_entity_decode($article->description)), $q_repl);
-                                                    if ( isset($q_repl[ 0 ]) ) {
+                            if ( isset($q_repl[ 0 ]) ) {
 
                                 $desc = preg_replace("/$q/iu", "<b class=\"highlight\">$q_repl[0]</b>", ltrim($article->description));
                             }
                         }
                         ?>
-{{--
-                        @dd(preg_replace($patterns,$replacements,ltrim(html_entity_decode($article->description))))
---}}
                         @if(isset ($desc))
                             {!!
                                 !empty($patterns) ?
