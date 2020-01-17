@@ -79,9 +79,11 @@ class HomeController extends Controller
         else {
             $q = strip_tags(str_replace(['{', '}', '[', ']', '"'], '', $request->q));
         }
+        dump($q);
         $articles = ArticleReports::where('description', 'like', '% ' . $q . '%')
+                                  ->orWhere('description', 'like',  $q . '%')
                                   ->orWhere('description', 'like', '.' . $q.'%' )
-                                  ->orWhere('description', 'like', ' &laquo;' . $q.'%' )
+                                  ->orWhere('description', 'like', '%_' . $q.'%' )
                                   ->active()->get();
         if ( isset($request->q) ) {
             $q        = $request->q;
