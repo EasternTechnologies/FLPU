@@ -79,7 +79,6 @@ class HomeController extends Controller
         else {
             $q = strip_tags(str_replace(['{', '}', '[', ']', '"'], '', $request->q));
         }
-        dump($q);
         $articles = ArticleReports::where('description', 'like', '% ' . $q . '%')
                                   ->orWhere('description', 'like',  $q . '%')
                                   ->orWhere('description', 'like', '.' . $q.'%' )
