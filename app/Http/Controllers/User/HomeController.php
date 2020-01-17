@@ -417,7 +417,7 @@ $articles->appends($request->all());*/
                 $needle[]       = $title;
 
                 if( preg_match('/«.*»/', $title,$new_title_arr2)){
-                    $new_title_2=str_replace('"', '',$new_title_arr2[0]);
+                    $new_title_2=str_replace(['»','«'], '',$new_title_arr2[0]);
                     $patterns[]     = "~($new_title_2)~";
                     $replacements[] = "<b class=\"highlight\">$new_title_2</b>";
                     $needle[]       = $new_title_2;
