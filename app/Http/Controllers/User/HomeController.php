@@ -542,35 +542,10 @@ $articles->appends($request->all());*/
 
         $articles = $this->paginate($articles);
         $articles->appends($request->all())->setPath('search');
-        if ( $countries->isNotEmpty() ) {
-            foreach ( $countries->pluck('title')->toArray() as $title ) {
-                $patterns[]     = "~($title)~";
-                $needle[]       = $title;
-                $replacements[] = "<b class=\"highlight\">$title</b>";
-            };
 
-        }
-        if ( $companies->isNotEmpty() ) {
-            foreach ( $companies->pluck('title')->toArray() as $title ) {
-                $patterns[]     = "~($title)~";
-                $needle[]       = $title;
-                $replacements[] = "<b class=\"highlight\">$title</b>";
-            };
-        }
-        if ( $personalities->isNotEmpty() ) {
-            foreach ( $personalities->pluck('title')->toArray() as $title ) {
-                $patterns[]     = "~($title)~";
-                $needle[]       = $title;
-                $replacements[] = "<b class=\"highlight\">$title</b>";
-            };
-        }
-        if ( $vvt_types->isNotEmpty() ) {
-            foreach ( $vvt_types->pluck('title')->toArray() as $title ) {
-                $patterns[]     = "~($title)~";
-                $needle[]       = $title;
-                $replacements[] = "<b class=\"highlight\">$title</b>";
-            };
-        }
+        $patterns=$request->session()->get('patterns');
+        $replacements=$request->session()->get('replacements');
+        //dd($countries);
         //$random_key   = $request->random_key_before;
         $choose_array = unserialize(Redis::get('search:key' . $request->random_key));
 
