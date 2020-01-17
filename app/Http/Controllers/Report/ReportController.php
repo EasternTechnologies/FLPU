@@ -128,14 +128,16 @@ class ReportController extends Controller
 
         }
         if ( ( $request->get('needles') ) != NULL ) {
-            $needles = explode(';', urldecode($request->get('needles')));
-            foreach ( $needles as $needle ) {
+            //$needles = explode(';', urldecode($request->get('needles')));
+            $patterns=$request->session()->get('patterns');
+            $replacements=$request->session()->get('replacements');
+            /*foreach ( $needles as $needle ) {
                 $replacements[] = "<b class=\"highlight\">$needle</b>";
-                $patterns[]     = "~($needle)~";
-            }
+                //$patterns[]     = "~($needle)~";
+            }*/
 
         }
-        //dd($replacements, $q);
+        //dd($patterns,$replacements);
         if ( $slug == 'countrycatalog' and Auth::user()->roles()->first()->title == 'user' ) {
             return redirect()->to('/')->with('status', 'Доступ закрыт');
         }

@@ -413,8 +413,23 @@ $articles->appends($request->all());*/
         if ( $companies->isNotEmpty() ) {
             foreach ( $companies->pluck('title')->toArray() as $title ) {
                 $patterns[]     = "~($title)~";
-                $needle[]       = $title;
                 $replacements[] = "<b class=\"highlight\">$title</b>";
+                $needle[]       = $title;
+
+                if( preg_match('/«.*»/', $title,$new_title_arr2)){
+                    $new_title_2=str_replace('"', '',$new_title_arr2[0]);
+                    $patterns[]     = "~($new_title_2)~";
+                    $replacements[] = "<b class=\"highlight\">$new_title_2</b>";
+                    $needle[]       = $new_title_2;
+                };
+                if(preg_match('/".*"/', $title,$new_title_arr1)){
+                    $new_title_1=str_replace('"', '',$new_title_arr1[0]);
+                    $patterns[]     = "~($new_title_1)~";
+                    $replacements[] = "<b class=\"highlight\">$new_title_1</b>";
+                    $needle[]       = $new_title_1;
+                }
+
+
             };
         }
         if ( $personalities->isNotEmpty() ) {
@@ -431,6 +446,7 @@ $articles->appends($request->all());*/
                 $replacements[] = "<b class=\"highlight\">$title</b>";
             };
         }
+        //dd($patterns,$replacements);
         $random_key   = $request->random_key_before;
         $choose_array = unserialize(Redis::get('search:key' . $request->random_key_before));
 
@@ -438,7 +454,9 @@ $articles->appends($request->all());*/
         $type           = TRUE;
         $patterns_tourl = urlencode(implode(';', $patterns));
         $needle_tourl   = urlencode(implode(';', $needle));
+        $request->session()->put('replacements',  $replacements);
         $request->session()->put('needletourl',  $needle_tourl);
+        $request->session()->put('patterns',  $patterns);
         //Redis::set('search:key'.$request->random_key,serialize($array),'EX',3600);
 
         return view('user.advan_search_result', compact('report_types', 'tags', 'request', 'weeklycategories', 'monthlycategories', 'articles', 'report_type', 'start_period', 'end_period', 'countries', 'companies', 'personalities', 'vvt_types', 'isadvantage', 'random_key', 'choose_array', 'type', 'q', 'patterns', 'patterns_tourl', 'replacements_tourl', 'needle_tourl', 'replacements'));
