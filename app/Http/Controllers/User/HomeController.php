@@ -79,14 +79,31 @@ class HomeController extends Controller
         else {
             $q = strip_tags(str_replace(['{', '}', '[', ']', '"'], '', $request->q));
         }
-        $articles = ArticleReports::where('description', 'like', '% ' . $q . '%')->orWhere('description', 'like', ' &laquo;' . $q.'%' )->active()->get();
+        $articles = ArticleReports::where('description', 'like', '% ' . $q . '%')
+                                  ->orWhere('description', 'like', '.' . $q.'%' )
+                                  ->orWhere('description', 'like', ' &laquo;' . $q.'%' )
+                                  ->active()->get();
+        if ( isset($request->q) ) {
+            $q        = $request->q;
+            $request->session()->put('q',  $q);
+
+            $articles = $articles->filter(function( $post ) use ( $q )
+            {
+                if ( mb_stripos($post[ 'description' ], ' ' . $q) !== FALSE or mb_stripos($post[ 'description' ], '&laquo;' . $q) or mb_stripos($post[ 'description' ], '"' . $q) !== FALSE or mb_stripos($post[ 'description' ], '.' . $q) !== FALSE ) {
+                    return TRUE;
+                }
+
+                return FALSE;
+            });
+        }
         $articles = $this->paginate($articles, 20);
         $articles->appends($request->all())->setPath('/simply_search');
         $random_key   = $request->random_key;
         $choose_array = unserialize(Redis::get('search:key' . $request->random_key));
         $report_types      = \App\ReportType::$data;
+        $needle_tourl = '';
 
-        return view('user.advan_search_result', compact('articles', 'report_types','random_key', 'choose_array', 'q'));
+        return view('user.advan_search_result', compact('needle_tourl','articles', 'q', 'report_types','random_key', 'choose_array', 'q'));
     }
 
     public function paginate ( $items, $perPage = 40, $page = NULL, $options = [] ) {

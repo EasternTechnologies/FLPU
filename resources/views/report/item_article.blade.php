@@ -124,11 +124,11 @@
 
                         <?php
                         if ( isset ($q) ) {
-                            preg_match("/$q/ui", ltrim(html_entity_decode($article->description)), $q_repl);
-                            //dump($q_repl);
-                            if ( isset($q_repl[ 0 ]) ) {
 
-                                $desc = preg_replace("/$q/iu", "<b class=\"highlight\">$q_repl[0]</b>", ltrim(html_entity_decode($article->description)));
+                            preg_match("/$q/ui", ltrim(html_entity_decode($article->description)), $q_repl);
+                                                    if ( isset($q_repl[ 0 ]) ) {
+
+                                $desc = preg_replace("/$q/iu", "<b class=\"highlight\">$q_repl[0]</b>", ltrim($article->description));
                             }
                         }
                         ?>
