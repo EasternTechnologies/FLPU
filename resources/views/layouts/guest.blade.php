@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php
+$d = date("d");
+$m = date("m");
+$y = date("Y");
+?>
+        <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
@@ -38,104 +43,90 @@
 
 </head>
 <body>
-<div id="app" class="analyst">
-
-    <header>
+<div id="app" data-sticky_parent>
+    <header class="page-header">
         <div class="container row_top">
             <div class="user_rolles">
                 @auth
                     {{ Auth::user()->roles()->first()->name }} : {{ Auth::user()->surname }} {{ Auth::user()->name }}
                 @endauth
             </div>
-            <div id="menu-mob1" class="menu-mob">
-            	<span></span>
-            	<span></span>
-            	<span></span>
-            </div>
-        </div>
-        <div class="container row_2">
-            @include('partials.row_with_search')
-        </div>
 
+            @include('partials.cabinets')
+        </div>
     </header>
 
-    <main>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+    <aside class="page-aside">
+        <div class="page-aside__wrapper" data-sticky_column>
+            <div class="logo-box">
+                <a class="logo-text" href="{{ url('/') }}"> <img src="{{asset('images/logo.png')}}" alt=""/> </a>
             </div>
-        @endif
-        @if (session('status'))
-            <ul class="alert alert-success">
-                {{ session('status') }}
+            <ul class="nav__list">
+                @auth()
+                    @foreach(\App\ReportType::$data as $link => $title)
+                        <li class="nav__item @if(Request::is('report/'. $link) || Request::is('report/'. $link.'/*') || Request::is('analyst/'.$link) || Request::is('analyst/'.$link.'/*') || Request::is('manager/'.$link) || Request::is('manager/'.$link.'/*')) {{'active'}} @endif">
+
+                            <a href="/report/{{ $link }}" class="nav__link">{{ $title }}</a>
+                        </li>
+                    @endforeach
+                @endauth
             </ul>
-        @endif
-        @if (session('error'))
-            <ul class="alert alert-danger">
-                {{ session('error') }}
-            </ul>
-        @endif
+        </div>
+    </aside>
+
+    <main class="page-main">
+        <div class="page-title container">
+            <h1>Аналитика</h1>
+        </div>
+
+        <div class="page-info container">
+            <div class="page-subtitle">
+
+            </div>
+
+        </div>
         @yield('content')
     </main>
 
-    <footer>
-        <div class="row">
-            <div class="container">
-                <div class="flex_box">
-                    <div class="col-md-4 copyright">
-                        © Copyright 2018. Все права защищены
-                    </div>
-                    <div class="col-md-4 footer_doc">
-                        <a href="/reglament">Правила и регламент регистрации</a>
-                    </div>
-                    <div class="col-md-4 portfolio_box">
-                        Разработка сайта<span class="logo_east_tech"></span><a href="http://east-tech.by/">“Восточные технологии”</a>
-                    </div>
-                </div>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="copyright">
+                © Copyright 2018. Все права защищены
+            </div>
+            <div class="footer_doc">
+                <a href="/reglament">Правила и регламент регистрации</a>
+            </div>
+            <div class="portfolio_box">
+                Разработка системы<span class="logo_east_tech"></span><a href="http://east-tech.by/">“Восточные технологии”</a>
             </div>
         </div>
     </footer>
-
 </div>
+
+<div class="bugs" oncLick="showModalBugs();">
+    <span>Нашли баг?</span>
+</div>
+
 <!-- Scripts -->
+
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
+<!-- calendar -->
+
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/messages/messages.ru-ru.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+
 {{-- CKEDITOR settings --}}
 
-<script type="text/javascript" charset="utf-8">
-    jQuery(document).ready(function () {
-
-        /* menu-mob */
-		jQuery('#menu-mob1').click(function () {
-
-			if(jQuery(this).hasClass('active')) {
-				jQuery(this).removeClass('active');
-				jQuery('.menu_auth').removeClass('mob-active');
-			} else {
-				jQuery(this).addClass('active');
-				jQuery('.menu_auth').addClass('mob-active');
-			}
-
-		});
-
-		//close
-		jQuery('header .menu_auth .close-mob').click(function () {
-
-			jQuery('#menu-mob1').removeClass('active');
-			jQuery('.menu_auth').removeClass('mob-active');
-
-		});
-
-		/*end menu-mob */
-
-    });
-</script>
 @yield('scripts')
+
+
+<script src="{{asset('js/script.js')}}"></script>
+
+<script src="{{asset('js/sticky-kit.js')}}"></script>
+
 </body>
 </html>

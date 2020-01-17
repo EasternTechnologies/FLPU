@@ -46,13 +46,16 @@
                         @endif
                     </li>
                     <span>|</span>
-                    <li>
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
+                    @auth()
+                        <li>
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
 							document.getElementById('logout-form').submit();"> Выход </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    @endauth
+
 </ul>
