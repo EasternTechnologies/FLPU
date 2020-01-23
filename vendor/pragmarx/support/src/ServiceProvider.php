@@ -4,7 +4,6 @@ namespace PragmaRX\Support;
 
 use Illuminate\Foundation\AliasLoader as IlluminateAliasLoader;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
-
 include 'helpers.php';
 abstract class ServiceProvider extends IlluminateServiceProvider {
 

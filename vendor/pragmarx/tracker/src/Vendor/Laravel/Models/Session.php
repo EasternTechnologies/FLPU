@@ -19,6 +19,11 @@ class Session extends Base
         'is_robot',
     ];
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
+
     public function user()
     {
         return $this->belongsTo($this->getConfig()->get('user_model'));
