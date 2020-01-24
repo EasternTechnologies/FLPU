@@ -40,7 +40,11 @@ $y = date("Y");
 
     <!-- NEW STYLES -->
     <link href="{{ asset('css/new_design.css') }}" rel="stylesheet">
-
+<style>
+    p {
+        text-indent: 40px; /* Отступ первой строки в пикселах */
+    }
+</style>
 </head>
 <body>
 <div id="app" data-sticky_parent>

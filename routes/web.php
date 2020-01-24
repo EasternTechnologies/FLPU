@@ -15,7 +15,10 @@ Route::get('/reglament', function()
 {
     return view('reglament');
 });
-
+Route::get('/download', function()
+{
+    return Storage::download('zajavka.docx');
+});
 /*
  * Tags routes
  * */
