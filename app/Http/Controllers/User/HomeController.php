@@ -40,6 +40,7 @@ class HomeController extends Controller
      */
     public function index () {
 
+
         $report_types = ReportType::all()->except(6);
 
         $total_array = [];
