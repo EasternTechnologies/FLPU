@@ -58,7 +58,10 @@
                     </div>
                     <div class="col-md-12 additionally">
                         <a class="butt_link" href="{{ route('password.request') }}"> Забыли пароль? </a>
+                        <a style="padding-left: 120px" class="butt_link" href="/reglament"> Регистрация </a>
+
                     </div>
+
                 </div>
             </form>
         </div>
