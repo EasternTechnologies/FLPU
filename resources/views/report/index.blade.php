@@ -38,8 +38,6 @@
                         </td>
                         <td class="table_name">
                             <a href="/report/{{$report_type->slug}}/show/{{ $item['id']}}">
-
-
                                 @if($report_type->slug == 'weekly' || $report_type->slug == 'monthly' )
                                     {{$report_type->title}} № {{ $item['number'] }} за период от {{ date("d.m",$item['date_start'])  }} до {{ date("d.m.Y",$item['date_end']) }}
                                 @elseif($report_type->slug == 'various')
@@ -47,13 +45,26 @@
                                 @else
                                     {{$report_type->title}}   за {{ date("Y",$item['date_start']) }} год.
                                 @endif
-
-
                             </a>
+                            @if ($report_type->slug=='yearly')
+                                @if (date("Y",$item['date_start'])=='2016')
+                                    <span class="label label-default">Полный</span>
+                                @else
+                                    <span class="label label-default">Демо</span>
+                                @endif
+                            @endif
+                            @if ($report_type->slug=='countrycatalog')
+                                @if (date("Y",$item['date_start'])=='2017' )
+                                    <span class="label label-default">Полный</span>
+                                @else
+                                    <span class="label label-default">Демо</span>
+                                @endif
+                            @endif
+
                             @if($report_type->slug == 'plannedexhibition') <a target="_blank" href="/pdf_item/{{$item->id}}" class="pdf exhibition"></a>@endif
 
                             @if( $role != 'user' && $role !='employee' )
-                            <a class="link-edit" href="/report/{{$report_type->slug}}/updreport/{{ $item->id }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a class="link-edit" href="/report/{{$report_type->slug}}/updreport/{{ $item->id }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                             @endif
                         </td>
                         @if( $role != 'user' && $role !='employee' )
