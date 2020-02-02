@@ -46,20 +46,20 @@
                                     {{$report_type->title}}   за {{ date("Y",$item['date_start']) }} год.
                                 @endif
                             </a>
-                            @if ($report_type->slug=='yearly')
+                           {{-- @if ($report_type->slug=='yearly')
                                 @if (date("Y",$item['date_start'])=='2016')
-                                    <span class="label label-default">Полный</span>
+                                    <span class="badge badge-pill badge-primary">Полный</span>
                                 @else
-                                    <span class="label label-default">Демо</span>
+                                    <span class="badge badge-pill badge-primary">Демо</span>
                                 @endif
                             @endif
                             @if ($report_type->slug=='countrycatalog')
                                 @if (date("Y",$item['date_start'])=='2017' )
-                                    <span class="label label-default">Полный</span>
+                                    <span class="badge badge-pill badge-primary">Полный</span>
                                 @else
-                                    <span class="label label-default">Демо</span>
+                                    <span class="badge badge-pill badge-primary">Демо</span>
                                 @endif
-                            @endif
+                            @endif--}}
 
                             @if($report_type->slug == 'plannedexhibition') <a target="_blank" href="/pdf_item/{{$item->id}}" class="pdf exhibition"></a>@endif
 
