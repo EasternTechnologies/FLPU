@@ -43,12 +43,12 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-12 d-flex justify-content-center">
-                {!! Recaptcha::render() !!}
+                        {!! Recaptcha::render() !!}
                     </div>
                     @if ($errors->has('g-recaptcha-response'))
                         <span class="invalid-feedback d-block"> <strong>{{ $errors->first('g-recaptcha-response') }}</strong> </span>
                     @endif
-                    </div>
+                </div>
                 <div class="form-group row mb-0">
                     <div class="col-md-12 d-flex justify-content-center">
 
@@ -57,8 +57,10 @@
                         </button>
                     </div>
                     <div class="col-md-12 additionally">
-                        <a class="butt_link" href="{{ route('password.request') }}"> Забыли пароль? </a>
-                        <a style="padding-left: 120px" class="butt_link" href="/reglament"> Регистрация </a>
+                        <a class="butt_link" href="{{ route('password.request') }}"> Забыли пароль? </a><br> <br>
+                        <a class="butt_link" href="/reglament"> Регистрация </a><br> <br><br> <br>
+                        <p style="text-align:center;">Нажимая кнпопку "Войти"? пользователь подтверждает согласие с <a href="/reglament">Правилами регистрации и условиями подписки</a></p>
+
 
                     </div>
 
