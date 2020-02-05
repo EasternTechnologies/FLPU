@@ -63,14 +63,14 @@ class Helper
         return $m_name;
     }
 
-    public static function logsInfo($sessions)
+    public static function logsInfo($session)
     {
 
         $times = [];
 
         $paths_id = [];
 
-        foreach ($sessions as $session) {
+        //foreach ($sessions as $session) {
 
             $logs = $session->log->where('method','GET'); //only get QUERY
 
@@ -89,6 +89,58 @@ class Helper
                 }
 
             }
+
+        //}
+
+        $paths = Path::whereIn('id',$paths_id)->select('path')->get();
+
+        $cats_rus = [];
+
+        $paths = $paths->pluck('path')->toArray();
+
+        $path = implode(" ",$paths);
+
+        foreach (self::$report_types as $slug=>$report_type) {
+            if(strpos($path,$slug)!==false) {
+                $cats_rus[] = $report_type['title'];
+            }
+        }
+
+//        dump($times);
+        $sum = array_sum($times);
+//        dump($sum);
+        $sum?$average=round($sum/count($times),2):$average=0;
+//        dump($average);
+
+        return [$cats_rus,$sum,$average,$paths];
+
+    }
+    public static function logsInfosumm($sessions)
+    {
+
+        $times = [];
+
+        $paths_id = [];
+
+        foreach ($sessions as $session) {
+
+        $logs = $session->log->where('method','GET'); //only get QUERY
+
+        $timestamps = array_reverse($logs->pluck('updated_at')->toArray());
+
+        $paths_id = array_merge($paths_id,$logs->pluck('path_id')->toArray());
+
+        $paths_id = array_unique($paths_id);
+
+        if(count($timestamps)>1) {
+
+            for($i = 0; $i < count($timestamps)-1; $i++){
+
+                $times[] = $timestamps[$i+1]->diffInSeconds($timestamps[$i]);
+
+            }
+
+        }
 
         }
 
@@ -115,18 +167,27 @@ class Helper
         return [$cats_rus,$sum,$average,$paths];
 
     }
-
-    public static function logsCount($sessions)
+    public static function logsCount($session)
     {
         $count = 0;
-        foreach ($sessions as $session) {
+        //foreach ($sessions as $session) {
             $logs = $session->log->where('method','GET'); //only get QUERY
 
             $count += $logs->count();
-        }
+        //}
         return $count;
     }
 
+    public static function logsCountsumm($sessions)
+    {
+        $count = 0;
+        foreach ($sessions as $session) {
+        $logs = $session->log->where('method','GET'); //only get QUERY
+
+        $count += $logs->count();
+        }
+        return $count;
+    }
     public static function paginate($items, $perPage = 40, $page = null, $options = [])
     {
 
