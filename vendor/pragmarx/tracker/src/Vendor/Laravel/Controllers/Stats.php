@@ -231,11 +231,11 @@ class Stats extends Controller
           'client_ip',
         ]);
 
-        /* $results = $query->groupBy([DB::raw('DATE(updated_at)'),'user_id',])->paginate(5);
+       /* $results = $query->groupBy([DB::raw('DATE(updated_at)'),'user_id',])->paginate(5);
 
-         dump($query->groupBy([DB::raw('DATE(updated_at)'),'user_id',])->paginate(5));
-         dump($query->groupBy([DB::raw('DATE(updated_at)'),'user_id',])->paginate(5)[0]->log instanceof Collection);
- */
+        dump($query->groupBy([DB::raw('DATE(updated_at)'),'user_id',])->paginate(5));
+        dump($query->groupBy([DB::raw('DATE(updated_at)'),'user_id',])->paginate(5)[0]->log instanceof Collection);
+*/
         Input::get('page') ? $page = Input::get('page') : $page = 1;
 
         $new_result = collect([]);
@@ -278,8 +278,8 @@ class Stats extends Controller
 
                     if ( $item->user_id ) {
                         $name = $users_all->where('id', $item->user_id)->first()->name . ' ' . $users_all->where('id', $item->user_id)
-                                                                                                         ->first()->surname . " \n" . $users_all->where('id', $item->user_id)
-                                                                                                                                                ->first()->email;
+                                                                                              ->first()->surname . " \n" . $users_all->where('id', $item->user_id)
+                                                                                                                                     ->first()->email;
                     }
                     else $name = '';
 
@@ -695,48 +695,48 @@ class Stats extends Controller
         ]);
 
         return Datatables::of($query)->edit_column('route_name', function( $row )
-        {
-            $path = $row->routePath;
+          {
+              $path = $row->routePath;
 
-            return $row->routePath ? $row->routePath->route->name . '<br>' . $row->routePath->route->action : ( $row->path ? $row->path->path : '' );
-        })->edit_column('route', function( $row )
-        {
-            $route = NULL;
+              return $row->routePath ? $row->routePath->route->name . '<br>' . $row->routePath->route->action : ( $row->path ? $row->path->path : '' );
+          })->edit_column('route', function( $row )
+          {
+              $route = NULL;
 
-            if ( $row->routePath ) {
-                foreach ( $row->routePath->parameters as $parameter ) {
-                    $route .= ( $route ? '<br>' : '' ) . $parameter->parameter . '=' . $parameter->value;
-                }
-            }
+              if ( $row->routePath ) {
+                  foreach ( $row->routePath->parameters as $parameter ) {
+                      $route .= ( $route ? '<br>' : '' ) . $parameter->parameter . '=' . $parameter->value;
+                  }
+              }
 
-            return $route;
-        })->edit_column('query', function( $row )
-        {
-            $query = NULL;
+              return $route;
+          })->edit_column('query', function( $row )
+          {
+              $query = NULL;
 
-            if ( $row->logQuery ) {
-                foreach ( $row->logQuery->arguments as $argument ) {
-                    $query .= ( $query ? '<br>' : '' ) . $argument->argument . '=' . $argument->value;
-                }
-            }
+              if ( $row->logQuery ) {
+                  foreach ( $row->logQuery->arguments as $argument ) {
+                      $query .= ( $query ? '<br>' : '' ) . $argument->argument . '=' . $argument->value;
+                  }
+              }
 
-            return $query;
-        })->edit_column('is_ajax', function( $row )
-        {
-            return $row->is_ajax ? 'yes' : 'no';
-        })->edit_column('is_secure', function( $row )
-        {
-            return $row->is_secure ? 'yes' : 'no';
-        })->edit_column('is_json', function( $row )
-        {
-            return $row->is_json ? 'yes' : 'no';
-        })->edit_column('wants_json', function( $row )
-        {
-            return $row->wants_json ? 'yes' : 'no';
-        })->edit_column('error', function( $row )
-        {
-            return $row->error ? 'yes' : 'no';
-        })->make(TRUE);
+              return $query;
+          })->edit_column('is_ajax', function( $row )
+          {
+              return $row->is_ajax ? 'yes' : 'no';
+          })->edit_column('is_secure', function( $row )
+          {
+              return $row->is_secure ? 'yes' : 'no';
+          })->edit_column('is_json', function( $row )
+          {
+              return $row->is_json ? 'yes' : 'no';
+          })->edit_column('wants_json', function( $row )
+          {
+              return $row->wants_json ? 'yes' : 'no';
+          })->edit_column('error', function( $row )
+          {
+              return $row->error ? 'yes' : 'no';
+          })->make(TRUE);
     }
 
     public function users ( Session $session ) {
@@ -764,9 +764,9 @@ class Stats extends Controller
         ]);
 
         return Datatables::of($query)->edit_column('updated_at', function( $row )
-        {
-            return "{$row->updated_at->diffForHumans()}";
-        })->make(TRUE);
+          {
+              return "{$row->updated_at->diffForHumans()}";
+          })->make(TRUE);
     }
 
     public function apiEvents ( Session $session ) {
