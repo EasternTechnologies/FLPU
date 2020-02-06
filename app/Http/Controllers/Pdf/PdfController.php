@@ -17,12 +17,13 @@ class PdfController extends Controller {
 
 
 	public function __construct () {
+
 		$this->middleware('auth');
 	}
 
 
 	public function pdf_article ( $id ) {
-
+      return redirect()->to('/reglament');
 		$article = ArticleReports::find($id);
 
 		$report = $article->reports;
@@ -42,7 +43,7 @@ class PdfController extends Controller {
 
 /**********************************************************************************************************************/
 	public function pdf_item ( $id ) {
-
+      return redirect()->to('/reglament');
 		$report = Report::find($id);
 		$report_slug = $report->types->slug;
 
@@ -102,7 +103,7 @@ class PdfController extends Controller {
 
 /**********************************************************************************************************************/
 	public function pdf_category ($report_id,$category_id) {
-
+      return redirect()->to('/reglament');
 		$report = Report::find($report_id);
 		$report_slug = $report->types->slug;
 
@@ -128,8 +129,7 @@ class PdfController extends Controller {
 
 /**********************************************************************************************************************/
 	public function pdf_subcategory ($report_id , $id_cat, $id_sub) {
-
-		$report = Report::find($report_id);
+      return redirect()->to('/reglament');		$report = Report::find($report_id);
 		$report_slug = $report->types->slug;
 
 		$template = 'pdf.pdf_item';

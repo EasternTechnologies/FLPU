@@ -53,12 +53,12 @@ class ReportController extends Controller
 
     public function report_show ( $slug, Report $report, $q = 0, Request $request ) {
 
-        if ( $slug == 'countrycatalog' and Auth::user()->roles()->first()->title == 'user' ) {
+       /* if ( $slug == 'countrycatalog' and Auth::user()->roles()->first()->title == 'user' ) {
             return redirect()->to('/')->with('status', 'Доступ закрыт');
         }
         if ( $slug == 'yearly' and Auth::user()->roles()->first()->title == 'user' ) {
             return redirect()->to('/')->with('status', 'Доступ закрыт');
-        }
+        }*/
         if ( $report->types->slug != $slug ) {
             return redirect('/')->with('status', 'Отчет не найден');
         }
@@ -138,12 +138,12 @@ class ReportController extends Controller
 
         }
         //dd($patterns,$replacements);
-        if ( $slug == 'countrycatalog' and Auth::user()->roles()->first()->title == 'user' ) {
+        /*if ( $slug == 'countrycatalog' and Auth::user()->roles()->first()->title == 'user' ) {
             return redirect()->to('/')->with('status', 'Доступ закрыт');
         }
         if ( $slug == 'yearly' and Auth::user()->roles()->first()->title == 'user' ) {
             return redirect()->to('/')->with('status', 'Доступ закрыт');
-        }
+        }*/
         if ( $slug != $article->reports->types->slug ) {
             return redirect(route('show_report', [
               'slug'   => $article->reports->types->slug,
