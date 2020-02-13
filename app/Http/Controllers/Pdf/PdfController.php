@@ -23,7 +23,6 @@ class PdfController extends Controller {
 
 
 	public function pdf_article ( $id ) {
-      return redirect()->to('/reglament');
 		$article = ArticleReports::find($id);
 
 		$report = $article->reports;
@@ -43,7 +42,6 @@ class PdfController extends Controller {
 
 /**********************************************************************************************************************/
 	public function pdf_item ( $id ) {
-      return redirect()->to('/reglament');
 		$report = Report::find($id);
 		$report_slug = $report->types->slug;
 
@@ -103,7 +101,6 @@ class PdfController extends Controller {
 
 /**********************************************************************************************************************/
 	public function pdf_category ($report_id,$category_id) {
-      return redirect()->to('/reglament');
 		$report = Report::find($report_id);
 		$report_slug = $report->types->slug;
 
@@ -129,7 +126,7 @@ class PdfController extends Controller {
 
 /**********************************************************************************************************************/
 	public function pdf_subcategory ($report_id , $id_cat, $id_sub) {
-      return redirect()->to('/reglament');		$report = Report::find($report_id);
+	    $report = Report::find($report_id);
 		$report_slug = $report->types->slug;
 
 		$template = 'pdf.pdf_item';
@@ -153,8 +150,6 @@ class PdfController extends Controller {
 /**********************************************************************************************************************/
 	public function pdf_search(RequestSearchPdf $request)
 	{
-
-
 		$array = unserialize(Redis::get('search:key'.$request->random_key));
       //dd($request->random_key);
         $articles = ArticleReports::whereIn('id',$array)->get()->sortBy('title');
