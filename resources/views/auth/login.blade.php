@@ -59,7 +59,7 @@
                     <div class="col-md-12 additionally">
                         <a class="butt_link" href="{{ route('password.request') }}"> Забыли пароль? </a><br> <br>
                         <a class="butt_link" href="/reglament"> Регистрация </a><br> <br><br> <br>
-                        <p style="text-align:center;">Нажимая кнпопку "Войти"? пользователь подтверждает согласие с <a href="/reglament">Правилами регистрации и условиями подписки</a></p>
+                        <p style="text-align:center;">Нажимая кнопку "Войти", пользователь подтверждает согласие с <a href="/reglament">Правилами и регламентом регистрации</a></p>
 
 
                     </div>
