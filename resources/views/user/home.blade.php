@@ -31,7 +31,7 @@
                                     @elseif($row[1]=='countrycatalog' || $row[1]=='yearly' || $row[1]=='plannedexhibition')
                                         <li><a href="/report/{{$row[1]}}/show/{{ $report->id }}">Отчет за {{date("Y",$report->date_start)}} год.</a></li>
                                     @elseif($row[1]=='various')
-                                        <li><a href="/various/show/{{ $report->id }}">{{ $report->title }}</a></li>
+                                        <li><a href="/report/{{$row[1]}}/show/{{ $report->id }}">{{ $report->title }}</a></li>
 
                                     @endif
                                 @endforeach
