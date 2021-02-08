@@ -66,10 +66,16 @@ class HomeController extends Controller
     }
 
     public function cabinet ( User $user ) {
+        $auth_user = Auth::user();
+        if ( $auth_user->ismanager() ) {
+            $role = $user->roles->first();
+            return view('user.cabinet', compact('user', 'role'));
+        }elseif($auth_user->id ==$user->id){
+            $role = $user->roles->first();
+            return view('user.cabinet', compact('user', 'role'));
+        }
 
-        $role = $user->roles->first();
-
-        return view('user.cabinet', compact('user', 'role'));
+        return redirect('/')->with('status','У вас не достаточно прав для доступа');
     }
 
     public function search ( Request $request ) {
