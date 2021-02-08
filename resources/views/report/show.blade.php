@@ -9,7 +9,7 @@
 			@if( $report->types->slug == 'weekly' || $report->types->slug == 'monthly' )
 				№ {{ $report->number }} за период от {{date("d",$report->date_start)}} {{Helper::getMonthText(date("m",$report->date_start))}} {{date("Y",$report->date_start)}} года по {{date("d",$report->date_end)}} {{m_name(date("m",$report->date_end))}} {{date("Y",$report->date_end)}} года
 			@else
-				за {{ date("Y",$report->date_start) }} год.
+				на {{ date("Y",$report->date_start) }} год.
 			@endif
 			<span>
             		<a target="_blank" href="/pdf_item/{{ $report->id }}" class="pdf"></a>
