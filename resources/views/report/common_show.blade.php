@@ -28,9 +28,9 @@ $y = date("Y");
                 @elseif($report->types->slug=='monthly')
                         {{$report->types->title}} № {{ $report->number }} ({{ Helper::getMonthText(date('m', $report->date_start)) }} {{ date('Y', $report->date_start) }})
                 @elseif($report->types->slug=='countrycatalog')
-                        Ежегодный справочник "{{ $report->types->title }}" за {{date("Y",$report->date_start)}} год
+                        Ежегодный справочник "{{ $report->types->title }}" на {{date("Y",$report->date_start)}} год
                     @elseif($report->types->slug=='yearly')
-                    Ежегодный справочник "{{$report->types->title}}" <!--№ {{ $report->number }}--> за {{date("Y",$report->date_start)}} год
+                    Ежегодный справочник "{{$report->types->title}}" <!--№ {{ $report->number }}--> на {{date("Y",$report->date_start)}} год
                     @elseif($report->types->slug=='various')
                     {{$report->title}}
                 @endif

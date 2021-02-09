@@ -43,7 +43,7 @@
                                 @elseif($report_type->slug == 'various')
                                     {{$item->title}}
                                 @else
-                                    {{$report_type->title}}   за {{ date("Y",$item['date_start']) }} год.
+                                    {{$report_type->title}}   на {{ date("Y",$item['date_start']) }} год.
                                 @endif
                             </a>
                            {{-- @if ($report_type->slug=='yearly')
