@@ -1,4 +1,7 @@
 RewriteEngine On
 RewriteRule ^(.*)$ public/$1
 
+# RewriteCond %{HTTPS} off
+# RewriteRule (.*) https://%{SERVER_NAME}/$1 [R,L]
+
 php_value pcre.backtrack_limit 10000000000
